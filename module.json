@@ -2,13 +2,26 @@
   "name": "ChatPortrait",
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait on the Chat Message.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minimumCoreVersion" : "0.5.5",
   "compatibleCoreVersion": "0.5.6",
   "author": "Shoyu Vanilla",
 
   "scripts": ["chat-portrait.js"],
   "styles": ["style.css"],
+
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "ko",
+      "name": "한국어 (Korean)",
+      "path": "lang/ko-KR.json"
+    }
+  ],
 
   "url": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait",
   "manifest": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/module.json",

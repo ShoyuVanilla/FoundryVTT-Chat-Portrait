@@ -1,0 +1,4 @@
+{
+  "chat-portrait.force-name-search-s": "강제 이름 검색",
+  "chat-portrait.force-name-search-l": "채팅 메시지 데이터와 일치하는 액터가 없으면 메시지 speaker의 alias와 이름이 일치하는 액터를 강제로 찾아 매칭합니다. Theatre Insert 모듈과의 호환성을 위해 필요합니다."
+}

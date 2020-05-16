@@ -1,0 +1,4 @@
+{
+  "chat-portrait.force-name-search-s": "Force Name Search",
+  "chat-portrait.force-name-search-l": "If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module."
+}
