@@ -1,4 +1,9 @@
 {
+  "chat-portrait.border-shape-s": "Portrait Border Shape",
+  "chat-portrait.border-shape-l": "Configure border shape of the portraits displayed on the chat messages.",
+  "chat-portrait.square": "Square",
+  "chat-portrait.circle": "Circle",
+  "chat-portrait.none": "None",
   "chat-portrait.force-name-search-s": "Force Name Search",
   "chat-portrait.force-name-search-l": "If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module."
 }

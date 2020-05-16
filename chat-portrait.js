@@ -25,7 +25,21 @@ class PortraitsOnChatMessage {
       img.width = 36;
       img.height = 36;
       let authorColor = messageData.author ? messageData.author.data.color : "black";
-      img.style.border = `2px solid ${authorColor}`;
+
+      const borderShape = game.settings.get('ChatPortrait', 'borderShape');
+      switch(borderShape) {
+        case 'square':
+          img.style.border = `2px solid ${authorColor}`;
+          break;
+        case 'circle':
+          img.style.border = `2px solid ${authorColor}`;
+          img.style.borderRadius = "50%";
+          break;
+        case 'none':
+          img.style.border = "none";
+          break;
+      }
+
       let element = html.find(".message-header")[0];
       element.prepend(img);
     }
@@ -33,9 +47,24 @@ class PortraitsOnChatMessage {
 }
 
 Hooks.once('init', () => {
+  game.settings.register('ChatPortrait', 'borderShape', {
+    name: "chat-portrait.border-shape-s",
+    hint: "chat-portrait.border-shape-l",
+    scope: "world",
+    config: true,
+    default: "square",
+    choices: {
+      "square": "chat-portrait.square",
+      "circle": "chat-portrait.circle",
+      "none": "chat-portrait.none"
+    },
+    type: String,
+    onChange: forceNameSearch => window.location.reload()
+  });
+
   game.settings.register('ChatPortrait', 'forceNameSearch', {
-    name: game.i18n.localize("chat-portrait.force-name-search-s"),
-    hint: game.i18n.localize("chat-portrait.force-name-search-l"),
+    name: "chat-portrait.force-name-search-s",
+    hint: "chat-portrait.force-name-search-l",
     scope: "world",
     config: true,
     default: false,
