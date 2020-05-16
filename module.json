@@ -4,7 +4,7 @@
   "description": "Display the Actor's portrait on the Chat Message.",
   "version": "0.1.2",
   "minimumCoreVersion" : "0.5.5",
-  "compatibleCoreVersion": "0.5.6",
+  "compatibleCoreVersion": "0.5.7",
   "author": "Shoyu Vanilla",
 
   "scripts": ["chat-portrait.js"],
