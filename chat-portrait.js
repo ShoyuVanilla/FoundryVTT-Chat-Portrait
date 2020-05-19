@@ -21,7 +21,11 @@ class PortraitsOnChatMessage {
 
     if (actor) {
       let img = document.createElement("img");
-      img.src = actor.img;
+      if (game.settings.get('ChatPortrait', 'tokenImage')) {
+        img.src = actor.token ? actor.token.data.img : actor.data.token.img;
+      } else {
+        actor.img;
+      }
       img.width = 36;
       img.height = 36;
       let authorColor = messageData.author ? messageData.author.data.color : "black";
@@ -59,6 +63,16 @@ Hooks.once('init', () => {
       "none": "chat-portrait.none"
     },
     type: String,
+    onChange: forceNameSearch => window.location.reload()
+  });
+
+  game.settings.register('ChatPortrait', 'tokenImage', {
+    name: "chat-portrait.token-image-s",
+    hint: "chat-portrait.token-image-l",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
     onChange: forceNameSearch => window.location.reload()
   });
 
