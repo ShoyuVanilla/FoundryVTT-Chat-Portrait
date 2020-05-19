@@ -1,4 +1,5 @@
 {
+  "I18N.MAINTAINERS": ["DevCaua"],
   "chat-portrait.border-shape-s": "Forma da Borda do Retrato",
   "chat-portrait.border-shape-l": "Configure a forma da borda dos retratos exibidos nas mensagens de chat.",
   "chat-portrait.square": "Quadrado",

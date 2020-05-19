@@ -4,6 +4,8 @@
   "chat-portrait.square": "사각형",
   "chat-portrait.circle": "원형",
   "chat-portrait.none": "없음",
+  "chat-portrait.token-image-s": "토큰 이미지 사용",
+  "chat-portrait.token-image-l": "초상화 대신 액터의 토큰 이미지를 사용합니다.",
   "chat-portrait.force-name-search-s": "강제 이름 검색",
   "chat-portrait.force-name-search-l": "채팅 메시지 데이터와 일치하는 액터가 없으면 메시지 speaker의 alias와 이름이 일치하는 액터를 강제로 찾아 매칭합니다. Theatre Insert 모듈과의 호환성을 위해 필요합니다."
 }
