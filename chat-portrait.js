@@ -24,7 +24,7 @@ class PortraitsOnChatMessage {
       if (game.settings.get('ChatPortrait', 'tokenImage')) {
         img.src = actor.token ? actor.token.data.img : actor.data.token.img;
       } else {
-        actor.img;
+        img.src = actor.img;
       }
       img.width = 36;
       img.height = 36;
