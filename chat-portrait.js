@@ -4,15 +4,34 @@
 class PortraitsOnChatMessage {
   static onRenderChatMessage(chatMessage, html, messageData) {
     let speaker = messageData.message.speaker
+    var actor = PortraitsOnChatMessage.loadActorForChatMessage(speaker);
+
+    if (actor) {
+      let img = PortraitsOnChatMessage.generatePortraitImageElement(actor);
+      let authorColor = messageData.author ? messageData.author.data.color : "black";
+
+      PortraitsOnChatMessage.setImageBorderShape(img, authorColor);
+
+      // Place the image to left of the header by injecting the HTML
+      let element = html.find(".message-header")[0];
+      element.prepend(img);
+
+      PortraitsOnChatMessage.setChatMessageBorder(html, messageData, authorColor);
+    }
+  }
+
+  /**
+   * Load the appropriate actor for a given message, leveraging token or actor or actor search.
+   * @param {*} speaker 
+   */
+  static loadActorForChatMessage(speaker) {
     var actor;
     if (speaker.token) {
       actor = game.actors.tokens[speaker.token];
     }
-    
     if (!actor) {
       actor = game.actors.get((speaker.actor));
     }
-
     const forceNameSearch = game.settings.get('ChatPortrait', 'forceNameSearch');
     if (!actor && forceNameSearch) {
       game.actors.forEach((value) => {
@@ -21,37 +40,35 @@ class PortraitsOnChatMessage {
         }
       });
     }
+    return actor;
+  }
 
-    if (actor) {
-      let img = document.createElement("img");
-      if (game.settings.get('ChatPortrait', 'tokenImage')) {
-        img.src = actor.token ? actor.token.data.img : actor.data.token.img;
-      } else {
-        img.src = actor.img;
-      }
-      img.width = 36;
-      img.height = 36;
-      let authorColor = messageData.author ? messageData.author.data.color : "black";
+  static generatePortraitImageElement(actor) {
+    let img = document.createElement("img");
+    if (game.settings.get('ChatPortrait', 'tokenImage')) {
+      img.src = actor.token ? actor.token.data.img : actor.data.token.img;
+    }
+    else {
+      img.src = actor.img;
+    }
+    img.width = 36;
+    img.height = 36;
+    return img;
+  }
 
-      const borderShape = game.settings.get('ChatPortrait', 'borderShape');
-      switch(borderShape) {
-        case 'square':
-          img.style.border = `2px solid ${authorColor}`;
-          break;
-        case 'circle':
-          img.style.border = `2px solid ${authorColor}`;
-          img.style.borderRadius = "50%";
-          break;
-        case 'none':
-          img.style.border = "none";
-          break;
-      }
-
-      let element = html.find(".message-header")[0];
-      element.prepend(img);
-
-      PortraitsOnChatMessage.setChatMessageBorder(html, messageData, authorColor);
-
+  static setImageBorderShape(img, authorColor) {
+    const borderShape = game.settings.get('ChatPortrait', 'borderShape');
+    switch (borderShape) {
+      case 'square':
+        img.style.border = `2px solid ${authorColor}`;
+        break;
+      case 'circle':
+        img.style.border = `2px solid ${authorColor}`;
+        img.style.borderRadius = "50%";
+        break;
+      case 'none':
+        img.style.border = "none";
+        break;
     }
   }
 
