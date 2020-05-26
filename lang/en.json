@@ -4,6 +4,8 @@
   "chat-portrait.square": "Square",
   "chat-portrait.circle": "Circle",
   "chat-portrait.none": "None",
+  "chat-portrait.border-color-s": "Change color of message border",
+  "chat-portrait.border-color-l": "Use the actor's player's color for the border of the entire chat message",
   "chat-portrait.token-image-s": "Use Token Image",
   "chat-portrait.token-image-l": "Use the actor's Token image instead of the actor's standard image.",
   "chat-portrait.force-name-search-s": "Force Name Search",

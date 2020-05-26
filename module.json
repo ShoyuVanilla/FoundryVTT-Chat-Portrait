@@ -1,7 +1,7 @@
 {
   "name": "ChatPortrait",
   "title": "Chat Portrait",
-  "description": "Display the Actor's portrait on the Chat Message.",
+  "description": "Display the Actor's portrait and colors on the Chat Message.",
   "version": "0.1.3",
   "minimumCoreVersion" : "0.5.5",
   "compatibleCoreVersion": "0.5.7",

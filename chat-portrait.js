@@ -1,3 +1,6 @@
+/**
+ * Main class wrapper for all of our features.
+ */
 class PortraitsOnChatMessage {
   static onRenderChatMessage(chatMessage, html, messageData) {
     let speaker = messageData.message.speaker
@@ -46,10 +49,35 @@ class PortraitsOnChatMessage {
 
       let element = html.find(".message-header")[0];
       element.prepend(img);
+
+      PortraitsOnChatMessage.setChatMessageBorder(html, messageData, authorColor);
+
+    }
+  }
+
+  /**
+   * Set the border color of the entire message to be the color for the author.
+   * Only do so if
+   *  - chatBorderColor setting is true AND
+   *  - someone further up the chain hasn't already changed the color
+   * @param {*} html 
+   * @param {*} messageData 
+   * @param {*} authorColor 
+   */
+  static setChatMessageBorder(html, messageData, authorColor) {
+    const chatborderColor = game.settings.get('ChatPortrait', 'chatBorderColor');
+
+    // nly override the border color if someone further up the chain hasn't already done so.
+    if(chatborderColor && !messageData.borderColor) {
+      html[0].style.borderColor = authorColor;
+      messageData.borderColor = authorColor;
     }
   }
 }
 
+/**
+ * These hooks register the following settings in the module settings.
+ */
 Hooks.once('init', () => {
   game.settings.register('ChatPortrait', 'borderShape', {
     name: "chat-portrait.border-shape-s",
@@ -63,6 +91,16 @@ Hooks.once('init', () => {
       "none": "chat-portrait.none"
     },
     type: String,
+    onChange: forceNameSearch => window.location.reload()
+  });
+
+  game.settings.register('ChatPortrait', 'chatBorderColor', {
+    name: "chat-portrait.border-color-s",
+    hint: "chat-portrait.border-color-l",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
     onChange: forceNameSearch => window.location.reload()
   });
 
@@ -87,4 +125,8 @@ Hooks.once('init', () => {
   });
 });
 
+/**
+ * This line connects our method above with the chat rendering.
+ * Note that this happens after the core code has already generated HTML.
+ */
 Hooks.on('renderChatMessage', PortraitsOnChatMessage.onRenderChatMessage);
