@@ -2,4 +2,5 @@
   flex: 0 0 36px;
   margin-right: 5px;
   margin-bottom: 3px;
+  object-fit: cover;
 }
