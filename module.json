@@ -2,9 +2,9 @@
   "name": "ChatPortrait",
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait and colors on the Chat Message.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "minimumCoreVersion" : "0.5.5",
-  "compatibleCoreVersion": "0.5.7",
+  "compatibleCoreVersion": "0.6.2",
   "author": "Shoyu Vanilla",
 
   "scripts": ["chat-portrait.js"],
@@ -19,7 +19,7 @@
     {
       "lang": "ko",
       "name": "한국어 (Korean)",
-      "path": "lang/ko-KR.json"
+      "path": "lang/ko.json"
     },
     {
       "lang": "pt-BR",

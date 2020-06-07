@@ -51,8 +51,9 @@ class PortraitsOnChatMessage {
     else {
       img.src = actor.img;
     }
-    img.width = 36;
-    img.height = 36;
+    let size = game.settings.get('ChatPortrait', 'portraitSize');
+    img.width = size;
+    img.height = size;
     return img;
   }
 
@@ -96,6 +97,16 @@ class PortraitsOnChatMessage {
  * These hooks register the following settings in the module settings.
  */
 Hooks.once('init', () => {
+  game.settings.register('ChatPortrait', 'portraitSize', {
+    name: "chat-portrait.portrait-size-s",
+    hint: "chat-portrait.portrait-size-l",
+    scope: "world",
+    config: true,
+    default: 36,
+    type: Number,
+    onChange: x => window.location.reload()
+  });
+
   game.settings.register('ChatPortrait', 'borderShape', {
     name: "chat-portrait.border-shape-s",
     hint: "chat-portrait.border-shape-l",
@@ -108,7 +119,7 @@ Hooks.once('init', () => {
       "none": "chat-portrait.none"
     },
     type: String,
-    onChange: forceNameSearch => window.location.reload()
+    onChange: x => window.location.reload()
   });
 
   game.settings.register('ChatPortrait', 'chatBorderColor', {
@@ -118,7 +129,7 @@ Hooks.once('init', () => {
     config: true,
     default: false,
     type: Boolean,
-    onChange: forceNameSearch => window.location.reload()
+    onChange: x => window.location.reload()
   });
 
   game.settings.register('ChatPortrait', 'tokenImage', {
@@ -128,7 +139,7 @@ Hooks.once('init', () => {
     config: true,
     default: false,
     type: Boolean,
-    onChange: forceNameSearch => window.location.reload()
+    onChange: x => window.location.reload()
   });
 
   game.settings.register('ChatPortrait', 'forceNameSearch', {
@@ -138,7 +149,7 @@ Hooks.once('init', () => {
     config: true,
     default: false,
     type: Boolean,
-    onChange: forceNameSearch => window.location.reload()
+    onChange: x => window.location.reload()
   });
 });
 

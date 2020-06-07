@@ -1,9 +1,13 @@
 {
+  "chat-portrait.portrait-size-s": "초상화 크기 (px)",
+  "chat-portrait.portrait-size-l": "초상화 크기를 설정합니다. (기본값: 36)",
   "chat-portrait.border-shape-s": "초상화 테두리 모양",
   "chat-portrait.border-shape-l": "채팅 메시지에 표시되는 초상화의 테두리 모양을 설정합니다.",
   "chat-portrait.square": "사각형",
   "chat-portrait.circle": "원형",
   "chat-portrait.none": "없음",
+  "chat-portrait.border-color-s": "메시지 테두리 색상 변경",
+  "chat-portrait.border-color-l": "채팅 메시지 테두리 색상을 플레이어 색상으로 변경합니다.",
   "chat-portrait.token-image-s": "토큰 이미지 사용",
   "chat-portrait.token-image-l": "초상화 대신 액터의 토큰 이미지를 사용합니다.",
   "chat-portrait.force-name-search-s": "강제 이름 검색",
