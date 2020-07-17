@@ -25,6 +25,11 @@
       "lang": "pt-BR",
       "name": "Português (Brasil)",
       "path": "lang/pt-BR.json"
+    },
+    {
+      "lang": "es",
+      "name": "Castellano",
+      "path": "lang/es-ES.json"
     }
   ],
 
