@@ -30,7 +30,7 @@ class ChatPortrait {
             const element: HTMLElement = html.find('.message-header')[0];
             element.prepend(imgElement);
 
-            if (messageData.message.flavor && this.settings.flavorNextToPortrait) {
+            if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
                 if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
                     const flavorElement: JQuery = html.find('.flavor-text');
                     const copiedElement: Node = flavorElement[0].cloneNode(true);
@@ -185,6 +185,7 @@ class ChatPortraitForm extends FormApplication {
             title: game.i18n.localize('chat-portrait.form-title'),
             id: 'chat-portrait-form',
             template: 'modules/ChatPortrait/templates/chat-portrait-form.html',
+            width: 500,
             closeOnSubmit: true
         })
     }

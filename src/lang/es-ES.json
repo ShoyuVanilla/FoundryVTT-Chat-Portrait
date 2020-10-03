@@ -1,6 +1,6 @@
 {
-  "chat-portrait.token-image-s": "Usar imágen del token.",
-  "chat-portrait.token-image-l": "Usa la imagen del token del actor en vez de la imágen por defecto del actor.",
+  "chat-portrait.use-token-image-s": "Usar imágen del token.",
+  "chat-portrait.use-token-image-l": "Usa la imagen del token del actor en vez de la imágen por defecto del actor.",
   "chat-portrait.portrait-size-s": "Tamaño del retrato (px)",
   "chat-portrait.portrait-size-l": "Configura el tamaño de la imagen del retrato en los mensajes de chat. El tamaño por defecto es 36.",
   "chat-portrait.border-shape-s": "Borde del retrato",
