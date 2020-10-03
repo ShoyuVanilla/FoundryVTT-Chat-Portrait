@@ -222,7 +222,7 @@ class ChatPortraitForm extends FormApplication {
         $('input[name="useUserColorAsBorderColor"]').prop("disabled", noneBorder);
         $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
         $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderWidth"]').prop("disabled", noneBorder || useUserColor);
+        $('input[name="borderWidth"]').prop("disabled", noneBorder);
     }
 
     toggleUseUserColorAsBorderColor() {
