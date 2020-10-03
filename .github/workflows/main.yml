@@ -3,7 +3,7 @@ name: Module CI/CD
 on: 
   push:
     branches:
-      - typescript-migration # Test
+      - master
 
 jobs: 
   build:
