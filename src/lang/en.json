@@ -16,7 +16,7 @@
   "chat-portrait.user-color-as-border-color": "Use Player Color for Portrait Border",
   "chat-portrait.border-color": "Portrait Border Color",
   "chat-portrait.border-width-s": "Portrait Border Width (px)",
-  "chat-portrait.border-width-l": "Configure portrait border width. Defualt is 2 px",
+  "chat-portrait.border-width-l": "Configure portrait border width. Default is 2 px",
   "chat-portrait.user-color-as-chat-border-color-s": "Change Color of Message Border",
   "chat-portrait.user-color-as-chat-border-color-l": "Use the actor's player's color for the border of the entire chat message",
   "chat-portrait.flavor-next-to-portrait": "Display Chat Flavor Text next to Portrait",
