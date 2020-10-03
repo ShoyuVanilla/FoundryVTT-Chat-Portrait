@@ -1,5 +1,5 @@
 {
-  "name": "ChatPortrait",
+  "name": "chat-portrait",
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait and colors on the Chat Message.",
   "version": "0.1.4",
@@ -7,8 +7,8 @@
   "compatibleCoreVersion": "0.6.2",
   "author": "Shoyu Vanilla",
 
-  "scripts": ["chat-portrait.js"],
-  "styles": ["style.css"],
+  "scripts": ["scripts/chat-portrait.js"],
+  "styles": ["styles/chat-portrait-style.css"],
 
   "languages": [
     {

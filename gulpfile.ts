@@ -22,15 +22,11 @@ gulp.task('copy', async () => {
 
 gulp.task('build', gulp.parallel('compile', 'copy'));
 
-
-/*
-// This is supposed to copy the dist folder into the modules directory for testing. Only works if you've set it up the right way
-//This works if development path is FoundryVTT/Data/dev/modules/swade-item-macros
-const MODULEPATH = "../../../modules/swade-item-macros/"
+const MODULEPATH = "../AppData/Local/FoundryVTT/Data/modules/chat-portrait/"
 
 gulp.task('foundry', () => {
   return gulp.src('dist/**').pipe(gulp.dest(MODULEPATH));
 })
 
 gulp.task("update", gulp.series('build', 'foundry'));
-*/
+

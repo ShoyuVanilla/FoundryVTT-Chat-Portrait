@@ -1,4 +1,4 @@
-const MODULE_NAME = 'ChatPortrait';
+const MODULE_NAME = 'chat-portrait';
 
 /**
  * Main class wrapper for all of our features.
