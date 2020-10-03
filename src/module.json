@@ -58,6 +58,11 @@
       "lang": "es",
       "name": "Castellano",
       "path": "lang/es-ES.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch (German)",
+      "path": "lang/de.json"
     }
   ]
 }
