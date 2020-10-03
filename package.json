@@ -10,7 +10,8 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-typescript": "^6.0.0-alpha.1"
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "yargs-parser": ">=13.1.2"
   },
   "dependencies": {
     "@types/node": "^14.10.1",
