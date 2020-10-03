@@ -1,15 +1,49 @@
 {
   "name": "chat-portrait",
   "title": "Chat Portrait",
-  "description": "Display the Actor's portrait and colors on the Chat Message.",
-  "version": "0.1.4",
-  "minimumCoreVersion" : "0.5.5",
-  "compatibleCoreVersion": "0.6.2",
-  "author": "Shoyu Vanilla",
-
-  "scripts": ["scripts/chat-portrait.js"],
-  "styles": ["styles/chat-portrait-style.css"],
-
+  "description": "Display the Actor's portrait and colors on the Chat Message.", 
+  "authors": [
+    {
+      "name": "Shoyu Vanilla",
+      "email": "ShoyuVanilla@gmail.com",
+      "discord": "Shoyu Vanilla#3445"
+    }
+  ],
+  "version": "0.2.0",
+  "minimumCoreVersion": "0.6.0",
+  "compatibleCoreVersion": "0.7.3",
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "type": "module",
+  "includes": [
+    "./assets/**",
+    "./lang/**",
+    "./scripts/**",
+    "./styles/**",
+    "./templates/**",
+    "./module.json"
+  ],
+  "media": [
+    {
+      "type": "icon",
+      "location": ""
+    }, 
+    {
+      "type": "cover",
+      "location": ""
+    },
+    {
+      "type": "screenshot",
+      "location": ""
+    }
+  ],
+  "esmodules": [
+    "scripts/chat-portrait.js"
+  ],
+  "styles": [
+    "styles/chat-portrait-style.css"
+  ],
   "languages": [
     {
       "lang": "en",
@@ -31,9 +65,5 @@
       "name": "Castellano",
       "path": "lang/es-ES.json"
     }
-  ],
-
-  "url": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait",
-  "manifest": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/module/module.json",
-  "download": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/releases/download/v0.1.4/release.zip"
+  ]
 }
