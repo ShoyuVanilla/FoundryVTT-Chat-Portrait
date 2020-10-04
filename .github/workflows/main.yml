@@ -35,6 +35,17 @@ jobs:
       working-directory: ./dist
       run: zip -r ../module.zip ${{steps.get-includes.outputs.files}}
 
+    # Substitute the Manifest and Download URLs in the module.json
+    - name: Substitute Manifest and Download Links For Versioned Ones
+    id: sub_manifest_link_version
+    uses: microsoft/variable-substitution@v1
+    with:
+      files: './dist/module.json'
+    env:
+      url: https://github.com/${{github.repository}}
+      manifest: https://github.com/${{github.repository}}/releases/download/latest/module.json
+      download: https://github.com/${{github.repository}}/releases/download/${{steps.get-version.outputs.version}}/module.zip
+
     # Update the 'latest' release
     - name: Update Latest Release
       id: create_latest_release
@@ -49,23 +60,12 @@ jobs:
         artifacts: './dist/module.json, ./module.zip'
         tag: latest
 
-    #Substitute the Manifest and Download URLs in the module.json
-    - name: Substitute Manifest and Download Links For Versioned Ones
-      id: sub_manifest_link_version
-      uses: microsoft/variable-substitution@v1
-      with:
-        files: './dist/module.json'
-      env:
-        url: https://github.com/${{github.repository}}
-        manifest: https://github.com/${{github.repository}}/releases/download/latest/module.json
-        download: https://github.com/${{github.repository}}/releases/download/${{steps.get-version.outputs.version}}/module.zip
-    
     # Create a release for this specific version
     - name: Create Version Release
       id: create_version_release
       uses: ncipollo/release-action@v1
       with:
-        allowUpdates: true # set this to false if you want to prevent updating existing releases
+        allowUpdates: false # set this to false if you want to prevent updating existing releases
         name: Release ${{ steps.get-version.outputs.version }}
         draft: false
         prerelease: false
