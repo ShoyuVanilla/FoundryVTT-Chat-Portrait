@@ -8,6 +8,11 @@ A Foundry VTT module that displays the Actor's portrait images on the chat messa
 
 ## Changelog
 
+- 0.2.1
+    - Fix: Fixed the bug that the configuration window is not opened
+    - Translation: Spanish translation by @lozalojo
+    - Translation: German translation by @envy
+
 - 0.2.0
     - Migrated to TypeScript
     - New Feature: Seperated configuration window

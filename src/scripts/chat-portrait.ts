@@ -184,7 +184,7 @@ class ChatPortraitForm extends FormApplication {
         return mergeObject(super.defaultOptions, {
             title: game.i18n.localize('chat-portrait.form-title'),
             id: 'chat-portrait-form',
-            template: 'modules/ChatPortrait/templates/chat-portrait-form.html',
+            template: `modules/${MODULE_NAME}/templates/chat-portrait-form.html`,
             width: 500,
             closeOnSubmit: true
         })

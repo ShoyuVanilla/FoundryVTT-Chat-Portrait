@@ -3,7 +3,7 @@
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait and colors on the Chat Message.", 
   "author": "Shoyu Vanilla",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion": "0.7.3",
   "url": "",
@@ -58,6 +58,11 @@
       "lang": "es",
       "name": "Spanish",
       "path": "lang/es.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch (German)",
+      "path": "lang/de.json"
     }
   ]
 }
