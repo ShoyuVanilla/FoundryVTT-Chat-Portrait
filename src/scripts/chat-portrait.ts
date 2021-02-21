@@ -79,7 +79,7 @@ class ChatPortrait {
         if (!actor && forceNameSearch) {
             actor = game.actors.find((a: Actor) => a.name === speaker.alias);
         }
-        return useTokenImage ? actor?.token?.data?.img : actor?.img;
+        return useTokenImage ? actor?.data?.token?.img : actor?.img;
     }
 
     /**
