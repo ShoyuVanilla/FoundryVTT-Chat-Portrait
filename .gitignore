@@ -1,3 +1,5 @@
-node_modules/
-dist/
-package-lock.json
+node_modules
+foundryconfig.json
+.vscode
+releaseAnnouncement.txt
+/dist

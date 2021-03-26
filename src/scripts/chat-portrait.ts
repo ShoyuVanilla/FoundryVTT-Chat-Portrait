@@ -1,4 +1,4 @@
-const MODULE_NAME = 'chat-portrait';
+export const MODULE_NAME = 'chat-portrait';
 
 /**
  * Main class wrapper for all of our features.
@@ -10,6 +10,7 @@ class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
+    //@ts-ignore
     static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, messageData:MessageRenderData): void {
         const speaker: {
             scene?: string;
@@ -79,7 +80,7 @@ class ChatPortrait {
         if (!actor && forceNameSearch) {
             actor = game.actors.find((a: Actor) => a.name === speaker.alias);
         }
-        return useTokenImage ? actor?.token?.data?.img : actor?.img;
+        return useTokenImage ? actor?.data?.token?.img : actor?.img;
     }
 
     /**
@@ -126,10 +127,11 @@ class ChatPortrait {
      * Only do so if
      *  - chatBorderColor setting is true AND
      *  - someone further up the chain hasn't already changed the color
-     * @param  {JQuery} html 
-     * @param  {MessageRenderData} messageData 
-     * @param  {string} authorColor 
+     * @param  {JQuery} html
+     * @param  {MessageRenderData} messageData
+     * @param  {string} authorColor
      */
+    //@ts-ignore
     static setChatMessageBorder(html: JQuery, messageData: MessageRenderData, authorColor: string) {
         const useUserBorderColor = this.settings.useUserColorAsChatBorderColor;
 
@@ -162,6 +164,42 @@ class ChatPortrait {
         }
     }
 
+    // /**
+    //  * Load the appropriate actor image path for a given message, leveraging token or actor or actor search.
+    //  * @param  {{scene?:string;actor?:string;token?:string;alias?:string;}} speaker
+    //  * @returns string
+    //  */
+    //  static loadItemImagePathForChatMessage(speaker: {
+    //   scene?: string;
+    //   item?: string;
+    //   token?: string;
+    //   alias?: string;
+    // }): string {
+    //     if (!speaker.token && !speaker.actor) return;
+    //     const useTokenImage: boolean = this.settings.useTokenImage;
+    //     let item: Item;
+    //     if (speaker.token) {
+    //         item = game.actors.tokens[speaker.token];
+    //         if (!item) {
+    //             // @ts-ignore
+    //             const tokenData = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token);
+    //             if (useTokenImage && tokenData?.img) {
+    //                 return tokenData.img;
+    //             } else if (!useTokenImage && tokenData?.actorData?.img) {
+    //                 return tokenData.actorData.img;
+    //             }
+    //         }
+    //     }
+    //     if (!item) {
+    //         item  = game.actors.get(speaker.actor);
+    //     }
+    //     const forceNameSearch = this.settings.forceNameSearch;
+    //     if (!item  && forceNameSearch) {
+    //         item  = game.actors.find((a: Item) => a.name === speaker.alias);
+    //     }
+    //     return useTokenImage ? item?.data?.token?.img : item?.img;
+    // }
+
 }
 
 interface ChatPortraitSettings {
@@ -176,10 +214,11 @@ interface ChatPortraitSettings {
     forceNameSearch: boolean
 }
 
+
 class ChatPortraitForm extends FormApplication {
 
     reset: boolean;
-
+    //@ts-ignore
     static get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, {
             title: game.i18n.localize('chat-portrait.form-title'),
@@ -198,7 +237,7 @@ class ChatPortraitForm extends FormApplication {
                     'none': game.i18n.localize('chat-portrait.none')
                 }
             },
-            this.reset ? ChatPortrait.defaultSettings : 
+            this.reset ? ChatPortrait.defaultSettings :
                 mergeObject(ChatPortrait.defaultSettings, game.settings.get(MODULE_NAME, 'settings'))
         );
     }
