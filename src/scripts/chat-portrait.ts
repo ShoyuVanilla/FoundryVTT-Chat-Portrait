@@ -42,6 +42,7 @@ class ChatPortrait {
                 }
             }
 
+            ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
         }
     }
@@ -122,13 +123,27 @@ class ChatPortrait {
     }
 
     /**
+     * Set the background color of the entire message to be the color for the author.
+     * Only do so if
+     *  - chatBackgroundColor setting is true AND
+     * @param  {JQuery} html
+     * @param  {MessageRenderData} messageData 
+     * @param  {string} authorColor 
+     */
+    static setChatMessageBackground(html: JQuery, messageData: MessageRenderData, authorColor: string) {
+        const useUserBackgroundColor = this.settings.useUserColorAsChatBackgroundColor;
+        if(useUserBackgroundColor) {
+            html[0].setAttribute('style','background-color:' + authorColor + ';background-blend-mode:screen;');
+        }
+    }
+    /**
      * Set the border color of the entire message to be the color for the author.
      * Only do so if
      *  - chatBorderColor setting is true AND
      *  - someone further up the chain hasn't already changed the color
-     * @param  {JQuery} html 
-     * @param  {MessageRenderData} messageData 
-     * @param  {string} authorColor 
+     * @param  {JQuery} html
+     * @param  {MessageRenderData} messageData
+     * @param  {string} authorColor
      */
     static setChatMessageBorder(html: JQuery, messageData: MessageRenderData, authorColor: string) {
         const useUserBorderColor = this.settings.useUserColorAsChatBorderColor;
@@ -157,6 +172,7 @@ class ChatPortrait {
             borderColor: '#000000',
             borderWidth: 2,
             useUserColorAsChatBorderColor: false,
+            useUserColorAsChatBackgroundColor: false,
             flavorNextToPortrait: false,
             forceNameSearch: false
         }
@@ -172,6 +188,7 @@ interface ChatPortraitSettings {
     borderColor: string,
     borderWidth: number,
     useUserColorAsChatBorderColor: boolean,
+    useUserColorAsChatBackgroundColor: boolean,
     flavorNextToPortrait: boolean,
     forceNameSearch: boolean
 }
@@ -211,6 +228,7 @@ class ChatPortraitForm extends FormApplication {
 
         html.find('select[name="borderShape"]').change(this.toggleBorderShape.bind(this));
         html.find('input[name="useUserColorAsBorderColor"]').change(this.toggleUseUserColorAsBorderColor.bind(this));
+        html.find('input[name="useUserColorAsBackgroundColor"]').change(this.toggleUseUserColorAsBackgroundColor.bind(this));
         html.find('button[name="reset"]').click(this.onReset.bind(this));
 
         this.reset = false;
@@ -220,6 +238,7 @@ class ChatPortraitForm extends FormApplication {
         const noneBorder = $('select[name="borderShape"]').val() === 'none';
         const useUserColor: boolean = ($('input[name="useUserColorAsBorderColor"]')[0] as HTMLInputElement).checked;
         $('input[name="useUserColorAsBorderColor"]').prop("disabled", noneBorder);
+        $('input[name="useUserColorAsBackgroundColor"]').prop("disabled", noneBorder);
         $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
         $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
         $('input[name="borderWidth"]').prop("disabled", noneBorder);
@@ -228,6 +247,13 @@ class ChatPortraitForm extends FormApplication {
     toggleUseUserColorAsBorderColor() {
         const noneBorder = $('select[name="borderShape"]').val() === 'none';
         const useUserColor: boolean = ($('input[name="useUserColorAsBorderColor"]')[0] as HTMLInputElement).checked;
+        $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
+        $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
+    }
+
+    toggleUseUserColorAsBackgroundColor() {
+        const noneBorder = $('select[name="borderShape"]').val() === 'none';
+        const useUserColor: boolean = ($('input[name="useUserColorAsBackgroundColor"]')[0] as HTMLInputElement).checked;
         $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
         $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
     }

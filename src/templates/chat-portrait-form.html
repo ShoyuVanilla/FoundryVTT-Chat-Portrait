@@ -22,6 +22,7 @@
                 {{/each}}
                 {{/select}}
             </select>
+            <p class="notes">{{localize "chat-portrait.border-shape-l"}}</p>
         </div>
 
         <div class="form-group">
@@ -47,6 +48,12 @@
             <label>{{localize "chat-portrait.user-color-as-chat-border-color-s"}}</label>
             <input type="checkbox" name="useUserColorAsChatBorderColor" data-dtype="Boolean" {{checked useUserColorAsChatBorderColor}}/>
             <p class="notes">{{localize "chat-portrait.user-color-as-chat-border-color-l"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "chat-portrait.user-color-as-chat-background-color-s"}}</label>
+            <input type="checkbox" name="useUserColorAsChatBackgroundColor" data-dtype="Boolean" {{checked useUserColorAsChatBackgroundColor}}/>
+            <p class="notes">{{localize "chat-portrait.user-color-as-chat-background-color-l"}}</p>
         </div>
 
         <div class="form-group">

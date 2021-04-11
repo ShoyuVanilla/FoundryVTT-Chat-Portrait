@@ -3,9 +3,9 @@
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait and colors on the Chat Message.", 
   "author": "Shoyu Vanilla",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "minimumCoreVersion": "0.6.0",
-  "compatibleCoreVersion": "0.7.3",
+  "compatibleCoreVersion": "0.7.9",
   "url": "",
   "manifest": "",
   "download": "",
@@ -30,6 +30,14 @@
     {
       "type": "screenshot",
       "location": ""
+    },
+    {
+      "type": "background",
+      "location": "assets/parchment.jpg"
+    },
+    {
+      "type": "background",
+      "location": "assets/parchment-white.jpg"
     }
   ],
   "esmodules": [
