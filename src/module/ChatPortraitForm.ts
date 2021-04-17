@@ -24,9 +24,9 @@ export class ChatPortraitForm extends FormApplication {
     getData(options?:any) {
         return mergeObject(super.getData(),{
                 borderShapeList: {
-                    'square': game.i18n.localize('chat-portrait.square'),
-                    'circle': game.i18n.localize('chat-portrait.circle'),
-                    'none': game.i18n.localize('chat-portrait.none')
+                    'square': i18n(MODULE_NAME+'.square'),
+                    'circle': i18n(MODULE_NAME+'.circle'),
+                    'none': i18n(MODULE_NAME+'.none')
                 }
             },
             this.reset ? ChatPortrait.defaultSettings :
