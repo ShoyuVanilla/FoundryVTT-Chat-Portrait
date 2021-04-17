@@ -22,7 +22,7 @@ export class ChatPortraitForm extends FormApplication {
     }
 
     getData(options?:any) {
-        return mergeObject({
+        return mergeObject(super.getData(),{
                 borderShapeList: {
                     'square': game.i18n.localize('chat-portrait.square'),
                     'circle': game.i18n.localize('chat-portrait.circle'),
