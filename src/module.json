@@ -3,26 +3,25 @@
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait and colors on the Chat Message.", 
   "author": "Shoyu Vanilla",
-  "version": "0.2.1",
-  "minimumCoreVersion": "0.6.0",
-  "compatibleCoreVersion": "0.7.3",
-  "url": "",
-  "manifest": "",
-  "download": "",
+  "version": "0.2.3",
   "type": "module",
+  "socket": true,
   "includes": [
     "./assets/**",
     "./lang/**",
     "./scripts/**",
     "./styles/**",
     "./templates/**",
-    "./module.json"
+    "./module.json",
+    "./README.md",
+    "./icons/**",
+    "./packs/**"
   ],
   "media": [
     {
       "type": "icon",
       "location": ""
-    }, 
+    },
     {
       "type": "cover",
       "location": ""
@@ -31,12 +30,6 @@
       "type": "screenshot",
       "location": ""
     }
-  ],
-  "esmodules": [
-    "scripts/chat-portrait.js"
-  ],
-  "styles": [
-    "styles/chat-portrait-style.css"
   ],
   "languages": [
     {
@@ -64,5 +57,25 @@
       "name": "Deutsch (German)",
       "path": "lang/de.json"
     }
+  ],
+  "scripts": [
+  ],
+  "esmodules": [
+    "main.js"
+  ],
+  "styles": [
+    "styles/chat-portrait-style.css"
+  ],
+  "manifestPlusVersion": "1.0.0",
+  "url": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait",
+  "readme": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/README.md",
+  "manifest": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/src/module.json",
+  "download": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/package/token-factions-v0.2.2.zip",
+  "minimumCoreVersion": "0.7.7",
+  "compatibleCoreVersion": "0.7.9",
+  "changelog": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/changelog.md",
+  "bugs": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues",
+  "allowBugReporter": true,
+  "dependencies": [
   ]
 }

@@ -1,9 +1,11 @@
+import { ChatPortraitSettings } from "./ChatPortraitSettings";
+
 export const MODULE_NAME = 'chat-portrait';
 
 /**
  * Main class wrapper for all of our features.
  */
-class ChatPortrait {
+export class ChatPortrait {
 
     /**
      * @param  {ChatMessage} chatMessage
@@ -143,7 +145,7 @@ class ChatPortrait {
     }
 
     static get settings(): ChatPortraitSettings {
-        return mergeObject(this.defaultSettings, game.settings.get(MODULE_NAME, 'settings'));
+        return mergeObject(this.defaultSettings, <ChatPortraitSettings>game.settings.get(MODULE_NAME, 'settings'));
     }
 
     /**
@@ -201,113 +203,3 @@ class ChatPortrait {
     // }
 
 }
-
-interface ChatPortraitSettings {
-    useTokenImage: boolean,
-    portraitSize: number,
-    borderShape: string,
-    useUserColorAsBorderColor: boolean,
-    borderColor: string,
-    borderWidth: number,
-    useUserColorAsChatBorderColor: boolean,
-    flavorNextToPortrait: boolean,
-    forceNameSearch: boolean
-}
-
-
-class ChatPortraitForm extends FormApplication {
-
-    reset: boolean;
-    //@ts-ignore
-    static get defaultOptions(): FormApplicationOptions {
-        return mergeObject(super.defaultOptions, {
-            title: game.i18n.localize('chat-portrait.form-title'),
-            id: 'chat-portrait-form',
-            template: `modules/${MODULE_NAME}/templates/chat-portrait-form.html`,
-            width: 500,
-            closeOnSubmit: true
-        })
-    }
-
-    getData(options: any) {
-        return mergeObject({
-                borderShapeList: {
-                    'square': game.i18n.localize('chat-portrait.square'),
-                    'circle': game.i18n.localize('chat-portrait.circle'),
-                    'none': game.i18n.localize('chat-portrait.none')
-                }
-            },
-            this.reset ? ChatPortrait.defaultSettings :
-                mergeObject(ChatPortrait.defaultSettings, game.settings.get(MODULE_NAME, 'settings'))
-        );
-    }
-
-    activateListeners(html: JQuery): void {
-        super.activateListeners(html);
-
-        this.toggleBorderShape();
-        this.toggleUseUserColorAsBorderColor();
-
-        html.find('select[name="borderShape"]').change(this.toggleBorderShape.bind(this));
-        html.find('input[name="useUserColorAsBorderColor"]').change(this.toggleUseUserColorAsBorderColor.bind(this));
-        html.find('button[name="reset"]').click(this.onReset.bind(this));
-
-        this.reset = false;
-    }
-
-    toggleBorderShape() {
-        const noneBorder = $('select[name="borderShape"]').val() === 'none';
-        const useUserColor: boolean = ($('input[name="useUserColorAsBorderColor"]')[0] as HTMLInputElement).checked;
-        $('input[name="useUserColorAsBorderColor"]').prop("disabled", noneBorder);
-        $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderWidth"]').prop("disabled", noneBorder);
-    }
-
-    toggleUseUserColorAsBorderColor() {
-        const noneBorder = $('select[name="borderShape"]').val() === 'none';
-        const useUserColor: boolean = ($('input[name="useUserColorAsBorderColor"]')[0] as HTMLInputElement).checked;
-        $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
-    }
-
-    onReset() {
-        this.reset = true;
-        this.render();
-    }
-
-    async _updateObject(event: Event | JQuery.Event, formData: any): Promise<any> {
-        let settings = mergeObject(ChatPortrait.settings, formData, { insertKeys: false, insertValues: false });
-        await game.settings.set(MODULE_NAME, 'settings', settings);
-    }
-
-}
-
-/**
- * These hooks register the following settings in the module settings.
- */
-Hooks.once('init', () => {
-    game.settings.registerMenu(MODULE_NAME, MODULE_NAME, {
-        name: "chat-portrait.form",
-        label: "chat-portrait.form-title",
-        hint: "chat-portrait.form-hint",
-        icon: "fas fa-portrait",
-        type: ChatPortraitForm,
-        restricted: true
-    });
-
-    game.settings.register(MODULE_NAME, "settings", {
-        name: "Chat Portrait Settings",
-        scope: "world",
-        default: ChatPortrait.defaultSettings,
-        type: Object,
-        config: false,
-        onChange: (x: any) => window.location.reload()
-    });
-});
-
-/**
- * This line connects our method above with the chat rendering.
- * Note that this happens after the core code has already generated HTML.
- */
-Hooks.on('renderChatMessage', ChatPortrait.onRenderChatMessage);
