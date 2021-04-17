@@ -3,8 +3,9 @@
 - Preparation for foundry 0.8.0
 - Bootstrapped with League of Extraordinary FoundryVTT Developers  [foundry-vtt-types](https://github.com/League-of-Foundry-Developers/foundry-vtt-types)
 - Added [Bug Reporter Module](https://foundryvtt.com/packages/bug-reporter/)
-- New Feature: Configurable option to use the player's color as blended background color of the message. by @Biggles
-- Translation: Updated German translation by @Biggles
+- [New Feature: Configurable option to use the player's color as blended background color of the message. by @Biggles](https://github.com/MOAM-Biggles/FoundryVTT-Chat-Portrait/) 
+- [Translation: Updated German translation by @Biggles](https://github.com/MOAM-Biggles/FoundryVTT-Chat-Portrait/) 
+- [Added option to use player's color as blended background color of the](https://github.com/MOAM-Biggles/FoundryVTT-Chat-Portrait/commit/420f018bdcb5a37cf0e5e3ad5a61e6dccc318abd)
 
 ## 0.2.2
 
@@ -21,7 +22,7 @@
 ## 0.2.0
 
 - Migrated to TypeScript
-- New Feature: Seperated configuration window
+- New Feature: Separated configuration window
 - New Feature: Configurable option for portrait border's color and width
 - New Feature: Configurable option for placing chat flavor text next to portrait
 - Fixed various issues

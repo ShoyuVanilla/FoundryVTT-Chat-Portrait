@@ -4,3 +4,12 @@
   margin-bottom: 3px;
   object-fit: contain;
 }
+.chat-message,
+.chat-message.emote,
+.chat-message.blind {
+  background-image: url(../assets/parchment.jpg);
+  background-repeat: repeat;
+}
+.chat-message.whisper {
+  background-image: url(../assets/parchment-white.jpg);
+}

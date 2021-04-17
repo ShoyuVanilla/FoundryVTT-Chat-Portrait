@@ -29,6 +29,14 @@
     {
       "type": "screenshot",
       "location": ""
+    },
+    {
+      "type": "background",
+      "location": "assets/parchment.jpg"
+    },
+    {
+      "type": "background",
+      "location": "assets/parchment-white.jpg"
     }
   ],
   "languages": [

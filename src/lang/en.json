@@ -19,6 +19,8 @@
   "chat-portrait.border-width-l": "Configure portrait border width. Default is 2 px",
   "chat-portrait.user-color-as-chat-border-color-s": "Change Color of Message Border",
   "chat-portrait.user-color-as-chat-border-color-l": "Use the actor's player's color for the border of the entire chat message",
+  "chat-portrait.user-color-as-chat-background-color-s": "Change Color of Message Background",
+  "chat-portrait.user-color-as-chat-background-color-l": "Use the actor's player's color for the background of the entire chat message",
   "chat-portrait.flavor-next-to-portrait": "Display Chat Flavor Text next to Portrait",
   "chat-portrait.force-name-search-s": "Force Name Search",
   "chat-portrait.force-name-search-l": "If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module."

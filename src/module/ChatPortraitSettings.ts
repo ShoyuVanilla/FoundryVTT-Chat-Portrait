@@ -5,6 +5,7 @@ export interface ChatPortraitSettings{
     useUserColorAsBorderColor: boolean,
     borderColor: string,
     borderWidth: number,
+    useUserColorAsChatBackgroundColor: boolean,
     useUserColorAsChatBorderColor: boolean,
     flavorNextToPortrait: boolean,
     forceNameSearch: boolean

@@ -42,6 +42,7 @@ export class ChatPortraitForm extends FormApplication {
 
         html.find('select[name="borderShape"]').change(this.toggleBorderShape.bind(this));
         html.find('input[name="useUserColorAsBorderColor"]').change(this.toggleUseUserColorAsBorderColor.bind(this));
+        html.find('input[name="useUserColorAsBackgroundColor"]').change(this.toggleUseUserColorAsBackgroundColor.bind(this));
         html.find('button[name="reset"]').click(this.onReset.bind(this));
 
         this.reset = false;
@@ -51,6 +52,7 @@ export class ChatPortraitForm extends FormApplication {
         const noneBorder = $('select[name="borderShape"]').val() === 'none';
         const useUserColor: boolean = ($('input[name="useUserColorAsBorderColor"]')[0] as HTMLInputElement).checked;
         $('input[name="useUserColorAsBorderColor"]').prop("disabled", noneBorder);
+        $('input[name="useUserColorAsBackgroundColor"]').prop("disabled", noneBorder);
         $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
         $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
         $('input[name="borderWidth"]').prop("disabled", noneBorder);
@@ -59,6 +61,13 @@ export class ChatPortraitForm extends FormApplication {
     toggleUseUserColorAsBorderColor() {
         const noneBorder = $('select[name="borderShape"]').val() === 'none';
         const useUserColor: boolean = ($('input[name="useUserColorAsBorderColor"]')[0] as HTMLInputElement).checked;
+        $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
+        $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
+    }
+
+    toggleUseUserColorAsBackgroundColor() {
+        const noneBorder = $('select[name="borderShape"]').val() === 'none';
+        const useUserColor: boolean = ($('input[name="useUserColorAsBackgroundColor"]')[0] as HTMLInputElement).checked;
         $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
         $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
     }

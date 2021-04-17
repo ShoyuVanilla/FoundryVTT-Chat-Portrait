@@ -44,7 +44,7 @@ export class ChatPortrait {
                     senderElement.appendChild(copiedElement);
                 }
             }
-
+            ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
         }
     }
@@ -125,6 +125,21 @@ export class ChatPortrait {
     }
 
     /**
+     * Set the background color of the entire message to be the color for the author.
+     * Only do so if
+     *  - chatBackgroundColor setting is true AND
+     * @param  {JQuery} html
+     * @param  {MessageRenderData} messageData 
+     * @param  {string} authorColor 
+     */
+    static setChatMessageBackground(html: JQuery, messageData: MessageRenderData, authorColor: string) {
+        const useUserBackgroundColor = this.settings.useUserColorAsChatBackgroundColor;
+        if(useUserBackgroundColor) {
+            html[0].setAttribute('style','background-color:' + authorColor + ';background-blend-mode:screen;');
+        }
+    }
+
+    /**
      * Set the border color of the entire message to be the color for the author.
      * Only do so if
      *  - chatBorderColor setting is true AND
@@ -160,6 +175,7 @@ export class ChatPortrait {
             useUserColorAsBorderColor: true,
             borderColor: '#000000',
             borderWidth: 2,
+            useUserColorAsChatBackgroundColor: false,
             useUserColorAsChatBorderColor: false,
             flavorNextToPortrait: false,
             forceNameSearch: false
