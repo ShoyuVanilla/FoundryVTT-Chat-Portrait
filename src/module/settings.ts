@@ -1,6 +1,6 @@
 import { debug, log, setDebugLevel, warn, i18n } from '../main';
 //@ts-ignore
-import ColorSetting from '../../colorsettings/colorSetting.js';
+// import ColorSetting from '../../colorsettings/colorSetting.js';
 import { ChatPortraitForm } from './ChatPortraitForm';
 import { ChatPortrait } from './ChatPortrait';
 
@@ -39,7 +39,9 @@ export const registerSettings = function () {
       default: ChatPortrait.defaultSettings,
       type: Object,
       config: false,
-      onChange: (x: any) => window.location.reload()
+      onChange: (x: any) => {
+        window.location.reload();
+      }
   });
 }
 

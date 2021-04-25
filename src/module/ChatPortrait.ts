@@ -1,4 +1,5 @@
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
+import { MessageRenderData } from "./MessageRenderData";
 
 export const MODULE_NAME = 'chat-portrait';
 
@@ -12,7 +13,6 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    //@ts-ignore
     static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, messageData:MessageRenderData): void {
         const speaker: {
             scene?: string;
@@ -24,7 +24,6 @@ export class ChatPortrait {
 
         if (imgPath) {
             const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath);
-            // @ts-ignore
             const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
 
             ChatPortrait.setImageBorder(imgElement, authorColor);
@@ -66,7 +65,6 @@ export class ChatPortrait {
         if (speaker.token) {
             actor = game.actors.tokens[speaker.token];
             if (!actor) {
-                // @ts-ignore
                 const tokenData = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token);
                 if (useTokenImage && tokenData?.img) {
                     return tokenData.img;
@@ -148,7 +146,6 @@ export class ChatPortrait {
      * @param  {MessageRenderData} messageData
      * @param  {string} authorColor
      */
-    //@ts-ignore
     static setChatMessageBorder(html: JQuery, messageData: MessageRenderData, authorColor: string) {
         const useUserBorderColor = this.settings.useUserColorAsChatBorderColor;
 
@@ -199,7 +196,6 @@ export class ChatPortrait {
     //     if (speaker.token) {
     //         item = game.actors.tokens[speaker.token];
     //         if (!item) {
-    //             // @ts-ignore
     //             const tokenData = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token);
     //             if (useTokenImage && tokenData?.img) {
     //                 return tokenData.img;

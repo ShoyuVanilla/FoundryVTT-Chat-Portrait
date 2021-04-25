@@ -1,4 +1,4 @@
-## [BETA] 0.2.3
+## 0.2.3
 
 - Preparation for foundry 0.8.0
 - Bootstrapped with League of Extraordinary FoundryVTT Developers  [foundry-vtt-types](https://github.com/League-of-Foundry-Developers/foundry-vtt-types)

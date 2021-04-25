@@ -12,6 +12,7 @@ export class ChatPortraitForm extends FormApplication {
     }
     
     static get defaultOptions(): FormApplication.Options {
+        //@ts-ignore
         return mergeObject(super.defaultOptions, {
             title: i18n(MODULE_NAME+'.form-title'),
             id: 'chat-portrait-form',
@@ -22,7 +23,9 @@ export class ChatPortraitForm extends FormApplication {
     }
 
     getData(options?:any) {
+        //@ts-ignore
         return mergeObject(super.getData(),{
+                //@ts-ignore
                 borderShapeList: {
                     'square': i18n(MODULE_NAME+'.square'),
                     'circle': i18n(MODULE_NAME+'.circle'),
