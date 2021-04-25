@@ -1,7 +1,7 @@
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { MessageRenderData } from "./MessageRenderData";
 
-export const MODULE_NAME = 'chat-portrait';
+export const MODULE_NAME = 'foundryvtt-chat-portrait';
 
 /**
  * Main class wrapper for all of our features.

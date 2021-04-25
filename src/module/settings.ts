@@ -4,7 +4,7 @@ import { debug, log, setDebugLevel, warn, i18n } from '../main';
 import { ChatPortraitForm } from './ChatPortraitForm';
 import { ChatPortrait } from './ChatPortrait';
 
-export const MODULE_NAME = 'chat-portrait';
+export const MODULE_NAME = 'foundryvtt-chat-portrait';
 
 /**
  * Because typescript doesn't know when in the lifecycle of foundry your code runs, we have to assume that the
@@ -42,6 +42,15 @@ export const registerSettings = function () {
       onChange: (x: any) => {
         window.location.reload();
       }
+  });
+
+  // Form setitngs
+
+  game.settings.register(MODULE_NAME, 'borderShapeList', {
+      scope: 'world',
+      config: false,
+      type: String,
+      default: "square"
   });
 }
 
