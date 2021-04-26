@@ -75,10 +75,11 @@ export const registerSettings = function () {
   });
 
   // new ColorSetting(MODULE_NAME, 'borderColor', {
-  //     label: "Pick color",
-  //     restricted: false,
+  //     scope: "world",
+  //     config: false,
+  //     type: String,
   //     defaultColor: hexToRGBAString(0x000000, 1),
-  //     scope: "world"
+  //     default: '#000000'
   // });
 
   game.settings.register(MODULE_NAME, 'borderColor', {
