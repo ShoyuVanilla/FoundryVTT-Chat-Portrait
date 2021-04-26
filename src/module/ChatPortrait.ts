@@ -36,14 +36,21 @@ export class ChatPortrait {
             if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
                 if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
                     const flavorElement: JQuery = html.find('.flavor-text');
-                    const copiedElement: Node = flavorElement[0].cloneNode(true);
-                    flavorElement.remove();
-                    const brElement: HTMLElement = document.createElement('br');
-                    const senderElement: HTMLElement = html.find('.message-sender')[0];
-                    senderElement.appendChild(brElement);
-                    senderElement.appendChild(copiedElement);
+                    if(flavorElement.length > 0){
+                        const copiedElement: Node = flavorElement[0].cloneNode(true);
+                        flavorElement.remove();
+                        const brElement: HTMLElement = document.createElement('br');
+                        const senderElement: HTMLElement = html.find('.message-sender')[0];
+                        senderElement.appendChild(brElement);
+                        senderElement.appendChild(copiedElement);
+                    }
                 }
             }
+
+            const elementItem: HTMLElement = html.find('.item-card img')[0];
+            const size: number = this.settings.portraitSizeItem;
+            
+
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
         }
@@ -90,8 +97,9 @@ export class ChatPortrait {
      * @returns HTMLImageElement
      */
     static generatePortraitImageElement(imgPath: string): HTMLImageElement {
-        if (!imgPath)
+        if (!imgPath){
             return;
+        }
         const img: HTMLImageElement = document.createElement('img');
         img.src = imgPath;
         const size: number = this.settings.portraitSize;
@@ -164,6 +172,7 @@ export class ChatPortrait {
             //borderShapeList: Settings.getBorderShapeList(),
             useTokenImage: SettingsForm.getUseTokenImage(),
             portraitSize: SettingsForm.getPortraitSize(),
+            portraitSizeItem: SettingsForm.getPortraitSizeItem(),
             borderShape: SettingsForm.getBorderShape(),
             useUserColorAsBorderColor: SettingsForm.getUseUserColorAsBorderColor(),
             borderColor: SettingsForm.getBorderColor(),
@@ -183,6 +192,7 @@ export class ChatPortrait {
         return {
             useTokenImage: false,
             portraitSize: 36,
+            portraitSizeItem: 36,
             borderShape: 'square',
             useUserColorAsBorderColor: true,
             borderColor: '#000000',

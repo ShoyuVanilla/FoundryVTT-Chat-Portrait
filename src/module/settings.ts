@@ -60,6 +60,13 @@ export const registerSettings = function () {
     default: 36
   });
 
+  game.settings.register(MODULE_NAME, 'portraitSizeItem', {
+    scope: 'world',
+    config: false,
+    type: Number,
+    default: 36
+  });
+
   game.settings.register(MODULE_NAME, 'borderShape', {
       scope: 'world',
       config: false,

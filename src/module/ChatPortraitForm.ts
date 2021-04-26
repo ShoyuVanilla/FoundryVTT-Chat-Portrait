@@ -47,6 +47,7 @@ export class ChatPortraitForm extends FormApplication {
                 borderShapeList: this.getSelectList(this.borderShapeListOptions, 'square'),
                 useTokenImage: false,
                 portraitSize: 36,
+                portraitSizeItem: 36,
                 //borderShape: 'square',
                 useUserColorAsBorderColor: true,
                 borderColor: '#000000',
@@ -61,6 +62,7 @@ export class ChatPortraitForm extends FormApplication {
                 borderShapeList: this.getSelectList(this.borderShapeListOptions, SettingsForm.getBorderShape()),
                 useTokenImage: SettingsForm.getUseTokenImage(),
                 portraitSize: SettingsForm.getPortraitSize(),
+                portraitSizeItem: SettingsForm.getPortraitSizeItem(),
                 //borderShape: this.getSelectList(borderShapeListOptions, Settings.getBorderShapeList()),
                 useUserColorAsBorderColor: SettingsForm.getUseUserColorAsBorderColor(),
                 borderColor: SettingsForm.getBorderColor(),
@@ -134,6 +136,7 @@ export class ChatPortraitForm extends FormApplication {
 
         SettingsForm.setUseTokenImage(formData.useTokenImage);
         SettingsForm.setPortraitSize(formData.portraitSize);
+        SettingsForm.setPortraitSizeItem(formData.portraitSizeItem);
         SettingsForm.setBorderShape(formData.borderShape);
         SettingsForm.setUseUserColorAsBorderColor(formData.useUserColorAsBorderColor);
         SettingsForm.setBorderColor(formData.borderColor);
@@ -183,6 +186,12 @@ export class SettingsForm {
     }
     static setPortraitSize(value:number) {
         game.settings.set(MODULE_NAME, 'portraitSize',value);
+    }
+    static getPortraitSizeItem() {
+        return <number>game.settings.get(MODULE_NAME, 'portraitSizeItem');
+    }
+    static setPortraitSizeItem(value:number) {
+        game.settings.set(MODULE_NAME, 'portraitSizeItem',value);
     }
     static getBorderShape() {
         return <string>game.settings.get(MODULE_NAME, 'borderShape');
