@@ -47,9 +47,11 @@ export class ChatPortrait {
                 }
             }
 
-            const elementItem: HTMLElement = html.find('.item-card img')[0];
-            const size: number = this.settings.portraitSizeItem;
-            
+            // Update size item image by settings
+            const elementItem:HTMLImageElement = <HTMLImageElement>html.find('.item-card img')[0];
+            const size: number = ChatPortrait.settings.portraitSizeItem;
+            elementItem.width = size;
+            elementItem.height = size;
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
