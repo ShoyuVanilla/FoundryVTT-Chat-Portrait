@@ -12,7 +12,7 @@
             <input type="text" name="portraitSize" value="{{ portraitSize }}" style="flex: 1; text-align: right;">
             <p class="notes">{{localize "chat-portrait.portrait-size-l"}}</p>
         </div>
-
+        <!--
         <div class="form-group">
             <label>{{localize "chat-portrait.border-shape-s"}}</label>
             <select name="borderShape" style="flex: 1;">
@@ -24,7 +24,19 @@
             </select>
             <p class="notes">{{localize "chat-portrait.border-shape-l"}}</p>
         </div>
-
+        -->
+        <div class="form-group">
+            <label>{{localize "chat-portrait.border-shape-s"}}</label>
+            <select name="borderShape" style="flex: 1;">
+                {{#select borderShapeList}}
+                {{#each borderShapeList}}
+                <!--<option value="{{@index}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>-->
+                <option value="{{this.value}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="notes">{{localize "chat-portrait.border-shape-l"}}</p>
+        </div>
         <div class="form-group">
             <label>{{localize "chat-portrait.user-color-as-border-color"}}</label>
             <input type="checkbox" name="useUserColorAsBorderColor" data-dtype="Boolean" {{checked useUserColorAsBorderColor}}/>

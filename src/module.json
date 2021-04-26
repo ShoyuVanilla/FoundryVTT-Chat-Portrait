@@ -85,5 +85,11 @@
   "bugs": "https://github.com/p4535992/FoundryVTT-Chat-Portrait/issues",
   "allowBugReporter": true,
   "dependencies": [
+    {
+      "name": "colorsettings"
+    },
+    {
+      "name": "lib-wrapper"
+    }
   ]
 }

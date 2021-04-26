@@ -33,16 +33,16 @@ export const registerSettings = function () {
       restricted: true
   });
 
-  game.settings.register(MODULE_NAME, "settings", {
-      name: "Chat Portrait Settings",
-      scope: "world",
-      default: ChatPortrait.defaultSettings,
-      type: Object,
-      config: false,
-      onChange: (x: any) => {
-        window.location.reload();
-      }
-  });
+  // game.settings.register(MODULE_NAME, "settings", {
+  //     name: "Chat Portrait Settings",
+  //     scope: "world",
+  //     default: ChatPortrait.defaultSettings,
+  //     type: Object,
+  //     config: false,
+  //     onChange: (x: any) => {
+  //       window.location.reload();
+  //     }
+  // });
 
   // Form setitngs
 
@@ -74,11 +74,18 @@ export const registerSettings = function () {
     default: true
   });
 
-  new ColorSetting(MODULE_NAME, 'borderColor', {
-      label: "Pick color",
-      restricted: false,
-      defaultColor: hexToRGBAString(0x000000, 1),
-      scope: "client"
+  // new ColorSetting(MODULE_NAME, 'borderColor', {
+  //     label: "Pick color",
+  //     restricted: false,
+  //     defaultColor: hexToRGBAString(0x000000, 1),
+  //     scope: "world"
+  // });
+
+  game.settings.register(MODULE_NAME, 'borderColor', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: '#000000'
   });
 
   game.settings.register(MODULE_NAME, 'borderWidth', {

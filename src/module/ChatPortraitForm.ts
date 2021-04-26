@@ -40,20 +40,37 @@ export class ChatPortraitForm extends FormApplication {
             this.reset ? ChatPortrait.defaultSettings :mergeObject(ChatPortrait.defaultSettings, game.settings.get(MODULE_NAME, 'settings'))
         );
         */
-        const data = {
-            borderShapeList: this.getSelectList(borderShapeListOptions, Settings.getBorderShape()),
-            // ChatPortrait.defaultSettings
-            useTokenImage: Settings.getUseTokenImage(),
-            portraitSize: Settings.getPortraitSize(),
-            //borderShape: this.getSelectList(borderShapeListOptions, Settings.getBorderShapeList()),
-            useUserColorAsBorderColor: Settings.getUseUserColorAsBorderColor(),
-            borderColor: Settings.getBorderColor(),
-            borderWidth: Settings.getBorderWidth(),
-            useUserColorAsChatBackgroundColor: Settings.getuseUserColorAsChatBackgroundColor(),
-            useUserColorAsChatBorderColor: Settings.getuseUserColorAsChatBorderColor(),
-            flavorNextToPortrait: Settings.getFlavorNextToPortrait(),
-            forceNameSearch: Settings.getForceNameSearch()
-        };
+        
+        let data;
+        if(this.reset){
+            data = {
+                borderShapeList: this.getSelectList(this.borderShapeListOptions, 'square'),
+                useTokenImage: false,
+                portraitSize: 36,
+                //borderShape: 'square',
+                useUserColorAsBorderColor: true,
+                borderColor: '#000000',
+                borderWidth: 2,
+                useUserColorAsChatBackgroundColor: false,
+                useUserColorAsChatBorderColor: false,
+                flavorNextToPortrait: false,
+                forceNameSearch: false
+            };
+        }else{
+            data = {
+                borderShapeList: this.getSelectList(this.borderShapeListOptions, SettingsForm.getBorderShape()),
+                useTokenImage: SettingsForm.getUseTokenImage(),
+                portraitSize: SettingsForm.getPortraitSize(),
+                //borderShape: this.getSelectList(borderShapeListOptions, Settings.getBorderShapeList()),
+                useUserColorAsBorderColor: SettingsForm.getUseUserColorAsBorderColor(),
+                borderColor: SettingsForm.getBorderColor(),
+                borderWidth: SettingsForm.getBorderWidth(),
+                useUserColorAsChatBackgroundColor: SettingsForm.getUseUserColorAsChatBackgroundColor(),
+                useUserColorAsChatBorderColor: SettingsForm.getUseUserColorAsChatBorderColor(),
+                flavorNextToPortrait: SettingsForm.getFlavorNextToPortrait(),
+                forceNameSearch: SettingsForm.getForceNameSearch()
+            };
+        }
 
         return data;
 
@@ -108,12 +125,24 @@ export class ChatPortraitForm extends FormApplication {
      * @param {Object} formData - the form data
      */
     async _updateObject(event: Event | JQuery.Event, formData: any): Promise<any> {
-        let settings = mergeObject(ChatPortrait.settings, formData, 
-            { 
-                insertKeys: false, 
-                insertValues: false 
-            });
-        await game.settings.set(MODULE_NAME, 'settings', settings);
+        // let settings = mergeObject(ChatPortrait.settings, formData, 
+        //     { 
+        //         insertKeys: false, 
+        //         insertValues: false 
+        //     });
+        // await game.settings.set(MODULE_NAME, 'settings', settings);
+
+        SettingsForm.setUseTokenImage(formData.useTokenImage);
+        SettingsForm.setPortraitSize(formData.portraitSize);
+        SettingsForm.setBorderShape(formData.borderShape);
+        SettingsForm.setUseUserColorAsBorderColor(formData.useUserColorAsBorderColor);
+        SettingsForm.setBorderColor(formData.borderColor);
+        SettingsForm.setBorderWidth(formData.borderWidth);
+        SettingsForm.setUseUserColorAsChatBackgroundColor(formData.useUserColorAsChatBackgroundColor);
+        SettingsForm.setUseUserColorAsChatBorderColor(formData.useUserColorAsChatBorderColor);
+        SettingsForm.setFlavorNextToPortrait(formData.flavorNextToPortrait);
+        SettingsForm.setForceNameSearch(formData.forceNameSearch);
+   
     }
 
     getSelectList(myselectslist, selected) {
@@ -124,18 +153,19 @@ export class ChatPortraitForm extends FormApplication {
         return options;
     }
 
+    borderShapeListOptions:Record<string, string>  = {
+        'square': i18n(MODULE_NAME+'.square'),
+        'circle': i18n(MODULE_NAME+'.circle'),
+        'none': i18n(MODULE_NAME+'.none')
+    }
 }
 
-export const borderShapeListOptions = {
-    'square': i18n(MODULE_NAME+'.square'),
-    'circle': i18n(MODULE_NAME+'.circle'),
-    'none': i18n(MODULE_NAME+'.none')
-}
+
 
 /**
  * Provides functionality for interaction with module settings
  */
-class Settings {
+export class SettingsForm {
 
     //#region getters and setters
     // static getBorderShapeList() {
@@ -143,33 +173,63 @@ class Settings {
     // }
 
     static getUseTokenImage() { 
-        return game.settings.get(MODULE_NAME, 'useTokenImage');
+        return <boolean>game.settings.get(MODULE_NAME, 'useTokenImage');
+    }
+    static setUseTokenImage(value:boolean) { 
+        game.settings.set(MODULE_NAME, 'useTokenImage',value);
     }
     static getPortraitSize() {
-        return game.settings.get(MODULE_NAME, 'portraitSize');
+        return <number>game.settings.get(MODULE_NAME, 'portraitSize');
+    }
+    static setPortraitSize(value:number) {
+        game.settings.set(MODULE_NAME, 'portraitSize',value);
     }
     static getBorderShape() {
-        return game.settings.get(MODULE_NAME, 'borderShape');
+        return <string>game.settings.get(MODULE_NAME, 'borderShape');
+    }
+    static setBorderShape(value:string) {
+        game.settings.set(MODULE_NAME, 'borderShape',value);
     }
     static getUseUserColorAsBorderColor() {
-        return game.settings.get(MODULE_NAME, 'useUserColorAsBorderColor');
-    }   
+        return <boolean>game.settings.get(MODULE_NAME, 'useUserColorAsBorderColor');
+    } 
+    static setUseUserColorAsBorderColor(value:boolean) {
+        game.settings.set(MODULE_NAME, 'useUserColorAsBorderColor',value);
+    } 
     static getBorderColor() {
-        return game.settings.get(MODULE_NAME, 'borderColor');
+        return <string>game.settings.get(MODULE_NAME, 'borderColor');
+    }
+    static setBorderColor(value:string) {
+        game.settings.set(MODULE_NAME, 'borderColor',value);
     }
     static getBorderWidth() {
-        return game.settings.get(MODULE_NAME, 'borderWidth');
+        return <number>game.settings.get(MODULE_NAME, 'borderWidth');
     }
-    static getuseUserColorAsChatBackgroundColor() {
-        return game.settings.get(MODULE_NAME, 'userColorAsChatBackgroundColor');
+    static setBorderWidth(value:number) {
+        game.settings.set(MODULE_NAME, 'borderWidth',value);
     }
-    static getuseUserColorAsChatBorderColor() {
-        return game.settings.get(MODULE_NAME, 'useUserColorAsChatBorderColor');
+    static getUseUserColorAsChatBackgroundColor() {
+        return <boolean>game.settings.get(MODULE_NAME, 'useUserColorAsChatBackgroundColor');
+    }
+    static setUseUserColorAsChatBackgroundColor(value:boolean) {
+        game.settings.set(MODULE_NAME, 'useUserColorAsChatBackgroundColor',value);
+    }
+    static getUseUserColorAsChatBorderColor() {
+        return <boolean>game.settings.get(MODULE_NAME, 'useUserColorAsChatBorderColor');
+    }
+    static setUseUserColorAsChatBorderColor(value:boolean) {
+        game.settings.set(MODULE_NAME, 'useUserColorAsChatBorderColor',value);
     }
     static getFlavorNextToPortrait() {
-        return game.settings.get(MODULE_NAME, 'flavorNextToPortrait');
+        return <boolean>game.settings.get(MODULE_NAME, 'flavorNextToPortrait');
+    }
+    static setFlavorNextToPortrait(value:boolean) {
+        game.settings.set(MODULE_NAME, 'flavorNextToPortrait',value);
     }
     static getForceNameSearch() {
-        return game.settings.get(MODULE_NAME, 'forceNameSearch');
+        return <boolean>game.settings.get(MODULE_NAME, 'forceNameSearch');
+    }
+    static setForceNameSearch(value:boolean) {
+        game.settings.set(MODULE_NAME, 'forceNameSearch',value);
     }
 }

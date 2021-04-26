@@ -1,3 +1,4 @@
+import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { MessageRenderData } from "./MessageRenderData";
 
@@ -157,7 +158,21 @@ export class ChatPortrait {
     }
 
     static get settings(): ChatPortraitSettings {
-        return mergeObject(this.defaultSettings, <ChatPortraitSettings>game.settings.get(MODULE_NAME, 'settings'));
+        //return mergeObject(this.defaultSettings, <ChatPortraitSettings>game.settings.get(MODULE_NAME, 'settings'));
+        //return mergeObject(this.defaultSettings,{ 
+        return {
+            //borderShapeList: Settings.getBorderShapeList(),
+            useTokenImage: SettingsForm.getUseTokenImage(),
+            portraitSize: SettingsForm.getPortraitSize(),
+            borderShape: SettingsForm.getBorderShape(),
+            useUserColorAsBorderColor: SettingsForm.getUseUserColorAsBorderColor(),
+            borderColor: SettingsForm.getBorderColor(),
+            borderWidth: SettingsForm.getBorderWidth(),
+            useUserColorAsChatBackgroundColor: SettingsForm.getUseUserColorAsChatBackgroundColor(),
+            useUserColorAsChatBorderColor: SettingsForm.getUseUserColorAsChatBorderColor(),
+            flavorNextToPortrait: SettingsForm.getFlavorNextToPortrait(),
+            forceNameSearch: SettingsForm.getForceNameSearch()
+        };
     }
 
     /**
