@@ -1,10 +1,10 @@
 import { debug, log, setDebugLevel, warn, i18n } from '../main';
 //@ts-ignore
-// import ColorSetting from '../../colorsettings/colorSetting.js';
+import ColorSetting from '/modules/colorsettings/colorSetting.js';
 import { ChatPortraitForm } from './ChatPortraitForm';
 import { ChatPortrait } from './ChatPortrait';
 
-export const MODULE_NAME = 'foundryvtt-chat-portrait';
+export const MODULE_NAME = 'chat-portrait';
 
 /**
  * Because typescript doesn't know when in the lifecycle of foundry your code runs, we have to assume that the
@@ -46,12 +46,76 @@ export const registerSettings = function () {
 
   // Form setitngs
 
-  game.settings.register(MODULE_NAME, 'borderShapeList', {
+  game.settings.register(MODULE_NAME, 'useTokenImage', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register(MODULE_NAME, 'portraitSize', {
+    scope: 'world',
+    config: false,
+    type: Number,
+    default: 36
+  });
+
+  game.settings.register(MODULE_NAME, 'borderShape', {
       scope: 'world',
       config: false,
       type: String,
       default: "square"
   });
+
+  game.settings.register(MODULE_NAME, 'useUserColorAsBorderColor', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
+  new ColorSetting(MODULE_NAME, 'borderColor', {
+      label: "Pick color",
+      restricted: false,
+      defaultColor: hexToRGBAString(0x000000, 1),
+      scope: "client"
+  });
+
+  game.settings.register(MODULE_NAME, 'borderWidth', {
+    scope: 'world',
+    config: false,
+    type: Number,
+    default: 2
+  });
+
+  game.settings.register(MODULE_NAME, 'useUserColorAsChatBackgroundColor', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default:false
+  });
+
+  game.settings.register(MODULE_NAME, 'useUserColorAsChatBorderColor', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register(MODULE_NAME, 'flavorNextToPortrait', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register(MODULE_NAME, 'forceNameSearch', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
 }
 
 // function setup(templateSettings) {

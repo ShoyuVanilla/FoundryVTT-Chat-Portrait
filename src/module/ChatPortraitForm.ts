@@ -26,7 +26,7 @@ export class ChatPortraitForm extends FormApplication {
         });
     }
 
-    getData(options?:any) {
+    getData(options?:any):any {
         //@ts-ignore
         /*
         return mergeObject(super.getData(),{
@@ -41,18 +41,18 @@ export class ChatPortraitForm extends FormApplication {
         );
         */
         const data = {
-            borderShapeList: this.getSelectList(borderShapeListOptions, Settings.getBorderShapeList()),
+            borderShapeList: this.getSelectList(borderShapeListOptions, Settings.getBorderShape()),
             // ChatPortrait.defaultSettings
-            useTokenImage: false,
-            portraitSize: 36,
-            borderShape: 'square',
-            useUserColorAsBorderColor: true,
-            borderColor: '#000000',
-            borderWidth: 2,
-            useUserColorAsChatBackgroundColor: false,
-            useUserColorAsChatBorderColor: false,
-            flavorNextToPortrait: false,
-            forceNameSearch: false
+            useTokenImage: Settings.getUseTokenImage(),
+            portraitSize: Settings.getPortraitSize(),
+            //borderShape: this.getSelectList(borderShapeListOptions, Settings.getBorderShapeList()),
+            useUserColorAsBorderColor: Settings.getUseUserColorAsBorderColor(),
+            borderColor: Settings.getBorderColor(),
+            borderWidth: Settings.getBorderWidth(),
+            useUserColorAsChatBackgroundColor: Settings.getuseUserColorAsChatBackgroundColor(),
+            useUserColorAsChatBorderColor: Settings.getuseUserColorAsChatBorderColor(),
+            flavorNextToPortrait: Settings.getFlavorNextToPortrait(),
+            forceNameSearch: Settings.getForceNameSearch()
         };
 
         return data;
@@ -138,9 +138,38 @@ export const borderShapeListOptions = {
 class Settings {
 
     //#region getters and setters
-    static getBorderShapeList() {
-        return game.settings.get(MODULE_NAME, 'borderShapeList');
-    }
+    // static getBorderShapeList() {
+    //     return game.settings.get(MODULE_NAME, 'borderShapeList');
+    // }
 
-    
+    static getUseTokenImage() { 
+        return game.settings.get(MODULE_NAME, 'useTokenImage');
+    }
+    static getPortraitSize() {
+        return game.settings.get(MODULE_NAME, 'portraitSize');
+    }
+    static getBorderShape() {
+        return game.settings.get(MODULE_NAME, 'borderShape');
+    }
+    static getUseUserColorAsBorderColor() {
+        return game.settings.get(MODULE_NAME, 'useUserColorAsBorderColor');
+    }   
+    static getBorderColor() {
+        return game.settings.get(MODULE_NAME, 'borderColor');
+    }
+    static getBorderWidth() {
+        return game.settings.get(MODULE_NAME, 'borderWidth');
+    }
+    static getuseUserColorAsChatBackgroundColor() {
+        return game.settings.get(MODULE_NAME, 'userColorAsChatBackgroundColor');
+    }
+    static getuseUserColorAsChatBorderColor() {
+        return game.settings.get(MODULE_NAME, 'useUserColorAsChatBorderColor');
+    }
+    static getFlavorNextToPortrait() {
+        return game.settings.get(MODULE_NAME, 'flavorNextToPortrait');
+    }
+    static getForceNameSearch() {
+        return game.settings.get(MODULE_NAME, 'forceNameSearch');
+    }
 }

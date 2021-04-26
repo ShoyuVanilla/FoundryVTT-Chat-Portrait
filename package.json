@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "foundryvtt-chat-portrait",
+  "name": "chat-portrait",
   "version": "0.2.3",
   "description": "Generate token bases based on token disposition or actor folder color.",
   "scripts": {
