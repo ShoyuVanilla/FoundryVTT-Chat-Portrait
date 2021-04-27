@@ -48,10 +48,15 @@ export class ChatPortrait {
             }
 
             // Update size item image by settings
-            const elementItem:HTMLImageElement = <HTMLImageElement>html.find('.item-card img')[0];
-            const size: number = ChatPortrait.settings.portraitSizeItem;
-            elementItem.width = size;
-            elementItem.height = size;
+            const elementItemList = html.find('.item-card img');
+            if(elementItemList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36){
+              for(let i = 0; i < elementItemList.length; i++){
+                const elementItem:HTMLImageElement = <HTMLImageElement>elementItemList[0];
+                const size: number = ChatPortrait.settings.portraitSizeItem;
+                elementItem.width = size;
+                elementItem.height = size;
+              }
+            }
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
@@ -138,8 +143,8 @@ export class ChatPortrait {
      * Only do so if
      *  - chatBackgroundColor setting is true AND
      * @param  {JQuery} html
-     * @param  {MessageRenderData} messageData 
-     * @param  {string} authorColor 
+     * @param  {MessageRenderData} messageData
+     * @param  {string} authorColor
      */
     static setChatMessageBackground(html: JQuery, messageData: MessageRenderData, authorColor: string) {
         const useUserBackgroundColor = this.settings.useUserColorAsChatBackgroundColor;
@@ -169,7 +174,7 @@ export class ChatPortrait {
 
     static get settings(): ChatPortraitSettings {
         //return mergeObject(this.defaultSettings, <ChatPortraitSettings>game.settings.get(MODULE_NAME, 'settings'));
-        //return mergeObject(this.defaultSettings,{ 
+        //return mergeObject(this.defaultSettings,{
         return {
             //borderShapeList: Settings.getBorderShapeList(),
             useTokenImage: SettingsForm.getUseTokenImage(),
