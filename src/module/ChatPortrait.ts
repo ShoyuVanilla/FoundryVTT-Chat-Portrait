@@ -1,3 +1,4 @@
+import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { MessageRenderData } from "./MessageRenderData";
@@ -14,7 +15,7 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, messageData:MessageRenderData): void {
+    static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, messageData:MessageRenderData, speakerInfo): void {
         const speaker: {
             scene?: string;
             actor?: string;
@@ -47,6 +48,9 @@ export class ChatPortrait {
                 }
             }
 
+            // Add click listener to image
+            ChatLink.prepareEventImage(chatMessage, html, speakerInfo);
+           
             // Update size item image by settings
             const elementItemList = html.find('.item-card img');
             if(elementItemList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36){
@@ -112,6 +116,7 @@ export class ChatPortrait {
         const size: number = this.settings.portraitSize;
         img.width = size;
         img.height = size;
+        img.classList.add("message-portrait");
         return img;
     }
 
@@ -187,7 +192,8 @@ export class ChatPortrait {
             useUserColorAsChatBackgroundColor: SettingsForm.getUseUserColorAsChatBackgroundColor(),
             useUserColorAsChatBorderColor: SettingsForm.getUseUserColorAsChatBorderColor(),
             flavorNextToPortrait: SettingsForm.getFlavorNextToPortrait(),
-            forceNameSearch: SettingsForm.getForceNameSearch()
+            forceNameSearch: SettingsForm.getForceNameSearch(),
+            hoverTooltip: SettingsForm.getHoverTooltip(),
         };
     }
 
@@ -207,7 +213,8 @@ export class ChatPortrait {
             useUserColorAsChatBackgroundColor: false,
             useUserColorAsChatBorderColor: false,
             flavorNextToPortrait: false,
-            forceNameSearch: false
+            forceNameSearch: false,
+            hoverTooltip: false
         }
     }
 

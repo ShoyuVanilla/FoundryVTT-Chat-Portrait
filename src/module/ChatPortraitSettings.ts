@@ -9,5 +9,6 @@ export interface ChatPortraitSettings{
     useUserColorAsChatBackgroundColor: boolean,
     useUserColorAsChatBorderColor: boolean,
     flavorNextToPortrait: boolean,
-    forceNameSearch: boolean
+    forceNameSearch: boolean,
+    hoverTooltip: boolean
 }

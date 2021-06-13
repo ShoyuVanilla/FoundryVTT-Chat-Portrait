@@ -3,6 +3,7 @@ import { debug, log, setDebugLevel, warn, i18n } from '../main';
 import ColorSetting from '/modules/colorsettings/colorSetting.js';
 import { ChatPortraitForm } from './ChatPortraitForm';
 import { ChatPortrait } from './ChatPortrait';
+import { ChatLink } from './chatlink';
 
 export const MODULE_NAME = 'chat-portrait';
 
@@ -129,6 +130,16 @@ export const registerSettings = function () {
     config: false,
     type: Boolean,
     default: false
+  });
+
+  game.settings.register(MODULE_NAME,'hoverTooltip', {
+    // name : game.i18n.localize('tokenchatlink.settings.hoverTooltip.name'),
+    // hint : game.i18n.localize('tokenchatlink.settings.hoverTooltip.hint'),
+    scope : 'world',
+    config : false,
+    type : Boolean,
+    default : false,
+    onChange: value => { ChatLink.updateSettings(); }
   });
 
 }

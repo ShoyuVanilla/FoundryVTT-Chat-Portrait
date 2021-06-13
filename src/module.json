@@ -3,7 +3,7 @@
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait and colors on the Chat Message.", 
   "author": "Shoyu Vanilla",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "type": "module",
   "socket": true,
   "includes": [
@@ -74,13 +74,13 @@
   "styles": [
     "styles/chat-portrait-style.css"
   ],
-  "manifestPlusVersion": "1.0.0",
+  "manifestPlusVersion": "1.2.0",
   "url": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait",
   "readme": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/README.md",
   "manifest": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/src/module.json",
-  "download": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/package/chat-portrait-v0.2.3.zip",
-  "minimumCoreVersion": "0.7.7",
-  "compatibleCoreVersion": "0.7.9",
+  "download": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/package/chat-portrait-v0.2.4.zip",
+  "minimumCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.6",
   "changelog": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/changelog.md",
   "bugs": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues",
   "allowBugReporter": true,

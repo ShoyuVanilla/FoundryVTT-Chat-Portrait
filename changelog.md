@@ -1,3 +1,8 @@
+## 0.2.4
+
+- Integration for Foundry 0.8.6
+- Integration with [Token Chat Link](https://github.com/espositos/fvtt-tokenchatlink) on the portrait element
+
 ## 0.2.3
 
 - Preparation for foundry 0.8.0

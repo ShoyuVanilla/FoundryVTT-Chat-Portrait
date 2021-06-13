@@ -55,7 +55,8 @@ export class ChatPortraitForm extends FormApplication {
                 useUserColorAsChatBackgroundColor: false,
                 useUserColorAsChatBorderColor: false,
                 flavorNextToPortrait: false,
-                forceNameSearch: false
+                forceNameSearch: false,
+                hoverTooltip: false,
             };
         }else{
             data = {
@@ -70,7 +71,8 @@ export class ChatPortraitForm extends FormApplication {
                 useUserColorAsChatBackgroundColor: SettingsForm.getUseUserColorAsChatBackgroundColor(),
                 useUserColorAsChatBorderColor: SettingsForm.getUseUserColorAsChatBorderColor(),
                 flavorNextToPortrait: SettingsForm.getFlavorNextToPortrait(),
-                forceNameSearch: SettingsForm.getForceNameSearch()
+                forceNameSearch: SettingsForm.getForceNameSearch(),
+                hoverTooltip: SettingsForm.getHoverTooltip()
             };
         }
 
@@ -145,7 +147,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setUseUserColorAsChatBorderColor(formData.useUserColorAsChatBorderColor);
         SettingsForm.setFlavorNextToPortrait(formData.flavorNextToPortrait);
         SettingsForm.setForceNameSearch(formData.forceNameSearch);
-   
+        SettingsForm.setHoverTooltip(formData.hoverTooltip);
     }
 
     getSelectList(myselectslist, selected) {
@@ -240,5 +242,11 @@ export class SettingsForm {
     }
     static setForceNameSearch(value:boolean) {
         game.settings.set(MODULE_NAME, 'forceNameSearch',value);
+    }
+    static getHoverTooltip() {
+        return <boolean>game.settings.get(MODULE_NAME, 'hoverTooltip');
+    }
+    static setHoverTooltip(value:boolean) {
+        game.settings.set(MODULE_NAME,'hoverTooltip',value);
     }
 }
