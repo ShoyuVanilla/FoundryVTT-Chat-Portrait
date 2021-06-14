@@ -67,3 +67,4 @@ Thanks to anyone who helps me with this code! I appreciate the user community's 
 - [foundryvtt-typescript-types](https://github.com/ShoyuVanilla/foundryvtt-typescript-types) ty to [ShoyuVanilla](https://github.com/ShoyuVanilla)
 - [Chat Portrait](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait) ty to [ShoyuVanilla](https://github.com/ShoyuVanilla)
 - [Token Chat Link](https://github.com/espositos/fvtt-tokenchatlink)
+- [Deepflame's Chat Cards](https://gitlab.com/TimToxopeus/df-chat-cards)

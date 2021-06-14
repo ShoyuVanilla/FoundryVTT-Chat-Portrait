@@ -13,10 +13,10 @@ export let readyHooks = async () => {
   * Note that this happens after the core code has already generated HTML.
   */
   Hooks.on('renderChatMessage', (message, html, speakerInfo) => {
-    ChatPortrait.onRenderChatMessage(message, html, <MessageRenderData>speakerInfo, speakerInfo);
+    ChatPortrait.onRenderChatMessage(message, html, speakerInfo);
     ChatLink.prepareEvent(message, html, speakerInfo);
-  }); 
-  
+  });
+
 }
 
 export let initHooks = () => {

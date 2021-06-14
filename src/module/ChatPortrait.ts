@@ -2,8 +2,7 @@ import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { MessageRenderData } from "./MessageRenderData";
-
-export const MODULE_NAME = 'chat-portrait';
+import { getCanvas } from "./settings";
 
 /**
  * Main class wrapper for all of our features.
@@ -15,14 +14,17 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, messageData:MessageRenderData, speakerInfo): void {
-        const speaker: {
-            scene?: string;
-            actor?: string;
-            token?: string;
-            alias?: string;
-        } = messageData.message.speaker;
-        const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speaker);
+    static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo): void {
+        const messageData:MessageRenderData = speakerInfo;
+
+        // const speaker: {
+        //     scene?: string;
+        //     actor?: string;
+        //     token?: string;
+        //     alias?: string;
+        // } = messageData.message.speaker;
+        // const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speaker);
+        const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);
 
         if (imgPath) {
             const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath);
@@ -50,7 +52,7 @@ export class ChatPortrait {
 
             // Add click listener to image
             ChatLink.prepareEventImage(chatMessage, html, speakerInfo);
-           
+
             // Update size item image by settings
             const elementItemList = html.find('.item-card img');
             if(elementItemList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36){
@@ -72,19 +74,23 @@ export class ChatPortrait {
      * @param  {{scene?:string;actor?:string;token?:string;alias?:string;}} speaker
      * @returns string
      */
-    static loadActorImagePathForChatMessage(speaker: {
-        scene?: string;
-        actor?: string;
-        token?: string;
-        alias?: string;
-    }): string {
-        if (!speaker.token && !speaker.actor) return;
+    //static loadActorImagePathForChatMessage(speaker: {scene?: string;actor?: string;token?: string;alias?: string; }): string {
+    static loadActorImagePathForChatMessage(message): string {
+      const speaker = message.speaker;
+
+      if (speaker) {
+        if (!speaker.token && !speaker.actor){
+          return "icons/svg/mystery-man.svg";
+        }
         const useTokenImage: boolean = this.settings.useTokenImage;
         let actor: Actor;
         if (speaker.token) {
             actor = game.actors.tokens[speaker.token];
             if (!actor) {
-                const tokenData = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token);
+                //const tokenData = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
+                //@ts-ignore
+                const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
+                const tokenData = token.data;
                 if (useTokenImage && tokenData?.img) {
                     return tokenData.img;
                 } else if (!useTokenImage && tokenData?.actorData?.img) {
@@ -93,13 +99,16 @@ export class ChatPortrait {
             }
         }
         if (!actor) {
-            actor = game.actors.get(speaker.actor);
+            //actor = game.actors.get(speaker.actor); // Deprecated on 0.8.6
+            actor = Actors.instance.get(speaker.actor);
         }
         const forceNameSearch = this.settings.forceNameSearch;
         if (!actor && forceNameSearch) {
             actor = game.actors.find((a: Actor) => a.name === speaker.alias);
         }
-        return useTokenImage ? actor?.data?.token?.img : actor?.img;
+        return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
+      }
+      return "icons/svg/mystery-man.svg";
     }
 
     /**
@@ -253,4 +262,56 @@ export class ChatPortrait {
     //     return useTokenImage ? item?.data?.token?.img : item?.img;
     // }
 
+    // static getSpeakerImage = function (message):string {
+    //   const speaker = message.speaker;
+    //   if (speaker) {
+    //       if (speaker.token && this.settings.useTokenImage) {
+    //           //@ts-ignore
+    //           const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
+    //           if (token) {
+    //               return token.data.img;
+    //           }
+    //       }
+
+    //       if (speaker.actor && !this.settings.useTokenImage) {
+    //           const actor = Actors.instance.get(speaker.actor);
+    //           if (actor) {
+    //             //@ts-ignore
+    //             return actor.data.img;
+    //           }
+    //       }
+    //   }
+
+    //   return "icons/svg/mystery-man.svg";
+    // }
+
+    // static showSpeakerImage = function (message):boolean {
+    //   const speaker = message.speaker;
+    //   if (!speaker) {
+    //       return false;
+    //   } else {
+    //     let bHasImage = false;
+    //     if (speaker.token && this.settings.useTokenImage) {
+    //         //@ts-ignore
+    //         const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
+    //         if (token) {
+    //             bHasImage = bHasImage || token.data.img != null;
+    //         }
+    //     }
+
+    //     if (speaker.actor) {
+    //         const actor = Actors.instance.get(speaker.actor);
+    //         if (actor) {
+    //             //@ts-ignore
+    //             bHasImage = bHasImage || actor.data.img != null;
+    //         }
+    //     }
+
+    //     if (!bHasImage) {
+    //         return false;
+    //     }else{
+    //       return true;
+    //     }
+    //   }
+    // }
 }
