@@ -1,3 +1,7 @@
+## 0.2.5
+
+- Some minor improvement for Foundry 0.8.6
+
 ## 0.2.4
 
 - Integration for Foundry 0.8.6
