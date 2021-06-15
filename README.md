@@ -20,14 +20,6 @@ To install this module manually:
 1.  Click 'Install' and wait for installation to complete
 2.  Don't forget to enable the module in game using the "Manage Module" button
 
-### libWrapper
-
-This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
-
-### Color Settings
-
-This module uses the [color settings](https://github.com/ardittristan/VTTColorSettings) library like a dependency. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
-
 ## Features/Settings
 
 - Use Token Image: Use the actor's Token image instead of the actor's standard image.
@@ -45,6 +37,7 @@ This module uses the [color settings](https://github.com/ardittristan/VTTColorSe
 - Display Chat Flavor Text next to Portrait
 - Force Name Search: If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module.
 - Portrait Size for item (px): Configure portrait image size for item on the chat messages. Default is 36 px
+- Double Click on the image portrait or the name of the token "pan to token" on the current scene
 
 ## Known issue
 
