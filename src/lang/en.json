@@ -41,5 +41,7 @@
   "chat-portrait.shiftClick": "Shift+click: target",
   "chat-portrait.doubleClick": "Double-click: pan to",
   "chat-portrait.settings.hoverTooltip.name": "Show hover tooltip instructions",
-  "chat-portrait.settings.hoverTooltip.hint": "Show the token chat link instructions in a tooltip when hovering over a speaker's name."
+  "chat-portrait.settings.hoverTooltip.hint": "Show the token chat link instructions in a tooltip when hovering over a speaker's name.",
+  "chat-portrait.settings.textSizeName.name": "Size of the name text on chat (px)",
+  "chat-portrait.settings.textSizeName.hint": "Size of the name text on chat (px)"
 }

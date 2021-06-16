@@ -50,6 +50,12 @@ export class ChatPortrait {
                 }
             }
 
+            if(ChatPortrait.settings.textSizeName > 0){
+                const senderElement: HTMLElement = html.find('.message-sender')[0];
+                const size: number = ChatPortrait.settings.textSizeName;
+                senderElement.style.fontSize = size + 'px';              
+            }
+
             // Add click listener to image
             ChatLink.prepareEventImage(chatMessage, html, speakerInfo);
 
@@ -203,6 +209,7 @@ export class ChatPortrait {
             flavorNextToPortrait: SettingsForm.getFlavorNextToPortrait(),
             forceNameSearch: SettingsForm.getForceNameSearch(),
             hoverTooltip: SettingsForm.getHoverTooltip(),
+            textSizeName: SettingsForm.getTextSizeName(),
         };
     }
 
@@ -223,7 +230,8 @@ export class ChatPortrait {
             useUserColorAsChatBorderColor: false,
             flavorNextToPortrait: false,
             forceNameSearch: false,
-            hoverTooltip: false
+            hoverTooltip: false,
+            textSizeName: 0,
         }
     }
 

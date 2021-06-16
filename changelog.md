@@ -1,3 +1,7 @@
+## 0.2.6
+
+- Add module settings for change text font size on the name next to the portrait
+
 ## 0.2.5
 
 - Some minor improvement for Foundry 0.8.6

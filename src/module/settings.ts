@@ -142,6 +142,14 @@ export const registerSettings = function () {
     onChange: value => { ChatLink.updateSettings(); }
   });
 
+  game.settings.register(MODULE_NAME, 'textSizeName', {
+    scope: 'world',
+    config: false,
+    type: Number,
+    default: 0
+  });
+  
+
 }
 
 // function setup(templateSettings) {
