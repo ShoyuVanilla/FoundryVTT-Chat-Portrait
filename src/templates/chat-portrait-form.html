@@ -14,6 +14,13 @@
         </div>
 
         <div class="form-group">
+            <label>{{localize "chat-portrait.portrait-size-item-s"}}</label>
+            <input type="text" name="portraitSizeItem" value="{{ portraitSizeItem }}" style="flex: 1; text-align: right;">
+            <p class="notes">{{localize "chat-portrait.portrait-size-item-l"}}</p>
+        </div>
+
+        <!--
+        <div class="form-group">
             <label>{{localize "chat-portrait.border-shape-s"}}</label>
             <select name="borderShape" style="flex: 1;">
                 {{#select borderShape}}
@@ -22,8 +29,21 @@
                 {{/each}}
                 {{/select}}
             </select>
+            <p class="notes">{{localize "chat-portrait.border-shape-l"}}</p>
         </div>
-
+        -->
+        <div class="form-group">
+            <label>{{localize "chat-portrait.border-shape-s"}}</label>
+            <select name="borderShape" style="flex: 1;">
+                {{#select borderShapeList}}
+                {{#each borderShapeList}}
+                <!--<option value="{{@index}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>-->
+                <option value="{{this.value}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="notes">{{localize "chat-portrait.border-shape-l"}}</p>
+        </div>
         <div class="form-group">
             <label>{{localize "chat-portrait.user-color-as-border-color"}}</label>
             <input type="checkbox" name="useUserColorAsBorderColor" data-dtype="Boolean" {{checked useUserColorAsBorderColor}}/>
@@ -50,6 +70,12 @@
         </div>
 
         <div class="form-group">
+            <label>{{localize "chat-portrait.user-color-as-chat-background-color-s"}}</label>
+            <input type="checkbox" name="useUserColorAsChatBackgroundColor" data-dtype="Boolean" {{checked useUserColorAsChatBackgroundColor}}/>
+            <p class="notes">{{localize "chat-portrait.user-color-as-chat-background-color-l"}}</p>
+        </div>
+
+        <div class="form-group">
             <label>{{localize "chat-portrait.flavor-next-to-portrait"}}</label>
             <input type="checkbox" name="flavorNextToPortrait" data-dtype="Boolean" {{checked flavorNextToPortrait}}/>
         </div>
@@ -59,7 +85,19 @@
             <input type="checkbox" name="forceNameSearch" data-dtype="Boolean" {{checked forceNameSearch}}/>
             <p class="notes">{{localize "chat-portrait.force-name-search-l"}}</p>
         </div>
-
+        <!--
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.hoverTooltip.name"}}</label>
+            <input type="checkbox" name="hoverTooltip" data-dtype="Boolean" {{checked hoverTooltip}}/>
+            <p class="notes">{{localize "chat-portrait.settings.hoverTooltip.hint"}}</p>
+        </div>
+        -->
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.textSizeName.name"}}</label>
+            <input type="text" name="textSizeName" value="{{ textSizeName }}" style="flex: 1; text-align: right;">
+            <p class="notes">{{localize "chat-portrait.settings.textSizeName.hint"}}</p>
+        </div>
+        
         <div class="form-group" style="margin: 10px;">
             <button type="submit" name="submit">
                 <i class="fas fa-save"></i> {{localize "chat-portrait.save"}}

@@ -4,3 +4,34 @@
   margin-bottom: 3px;
   object-fit: contain;
 }
+.chat-message,
+.chat-message.emote,
+.chat-message.blind {
+  background-image: url(../assets/parchment.jpg);
+  background-repeat: repeat;
+}
+.chat-message.whisper {
+  background-image: url(../assets/parchment-white.jpg);
+}
+
+.tokenChatLink {
+  text-decoration: underline;
+  cursor: pointer;
+} 
+
+.tokenChatLink-tooltip {
+  display: block;
+  padding: 2px 4px;
+  position: absolute; 
+  background: #222;
+  border: 1px solid #191813;
+  border-radius: 3px;
+  color: #ddd;
+  text-align: left;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.tokenChatLink-tooltip ul {
+  list-style-type: circle;
+}
