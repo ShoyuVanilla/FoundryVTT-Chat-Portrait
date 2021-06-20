@@ -1,3 +1,7 @@
+## 0.2.8
+
+- Add support for webm and solved [Thumbnails brake when animated](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/28)
+
 ## 0.2.7
 
 - Add "Hide" chat message detail [Feature Suggestion: Option to hide portrait for GM rolls](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/24)

@@ -24,17 +24,18 @@ export class ChatPortrait {
         //     alias?: string;
         // } = messageData.message.speaker;
         // const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speaker);
-            let imgPath: string;
-            const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
-            
-            if(!ChatPortrait.shouldOverrideMessage(messageData)){
-                imgPath = "icons/svg/mystery-man.svg";
-            }else{
-                imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);            
-            }
+        let imgPath: string;
+        const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
+        
+        if(!ChatPortrait.shouldOverrideMessage(messageData)){
+            imgPath = "icons/svg/mystery-man.svg";
+        }else{
+            imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);            
+        }
         //if (imgPath) {
-            
-            const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath);
+            //@ts-ignore
+        const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath)
+        .then((imgElement)=>{
 
             ChatPortrait.setImageBorder(imgElement, authorColor);
 
@@ -109,6 +110,7 @@ export class ChatPortrait {
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
+        });
         //}
     }
 
@@ -174,15 +176,35 @@ export class ChatPortrait {
      * @param  {string} imgPath
      * @returns HTMLImageElement
      */
-    static generatePortraitImageElement(imgPath: string): HTMLImageElement {
+    static async generatePortraitImageElement(imgPath: string): Promise<HTMLImageElement> {
         if (!imgPath){
             return;
         }
         const img: HTMLImageElement = document.createElement('img');
-        img.src = imgPath;
         const size: number = this.settings.portraitSize;
-        img.width = size;
-        img.height = size;
+        // Support for video or webm file
+        //let thumb = diff.img;
+        //if (VideoHelper.hasVideoExtension(diff.img))
+        //    thumb = await ImageHelper.createThumbnail(diff.img, { width: 48, height: 48 });
+        //let thumb = 'icons/svg/mystery-man.svg';
+        try {
+            let imgThumb = await ImageHelper.createThumbnail(imgPath, { width: size, height: size });
+            if( imgPath.endsWith("webm")){
+                img.src = imgThumb.thumb;
+                // If a url we need these anyway
+                img.width = size;
+                img.height = size;
+            }else{
+                img.src = <string>imgThumb.src;
+                // If a url we need these anyway
+                img.width = size;
+                img.height = size;
+            }
+        } catch {
+            img.src = imgPath;
+            img.width = size;
+            img.height = size;
+        }
         img.classList.add("message-portrait");
         return img;
     }
