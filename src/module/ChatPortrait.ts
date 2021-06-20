@@ -147,14 +147,18 @@ export class ChatPortrait {
         if (speaker.token) {
             actor = game.actors.tokens[speaker.token];
             if (!actor) {
-                //const tokenData = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
                 //@ts-ignore
-                const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
-                const tokenData = token.data;
-                if (useTokenImage && tokenData?.img) {
-                    return tokenData.img;
-                } else if (!useTokenImage && tokenData?.actorData?.img) {
-                    return tokenData.actorData.img;
+                let token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
+                if(!token){
+                    token = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
+                }
+                if(token){
+                    const tokenData = token.data;
+                    if (useTokenImage && tokenData?.img) {
+                        return tokenData.img;
+                    } else if (!useTokenImage && tokenData?.actorData?.img) {
+                        return tokenData.actorData.img;
+                    }
                 }
             }
         }

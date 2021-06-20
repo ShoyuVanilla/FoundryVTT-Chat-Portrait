@@ -1,3 +1,7 @@
+## 0.2.9
+
+- Bug fix loading scene without any token
+
 ## 0.2.8
 
 - Add support for webm and solved [Thumbnails brake when animated](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/28)
