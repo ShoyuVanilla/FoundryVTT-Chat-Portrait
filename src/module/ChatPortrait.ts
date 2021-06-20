@@ -117,7 +117,22 @@ export class ChatPortrait {
 
       if (speaker) {
         if (!speaker.token && !speaker.actor){
-          return "icons/svg/mystery-man.svg";
+          if(message.user && this.settings.useAvatarImage){
+            const imgAvatar:string = ChatPortrait.getUserAvatar(message);
+            if(imgAvatar){
+                return imgAvatar;
+            }else{
+                return "icons/svg/mystery-man.svg";
+            }
+          }else{
+            return "icons/svg/mystery-man.svg";
+          }
+        }
+        if(this.settings.useAvatarImage){
+            const imgAvatar:string = ChatPortrait.getUserAvatar(message);
+            if(imgAvatar){
+                return imgAvatar;
+            }
         }
         const useTokenImage: boolean = this.settings.useTokenImage;
         let actor: Actor;
@@ -242,6 +257,7 @@ export class ChatPortrait {
             hoverTooltip: SettingsForm.getHoverTooltip(),
             textSizeName: SettingsForm.getTextSizeName(),
             displaySetting: SettingsForm.getDisplaySetting(),
+            useAvatarImage: SettingsForm.getUseAvatarImage(),
         };
     }
 
@@ -265,6 +281,7 @@ export class ChatPortrait {
             hoverTooltip: false,
             textSizeName: 0,
             displaySetting: 'allCards',
+            useAvatarImage: false,
         }
     }
 
@@ -359,6 +376,7 @@ export class ChatPortrait {
     static shouldOverrideMessage = function(message) {
         const setting = game.settings.get(MODULE_NAME, "displaySetting");
         if (setting !== "none") {
+            //const user = game.users.get(message.user);
             let user = game.users.get(message.user);
             if(!user){
                 user = game.users.get(message.user.id);
@@ -382,10 +400,30 @@ export class ChatPortrait {
     
     static getUserColor = function(message){
         if (ChatPortrait.shouldOverrideMessage(message)) {
-            const user = game.users.get(message.user);
+            //const user = game.users.get(message.user);
+            let user = game.users.get(message.user);
+            if(!user){
+                user = game.users.get(message.user.id);
+            }
             return user.data.color;
         }
         return "";
+    }
+
+    static getUserAvatar = function(message){
+        if (ChatPortrait.shouldOverrideMessage(message)) {
+            //const user = game.users.get(message.user);
+            let user = game.users.get(message.user);
+            if(!user){
+                user = game.users.get(message.user.id);
+            }
+            if(user.data.avatar){ // image path
+                return user.data.avatar;
+            }else{
+                return null;
+            }
+        }
+        return null;
     }
     
 }

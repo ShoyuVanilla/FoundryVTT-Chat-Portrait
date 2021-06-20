@@ -13,4 +13,5 @@ export interface ChatPortraitSettings{
     hoverTooltip: boolean,
     textSizeName: number,
     displaySetting: string,
+    useAvatarImage: boolean,
 }

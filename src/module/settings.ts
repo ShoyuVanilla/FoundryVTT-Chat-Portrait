@@ -149,12 +149,12 @@ export const registerSettings = function () {
     default: 0
   });
 
-  game.settings.register(MODULE_NAME, "displaySetting", {
+  game.settings.register(MODULE_NAME, 'displaySetting', {
     //name: "Display setting",
     //hint: "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",
-    scope: "word",
+    scope: 'world',
     config: false,
-    default: "allCards",
+    default: 'allCards',
     type: String,
     // choices: {
     //     "allCards": "Affect every message.",
@@ -166,7 +166,12 @@ export const registerSettings = function () {
     // }
   });
 
-  
+  game.settings.register(MODULE_NAME, 'useAvatarImage', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
 
 }
 

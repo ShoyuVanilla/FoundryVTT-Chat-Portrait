@@ -108,7 +108,13 @@
                 {{/select}}
             </select>
             <p class="notes">{{localize "chat-portrait.settings.displaySetting.hint"}}</p>
-        </div>        
+        </div>
+        
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.useAvatarImage.name"}}</label>
+            <input type="checkbox" name="useAvatarImage" data-dtype="Boolean" {{checked useAvatarImage}}/>
+            <p class="notes">{{localize "chat-portrait.settings.useAvatarImage.hint"}}</p>
+        </div>
         
         <div class="form-group" style="margin: 10px;">
             <button type="submit" name="submit">

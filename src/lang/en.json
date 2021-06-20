@@ -51,7 +51,7 @@
   "chat-portrait.settings.displaySetting.choice.self": "Only affect own messages.",
   "chat-portrait.settings.displaySetting.choice.gm": "Only affect GM messages.",
   "chat-portrait.settings.displaySetting.choice.player": "Only affect player messages.",
-  "chat-portrait.settings.displaySetting.choice.none": "Don't affect any messages."
-  
- 
+  "chat-portrait.settings.displaySetting.choice.none": "Don't affect any messages.",
+  "chat-portrait.settings.useAvatarImage.name": "Use Avatar Image",
+  "chat-portrait.settings.useAvatarImage.hint": "Use Avatar Player Image: Use the player's Token image instead of the token/actor standard image. Note if true ignore the first option if a avatr is found or else go back to the standard actor/token image feature."
 }

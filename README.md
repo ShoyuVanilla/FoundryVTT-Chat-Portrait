@@ -34,10 +34,18 @@ To install this module manually:
 - Configure portrait border width. Default is 2 px
 - Change Color of Message Border: Use the actor's player's color for the border of the entire chat message
 - Change Color of Message Background: Use the actor's player's color for the background of the entire chat message
+
+![background](./images/unknown_actor_and_weapon_feature.png)
+
 - Display Chat Flavor Text next to Portrait
 - Force Name Search: If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module.
 - Portrait Size for item (px): Configure portrait image size for item on the chat messages. Default is 36 px
 - Double Click on the image portrait or the name of the token "pan to token" on the current scene
+- Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window. (TODO Integration with midi-qol and CUB Unknown creature, there is no conflict because it's just css html modification for this module anyway)
+
+![Unknown](./images/unknown_actor_and_weapon_feature.png)
+
+- Use Avatar Player Image: Use the player's Token image instead of the token/actor standard image. Note if true ignore the first option if a avatr is found or else go back to the standard actor/token image feature.
 
 ## Known issue
 

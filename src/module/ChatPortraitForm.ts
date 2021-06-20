@@ -59,6 +59,7 @@ export class ChatPortraitForm extends FormApplication {
                 hoverTooltip: false,
                 textSizeName: 0,
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, 'allCards'),
+                useAvatarImage: false,
             };
         }else{
             data = {
@@ -77,6 +78,7 @@ export class ChatPortraitForm extends FormApplication {
                 hoverTooltip: SettingsForm.getHoverTooltip(),
                 textSizeName: SettingsForm.getTextSizeName(),
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, SettingsForm.getDisplaySetting()),
+                useAvatarImage: SettingsForm.getUseAvatarImage(),
             };
         }
 
@@ -154,6 +156,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setHoverTooltip(formData.hoverTooltip);
         SettingsForm.setTextSizeName(formData.textSizeName);
         SettingsForm.setDisplaySetting(formData.displaySetting);
+        SettingsForm.setUseAvatarImage(formData.useAvatarImage);
     }
 
     getSelectList(myselectslist, selected) {
@@ -275,5 +278,11 @@ export class SettingsForm {
     }
     static setDisplaySetting(value:string) {
         game.settings.set(MODULE_NAME, 'displaySetting',value);
+    }
+    static getUseAvatarImage() { 
+        return <boolean>game.settings.get(MODULE_NAME, 'useAvatarImage');
+    }
+    static setUseAvatarImage(value:boolean) { 
+        game.settings.set(MODULE_NAME, 'useAvatarImage',value);
     }
 }
