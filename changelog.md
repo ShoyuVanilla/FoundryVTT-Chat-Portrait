@@ -1,3 +1,9 @@
+## 0.2.7
+
+- Add "Hide" chat message detail [Feature Suggestion: Option to hide portrait for GM rolls](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/24)
+- Solved [Feature suggestion : chat text color as player color](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/30)
+- Solved [Feature suggestion : OOC portrait as player avatar](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/32)
+
 ## 0.2.6
 
 - Add module settings for change text font size on the name next to the portrait

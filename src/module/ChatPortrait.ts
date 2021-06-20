@@ -92,13 +92,19 @@ export class ChatPortrait {
                     elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                 }
             }
-
+            // Update hide info about the weapon
             if(!ChatPortrait.shouldOverrideMessage(messageData)){
                 const elementItemNameList = html.find('.item-card .item-name');
                 for(let i = 0; i < elementItemNameList.length; i++){
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
                     elementItemName.innerText = 'Unknown Weapon';
                 }
+                const elementItemContentList = html.find('.item-card .card-content');
+                for(let i = 0; i < elementItemContentList.length; i++){
+                    const elementItemContent:HTMLElement = <HTMLElement>elementItemContentList[i];
+                    elementItemContent.innerText = 'Unknown Weapon';
+                }
+                
             }
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);

@@ -35,13 +35,21 @@ To install this module manually:
 - Change Color of Message Border: Use the actor's player's color for the border of the entire chat message
 - Change Color of Message Background: Use the actor's player's color for the background of the entire chat message
 
-![background](./images/unknown_actor_and_weapon_feature.png)
+![background](./images/background_color_feature.png)
 
 - Display Chat Flavor Text next to Portrait
 - Force Name Search: If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module.
 - Portrait Size for item (px): Configure portrait image size for item on the chat messages. Default is 36 px
 - Double Click on the image portrait or the name of the token "pan to token" on the current scene
-- Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window. (TODO Integration with midi-qol and CUB Unknown creature, there is no conflict because it's just css html modification for this module anyway)
+- Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
+  - allCards : Affect every message.
+  - selfAndGM : Affect own messages and GM messages.
+  - self : Only affect own messages.
+  - gm : Only affect GM messages.
+  - player : Only affect player messages.
+  - none : Don't affect any messages.
+
+**TODO:** Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
 
 ![Unknown](./images/unknown_actor_and_weapon_feature.png)
 
