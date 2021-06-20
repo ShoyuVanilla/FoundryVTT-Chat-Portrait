@@ -4,7 +4,7 @@ A Foundry VTT module that displays the Actor's portrait images on the chat messa
 
 This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.comShoyuVanilla/FoundryVTT-Chat-Portrait) ty to [ShoyuVanilla](https://github.com/ShoyuVanilla)
 
-![Settings]((./images/image01.png)
+![Settings](./images/image01.png)
 
 ![Preview](./images/image02.png)
 
