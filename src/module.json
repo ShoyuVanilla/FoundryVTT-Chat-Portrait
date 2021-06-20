@@ -75,14 +75,14 @@
     "styles/chat-portrait-style.css"
   ],
   "manifestPlusVersion": "1.2.0",
-  "url": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait",
-  "readme": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/README.md",
-  "manifest": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/src/module.json",
-  "download": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/package/chat-portrait-v0.2.6.zip",
+  "url": "https://github.com/p4535992/FoundryVTT-Chat-Portrait",
+  "readme": "https://raw.githubusercontent.com/p4535992/FoundryVTT-Chat-Portrait/master/README.md",
+  "manifest": "https://raw.githubusercontent.com/p4535992/FoundryVTT-Chat-Portrait/master/src/module.json",
+  "download": "https://raw.githubusercontent.com/p4535992/FoundryVTT-Chat-Portrait/master/package/chat-portrait-v0.2.6.zip",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.6",
-  "changelog": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/changelog.md",
-  "bugs": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues",
+  "changelog": "https://raw.githubusercontent.com/p4535992/FoundryVTT-Chat-Portrait/master/changelog.md",
+  "bugs": "https://github.com/p4535992/FoundryVTT-Chat-Portrait/issues",
   "allowBugReporter": true,
   "dependencies": [
   ]
