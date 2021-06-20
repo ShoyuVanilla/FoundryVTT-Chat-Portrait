@@ -148,6 +148,24 @@ export const registerSettings = function () {
     type: Number,
     default: 0
   });
+
+  game.settings.register(MODULE_NAME, "displaySetting", {
+    //name: "Display setting",
+    //hint: "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",
+    scope: "word",
+    config: false,
+    default: "allCards",
+    type: String,
+    // choices: {
+    //     "allCards": "Affect every message.",
+    //     "selfAndGM": "Affect own messages and GM messages.",
+    //     "self": "Only affect own messages.",
+    //     "gm": "Only affect GM messages.",
+    //     "player": "Only affect player messages.",
+    //     "none": "Don't affect any messages."
+    // }
+  });
+
   
 
 }

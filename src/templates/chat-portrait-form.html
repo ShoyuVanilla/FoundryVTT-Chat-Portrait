@@ -97,6 +97,18 @@
             <input type="text" name="textSizeName" value="{{ textSizeName }}" style="flex: 1; text-align: right;">
             <p class="notes">{{localize "chat-portrait.settings.textSizeName.hint"}}</p>
         </div>
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.displaySetting.name"}}</label>
+            <select name="displaySetting" style="flex: 1;">
+                {{#select displaySettingList}}
+                {{#each displaySettingList}}
+                <!--<option value="{{@index}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>-->
+                <option value="{{this.value}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="notes">{{localize "chat-portrait.settings.displaySetting.hint"}}</p>
+        </div>        
         
         <div class="form-group" style="margin: 10px;">
             <button type="submit" name="submit">

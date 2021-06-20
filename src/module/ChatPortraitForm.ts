@@ -58,6 +58,7 @@ export class ChatPortraitForm extends FormApplication {
                 forceNameSearch: false,
                 hoverTooltip: false,
                 textSizeName: 0,
+                displaySettingList: this.getSelectList(this.displaySettingListOptions, 'allCards'),
             };
         }else{
             data = {
@@ -74,7 +75,8 @@ export class ChatPortraitForm extends FormApplication {
                 flavorNextToPortrait: SettingsForm.getFlavorNextToPortrait(),
                 forceNameSearch: SettingsForm.getForceNameSearch(),
                 hoverTooltip: SettingsForm.getHoverTooltip(),
-                textSizeName: SettingsForm.getTextSizeName()
+                textSizeName: SettingsForm.getTextSizeName(),
+                displaySettingList: this.getSelectList(this.displaySettingListOptions, SettingsForm.getDisplaySetting()),
             };
         }
 
@@ -151,6 +153,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setForceNameSearch(formData.forceNameSearch);
         SettingsForm.setHoverTooltip(formData.hoverTooltip);
         SettingsForm.setTextSizeName(formData.textSizeName);
+        SettingsForm.setDisplaySetting(formData.displaySetting);
     }
 
     getSelectList(myselectslist, selected) {
@@ -165,6 +168,15 @@ export class ChatPortraitForm extends FormApplication {
         'square': i18n(MODULE_NAME+'.square'),
         'circle': i18n(MODULE_NAME+'.circle'),
         'none': i18n(MODULE_NAME+'.none')
+    }
+
+    displaySettingListOptions:Record<string, string>  = {
+        "allCards": "Affect every message.",
+        "selfAndGM": "Affect own messages and GM messages.",
+        "self": "Only affect own messages.",
+        "gm": "Only affect GM messages.",
+        "player": "Only affect player messages.",
+        "none": "Don't affect any messages."
     }
 }
 
@@ -258,5 +270,10 @@ export class SettingsForm {
     static setTextSizeName(value:number) {
         game.settings.set(MODULE_NAME,'textSizeName',value);
     }
-    
+    static getDisplaySetting() {
+        return <string>game.settings.get(MODULE_NAME, 'displaySetting');
+    }
+    static setDisplaySetting(value:string) {
+        game.settings.set(MODULE_NAME, 'displaySetting',value);
+    }
 }

@@ -2,7 +2,7 @@ import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { MessageRenderData } from "./MessageRenderData";
-import { getCanvas } from "./settings";
+import { getCanvas, MODULE_NAME } from "./settings";
 
 /**
  * Main class wrapper for all of our features.
@@ -24,11 +24,17 @@ export class ChatPortrait {
         //     alias?: string;
         // } = messageData.message.speaker;
         // const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speaker);
-        const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);
-
-        if (imgPath) {
-            const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath);
+            let imgPath: string;
             const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
+            
+            if(ChatPortrait.shouldOverrideMessage(messageData)){
+                imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);
+            }else{
+                imgPath = "icons/svg/mystery-man.svg";
+            }
+        //if (imgPath) {
+            
+            const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath);
 
             ChatPortrait.setImageBorder(imgElement, authorColor);
 
@@ -62,17 +68,17 @@ export class ChatPortrait {
             // Update size item image by settings
             const elementItemList = html.find('.item-card img');
             if(elementItemList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36){
-              for(let i = 0; i < elementItemList.length; i++){
-                const elementItem:HTMLImageElement = <HTMLImageElement>elementItemList[0];
-                const size: number = ChatPortrait.settings.portraitSizeItem;
-                elementItem.width = size;
-                elementItem.height = size;
-              }
+                for(let i = 0; i < elementItemList.length; i++){
+                    const elementItem:HTMLImageElement = <HTMLImageElement>elementItemList[0];
+                    const size: number = ChatPortrait.settings.portraitSizeItem;
+                    elementItem.width = size;
+                    elementItem.height = size;
+                }
             }
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
-        }
+        //}
     }
 
     /**
@@ -210,6 +216,7 @@ export class ChatPortrait {
             forceNameSearch: SettingsForm.getForceNameSearch(),
             hoverTooltip: SettingsForm.getHoverTooltip(),
             textSizeName: SettingsForm.getTextSizeName(),
+            displaySetting: SettingsForm.getDisplaySetting(),
         };
     }
 
@@ -232,6 +239,7 @@ export class ChatPortrait {
             forceNameSearch: false,
             hoverTooltip: false,
             textSizeName: 0,
+            displaySetting: 'allCards',
         }
     }
 
@@ -322,4 +330,34 @@ export class ChatPortrait {
     //     }
     //   }
     // }
+
+    static shouldOverrideMessage = function(message) {
+        const setting = game.settings.get(MODULE_NAME, "displaySetting");
+        if (setting !== "none") {
+            const user = game.users.get(message.user);
+            if (user) {
+                const isSelf = user.data._id === game.user.data._id;
+                const isGM = user.isGM;
+    
+                if ((setting === "allCards")
+                    || (setting === "self" && isSelf)
+                    || (setting === "selfAndGM" && (isSelf || isGM))
+                    || (setting === "gm" && isGM)
+                    || (setting === "player" && !isGM)
+                ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    static getUserColor = function(message){
+        if (ChatPortrait.shouldOverrideMessage(message)) {
+            const user = game.users.get(message.user);
+            return user.data.color;
+        }
+        return "";
+    }
+    
 }

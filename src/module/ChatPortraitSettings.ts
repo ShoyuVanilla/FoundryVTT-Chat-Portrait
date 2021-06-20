@@ -12,4 +12,5 @@ export interface ChatPortraitSettings{
     forceNameSearch: boolean,
     hoverTooltip: boolean,
     textSizeName: number,
+    displaySetting: string,
 }

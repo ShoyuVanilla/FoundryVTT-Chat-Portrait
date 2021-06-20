@@ -43,5 +43,8 @@
   "chat-portrait.settings.hoverTooltip.name": "Show hover tooltip instructions",
   "chat-portrait.settings.hoverTooltip.hint": "Show the token chat link instructions in a tooltip when hovering over a speaker's name.",
   "chat-portrait.settings.textSizeName.name": "Size of the name text on chat (px)",
-  "chat-portrait.settings.textSizeName.hint": "Size of the name text on chat (px)"
+  "chat-portrait.settings.textSizeName.hint": "Size of the name text on chat (px)",
+  "chat-portrait.settings.displaySetting.name": "Display setting",
+  "chat-portrait.settings.displaySetting.hint": "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window."
+    
 }
