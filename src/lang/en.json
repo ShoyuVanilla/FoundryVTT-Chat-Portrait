@@ -45,6 +45,13 @@
   "chat-portrait.settings.textSizeName.name": "Size of the name text on chat (px)",
   "chat-portrait.settings.textSizeName.hint": "Size of the name text on chat (px)",
   "chat-portrait.settings.displaySetting.name": "Display setting",
-  "chat-portrait.settings.displaySetting.hint": "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window."
-    
+  "chat-portrait.settings.displaySetting.hint": "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",
+  "chat-portrait.settings.displaySetting.choice.allCards": "Affect every message.",
+  "chat-portrait.settings.displaySetting.choice.selfAndGM": "Affect own messages and GM messages.",
+  "chat-portrait.settings.displaySetting.choice.self": "Only affect own messages.",
+  "chat-portrait.settings.displaySetting.choice.gm": "Only affect GM messages.",
+  "chat-portrait.settings.displaySetting.choice.player": "Only affect player messages.",
+  "chat-portrait.settings.displaySetting.choice.none": "Don't affect any messages."
+  
+ 
 }

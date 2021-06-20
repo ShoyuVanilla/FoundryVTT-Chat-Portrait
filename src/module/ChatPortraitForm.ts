@@ -171,12 +171,12 @@ export class ChatPortraitForm extends FormApplication {
     }
 
     displaySettingListOptions:Record<string, string>  = {
-        "allCards": "Affect every message.",
-        "selfAndGM": "Affect own messages and GM messages.",
-        "self": "Only affect own messages.",
-        "gm": "Only affect GM messages.",
-        "player": "Only affect player messages.",
-        "none": "Don't affect any messages."
+        'allCards': i18n(MODULE_NAME+'.displaySetting.choice.allCards'),//"Affect every message.",
+        'selfAndGM': i18n(MODULE_NAME+'.displaySetting.choice.selfAndGM'),//"Affect own messages and GM messages.",
+        'self': i18n(MODULE_NAME+'.displaySetting.choice.self'),//"Only affect own messages.",
+        'gm': i18n(MODULE_NAME+'.displaySetting.choice.gm'),//"Only affect GM messages.",
+        'player': i18n(MODULE_NAME+'.displaySetting.choice.player'),//"Only affect player messages.",
+        'none': i18n(MODULE_NAME+'.displaySetting.choice.none'),//"Don't affect any messages.",        
     }
 }
 

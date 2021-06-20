@@ -27,10 +27,10 @@ export class ChatPortrait {
             let imgPath: string;
             const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
             
-            if(ChatPortrait.shouldOverrideMessage(messageData)){
-                imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);
-            }else{
+            if(!ChatPortrait.shouldOverrideMessage(messageData)){
                 imgPath = "icons/svg/mystery-man.svg";
+            }else{
+                imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);            
             }
         //if (imgPath) {
             
@@ -56,10 +56,19 @@ export class ChatPortrait {
                 }
             }
 
+            // Update size text name by settings     
+            const senderElement: HTMLElement = html.find('.message-sender')[0];  
+            // Bug fix plutonium 
+            senderElement.style.display = 'block';    
             if(ChatPortrait.settings.textSizeName > 0){
-                const senderElement: HTMLElement = html.find('.message-sender')[0];
                 const size: number = ChatPortrait.settings.textSizeName;
-                senderElement.style.fontSize = size + 'px';              
+                senderElement.style.fontSize = size + 'px';                
+                if(!ChatPortrait.shouldOverrideMessage(messageData)){
+                    senderElement.innerText = 'Unknown Actor';
+                }           
+            }else if(!ChatPortrait.shouldOverrideMessage(messageData)){
+                const senderElement: HTMLElement = html.find('.message-sender')[0];
+                senderElement.innerText = 'Unknown Actor';
             }
 
             // Add click listener to image
@@ -69,10 +78,26 @@ export class ChatPortrait {
             const elementItemList = html.find('.item-card img');
             if(elementItemList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36){
                 for(let i = 0; i < elementItemList.length; i++){
-                    const elementItem:HTMLImageElement = <HTMLImageElement>elementItemList[0];
+                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemList[i];
                     const size: number = ChatPortrait.settings.portraitSizeItem;
-                    elementItem.width = size;
-                    elementItem.height = size;
+                    elementItemImage.width = size;
+                    elementItemImage.height = size;
+                    if(!ChatPortrait.shouldOverrideMessage(messageData)){
+                        elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
+                    }
+                }
+            }else if(!ChatPortrait.shouldOverrideMessage(messageData)){
+                for(let i = 0; i < elementItemList.length; i++){
+                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemList[i];
+                    elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
+                }
+            }
+
+            if(!ChatPortrait.shouldOverrideMessage(messageData)){
+                const elementItemNameList = html.find('.item-card .item-name');
+                for(let i = 0; i < elementItemNameList.length; i++){
+                    const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
+                    elementItemName.innerText = 'Unknown Weapon';
                 }
             }
 
@@ -334,7 +359,10 @@ export class ChatPortrait {
     static shouldOverrideMessage = function(message) {
         const setting = game.settings.get(MODULE_NAME, "displaySetting");
         if (setting !== "none") {
-            const user = game.users.get(message.user);
+            let user = game.users.get(message.user);
+            if(!user){
+                user = game.users.get(message.user.id);
+            }
             if (user) {
                 const isSelf = user.data._id === game.user.data._id;
                 const isGM = user.isGM;
