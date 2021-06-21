@@ -1,6 +1,7 @@
 ## 0.2.10 
 
-- Added [Add an object-fit: cover option in the window configuration](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/21)
+- Added [Add an object-fit: cover option in the window configuration](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/21), replace the object-fit:contains in object-fit:cover
+- Bug fix on 'useAvatarImage' setting related to [Feature suggestion : OOC portrait as player avatar](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/32)
 
 ## 0.2.9
 

@@ -136,32 +136,9 @@ export class ChatPortrait {
             return "icons/svg/mystery-man.svg";
           }
         }
-        if(this.settings.useAvatarImage){
-            const imgAvatar:string = ChatPortrait.getUserAvatar(message);
-            if(imgAvatar && !imgAvatar.includes("mystery-man")){
-                return imgAvatar;
-            }
-        }
         const useTokenImage: boolean = this.settings.useTokenImage;
-        let actor: Actor;
-        if (speaker.token) {
-            actor = game.actors.tokens[speaker.token];
-            if (!actor) {
-                //@ts-ignore
-                let token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
-                if(!token){
-                    token = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
-                }
-                if(token){
-                    const tokenData = token.data;
-                    if (useTokenImage && tokenData?.img) {
-                        return tokenData.img;
-                    } else if (!useTokenImage && tokenData?.actorData?.img) {
-                        return tokenData.actorData.img;
-                    }
-                }
-            }
-        }
+        
+        let actor: Actor = game.actors.tokens[speaker.token];
         if (!actor) {
             //actor = game.actors.get(speaker.actor); // Deprecated on 0.8.6
             actor = Actors.instance.get(speaker.actor);
@@ -170,6 +147,28 @@ export class ChatPortrait {
         if (!actor && forceNameSearch) {
             actor = game.actors.find((a: Actor) => a.name === speaker.alias);
         }
+        // Make sense only for player
+        if(actor?.data?.type == "character" && this.settings.useAvatarImage){
+            const imgAvatar:string = ChatPortrait.getUserAvatar(message);
+            if(imgAvatar && !imgAvatar.includes("mystery-man")){
+                return imgAvatar;
+            }
+        }
+        if (speaker.token && !actor) {
+            //@ts-ignore
+            let token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
+            if(!token){
+                token = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
+            }
+            if(token){
+                const tokenData = token.data;
+                if (useTokenImage && tokenData?.img) {
+                    return tokenData.img;
+                } else if (!useTokenImage && tokenData?.actorData?.img) {
+                    return tokenData.actorData.img;
+                }
+            }
+        }      
         return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
       }
       return "icons/svg/mystery-man.svg";
