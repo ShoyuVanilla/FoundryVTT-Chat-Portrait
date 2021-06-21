@@ -59,6 +59,8 @@ To install this module manually:
 
 - Use Avatar Player Image: Use the player's Token image instead of the token/actor standard image. Note if true ignore the first option if a avatr is found or else go back to the standard actor/token image feature.
 
+- Passive: Image Replacer for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the Dnd5e system.
+
 ## Known issue
 
 ## [Changelog](./changelog.md)
