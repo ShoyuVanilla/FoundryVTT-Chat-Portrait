@@ -1,6 +1,7 @@
 import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
+import { ImageReplacer } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { getCanvas, MODULE_NAME } from "./settings";
 
@@ -94,18 +95,32 @@ export class ChatPortrait {
                 }
             }
             // Update hide info about the weapon
+
+            const elementItemNameList = html.find('.item-card .item-name');
+
+            const elementItemContentList = html.find('.item-card .card-content');
             if(!ChatPortrait.shouldOverrideMessage(messageData)){
-                const elementItemNameList = html.find('.item-card .item-name');
+                
                 for(let i = 0; i < elementItemNameList.length; i++){
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
                     elementItemName.innerText = 'Unknown Weapon';
                 }
-                const elementItemContentList = html.find('.item-card .card-content');
+               
                 for(let i = 0; i < elementItemContentList.length; i++){
                     const elementItemContent:HTMLElement = <HTMLElement>elementItemContentList[i];
                     elementItemContent.innerText = 'Unknown Weapon';
                 }
 
+            }else{
+                // Check for Ability/Skills/Tools/Saving Throw for avoid the double portrait
+                for(let i = 0; i < elementItemNameList.length; i++){
+                    const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
+                    const value: string = ImageReplacer[elementItemName.innerText];
+                    if(value){
+                        const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemList[i];
+                        elementItemImage.src = value;
+                    }
+                }
             }
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
