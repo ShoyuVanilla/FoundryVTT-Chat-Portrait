@@ -20,6 +20,12 @@ To install this module manually:
 1.  Click 'Install' and wait for installation to complete
 2.  Don't forget to enable the module in game using the "Manage Module" button
 
+## TODO
+
+- FoundryVTT itself already shows the character's portrait when a skill is used (or something similar that got no icon/symbol of its own), so we get the same portrait twice (above each other). As long as an item or special trait with it's own icon is used the mod is neat, showing the portrait above the item's/trait's symbol.
+
+- Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
+
 ## Features/Settings
 
 - Use Token Image: Use the actor's Token image instead of the actor's standard image.
@@ -48,8 +54,6 @@ To install this module manually:
   - gm : Only affect GM messages.
   - player : Only affect player messages.
   - none : Don't affect any messages.
-
-**TODO:** Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
 
 ![Unknown](./images/unknown_actor_and_weapon_feature.png)
 
