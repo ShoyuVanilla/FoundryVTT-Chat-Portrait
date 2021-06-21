@@ -61,6 +61,8 @@ To install this module manually:
 
 - Passive: Image Replacer for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the Dnd5e system.
 
+![replacer](./images/image_replacer_feature.png)
+
 ## Known issue
 
 ## [Changelog](./changelog.md)
