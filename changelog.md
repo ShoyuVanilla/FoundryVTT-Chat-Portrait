@@ -1,3 +1,7 @@
+## 0.2.10 
+
+- Added [Add an object-fit: cover option in the window configuration](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/21)
+
 ## 0.2.9
 
 - Bug fix loading scene without any token

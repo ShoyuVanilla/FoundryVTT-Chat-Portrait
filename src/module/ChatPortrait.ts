@@ -26,11 +26,11 @@ export class ChatPortrait {
         // const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speaker);
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
-        
+
         if(!ChatPortrait.shouldOverrideMessage(messageData)){
             imgPath = "icons/svg/mystery-man.svg";
         }else{
-            imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);            
+            imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);
         }
         //if (imgPath) {
             //@ts-ignore
@@ -57,16 +57,16 @@ export class ChatPortrait {
                 }
             }
 
-            // Update size text name by settings     
-            const senderElement: HTMLElement = html.find('.message-sender')[0];  
-            // Bug fix plutonium 
-            senderElement.style.display = 'block';    
+            // Update size text name by settings
+            const senderElement: HTMLElement = html.find('.message-sender')[0];
+            // Bug fix plutonium
+            senderElement.style.display = 'block';
             if(ChatPortrait.settings.textSizeName > 0){
                 const size: number = ChatPortrait.settings.textSizeName;
-                senderElement.style.fontSize = size + 'px';                
+                senderElement.style.fontSize = size + 'px';
                 if(!ChatPortrait.shouldOverrideMessage(messageData)){
                     senderElement.innerText = 'Unknown Actor';
-                }           
+                }
             }else if(!ChatPortrait.shouldOverrideMessage(messageData)){
                 const senderElement: HTMLElement = html.find('.message-sender')[0];
                 senderElement.innerText = 'Unknown Actor';
@@ -105,7 +105,7 @@ export class ChatPortrait {
                     const elementItemContent:HTMLElement = <HTMLElement>elementItemContentList[i];
                     elementItemContent.innerText = 'Unknown Weapon';
                 }
-                
+
             }
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
@@ -138,7 +138,7 @@ export class ChatPortrait {
         }
         if(this.settings.useAvatarImage){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
-            if(imgAvatar){
+            if(imgAvatar && !imgAvatar.includes("mystery-man")){
                 return imgAvatar;
             }
         }
@@ -416,7 +416,7 @@ export class ChatPortrait {
             if (user) {
                 const isSelf = user.data._id === game.user.data._id;
                 const isGM = user.isGM;
-    
+
                 if ((setting === "allCards")
                     || (setting === "self" && isSelf)
                     || (setting === "selfAndGM" && (isSelf || isGM))
@@ -429,7 +429,7 @@ export class ChatPortrait {
         }
         return false;
     }
-    
+
     static getUserColor = function(message){
         if (ChatPortrait.shouldOverrideMessage(message)) {
             //const user = game.users.get(message.user);
@@ -457,5 +457,5 @@ export class ChatPortrait {
         }
         return null;
     }
-    
+
 }

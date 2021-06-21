@@ -2,7 +2,7 @@
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
-  object-fit: contain;
+  object-fit: cover;
 }
 .chat-message,
 .chat-message.emote,
@@ -17,12 +17,12 @@
 .tokenChatLink {
   text-decoration: underline;
   cursor: pointer;
-} 
+}
 
 .tokenChatLink-tooltip {
   display: block;
   padding: 2px 4px;
-  position: absolute; 
+  position: absolute;
   background: #222;
   border: 1px solid #191813;
   border-radius: 3px;
