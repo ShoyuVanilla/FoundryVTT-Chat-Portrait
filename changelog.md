@@ -1,3 +1,13 @@
+## 0.2.12
+
+- Bug fix [Bug: Portraits disappear from chatlog when refreshed](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/35)
+- Bug fix [Feature suggestion : OOC portrait as player avatar](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/32)
+- Start base code for multisystem
+
+## 0.2.11
+
+- Minor update
+
 ## 0.2.10 
 
 - Added [Add an object-fit: cover option in the window configuration](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/21), replace the object-fit:contains in object-fit:cover

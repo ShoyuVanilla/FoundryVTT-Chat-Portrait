@@ -32,13 +32,21 @@ export class ChatPortrait {
         elementItemNameList = html.find('.item-card h3'); // work with more system ?
         elementItemContentList = html.find('.item-card .card-content');
       }
-      else if (game.system.id === 'D35E') {
-        // TODO
+      else if(game.system.id === 'shadowrun5e'){
+        senderElement = html.find('.message-sender')[0];
+        // Bug fix plutonium
+        senderElement.style.display = 'block';
+        elementItemImageList = html.find('.message-content img');
+        elementItemNameList = html.find('.message-content h3'); // work with more system ?
+        elementItemContentList = html.find('.message-content .card-main-content');
+      }
+    //   else if (game.system.id === 'D35E') {
+    //     // TODO
 
-      }
-      else if (game.system.id === 'pf2e') {
-        // TODO
-      }
+    //   }
+    //   else if (game.system.id === 'pf2e') {
+    //     // TODO
+    //   }
       else {
         warn(`System ${game.system.id} have not been implemented and therefore might not work properly.`);
         // BY DEFAULT DND5e Style

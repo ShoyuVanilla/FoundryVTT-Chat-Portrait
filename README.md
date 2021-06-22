@@ -22,8 +22,8 @@ To install this module manually:
 
 ## TODO
 
-- Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use: Dnd5e, but anyone can point out what system has problem. i have preparaed 
-a base code for support multysistem, but i will not actively developing on the short term
+- Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use: Dnd5e, but anyone can point out what system has problem. i have prepared  a base code for support multysistem, but i will not actively developing on the short term. 
+
 - Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
 
 ## Features/Settings
