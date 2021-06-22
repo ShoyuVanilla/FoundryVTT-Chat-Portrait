@@ -154,9 +154,9 @@ export class ChatPortrait {
 
       if (speaker) {
         if (!speaker.token && !speaker.actor){
-          if(message.user && this.settings.useAvatarImage){
+          if(message.user && this.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
-            if(imgAvatar){
+            if(imgAvatar && !imgAvatar.includes("mystery-man")){
                 return imgAvatar;
             }else{
                 return "icons/svg/mystery-man.svg";
@@ -176,8 +176,8 @@ export class ChatPortrait {
         if (!actor && forceNameSearch) {
             actor = game.actors.find((a: Actor) => a.name === speaker.alias);
         }
-        // Make sense only for player
-        if(actor?.data?.type == "character" && this.settings.useAvatarImage){
+        // Make sense only for player and for non GM
+        if(actor?.data?.type == "character" && this.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
             if(imgAvatar && !imgAvatar.includes("mystery-man")){
                 return imgAvatar;
@@ -432,6 +432,21 @@ export class ChatPortrait {
     //     }
     //   }
     // }
+
+    static isSpeakerGM = function(message){
+      if(message.user){
+        let user = game.users.get(message.user);
+        if(!user){
+            user = game.users.get(message.user.id);
+        }
+        if (user) {
+          return user.isGM;
+        }else{
+          return false;
+        }
+      }
+      return false;
+    }
 
     static shouldOverrideMessage = function(message) {
         const setting = game.settings.get(MODULE_NAME, "displaySetting");
