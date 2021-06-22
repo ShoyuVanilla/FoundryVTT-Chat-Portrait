@@ -1,3 +1,4 @@
+import { warn } from "../main";
 import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
@@ -16,15 +17,28 @@ export class ChatPortrait {
      * @param  {MessageRenderData} messageData
      */
     static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo): void {
-        const messageData:MessageRenderData = speakerInfo;
+      if (game.system.id === 'dnd5e') {
+        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
+      }
+      else if (game.system.id === 'D35E') {
+        // TODO
+      }
+      else if (game.system.id === 'pf2e') {
+        // TODO
+      }
+      else {
+        warn(`System ${game.system.id} have not been implemented and therefore might not work properly.`);
+        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
+      }
+    }
 
-        // const speaker: {
-        //     scene?: string;
-        //     actor?: string;
-        //     token?: string;
-        //     alias?: string;
-        // } = messageData.message.speaker;
-        // const imgPath: string = ChatPortrait.loadActorImagePathForChatMessage(speaker);
+    /**
+     * @param  {ChatMessage} chatMessage
+     * @param  {JQuery} html
+     * @param  {MessageRenderData} messageData
+     */
+    static onRenderChatMessageDnd5e(chatMessage: ChatMessage, html:JQuery, speakerInfo): void {
+        const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
 
@@ -33,8 +47,7 @@ export class ChatPortrait {
         }else{
             imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);
         }
-        //if (imgPath) {
-            //@ts-ignore
+        //@ts-ignore
         const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath)
         .then((imgElement)=>{
 
@@ -100,12 +113,12 @@ export class ChatPortrait {
 
             const elementItemContentList = html.find('.item-card .card-content');
             if(!ChatPortrait.shouldOverrideMessage(messageData)){
-                
+
                 for(let i = 0; i < elementItemNameList.length; i++){
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
                     elementItemName.innerText = 'Unknown Weapon';
                 }
-               
+
                 for(let i = 0; i < elementItemContentList.length; i++){
                     const elementItemContent:HTMLElement = <HTMLElement>elementItemContentList[i];
                     elementItemContent.innerText = 'Unknown Weapon';
@@ -126,7 +139,6 @@ export class ChatPortrait {
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
         });
-        //}
     }
 
     /**
@@ -152,7 +164,7 @@ export class ChatPortrait {
           }
         }
         const useTokenImage: boolean = this.settings.useTokenImage;
-        
+
         let actor: Actor = game.actors.tokens[speaker.token];
         if (!actor) {
             //actor = game.actors.get(speaker.actor); // Deprecated on 0.8.6
@@ -183,7 +195,7 @@ export class ChatPortrait {
                     return tokenData.actorData.img;
                 }
             }
-        }      
+        }
         return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
       }
       return "icons/svg/mystery-man.svg";

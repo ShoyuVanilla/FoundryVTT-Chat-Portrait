@@ -5,29 +5,33 @@ import { MODULE_NAME } from "./settings";
  */
 export const ImageReplacer: Record<string, string>  = {
 
-    "Strength": `/modules/${MODULE_NAME}/assets/strength.svg`, // 
-    "Dexterity": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // 
-    "Constitution": `/modules/${MODULE_NAME}/assets/constitution.svg`, // 
-    "Intelligence": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // 
-    "Wisdom": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // 
-    "Charisma": `/modules/${MODULE_NAME}/assets/charisma.svg`, // 
-    "Initiative": `/modules/${MODULE_NAME}/assets/initiative.svg`, // 
+    // =======================================================================
+    // dnd5e
+    // =======================================================================
 
-    "Strength Check": `/modules/${MODULE_NAME}/assets/strength.svg`, // 
-    "Dexterity Check": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // 
-    "Constitution Check": `/modules/${MODULE_NAME}/assets/constitution.svg`, // 
-    "Intelligence Check": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // 
-    "Wisdom Check": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // 
-    "Charisma Check": `/modules/${MODULE_NAME}/assets/charisma.svg`, // 
-    "Initiative Check": `/modules/${MODULE_NAME}/assets/initiative.svg`, // 
+    "Strength": `/modules/${MODULE_NAME}/assets/strength.svg`, //
+    "Dexterity": `/modules/${MODULE_NAME}/assets/dexterity.svg`, //
+    "Constitution": `/modules/${MODULE_NAME}/assets/constitution.svg`, //
+    "Intelligence": `/modules/${MODULE_NAME}/assets/intelligence.svg`, //
+    "Wisdom": `/modules/${MODULE_NAME}/assets/wisdom.svg`, //
+    "Charisma": `/modules/${MODULE_NAME}/assets/charisma.svg`, //
+    "Initiative": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
 
-    "Strength Save": `/modules/${MODULE_NAME}/assets/strength.svg`, // 
-    "Dexterity Save": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // 
-    "Constitution Save": `/modules/${MODULE_NAME}/assets/constitution.svg`, // 
-    "Intelligence Save": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // 
-    "Wisdom Save": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // 
-    "Charisma Save": `/modules/${MODULE_NAME}/assets/charisma.svg`, // 
-    "Initiative Save": `/modules/${MODULE_NAME}/assets/initiative.svg`, // 
+    "Strength Check": `/modules/${MODULE_NAME}/assets/strength.svg`, //
+    "Dexterity Check": `/modules/${MODULE_NAME}/assets/dexterity.svg`, //
+    "Constitution Check": `/modules/${MODULE_NAME}/assets/constitution.svg`, //
+    "Intelligence Check": `/modules/${MODULE_NAME}/assets/intelligence.svg`, //
+    "Wisdom Check": `/modules/${MODULE_NAME}/assets/wisdom.svg`, //
+    "Charisma Check": `/modules/${MODULE_NAME}/assets/charisma.svg`, //
+    "Initiative Check": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
+
+    "Strength Save": `/modules/${MODULE_NAME}/assets/strength.svg`, //
+    "Dexterity Save": `/modules/${MODULE_NAME}/assets/dexterity.svg`, //
+    "Constitution Save": `/modules/${MODULE_NAME}/assets/constitution.svg`, //
+    "Intelligence Save": `/modules/${MODULE_NAME}/assets/intelligence.svg`, //
+    "Wisdom Save": `/modules/${MODULE_NAME}/assets/wisdom.svg`, //
+    "Charisma Save": `/modules/${MODULE_NAME}/assets/charisma.svg`, //
+    "Initiative Save": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
 
     "Acrobatics": `/modules/${MODULE_NAME}/assets/acrobatics.svg`, // https://game-icons.net/1x1/delapouite/contortionist.html
     "Animal Handling": `/modules/${MODULE_NAME}/assets/animal_handling.svg`, // https://game-icons.net/1x1/delapouite/cavalry.html
@@ -48,8 +52,6 @@ export const ImageReplacer: Record<string, string>  = {
     "Stealth": `/modules/${MODULE_NAME}/assets/stealth.svg`, // https://game-icons.net/1x1/lorc/cloak-dagger.html
     "Survival": `/modules/${MODULE_NAME}/assets/survival.svg`, // https://game-icons.net/1x1/delapouite/deer-track.html
 
-    // Additionally icons for the tools one could get would be awesome.
-   
     "Artisan's Tools": `/modules/${MODULE_NAME}/assets/artisan_s_tools.svg`, // https://game-icons.net/1x1/lorc/hammer-nails.html
     "Disguise Kit": `/modules/${MODULE_NAME}/assets/disguise_kit.svg`, // https://game-icons.net/1x1/lorc/duality-mask.html
     "Forgery Kit": `/modules/${MODULE_NAME}/assets/forgery_kit`, // https://game-icons.net/1x1/lorc/quill-ink.html
