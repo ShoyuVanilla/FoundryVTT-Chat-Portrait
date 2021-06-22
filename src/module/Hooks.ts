@@ -6,6 +6,10 @@ import { MODULE_NAME } from "./settings";
 
 export let readyHooks = async () => {
 
+}
+
+export const setupHooks = async () => {
+
   // setup all the hooks
 
   /**
@@ -19,7 +23,7 @@ export let readyHooks = async () => {
 
 }
 
-export let initHooks = () => {
+export const initHooks = () => {
   warn("Init Hooks processing");
 
 }

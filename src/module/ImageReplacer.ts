@@ -9,28 +9,28 @@ export const ImageReplacer: Record<string, string>  = {
     // dnd5e
     // =======================================================================
 
-    "Strength": `/modules/${MODULE_NAME}/assets/strength.svg`, //
-    "Dexterity": `/modules/${MODULE_NAME}/assets/dexterity.svg`, //
-    "Constitution": `/modules/${MODULE_NAME}/assets/constitution.svg`, //
-    "Intelligence": `/modules/${MODULE_NAME}/assets/intelligence.svg`, //
-    "Wisdom": `/modules/${MODULE_NAME}/assets/wisdom.svg`, //
-    "Charisma": `/modules/${MODULE_NAME}/assets/charisma.svg`, //
+    "Strength": `/modules/${MODULE_NAME}/assets/strength.svg`, // https://game-icons.net/1x1/delapouite/bear-head.html
+    "Dexterity": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // https://game-icons.net/1x1/delapouite/feline.html
+    "Constitution": `/modules/${MODULE_NAME}/assets/constitution.svg`, // https://game-icons.net/1x1/delapouite/weight-lifting-up.html
+    "Intelligence": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // https://game-icons.net/1x1/lorc/fox-head.html
+    "Wisdom": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // https://game-icons.net/1x1/lorc/owl.html
+    "Charisma": `/modules/${MODULE_NAME}/assets/charisma.svg`, // https://game-icons.net/1x1/delapouite/eagle-head.html
     "Initiative": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
 
-    "Strength Check": `/modules/${MODULE_NAME}/assets/strength.svg`, //
-    "Dexterity Check": `/modules/${MODULE_NAME}/assets/dexterity.svg`, //
-    "Constitution Check": `/modules/${MODULE_NAME}/assets/constitution.svg`, //
-    "Intelligence Check": `/modules/${MODULE_NAME}/assets/intelligence.svg`, //
-    "Wisdom Check": `/modules/${MODULE_NAME}/assets/wisdom.svg`, //
-    "Charisma Check": `/modules/${MODULE_NAME}/assets/charisma.svg`, //
+    "Strength Check": `/modules/${MODULE_NAME}/assets/strength.svg`, // https://game-icons.net/1x1/delapouite/bear-head.html
+    "Dexterity Check": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // https://game-icons.net/1x1/delapouite/feline.html
+    "Constitution Check": `/modules/${MODULE_NAME}/assets/constitution.svg`, // https://game-icons.net/1x1/delapouite/weight-lifting-up.html
+    "Intelligence Check": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // https://game-icons.net/1x1/lorc/fox-head.html
+    "Wisdom Check": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // https://game-icons.net/1x1/lorc/owl.html
+    "Charisma Check": `/modules/${MODULE_NAME}/assets/charisma.svg`, // https://game-icons.net/1x1/delapouite/eagle-head.html
     "Initiative Check": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
 
-    "Strength Save": `/modules/${MODULE_NAME}/assets/strength.svg`, //
-    "Dexterity Save": `/modules/${MODULE_NAME}/assets/dexterity.svg`, //
-    "Constitution Save": `/modules/${MODULE_NAME}/assets/constitution.svg`, //
-    "Intelligence Save": `/modules/${MODULE_NAME}/assets/intelligence.svg`, //
-    "Wisdom Save": `/modules/${MODULE_NAME}/assets/wisdom.svg`, //
-    "Charisma Save": `/modules/${MODULE_NAME}/assets/charisma.svg`, //
+    "Strength Save": `/modules/${MODULE_NAME}/assets/strength.svg`, // https://game-icons.net/1x1/delapouite/bear-head.html
+    "Dexterity Save": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // https://game-icons.net/1x1/delapouite/feline.html
+    "Constitution Save": `/modules/${MODULE_NAME}/assets/constitution.svg`, // https://game-icons.net/1x1/delapouite/weight-lifting-up.html
+    "Intelligence Save": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // https://game-icons.net/1x1/lorc/fox-head.html
+    "Wisdom Save": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // https://game-icons.net/1x1/lorc/owl.html
+    "Charisma Save": `/modules/${MODULE_NAME}/assets/charisma.svg`, // https://game-icons.net/1x1/delapouite/eagle-head.html
     "Initiative Save": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
 
     "Acrobatics": `/modules/${MODULE_NAME}/assets/acrobatics.svg`, // https://game-icons.net/1x1/delapouite/contortionist.html
@@ -60,6 +60,6 @@ export const ImageReplacer: Record<string, string>  = {
     "Musical Instrument": `/modules/${MODULE_NAME}/assets/musical_instrument.svg`, // https://game-icons.net/1x1/zajkonur/violin.html
     "Navigator's tools": `/modules/${MODULE_NAME}/assets/navigator_s_tools.svg`, // https://game-icons.net/1x1/delapouite/sextant.html
     "Poisoner's Kit": `/modules/${MODULE_NAME}/assets/poisoner_s_kit.svg`, // https://game-icons.net/1x1/lorc/poison-bottle.html
-    "Thieve's Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
+    "Thieves Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
 
 }

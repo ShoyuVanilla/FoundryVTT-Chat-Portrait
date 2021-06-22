@@ -22,9 +22,11 @@ export class ChatPortrait {
       }
       else if (game.system.id === 'D35E') {
         // TODO
+        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
       }
       else if (game.system.id === 'pf2e') {
         // TODO
+        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
       }
       else {
         warn(`System ${game.system.id} have not been implemented and therefore might not work properly.`);
@@ -56,6 +58,13 @@ export class ChatPortrait {
             // Place the image to left of the header by injecting the HTML
             const element: HTMLElement = html.find('.message-header')[0];
             element.prepend(imgElement);
+            const senderElement: HTMLElement = html.find('.message-sender')[0];
+            // Bug fix plutonium
+            senderElement.style.display = 'block';
+            const elementItemList = html.find('.item-card img');
+            //const elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
+            const elementItemNameList = html.find('.item-card h3'); // work with more system ?
+            const elementItemContentList = html.find('.item-card .card-content');
 
             if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
                 if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
@@ -72,9 +81,6 @@ export class ChatPortrait {
             }
 
             // Update size text name by settings
-            const senderElement: HTMLElement = html.find('.message-sender')[0];
-            // Bug fix plutonium
-            senderElement.style.display = 'block';
             if(ChatPortrait.settings.textSizeName > 0){
                 const size: number = ChatPortrait.settings.textSizeName;
                 senderElement.style.fontSize = size + 'px';
@@ -90,7 +96,6 @@ export class ChatPortrait {
             ChatLink.prepareEventImage(chatMessage, html, speakerInfo);
 
             // Update size item image by settings
-            const elementItemList = html.find('.item-card img');
             if(elementItemList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36){
                 for(let i = 0; i < elementItemList.length; i++){
                     const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemList[i];
@@ -107,11 +112,8 @@ export class ChatPortrait {
                     elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                 }
             }
+
             // Update hide info about the weapon
-
-            const elementItemNameList = html.find('.item-card .item-name');
-
-            const elementItemContentList = html.find('.item-card .card-content');
             if(!ChatPortrait.shouldOverrideMessage(messageData)){
 
                 for(let i = 0; i < elementItemNameList.length; i++){
