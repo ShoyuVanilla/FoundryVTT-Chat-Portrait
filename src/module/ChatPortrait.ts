@@ -17,21 +17,40 @@ export class ChatPortrait {
      * @param  {MessageRenderData} messageData
      */
     static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo): void {
+      let senderElement: HTMLElement;
+      let elementItemImageList;
+      let elementItemNameList;
+      let elementItemContentList;
+
+      // GET Image, Text, Content of the item card by system used
       if (game.system.id === 'dnd5e') {
-        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
+        senderElement = html.find('.message-sender')[0];
+        // Bug fix plutonium
+        senderElement.style.display = 'block';
+        elementItemImageList = html.find('.item-card img');
+        //elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
+        elementItemNameList = html.find('.item-card h3'); // work with more system ?
+        elementItemContentList = html.find('.item-card .card-content');
       }
       else if (game.system.id === 'D35E') {
         // TODO
-        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
+
       }
       else if (game.system.id === 'pf2e') {
         // TODO
-        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
       }
       else {
         warn(`System ${game.system.id} have not been implemented and therefore might not work properly.`);
-        ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo);
+        // BY DEFAULT DND5e Style
+        senderElement = html.find('.message-sender')[0];
+        // Bug fix plutonium
+        senderElement.style.display = 'block';
+        elementItemImageList = html.find('.item-card img');
+        //elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
+        elementItemNameList = html.find('.item-card h3'); // work with more system ?
+        elementItemContentList = html.find('.item-card .card-content');
       }
+      ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList);
     }
 
     /**
@@ -39,7 +58,7 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessageDnd5e(chatMessage: ChatMessage, html:JQuery, speakerInfo): void {
+    static onRenderChatMessageDnd5e(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList): void {
         const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
@@ -54,18 +73,18 @@ export class ChatPortrait {
         .then((imgElement)=>{
 
             ChatPortrait.setImageBorder(imgElement, authorColor);
-
             // Place the image to left of the header by injecting the HTML
             const element: HTMLElement = html.find('.message-header')[0];
             element.prepend(imgElement);
+            /*
             const senderElement: HTMLElement = html.find('.message-sender')[0];
             // Bug fix plutonium
             senderElement.style.display = 'block';
-            const elementItemList = html.find('.item-card img');
+            const elementItemImageList = html.find('.item-card img');
             //const elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
             const elementItemNameList = html.find('.item-card h3'); // work with more system ?
             const elementItemContentList = html.find('.item-card .card-content');
-
+            */
             if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
                 if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
                     const flavorElement: JQuery = html.find('.flavor-text');
@@ -88,17 +107,16 @@ export class ChatPortrait {
                     senderElement.innerText = 'Unknown Actor';
                 }
             }else if(!ChatPortrait.shouldOverrideMessage(messageData)){
-                const senderElement: HTMLElement = html.find('.message-sender')[0];
                 senderElement.innerText = 'Unknown Actor';
             }
 
-            // Add click listener to image
+            // Add click listener to image and text
             ChatLink.prepareEventImage(chatMessage, html, speakerInfo);
 
             // Update size item image by settings
-            if(elementItemList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36){
-                for(let i = 0; i < elementItemList.length; i++){
-                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemList[i];
+            if(elementItemImageList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36 && ChatPortrait.settings.portraitSizeItem > 0){
+                for(let i = 0; i < elementItemImageList.length; i++){
+                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
                     const size: number = ChatPortrait.settings.portraitSizeItem;
                     elementItemImage.width = size;
                     elementItemImage.height = size;
@@ -107,8 +125,8 @@ export class ChatPortrait {
                     }
                 }
             }else if(!ChatPortrait.shouldOverrideMessage(messageData)){
-                for(let i = 0; i < elementItemList.length; i++){
-                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemList[i];
+                for(let i = 0; i < elementItemImageList.length; i++){
+                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
                     elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                 }
             }
@@ -132,7 +150,7 @@ export class ChatPortrait {
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
                     const value: string = ImageReplacer[elementItemName.innerText];
                     if(value){
-                        const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemList[i];
+                        const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
                         elementItemImage.src = value;
                     }
                 }
