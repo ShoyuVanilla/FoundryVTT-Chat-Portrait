@@ -22,8 +22,6 @@ To install this module manually:
 
 ## TODO
 
-- FoundryVTT itself already shows the character's portrait when a skill is used (or something similar that got no icon/symbol of its own), so we get the same portrait twice (above each other). As long as an item or special trait with it's own icon is used the mod is neat, showing the portrait above the item's/trait's symbol.
-
 - Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
 
 ## Features/Settings
