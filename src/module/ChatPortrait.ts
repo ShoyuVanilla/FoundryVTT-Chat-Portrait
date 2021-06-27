@@ -2,7 +2,7 @@ import { warn } from "../main";
 import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
-import { ImageReplacer } from "./ImageReplacer";
+import { ImageReplacerImpl } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { getCanvas, MODULE_NAME } from "./settings";
 
@@ -16,21 +16,26 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo): void {
+    static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo, imageReplacer): void {
+      if (ChatPortrait.isWhisperToOther(speakerInfo)) {
+        // Don't update whispers that the current player isn't privy to
+        return;
+      }
       let senderElement: HTMLElement;
       let elementItemImageList;
       let elementItemNameList;
       let elementItemContentList;
-
+      let elementItemTextList;
       // GET Image, Text, Content of the item card by system used
       if (game.system.id === 'dnd5e') {
         senderElement = html.find('.message-sender')[0];
         // Bug fix plutonium
         senderElement.style.display = 'block';
         elementItemImageList = html.find('.item-card img');
-        //elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
-        elementItemNameList = html.find('.item-card h3'); // work with more system ?
+        elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
+        //elementItemNameList = html.find('.item-card h3'); // work with more system ?
         elementItemContentList = html.find('.item-card .card-content');
+        elementItemTextList = html.find('.message-header .flavor-text');
       }
       else if(game.system.id === 'shadowrun5e'){
         senderElement = html.find('.message-sender')[0];
@@ -39,6 +44,7 @@ export class ChatPortrait {
         elementItemImageList = html.find('.message-content img');
         elementItemNameList = html.find('.message-content h3'); // work with more system ?
         elementItemContentList = html.find('.message-content .card-main-content');
+        elementItemTextList = html.find('.message-header .flavor-text');
       }
     //   else if (game.system.id === 'D35E') {
     //     // TODO
@@ -54,11 +60,12 @@ export class ChatPortrait {
         // Bug fix plutonium
         senderElement.style.display = 'block';
         elementItemImageList = html.find('.item-card img');
-        //elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
-        elementItemNameList = html.find('.item-card h3'); // work with more system ?
+        elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
+        //elementItemNameList = html.find('.item-card h3'); // work with more system ?
         elementItemContentList = html.find('.item-card .card-content');
+        elementItemTextList = html.find('message-header flavor-text');
       }
-      ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList);
+      ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
     }
 
     /**
@@ -66,7 +73,7 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessageDnd5e(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList): void {
+    static onRenderChatMessageDnd5e(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
         const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
@@ -154,13 +161,49 @@ export class ChatPortrait {
 
             }else{
                 // Check for Ability/Skills/Tools/Saving Throw for avoid the double portrait
-                for(let i = 0; i < elementItemNameList.length; i++){
-                    const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
-                    const value: string = ImageReplacer[elementItemName.innerText];
-                    if(value){
-                        const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                        elementItemImage.src = value;
+                if(elementItemNameList.length > 0){
+                    for(let i = 0; i < elementItemNameList.length; i++){
+                        const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
+                        elementItemName.style.display = 'flex';
+                        if(elementItemName){
+                            const value: string = ImageReplacerImpl[elementItemName.innerText];
+                            if(value){
+                                if(elementItemImageList.length > 0){
+                                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                                    elementItemImage.src = value;
+                                    elementItemName.prepend(elementItemImage);
+                                }else{
+                                    const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                    const size: number = ChatPortrait.settings.portraitSizeItem;
+                                    elementItemImage.width = size;
+                                    elementItemImage.height = size;
+                                    elementItemImage.src = value;
+                                    elementItemName.prepend(elementItemImage);
+                                }
+                            }
+                        }
                     }
+                }else{
+                    for(let i = 0; i <  elementItemTextList.length; i++){
+                        const elementItemText:HTMLElement = <HTMLElement>elementItemTextList[i];
+                        elementItemText.style.display = 'flex';
+                        const value: string = ImageReplacerImpl[elementItemText.innerText];
+                        if(value){
+                            if(elementItemImageList.length > 0){
+                                const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                                elementItemImage.src = value;
+                                elementItemText.prepend(elementItemImage);
+                            }else{
+                                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                const size: number = ChatPortrait.settings.portraitSizeItem;
+                                elementItemImage.width = size;
+                                elementItemImage.height = size;
+                                elementItemImage.src = value;
+                                elementItemText.prepend(elementItemImage);
+                            }
+                        }
+                    }
+                   
                 }
             }
 
@@ -191,6 +234,7 @@ export class ChatPortrait {
             return "icons/svg/mystery-man.svg";
           }
         }
+        // It's a chat message associated with an actor
         const useTokenImage: boolean = this.settings.useTokenImage;
 
         let actor: Actor = game.actors.tokens[speaker.token];
@@ -525,6 +569,11 @@ export class ChatPortrait {
             }
         }
         return null;
+    }
+
+    static isWhisperToOther = function(speakerInfo) {
+        const whisper = speakerInfo.message.whisper;
+        return whisper && whisper.length > 0 && whisper.indexOf(game.userId) === -1;
     }
 
 }

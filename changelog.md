@@ -1,3 +1,10 @@
+## 0.2.13
+
+- Some bug fix to the ImageReplace and add support for multi language
+- Add ko language transaltion [https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/36](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/36) ty to jbblily
+- Some minor bug fix
+- Whisper message are ignored from the moduel for avoid other people to read the content
+
 ## 0.2.12
 
 - Bug fix [Bug: Portraits disappear from chatlog when refreshed](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/35)
