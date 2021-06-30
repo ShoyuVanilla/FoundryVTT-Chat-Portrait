@@ -23,7 +23,7 @@
   "chat-portrait.user-color-as-chat-background-color-l": "액터의 플레이어 색상을 메시지의 전체 배경색으로 설정합니다.",
   "chat-portrait.flavor-next-to-portrait": "채팅 플레이버 텍스트를 초상화 옆에 표시",
   "chat-portrait.force-name-search-s": "강제 이름 검색",
-  "chat-portrait.force-name-search-l": "채팅 메시지 데이터와 일치하는 액터가 없으면 메시지 speaker의 alias와 이름이 일치하는 액터를 강제로 찾아 매칭합니다. Theatre Insert 모듈과의 호환성을 위해 필요합니다."
+  "chat-portrait.force-name-search-l": "채팅 메시지 데이터와 일치하는 액터가 없으면 메시지 speaker의 alias와 이름이 일치하는 액터를 강제로 찾아 매칭합니다. Theatre Insert 모듈과의 호환성을 위해 필요합니다.",
   "chat-portrait.portrait-size-item-s": "아이템 초상화 크기 (px)",
   "chat-portrait.portrait-size-item-l": "채팅 메시지의 아이템 초상화 크기를 설정합니다. (기본값 36px)",
   "chat-portrait.noTokenFound": "토큰이 없습니다.",
