@@ -1,3 +1,10 @@
+
+## 0.2.14
+
+- Add ko language transaltion [https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/37](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/37) ty to jbblily
+- Bug fix [Portrait Border Shape always resets to "square" when opening the settings](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/39)
+- Bug fix [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40)
+
 ## 0.2.13
 
 - Some bug fix to the ImageReplace and add support for multi language

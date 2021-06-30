@@ -540,7 +540,7 @@ export class ChatPortrait {
                 }
             }
         }
-        return false;
+        return true;
     }
 
     static getUserColor = function(message){

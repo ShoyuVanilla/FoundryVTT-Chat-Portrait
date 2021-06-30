@@ -162,7 +162,7 @@ export class ChatPortraitForm extends FormApplication {
     getSelectList(myselectslist, selected) {
         let options = [];
         Object.keys(myselectslist).forEach((x, i) => {
-            options.push({ value: x, selected: i == selected });
+            options.push({ value: x, selected: x == selected });
         });
         return options;
     }
