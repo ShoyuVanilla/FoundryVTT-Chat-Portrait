@@ -1,4 +1,8 @@
 
+## 0.2.15 [Breaking changes]
+
+- Bug fix [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40)
+
 ## 0.2.14
 
 - Add ko language transaltion [https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/37](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/37) ty to jbblily

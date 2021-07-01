@@ -69,7 +69,7 @@ export class ChatPortrait {
         elementItemContentList = html.find('.item-card .card-content');
         elementItemTextList = html.find('message-header flavor-text');
       }
-      ChatPortrait.onRenderChatMessageDnd5e(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
+      ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
     }
 
     /**
@@ -77,12 +77,12 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessageDnd5e(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
+    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
         const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
 
-        if(!ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+        if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
             imgPath = "icons/svg/mystery-man.svg";
         }else{
             imgPath = ChatPortrait.loadActorImagePathForChatMessage(speakerInfo.message);
@@ -122,10 +122,10 @@ export class ChatPortrait {
             if(ChatPortrait.settings.textSizeName > 0){
                 const size: number = ChatPortrait.settings.textSizeName;
                 senderElement.style.fontSize = size + 'px';
-                if(!ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+                if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                     senderElement.innerText = 'Unknown Actor';
                 }
-            }else if(!ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+            }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                 senderElement.innerText = 'Unknown Actor';
             }
 
@@ -139,11 +139,11 @@ export class ChatPortrait {
                     const size: number = ChatPortrait.settings.portraitSizeItem;
                     elementItemImage.width = size;
                     elementItemImage.height = size;
-                    if(!ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+                    if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                         elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                     }
                 }
-            }else if(!ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+            }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                 for(let i = 0; i < elementItemImageList.length; i++){
                     const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
                     elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
@@ -151,7 +151,7 @@ export class ChatPortrait {
             }
 
             // Update hide info about the weapon
-            if(!ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+            if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
 
                 for(let i = 0; i < elementItemNameList.length; i++){
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
@@ -163,7 +163,7 @@ export class ChatPortrait {
                     elementItemContent.innerText = 'Unknown Weapon';
                 }
 
-            }else{
+            }
                 // Check for Ability/Skills/Tools/Saving Throw for avoid the double portrait
                 if(elementItemNameList.length > 0){
                     for(let i = 0; i < elementItemNameList.length; i++){
@@ -209,7 +209,7 @@ export class ChatPortrait {
                     }
 
                 }
-            }
+            
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
@@ -240,16 +240,8 @@ export class ChatPortrait {
         }
         // It's a chat message associated with an actor
         const useTokenImage: boolean = this.settings.useTokenImage;
-
-        let actor: Actor = game.actors.tokens[speaker.token];
-        if (!actor) {
-            //actor = game.actors.get(speaker.actor); // Deprecated on 0.8.6
-            actor = Actors.instance.get(speaker.actor);
-        }
-        const forceNameSearch = this.settings.forceNameSearch;
-        if (!actor && forceNameSearch) {
-            actor = game.actors.find((a: Actor) => a.name === speaker.alias);
-        }
+        const actor:Actor = ChatPortrait.getActor(speaker);
+        
         // Make sense only for player and for non GM
         if(actor?.data?.type == "character" && this.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
@@ -509,6 +501,19 @@ export class ChatPortrait {
     //   }
     // }
 
+    static getActor(speaker):Actor{
+        let actor: Actor = game.actors.tokens[speaker.token];
+        if (!actor) {
+            //actor = game.actors.get(speaker.actor); // Deprecated on 0.8.6
+            actor = Actors.instance.get(speaker.actor);
+        }
+        const forceNameSearch = this.settings.forceNameSearch;
+        if (!actor && forceNameSearch) {
+            actor = game.actors.find((a: Actor) => a.name === speaker.alias);
+        }
+        return actor;
+    }
+
     static isSpeakerGM = function(message){
       if(message.user){
         let user = game.users.get(message.user);
@@ -525,6 +530,8 @@ export class ChatPortrait {
     }
 
     static shouldOverrideMessageUnknown = function(message) {
+        const speaker = message.message.speaker;
+        const actor = ChatPortrait.getActor(speaker);    
         const setting = game.settings.get(MODULE_NAME, "displayUnknown");
         if (setting !== "none") {
             //const user = game.users.get(message.user);
@@ -541,12 +548,13 @@ export class ChatPortrait {
                     || (setting === "selfAndGM" && (isSelf || isGM))
                     || (setting === "gm" && isGM)
                     || (setting === "player" && !isGM)
+                    || (setting === "onlyNpc" && actor?.data?.type == "npc" && !isGM)
                 ) {
                     return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     static shouldOverrideMessageStyling = function(message) {
@@ -571,7 +579,7 @@ export class ChatPortrait {
               }
           }
       }
-      return true;
+      return false;
   }
 
     static getUserColor = function(message){
