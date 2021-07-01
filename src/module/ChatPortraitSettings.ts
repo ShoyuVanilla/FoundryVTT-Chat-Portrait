@@ -14,4 +14,5 @@ export interface ChatPortraitSettings{
     textSizeName: number,
     displaySetting: string,
     useAvatarImage: boolean,
+    displayUnknown: string,
 }

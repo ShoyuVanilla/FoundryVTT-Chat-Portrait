@@ -40,7 +40,7 @@ export class ChatPortraitForm extends FormApplication {
             this.reset ? ChatPortrait.defaultSettings :mergeObject(ChatPortrait.defaultSettings, game.settings.get(MODULE_NAME, 'settings'))
         );
         */
-        
+
         let data;
         if(this.reset){
             data = {
@@ -60,6 +60,7 @@ export class ChatPortraitForm extends FormApplication {
                 textSizeName: 0,
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, 'allCards'),
                 useAvatarImage: false,
+                displayUnknownList: this.getSelectList(this.displayUnknownListOptions, 'none'),
             };
         }else{
             data = {
@@ -79,6 +80,7 @@ export class ChatPortraitForm extends FormApplication {
                 textSizeName: SettingsForm.getTextSizeName(),
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, SettingsForm.getDisplaySetting()),
                 useAvatarImage: SettingsForm.getUseAvatarImage(),
+                displayUnknownList: this.getSelectList(this.displayUnknownListOptions, SettingsForm.getDisplayUnknown()),
             };
         }
 
@@ -135,10 +137,10 @@ export class ChatPortraitForm extends FormApplication {
      * @param {Object} formData - the form data
      */
     async _updateObject(event: Event | JQuery.Event, formData: any): Promise<any> {
-        // let settings = mergeObject(ChatPortrait.settings, formData, 
-        //     { 
-        //         insertKeys: false, 
-        //         insertValues: false 
+        // let settings = mergeObject(ChatPortrait.settings, formData,
+        //     {
+        //         insertKeys: false,
+        //         insertValues: false
         //     });
         // await game.settings.set(MODULE_NAME, 'settings', settings);
 
@@ -157,6 +159,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setTextSizeName(formData.textSizeName);
         SettingsForm.setDisplaySetting(formData.displaySetting);
         SettingsForm.setUseAvatarImage(formData.useAvatarImage);
+        SettingsForm.setDisplayUnknown(formData.displayUnknown);
     }
 
     getSelectList(myselectslist, selected) {
@@ -179,7 +182,17 @@ export class ChatPortraitForm extends FormApplication {
         'self': i18n(MODULE_NAME+'.displaySetting.choice.self'),//"Only affect own messages.",
         'gm': i18n(MODULE_NAME+'.displaySetting.choice.gm'),//"Only affect GM messages.",
         'player': i18n(MODULE_NAME+'.displaySetting.choice.player'),//"Only affect player messages.",
-        'none': i18n(MODULE_NAME+'.displaySetting.choice.none'),//"Don't affect any messages.",        
+        'none': i18n(MODULE_NAME+'.displaySetting.choice.none'),//"Don't affect any messages.",
+    }
+
+    displayUnknownListOptions:Record<string, string>  = {
+      'allCards': i18n(MODULE_NAME+'.displayUnknown.choice.allCards'),//"Affect every message.",
+      'selfAndGM': i18n(MODULE_NAME+'.displayUnknown.choice.selfAndGM'),//"Affect own messages and GM messages.",
+      'self': i18n(MODULE_NAME+'.displayUnknown.choice.self'),//"Only affect own messages.",
+      'gm': i18n(MODULE_NAME+'.displayUnknown.choice.gm'),//"Only affect GM messages.",
+      'player': i18n(MODULE_NAME+'.displayUnknown.choice.player'),//"Only affect player messages.",
+      'none': i18n(MODULE_NAME+'.displayUnknown.choice.none'),//"Don't affect any messages.",
+      'onlyNpc': i18n(MODULE_NAME+'.displayUnknown.choice.onlyNpc'),//"Affect any messages done from a NPC (need a compatible system with the 'npc' type like D&D5)."
     }
 }
 
@@ -195,10 +208,10 @@ export class SettingsForm {
     //     return game.settings.get(MODULE_NAME, 'borderShapeList');
     // }
 
-    static getUseTokenImage() { 
+    static getUseTokenImage() {
         return <boolean>game.settings.get(MODULE_NAME, 'useTokenImage');
     }
-    static setUseTokenImage(value:boolean) { 
+    static setUseTokenImage(value:boolean) {
         game.settings.set(MODULE_NAME, 'useTokenImage',value);
     }
     static getPortraitSize() {
@@ -221,10 +234,10 @@ export class SettingsForm {
     }
     static getUseUserColorAsBorderColor() {
         return <boolean>game.settings.get(MODULE_NAME, 'useUserColorAsBorderColor');
-    } 
+    }
     static setUseUserColorAsBorderColor(value:boolean) {
         game.settings.set(MODULE_NAME, 'useUserColorAsBorderColor',value);
-    } 
+    }
     static getBorderColor() {
         return <string>game.settings.get(MODULE_NAME, 'borderColor');
     }
@@ -279,10 +292,16 @@ export class SettingsForm {
     static setDisplaySetting(value:string) {
         game.settings.set(MODULE_NAME, 'displaySetting',value);
     }
-    static getUseAvatarImage() { 
+    static getUseAvatarImage() {
         return <boolean>game.settings.get(MODULE_NAME, 'useAvatarImage');
     }
-    static setUseAvatarImage(value:boolean) { 
+    static setUseAvatarImage(value:boolean) {
         game.settings.set(MODULE_NAME, 'useAvatarImage',value);
+    }
+    static getDisplayUnknown() {
+      return <string>game.settings.get(MODULE_NAME, 'displayUnknown');
+    }
+    static setDisplayUnknown(value:string) {
+        game.settings.set(MODULE_NAME, 'displayUnknown',value);
     }
 }

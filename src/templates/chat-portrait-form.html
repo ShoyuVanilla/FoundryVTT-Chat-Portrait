@@ -109,13 +109,26 @@
             </select>
             <p class="notes">{{localize "chat-portrait.settings.displaySetting.hint"}}</p>
         </div>
-        
+
         <div class="form-group">
             <label>{{localize "chat-portrait.settings.useAvatarImage.name"}}</label>
             <input type="checkbox" name="useAvatarImage" data-dtype="Boolean" {{checked useAvatarImage}}/>
             <p class="notes">{{localize "chat-portrait.settings.useAvatarImage.hint"}}</p>
         </div>
-        
+
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.displayUnknown.name"}}</label>
+            <select name="displayUnknown" style="flex: 1;">
+                {{#select displayUnknownList}}
+                {{#each displayUnknownList}}
+                <!--<option value="{{@index}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>-->
+                <option value="{{this.value}}" {{#if this.selected}}selected="selected" {{/if}}>{{this.value}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="notes">{{localize "chat-portrait.settings.displayUnknown.hint"}}</p>
+        </div>
+
         <div class="form-group" style="margin: 10px;">
             <button type="submit" name="submit">
                 <i class="fas fa-save"></i> {{localize "chat-portrait.save"}}
