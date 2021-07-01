@@ -61,9 +61,9 @@ To install this module manually:
 
 - Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
 
-  -  Dnd5e system with en language]
+  -  Dnd5e system with english (en) language
 
-If you want o add your own system and/or language it's very simple you can give me a map of key value of label and image, for a live example check out what i have done for d&d5e with the en language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple.
+If you want to add your own system and/or language it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
 
 ![replacer](./images/image_replacer_feature.png)
 
