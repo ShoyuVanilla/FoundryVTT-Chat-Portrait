@@ -59,8 +59,11 @@ To install this module manually:
 
 - Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. Note if true ignore the first option if a avatar is found or else go back to the standard actor/token image feature, this option is ignored if you are the GM or else everything you click has the avatar image of the GM.
 
-- Passive [Support for now is limited to en language]: Image Replacer for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the followingsystem :
-  -  Dnd5e system.
+- Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
+
+  -  Dnd5e system with en language]
+
+If you want o add your own system and/or language it's very simple you can give me a map of key value of label and image, for a live example check out what i have done for d&d5e with the en language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple.
 
 ![replacer](./images/image_replacer_feature.png)
 
