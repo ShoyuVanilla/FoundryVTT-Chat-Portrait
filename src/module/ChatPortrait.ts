@@ -128,10 +128,10 @@ export class ChatPortrait {
                 const size: number = ChatPortrait.settings.textSizeName;
                 senderElement.style.fontSize = size + 'px';
                 if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                    senderElement.innerText = 'Unknown Actor';
+                    senderElement.innerText = this.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
                 }
             }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                senderElement.innerText = 'Unknown Actor';
+                senderElement.innerText = this.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
             }
 
             // Add click listener to image and text
@@ -145,13 +145,13 @@ export class ChatPortrait {
                     elementItemImage.width = size;
                     elementItemImage.height = size;
                     if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                        elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
+                        elementItemImage.src = this.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                     }
                 }
             }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                 for(let i = 0; i < elementItemImageList.length; i++){
                     const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                    elementItemImage.src = `/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
+                    elementItemImage.src = this.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                 }
             }
 
@@ -160,12 +160,12 @@ export class ChatPortrait {
 
                 for(let i = 0; i < elementItemNameList.length; i++){
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
-                    elementItemName.innerText = 'Unknown Weapon';
+                    elementItemName.innerText = this.settings.displayUnknownPlaceHolderItemName; //'Unknown Weapon';
                 }
 
                 for(let i = 0; i < elementItemContentList.length; i++){
                     const elementItemContent:HTMLElement = <HTMLElement>elementItemContentList[i];
-                    elementItemContent.innerText = 'Unknown Weapon';
+                    elementItemContent.innerText = this.settings.displayUnknownPlaceHolderItemName; //'Unknown Weapon';
                 }
 
             }
@@ -681,6 +681,7 @@ export class ChatPortrait {
 
     static isWhisperToOther = function(speakerInfo) {
         const whisper = speakerInfo.message.whisper;
+        //if (e.data.blind && e.data.whisper.find(element => element == game.userId) == undefined) return false;
         return whisper && whisper.length > 0 && whisper.indexOf(game.userId) === -1;
     }
 
@@ -715,5 +716,28 @@ export class ChatPortrait {
       playerNameElem.classList.add(MODULE_NAME + '-playerName');
       messageSenderElem.append(playerNameElem);
     }
+
+    static getMessageTypeVisible = function(speakerInfo) {
+      const messageType = speakerInfo.data.type;
+      switch (messageType) {
+          case CONST.CHAT_MESSAGE_TYPES.OTHER:
+              return CONST.CHAT_MESSAGE_TYPES.OTHER;
+          case CONST.CHAT_MESSAGE_TYPES.OOC:
+              return CONST.CHAT_MESSAGE_TYPES.OOC;
+          case CONST.CHAT_MESSAGE_TYPES.IC:
+              return CONST.CHAT_MESSAGE_TYPES.IC;
+          case CONST.CHAT_MESSAGE_TYPES.EMOTE:
+              return CONST.CHAT_MESSAGE_TYPES.EMOTE;
+          case CONST.CHAT_MESSAGE_TYPES.WHISPER:
+              return CONST.CHAT_MESSAGE_TYPES.WHISPER;
+          case CONST.CHAT_MESSAGE_TYPES.ROLL:
+              return CONST.CHAT_MESSAGE_TYPES.ROLL;
+          default:
+            // "Unknown tab
+            return;
+      }
+      return; // if there is some future new message type, its probably better to default to be visible than to hide it.
+  }
+
 
 }

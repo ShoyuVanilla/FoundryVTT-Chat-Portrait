@@ -35,6 +35,8 @@ due to my mistake during development I didn't realize that I had badly integrate
 
 - Use Token Image: Use the actor's Token image instead of the actor's standard image.
 
+- Use Token Name: Use the actor's Token name instead of the actor's standard name.
+
 - Portrait Size (px): Configure portrait image size on the chat messages. Default is 36 px
 
 - Portrait Border Shape: Configure border shape of the portraits displayed on the chat messages. Setting this as None disables other border options
@@ -63,6 +65,8 @@ due to my mistake during development I didn't realize that I had badly integrate
 
 - Double Click on the image portrait or the name of the token "pan to token" on the current scene
 
+- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. Note if true ignore the first option if a avatar is found or else go back to the standard actor/token image feature, this option is ignored if you are the GM or else everything you click has the avatar image of the GM.
+
 - Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
   - allCards : Affect every message.
   - selfAndGM : Affect own messages and GM messages.
@@ -82,9 +86,13 @@ due to my mistake during development I didn't realize that I had badly integrate
 
 ![Unknown](./images/unknown_actor_and_weapon_feature.png)
 
-- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. Note if true ignore the first option if a avatar is found or else go back to the standard actor/token image feature, this option is ignored if you are the GM or else everything you click has the avatar image of the GM.
+- Placeholder for the label unknown Actor name by default is 'Unknown Actor' depends on the 'Display Unknown' setting
 
-- Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
+- Placeholder for the label unknown item name by default is 'Unknown Item' depends on the 'Display Unknown' setting
+
+- Placeholder for the label unknown item icon by default is '/modules/chat-portrait/assets/inv-unidentified.png' depends on the 'Display Unknown' setting
+
+- [Passive settings] Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
 
   -  Dnd5e system with english (en) language
 
