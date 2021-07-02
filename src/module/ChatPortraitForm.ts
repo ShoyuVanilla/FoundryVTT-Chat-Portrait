@@ -46,6 +46,7 @@ export class ChatPortraitForm extends FormApplication {
             data = {
                 borderShapeList: this.getSelectList(this.borderShapeListOptions, 'square'),
                 useTokenImage: false,
+                useTokenName: false,
                 portraitSize: 36,
                 portraitSizeItem: 36,
                 //borderShape: 'square',
@@ -66,6 +67,7 @@ export class ChatPortraitForm extends FormApplication {
             data = {
                 borderShapeList: this.getSelectList(this.borderShapeListOptions, SettingsForm.getBorderShape()),
                 useTokenImage: SettingsForm.getUseTokenImage(),
+                useTokenName: SettingsForm.getUseTokenName(),
                 portraitSize: SettingsForm.getPortraitSize(),
                 portraitSizeItem: SettingsForm.getPortraitSizeItem(),
                 //borderShape: this.getSelectList(borderShapeListOptions, Settings.getBorderShapeList()),
@@ -145,6 +147,7 @@ export class ChatPortraitForm extends FormApplication {
         // await game.settings.set(MODULE_NAME, 'settings', settings);
 
         SettingsForm.setUseTokenImage(formData.useTokenImage);
+        SettingsForm.setUseTokenName(formData.useTokenName);
         SettingsForm.setPortraitSize(formData.portraitSize);
         SettingsForm.setPortraitSizeItem(formData.portraitSizeItem);
         SettingsForm.setBorderShape(formData.borderShape);
@@ -213,6 +216,12 @@ export class SettingsForm {
     }
     static setUseTokenImage(value:boolean) {
         game.settings.set(MODULE_NAME, 'useTokenImage',value);
+    }
+    static getUseTokenName() {
+      return <boolean>game.settings.get(MODULE_NAME, 'useTokenName');
+    }
+    static setUseTokenName(value:boolean) {
+        game.settings.set(MODULE_NAME, 'useTokenName',value);
     }
     static getPortraitSize() {
         return <number>game.settings.get(MODULE_NAME, 'portraitSize');

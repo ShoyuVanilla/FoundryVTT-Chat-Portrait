@@ -8,6 +8,12 @@
         </div>
 
         <div class="form-group">
+            <label>{{localize "chat-portrait.settings.useTokenName.name"}}</label>
+            <input type="checkbox" name="useTokenName" data-dtype="Boolean" {{checked useTokenName}}/>
+            <p class="notes">{{localize "chat-portrait.settings.useTokenName.hint"}}</p>
+        </div>
+
+        <div class="form-group">
             <label>{{localize "chat-portrait.portrait-size-s"}}</label>
             <input type="text" name="portraitSize" value="{{ portraitSize }}" style="flex: 1; text-align: right;">
             <p class="notes">{{localize "chat-portrait.portrait-size-l"}}</p>

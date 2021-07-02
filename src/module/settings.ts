@@ -54,6 +54,13 @@ export const registerSettings = function () {
     default: false
   });
 
+  game.settings.register(MODULE_NAME, 'useTokenName', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
   game.settings.register(MODULE_NAME, 'portraitSize', {
     scope: 'world',
     config: false,

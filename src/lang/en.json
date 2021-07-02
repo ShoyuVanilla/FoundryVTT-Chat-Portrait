@@ -62,5 +62,14 @@
   "chat-portrait.settings.displayUnknown.choice.gm": "Only affect GM messages.",
   "chat-portrait.settings.displayUnknown.choice.player": "Only affect player messages.",
   "chat-portrait.settings.displayUnknown.choice.none": "Don't affect any messages.",
-  "chat-portrait.settings.displayUnknown.choice.onlyNpc": "Affect any messages done from a NPC (need a compatible system with the 'npc' type like D&D5)."
+  "chat-portrait.settings.displayUnknown.choice.onlyNpc": "Affect any messages done from a NPC (need a compatible system with the 'npc' type like D&D5).",
+  "chat-portrait.settings.placeHolderUnknownActorName.name": "Placeholder for the label unknown Actor name",
+  "chat-portrait.settings.placeHolderUnknownActorName.hint": "Placeholder for the label unknown Actor name by default is 'Unknown Actor'",
+  "chat-portrait.settings.placeHolderUnknownItemName.name": "Placeholder for the label unknown item name",
+  "chat-portrait.settings.placeHolderUnknownItemName.hint": "Placeholder for the label unknown item name by default is 'Unknown Item'",
+  "chat-portrait.settings.placeHolderUnknownItemIcon.name": "Placeholder for the label unknown item icon",
+  "chat-portrait.settings.placeHolderUnknownItemIcon.hint": "Placeholder for the label unknown item icon by default is '/modules/chat-portrait/assets/inv-unidentified.png'",
+  "chat-portrait.settings.useTokenName.name": "Use Token name",
+  "chat-portrait.settings.useTokenName.hint": "Use the actor's Token name instead of the actor's standard name."
+
 }

@@ -82,8 +82,10 @@ export class ChatPortrait {
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
         //const speaker = speakerInfo.message.speaker;
-        //ChatPortrait.replaceSenderWithTokenName(senderElement, speakerInfo);
-        //ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
+        const useTokenName: boolean = this.settings.useTokenName;
+        if(useTokenName){
+          ChatPortrait.replaceSenderWithTokenName(senderElement, speakerInfo);
+        }
 
         if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
             imgPath = "icons/svg/mystery-man.svg";
@@ -216,6 +218,7 @@ export class ChatPortrait {
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
+            ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
         });
     }
 
@@ -373,6 +376,7 @@ export class ChatPortrait {
         return {
             //borderShapeList: Settings.getBorderShapeList(),
             useTokenImage: SettingsForm.getUseTokenImage(),
+            useTokenName: SettingsForm.getUseTokenName(),
             portraitSize: SettingsForm.getPortraitSize(),
             portraitSizeItem: SettingsForm.getPortraitSizeItem(),
             borderShape: SettingsForm.getBorderShape(),
@@ -398,6 +402,7 @@ export class ChatPortrait {
     static get defaultSettings(): ChatPortraitSettings {
         return {
             useTokenImage: false,
+            useTokenName: false,
             portraitSize: 36,
             portraitSizeItem: 36,
             borderShape: 'square',

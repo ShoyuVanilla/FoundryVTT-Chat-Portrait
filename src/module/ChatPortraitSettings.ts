@@ -1,5 +1,6 @@
 export interface ChatPortraitSettings{
     useTokenImage: boolean,
+    useTokenName: boolean,
     portraitSize: number,
     portraitSizeItem: number,
     borderShape: string,
