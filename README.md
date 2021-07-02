@@ -20,6 +20,10 @@ To install this module manually:
 1.  Click 'Install' and wait for installation to complete
 2.  Don't forget to enable the module in game using the "Manage Module" button
 
+## IMPORTANT NOTE FOR VERSION 0.2.15
+
+Like said in this issue [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40),
+for a my mistake on the developing workflow you must go the the module settings and manage you own settings, sorry for the inconvenience.
 ## TODO
 
 - Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use: Dnd5e, but anyone can point out what system has problem. i have prepared  a base code for support multysistem, but i will not actively developing on the short term. 
@@ -29,24 +33,35 @@ To install this module manually:
 ## Features/Settings
 
 - Use Token Image: Use the actor's Token image instead of the actor's standard image.
+
 - Portrait Size (px): Configure portrait image size on the chat messages. Default is 36 px
+
 - Portrait Border Shape: Configure border shape of the portraits displayed on the chat messages. Setting this as None disables other border options
     - Square
     - Circle
     - None
+
 - Use Player Color for Portrait Border
   - Portrait Border Color
   - Portrait Border Width (px)
+
 - Configure portrait border width. Default is 2 px
+
 - Change Color of Message Border: Use the actor's player's color for the border of the entire chat message
+
 - Change Color of Message Background: Use the actor's player's color for the background of the entire chat message
+
 
 ![background](./images/background_color_feature.png)
 
 - Display Chat Flavor Text next to Portrait
+
 - Force Name Search: If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module.
+
 - Portrait Size for item (px): Configure portrait image size for item on the chat messages. Default is 36 px
+
 - Double Click on the image portrait or the name of the token "pan to token" on the current scene
+
 - Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
   - allCards : Affect every message.
   - selfAndGM : Affect own messages and GM messages.
@@ -54,6 +69,15 @@ To install this module manually:
   - gm : Only affect GM messages.
   - player : Only affect player messages.
   - none : Don't affect any messages.
+
+- Configure which cards should use the unknown custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
+  - allCards : Affect every message.
+  - selfAndGM : Affect own messages and GM messages.
+  - self : Only affect own messages.
+  - gm : Only affect GM messages.
+  - player : Only affect player messages.
+  - none : Don't affect any messages.
+  - [DEVELOPING] onlyNpc: Affect any messages done from a NPC (need a compatible system with the 'npc' type like D&D5).
 
 ![Unknown](./images/unknown_actor_and_weapon_feature.png)
 

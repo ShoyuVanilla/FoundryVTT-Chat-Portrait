@@ -53,7 +53,7 @@
   "chat-portrait.settings.displaySetting.choice.player": "Only affect player messages.",
   "chat-portrait.settings.displaySetting.choice.none": "Don't affect any messages.",
   "chat-portrait.settings.useAvatarImage.name": "Use Avatar Image",
-  "chat-portrait.settings.useAvatarImage.hint": "Use Avatar Player Image: Use the player's Token image instead of the token/actor standard image. Note if true ignore the first option if a avatr is found or else go back to the standard actor/token image feature.",
+  "chat-portrait.settings.useAvatarImage.hint": "Use Avatar Player Image: Use the player's Token image instead of the token/actor standard image. Note if true ignore the first option if a avatar is found or else go back to the standard actor/token image feature.",
   "chat-portrait.settings.displayUnknown.name": "Display Unknown",
   "chat-portrait.settings.displayUnknown.hint": "Configure which cards should use the unknown custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",
   "chat-portrait.settings.displayUnknown.choice.allCards": "Affect every message.",
