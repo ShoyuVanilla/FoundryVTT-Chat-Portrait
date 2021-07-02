@@ -23,7 +23,8 @@ To install this module manually:
 ## IMPORTANT NOTE FOR VERSION 0.2.15
 
 Like said in this issue [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40),
-for a my mistake on the developing workflow you must go the the module settings and manage you own settings, sorry for the inconvenience.
+due to my mistake during development I didn't realize that I had badly integrated two features into one. Now I have separated the two functions at the level of the module settings, but to avoid problems you have to go and check your configurations on the module settings. I apologize for the inconvenience.
+
 ## TODO
 
 - Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use: Dnd5e, but anyone can point out what system has problem. i have prepared  a base code for support multysistem, but i will not actively developing on the short term. 
