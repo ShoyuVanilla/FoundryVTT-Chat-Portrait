@@ -5,7 +5,9 @@
 
 - Add other module settings 'displayUnknownPlaceHolderActorName', displayUnknownPlaceHolderItemName', 'displayUnknownPlaceHolderItemIcon', 'useTokenName'
 - Check for the issue [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40)
--
+- Add some minor feature and bug fix.
+- Add feature [Feature request: Don't display portrait on out-of-character messages](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/42)
+
 ## 0.2.16 
 
 - Set default value of unknwon to 'none' instead 'allCards' because make sense

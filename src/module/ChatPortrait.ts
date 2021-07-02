@@ -211,6 +211,9 @@ export class ChatPortrait {
                                 elementItemText.prepend(elementItemImage);
                             }
                         }
+                        if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+                          elementItemText.innerText = this.settings.displayUnknownPlaceHolderItemName;
+                        }
                     }
 
                 }
@@ -695,7 +698,7 @@ export class ChatPortrait {
     }
 
     static replaceMatchingTextNodes = function(parent, match, replacement) {
-      if(!parent.hasChildNodes()) {
+      if(!parent || !parent.hasChildNodes()) {
         return;
       }
       for ( let node of parent.childNodes ) {
