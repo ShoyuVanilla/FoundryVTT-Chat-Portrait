@@ -392,6 +392,9 @@ export class ChatPortrait {
             displaySetting: SettingsForm.getDisplaySetting(),
             useAvatarImage: SettingsForm.getUseAvatarImage(),
             displayUnknown: SettingsForm.getDisplayUnknown(),
+            displayUnknownPlaceHolderActorName: SettingsForm.getDisplayUnknownPlaceHolderActorName(),
+            displayUnknownPlaceHolderItemName: SettingsForm.getDisplayUnknownPlaceHolderItemName(),
+            displayUnknownPlaceHolderItemIcon: SettingsForm.getDisplayUnknownPlaceHolderItemIcon(),
         };
     }
 
@@ -418,6 +421,9 @@ export class ChatPortrait {
             displaySetting: 'allCards',
             useAvatarImage: false,
             displayUnknown: 'none',
+            displayUnknownPlaceHolderActorName: 'Unknown Actor',
+            displayUnknownPlaceHolderItemName: 'Unknown Item',
+            displayUnknownPlaceHolderItemIcon: `/modules/${MODULE_NAME}/assets/inv-unidentified.png`,
         }
     }
 

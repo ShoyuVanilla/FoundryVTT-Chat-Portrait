@@ -16,4 +16,7 @@ export interface ChatPortraitSettings{
     displaySetting: string,
     useAvatarImage: boolean,
     displayUnknown: string,
+    displayUnknownPlaceHolderActorName: string,
+    displayUnknownPlaceHolderItemName: string,
+    displayUnknownPlaceHolderItemIcon: string,
 }

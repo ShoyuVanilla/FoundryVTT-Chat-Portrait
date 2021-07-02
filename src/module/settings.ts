@@ -197,6 +197,27 @@ export const registerSettings = function () {
     // }
   });
 
+  game.settings.register(MODULE_NAME, 'displayUnknownPlaceHolderActorName', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: 'Unknown Actor'
+  });
+
+  game.settings.register(MODULE_NAME, 'displayUnknownPlaceHolderItemName', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: 'Unknown Item'
+  });
+
+  game.settings.register(MODULE_NAME, 'displayUnknownPlaceHolderItemIcon', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: `/modules/${MODULE_NAME}/assets/inv-unidentified.png`
+  });
+
 }
 
 // function setup(templateSettings) {

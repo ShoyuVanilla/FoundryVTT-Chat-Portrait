@@ -62,6 +62,9 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, 'allCards'),
                 useAvatarImage: false,
                 displayUnknownList: this.getSelectList(this.displayUnknownListOptions, 'none'),
+                displayUnknownPlaceHolderActorName: 'Unknown Actor',
+                displayUnknownPlaceHolderItemName: 'Unknown Item',
+                displayUnknownPlaceHolderItemIcon: `/modules/${MODULE_NAME}/assets/inv-unidentified.png`,
             };
         }else{
             data = {
@@ -83,6 +86,9 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, SettingsForm.getDisplaySetting()),
                 useAvatarImage: SettingsForm.getUseAvatarImage(),
                 displayUnknownList: this.getSelectList(this.displayUnknownListOptions, SettingsForm.getDisplayUnknown()),
+                displayUnknownPlaceHolderActorName: SettingsForm.getDisplayUnknownPlaceHolderActorName(),
+                displayUnknownPlaceHolderItemName: SettingsForm.getDisplayUnknownPlaceHolderItemName(),
+                displayUnknownPlaceHolderItemIcon: SettingsForm.getDisplayUnknownPlaceHolderItemIcon(),
             };
         }
 
@@ -163,6 +169,9 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setDisplaySetting(formData.displaySetting);
         SettingsForm.setUseAvatarImage(formData.useAvatarImage);
         SettingsForm.setDisplayUnknown(formData.displayUnknown);
+        SettingsForm.setDisplayUnknownPlaceHolderActorName(formData.displayUnknownPlaceHolderActorName);
+        SettingsForm.setDisplayUnknownPlaceHolderItemName(formData.displayUnknownPlaceHolderItemName);
+        SettingsForm.setDisplayUnknownPlaceHolderItemIcon(formData.displayUnknownPlaceHolderItemIcon);
     }
 
     getSelectList(myselectslist, selected) {
@@ -312,5 +321,24 @@ export class SettingsForm {
     }
     static setDisplayUnknown(value:string) {
         game.settings.set(MODULE_NAME, 'displayUnknown',value);
+    }
+
+    static getDisplayUnknownPlaceHolderActorName() {
+      return <string>game.settings.get(MODULE_NAME, 'displayUnknownPlaceHolderActorName');
+    }
+    static setDisplayUnknownPlaceHolderActorName(value:string) {
+        game.settings.set(MODULE_NAME, 'displayUnknownPlaceHolderActorName',value);
+    }
+    static getDisplayUnknownPlaceHolderItemName() {
+      return <string>game.settings.get(MODULE_NAME, 'displayUnknownPlaceHolderItemName');
+    }
+    static setDisplayUnknownPlaceHolderItemName(value:string) {
+        game.settings.set(MODULE_NAME, 'displayUnknownPlaceHolderItemName',value);
+    }
+    static getDisplayUnknownPlaceHolderItemIcon() {
+      return <string>game.settings.get(MODULE_NAME, 'displayUnknownPlaceHolderItemIcon');
+    }
+    static setDisplayUnknownPlaceHolderItemIcon(value:string) {
+        game.settings.set(MODULE_NAME, 'displayUnknownPlaceHolderItemIcon',value);
     }
 }
