@@ -133,8 +133,8 @@ export const registerSettings = function () {
   });
 
   game.settings.register(MODULE_NAME,'hoverTooltip', {
-    // name : game.i18n.localize('tokenchatlink.settings.hoverTooltip.name'),
-    // hint : game.i18n.localize('tokenchatlink.settings.hoverTooltip.hint'),
+    // name : game.i18n.localize('chat-portrait.settings.hoverTooltip.name'),
+    // hint : game.i18n.localize('chat-portrait.settings.hoverTooltip.hint'),
     scope : 'world',
     config : false,
     type : Boolean,
@@ -178,7 +178,7 @@ export const registerSettings = function () {
     //hint: "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",
     scope: 'world',
     config: false,
-    default: 'allCards',
+    default: 'none',
     type: String,
     // choices: {
     //     "allCards": "Affect every message.",

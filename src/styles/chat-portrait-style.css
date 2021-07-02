@@ -13,13 +13,13 @@
 .chat-message.whisper {
   background-image: url(../assets/parchment-white.jpg);
 }
-
-.tokenChatLink {
+/*
+.chat-portrait {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.tokenChatLink-tooltip {
+.chat-portrait-tooltip {
   display: block;
   padding: 2px 4px;
   position: absolute;
@@ -32,6 +32,27 @@
   word-break: break-all;
 }
 
-.tokenChatLink-tooltip ul {
+.chat-portrait-tooltip ul {
   list-style-type: circle;
+}
+*/
+.chat-portrait-currentSpeaker {
+  flex: 0;
+  padding: 3px 0.5em;
+}
+
+.chat-portrait-currentSpeakerToggle:hover {
+  opacity: 1;
+}
+
+.chat-portrait-playerName {
+  opacity: 0.5;
+}
+
+.chat-portrait-playerName::before {
+  content: ' [';
+}
+
+.chat-portrait-playerName::after {
+  content: ']';
 }

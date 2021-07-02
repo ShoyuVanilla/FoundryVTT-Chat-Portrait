@@ -20,7 +20,7 @@ export class ChatLink {
     static updateSettings() {
         ChatLink.showTooltip = <boolean>game.settings.get(MODULE_NAME, 'hoverTooltip');
     }
-    
+
     static prepareEvent(message, html, speakerInfo) {
         let clickable = html.find('.message-sender');
 
@@ -96,7 +96,7 @@ export class ChatLink {
     // If it's reached this far, assume scene is correct.
     static panToToken(event, speakerData) {
         let user = game.user;
-        
+
         let token = ChatLink.getToken(speakerData);
         if (!ChatLink.tokenExists(user, speakerData, token))
             return;
@@ -131,7 +131,7 @@ export class ChatLink {
     static tokenExists(user, speakerData, token) {
         if (token && token.visible)
             return true;
-        
+
         if (!ChatLink.isRightScene(user, speakerData))
             return;
 
@@ -158,7 +158,7 @@ export class ChatLink {
     static permissionToSee(user, speakerData, token) {
         if (user.isGM || token.visible)
             return true;
-        
+
         ChatLink.warning(ChatLink.playerWarning(speakerData));
     }
 
@@ -168,7 +168,7 @@ export class ChatLink {
 
     static doSelectToken(event, user, token) {
         let ctrlKey = event.ctrlKey;
-        if (!ChatLink.permissionToControl(user, token)) {      
+        if (!ChatLink.permissionToControl(user, token)) {
             ChatLink.targetToken(event, user, token, ctrlKey);
             return;
         }
@@ -230,36 +230,36 @@ export class ChatLink {
         let result = { x: token.center.x, y: token.center.y, width: 1, height: 1 }
         return result;
     }
-    
+
     static warning(message) {
         ui.notifications.warn(message);
     }
 
     // static formatLink(html) {
     //     html.hover(() => {
-    //         html.addClass('tokenChatLink')
-            
+    //         html.addClass('chat-portrait')
+
     //         if (ChatLink.showTooltip) {
     //             ChatLink.hoverTimer = setTimeout(() => {
     //                 // add tooltip
     //                 let tooltip:any = document.createElement("SPAN");
-    //                 tooltip.classList.add('tokenChatLink-tooltip');
+    //                 tooltip.classList.add('chat-portrait-tooltip');
     //                 let content = TooltipHelper.getContent();
     //                 tooltip.innerHTML = content;
     //                 html.append(tooltip)
-    
+
     //                 // adjust position of tooltip
-    //                 tooltip = $(document).find('.tokenChatLink-tooltip');
+    //                 tooltip = $(document).find('.chat-portrait-tooltip');
     //                 let htmlRect = html[0].getBoundingClientRect();
     //                 let tooltipRect = tooltip[0].getBoundingClientRect();
     //                 tooltip.css('top', htmlRect.y - tooltipRect.height - 10).css('left', 15);
     //             }, ChatLink.hoverTimeout);
     //         }
-    //     }, 
+    //     },
     //     () => {
     //         clearTimeout(ChatLink.hoverTimer);
-    //         html.removeClass('tokenChatLink')
-    //         let tooltip = $(document).find('.tokenChatLink-tooltip');
+    //         html.removeClass('chat-portrait')
+    //         let tooltip = $(document).find('.chat-portrait-tooltip');
     //         tooltip.remove();
     //     });
     // }

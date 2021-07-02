@@ -81,6 +81,9 @@ export class ChatPortrait {
         const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
+        //const speaker = speakerInfo.message.speaker;
+        //ChatPortrait.replaceSenderWithTokenName(senderElement, speakerInfo);
+        //ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
 
         if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
             imgPath = "icons/svg/mystery-man.svg";
@@ -209,7 +212,7 @@ export class ChatPortrait {
                     }
 
                 }
-            
+
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
@@ -241,7 +244,7 @@ export class ChatPortrait {
         // It's a chat message associated with an actor
         const useTokenImage: boolean = this.settings.useTokenImage;
         const actor:Actor = ChatPortrait.getActor(speaker);
-        
+
         // Make sense only for player and for non GM
         if(actor?.data?.type == "character" && this.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
@@ -502,7 +505,10 @@ export class ChatPortrait {
     // }
 
     static getActor(speaker):Actor{
-        let actor: Actor = game.actors.tokens[speaker.token];
+        let actor: Actor =  game.actors.get(speaker.actor);
+        if(!actor){
+          actor = game.actors.tokens[speaker.token];
+        }
         if (!actor) {
             //actor = game.actors.get(speaker.actor); // Deprecated on 0.8.6
             actor = Actors.instance.get(speaker.actor);
@@ -512,6 +518,58 @@ export class ChatPortrait {
             actor = game.actors.find((a: Actor) => a.name === speaker.alias);
         }
         return actor;
+    }
+
+    static getActorName = function(speaker) {
+      const actor = ChatPortrait.getActor(speaker);//game.actors.get(speaker.actor);
+      if (actor) {
+        return actor.name;
+      }
+      return speaker.alias;
+    }
+
+    static getTokenName = function(speaker) {
+      if (speaker.token) {
+        const token = ChatPortrait.getToken(speaker.scene, speaker.token);
+        if (token) {
+          return token.name;
+        }
+      }
+      const actor = game.actors.get(speaker.actor);
+      if (actor) {
+        if (actor.data.token) {
+          return actor.data.token.name;
+        }
+        if (actor.hasPlayerOwner) {
+          return actor.name;
+        }
+      }
+      if (game.user.isGM) {
+        return speaker.alias;
+      }
+      return '???';
+    }
+
+    static getToken = function(sceneID, tokenID) {
+      const specifiedScene = game.scenes.get(sceneID);
+      if (specifiedScene) {
+        return ChatPortrait.getTokenForScene(specifiedScene, tokenID);
+      }
+      let foundToken = null;
+      game.scenes.find((scene) => {
+        foundToken = ChatPortrait.getTokenForScene(scene, tokenID);
+        return !!foundToken;
+      });
+      return foundToken;
+    }
+
+    static getTokenForScene = function(scene, tokenID) {
+      if (!scene) {
+        return null;
+      }
+      return scene.data.tokens.find((token) => {
+        return token.id === tokenID;
+      });
     }
 
     static isSpeakerGM = function(message){
@@ -531,7 +589,7 @@ export class ChatPortrait {
 
     static shouldOverrideMessageUnknown = function(message) {
         const speaker = message.message.speaker;
-        const actor = ChatPortrait.getActor(speaker);    
+        const actor = ChatPortrait.getActor(speaker);
         const setting = game.settings.get(MODULE_NAME, "displayUnknown");
         if (setting !== "none") {
             //const user = game.users.get(message.user);
@@ -613,6 +671,38 @@ export class ChatPortrait {
     static isWhisperToOther = function(speakerInfo) {
         const whisper = speakerInfo.message.whisper;
         return whisper && whisper.length > 0 && whisper.indexOf(game.userId) === -1;
+    }
+
+    static replaceSenderWithTokenName = function(messageSenderElem, speakerInfo) {
+      const speaker = speakerInfo.message.speaker;
+      const actorName = (ChatPortrait.getActorName(speaker) || '').trim();
+      const name = (ChatPortrait.getTokenName(speaker) || '').trim();
+      if(actorName !== name) {
+        ChatPortrait.replaceMatchingTextNodes(messageSenderElem[0], actorName, name);
+      }
+    }
+
+    static replaceMatchingTextNodes = function(parent, match, replacement) {
+      if(!parent.hasChildNodes()) {
+        return;
+      }
+      for ( let node of parent.childNodes ) {
+        if(node.nodeType === Node.TEXT_NODE) {
+          if(node.wholeText.trim() === match) {
+            node.parentNode.replaceChild(document.createTextNode(replacement), node);
+          }
+        } else {
+          ChatPortrait.replaceMatchingTextNodes(node, match, replacement);
+        }
+      }
+    }
+
+    static appendPlayerName = function(messageSenderElem, author) {
+      const playerName = author.name;
+      const playerNameElem = document.createElement('span');
+      playerNameElem.appendChild(document.createTextNode(playerName));
+      playerNameElem.classList.add(MODULE_NAME + '-playerName');
+      messageSenderElem.append(playerNameElem);
     }
 
 }

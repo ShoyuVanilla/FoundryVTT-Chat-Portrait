@@ -20,7 +20,7 @@ To install this module manually:
 1.  Click 'Install' and wait for installation to complete
 2.  Don't forget to enable the module in game using the "Manage Module" button
 
-## IMPORTANT NOTE FOR VERSION 0.2.15
+## IMPORTANT NOTE FOR VERSION 0.2.15 AND NEWER
 
 Like said in this issue [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40),
 due to my mistake during development I didn't realize that I had badly integrated two features into one. Now I have separated the two functions at the level of the module settings, but to avoid problems you have to go and check your configurations on the module settings. I apologize for the inconvenience.
