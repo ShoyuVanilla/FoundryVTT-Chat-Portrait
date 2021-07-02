@@ -75,6 +75,20 @@ due to my mistake during development I didn't realize that I had badly integrate
   - player : Only affect player messages.
   - none : Don't affect any messages.
 
+- Display chat message of type OTHER: Configure custom styling for message of type OTHER
+
+- Display chat message of type OOC: Configure custom styling for message of type OOC
+
+- Display chat message of type IC: Configure custom styling for message of type IC
+
+- Display chat message of type EMOTE: Configure custom styling for message of type EMOTE
+  
+- Display chat message of type WHISPER: Configure custom styling for message of type WHISPER
+
+- Display chat message of type ROLL: Configure custom styling for message of type ROLL
+ 
+- Display chat message of whisper to other: Configure custom styling for message of whisper to other
+
 - Configure which cards should use the unknown custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
   - allCards : Affect every message.
   - selfAndGM : Affect own messages and GM messages.
