@@ -44,8 +44,8 @@
   "chat-portrait.settings.hoverTooltip.hint": "발화자의 이름에 커서를 올리면 token chat link 안내문을 툴팁으로 표시합니다.",
   "chat-portrait.settings.textSizeName.name": "채팅의 이름 글씨 크기 (px)",
   "chat-portrait.settings.textSizeName.hint": "채팅에서의 이름을 표시하는 텍스트의 크기입니다. (px)",
-  "chat-portrait.settings.displaySetting.name": "설정 적용 범위",
-  "chat-portrait.settings.displaySetting.hint": "어떤 채팅 카드에 스타일을 적용하고 어떤 채팅 카드를 기본값으로 유지할지 설정합니다. 이 설정을 변경할 시 새로고침이 필요할 수 있습니다.",
+  "chat-portrait.settings.displaySetting.name": "표시 설정",
+  "chat-portrait.settings.displaySetting.hint": "어떤 채팅 카드에 사용자 지정 스타일을 적용하고 어떤 채팅 카드를 기본값으로 유지할지 설정합니다. 이 설정을 변경할 시 새로고침이 필요할 수 있습니다.",
   "chat-portrait.settings.displaySetting.choice.allCards": "모든 메시지에 적용",
   "chat-portrait.settings.displaySetting.choice.selfAndGM": "자신과 GM 메시지에만 적용",
   "chat-portrait.settings.displaySetting.choice.self": "자기 메시지에만 적용",
@@ -53,5 +53,14 @@
   "chat-portrait.settings.displaySetting.choice.player": "플레이어 메시지에만 적용",
   "chat-portrait.settings.displaySetting.choice.none": "적용하지 않음",
   "chat-portrait.settings.useAvatarImage.name": "아바타 이미지 사용",
-  "chat-portrait.settings.useAvatarImage.hint": "아바타 이미지 사용 : 토큰/액터 이미지 대신 플레이어 아바타 이미지를 사용합니다. 주의 : 체크하면 플레이어 아바타가 있을 시 첫번째 옵션을 무시합니다. 그렇지 않은 경우 원래대로 토큰/액터 이미지로 바뀝니다. "
+  "chat-portrait.settings.useAvatarImage.hint": "아바타 이미지 사용 : 토큰/액터 이미지 대신 플레이어 아바타 이미지를 사용합니다. 주의 : 체크하면 플레이어 아바타가 있을 시 첫번째 옵션을 무시합니다. 그렇지 않은 경우 원래대로 토큰/액터 이미지로 바뀝니다. ",
+  "chat-portrait.settings.displayUnknown.name": "미지(Unknown) 표시",
+  "chat-portrait.settings.displayUnknown.hint": "미지 옵션을 사용할 카드와 기본값으로 놔둘 카드에 대한 설정입니다. 이 옵션을 변경하면 창을 새로고침 해야 할 수 있습니다.",
+  "chat-portrait.settings.displayUnknown.choice.allCards": "모든 메시지에 적용.",
+  "chat-portrait.settings.displayUnknown.choice.selfAndGM": "자신과 GM 메시지에 적용.",
+  "chat-portrait.settings.displayUnknown.choice.self": "자기 메시지에만 적용.",
+  "chat-portrait.settings.displayUnknown.choice.gm": "GM 메시지에만 적용.",
+  "chat-portrait.settings.displayUnknown.choice.player": "플레이어 메시지에만 적용.",
+  "chat-portrait.settings.displayUnknown.choice.none": "적용하지 않음.",
+  "chat-portrait.settings.displayUnknown.choice.onlyNpc": "NPC로부터의 모든 메시지에 적용(D&D5E와 같이 'npc' 타입과 호환되는 시스템 필요)"
 }
