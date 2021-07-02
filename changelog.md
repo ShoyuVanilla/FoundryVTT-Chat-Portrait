@@ -1,8 +1,10 @@
 
 
 
-## 0.2.17
+## 0.3.0
 
+- Add other module settings 'displaySettingOTHER', 'displaySettingOOC', 'displaySettingIC', 'displaySettingEMOTE',
+'displaySettingWHISPER', 'displaySettingROLL', 'displaySettingWhisperToOther'
 - Add other module settings 'displayUnknownPlaceHolderActorName', displayUnknownPlaceHolderItemName', 'displayUnknownPlaceHolderItemIcon', 'useTokenName'
 - Check for the issue [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40)
 - Add some minor feature and bug fix.

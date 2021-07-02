@@ -17,14 +17,38 @@ export class ChatPortrait {
      * @param  {MessageRenderData} messageData
      */
     static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo, imageReplacer): void {
-      if (ChatPortrait.isWhisperToOther(speakerInfo)) {
-        // Don't update whispers that the current player isn't privy to
-        return;
-      }
+
       if(!ChatPortrait.shouldOverrideMessageStyling(speakerInfo)){
         // Do not style this
         return;
       }
+
+      if(!this.settings.displaySettingWhisperToOther && ChatPortrait.isWhisperToOther(speakerInfo)){
+        // Don't update whispers that the current player isn't privy to
+        return;
+      }
+
+      let messageType = ChatPortrait.getMessageTypeVisible(speakerInfo);
+
+      if(!this.settings.displaySettingOTHER && messageType == CONST.CHAT_MESSAGE_TYPES.OTHER){
+        return;
+      }
+      if(!this.settings.displaySettingOOC && messageType == CONST.CHAT_MESSAGE_TYPES.OOC){
+        return;
+      }
+      if(!this.settings.displaySettingIC && messageType == CONST.CHAT_MESSAGE_TYPES.IC){
+        return;
+      }
+      if(!this.settings.displaySettingEMOTE && messageType == CONST.CHAT_MESSAGE_TYPES.EMOTE){
+        return;
+      }
+      if(!this.settings.displaySettingWHISPER && messageType == CONST.CHAT_MESSAGE_TYPES.WHISPER){
+        return;
+      }
+      if(!this.settings.displaySettingROLL && messageType == CONST.CHAT_MESSAGE_TYPES.ROLL){
+        return;
+      }
+
       let senderElement: HTMLElement;
       let elementItemImageList;
       let elementItemNameList;
@@ -109,18 +133,16 @@ export class ChatPortrait {
             const elementItemNameList = html.find('.item-card h3'); // work with more system ?
             const elementItemContentList = html.find('.item-card .card-content');
             */
-            if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
-                if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
-                    const flavorElement: JQuery = html.find('.flavor-text');
-                    if(flavorElement.length > 0){
-                        const copiedElement: Node = flavorElement[0].cloneNode(true);
-                        flavorElement.remove();
-                        const brElement: HTMLElement = document.createElement('br');
-                        const senderElement: HTMLElement = html.find('.message-sender')[0];
-                        senderElement.appendChild(brElement);
-                        senderElement.appendChild(copiedElement);
-                    }
-                }
+            if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {  
+              const flavorElement: JQuery = html.find('.flavor-text');
+              if(flavorElement.length > 0){
+                  const copiedElement: Node = flavorElement[0].cloneNode(true);
+                  flavorElement.remove();
+                  const brElement: HTMLElement = document.createElement('br');
+                  const senderElement: HTMLElement = html.find('.message-sender')[0];
+                  senderElement.appendChild(brElement);
+                  senderElement.appendChild(copiedElement);
+              }  
             }
 
             // Update size text name by settings
@@ -169,54 +191,54 @@ export class ChatPortrait {
                 }
 
             }
-                // Check for Ability/Skills/Tools/Saving Throw for avoid the double portrait
-                if(elementItemNameList.length > 0){
-                    for(let i = 0; i < elementItemNameList.length; i++){
-                        const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
-                        elementItemName.style.display = 'flex';
-                        if(elementItemName){
-                            const value: string = ImageReplacerImpl[elementItemName.innerText];
-                            if(value){
-                                if(elementItemImageList.length > 0){
-                                    const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                                    elementItemImage.src = value;
-                                    elementItemName.prepend(elementItemImage);
-                                }else{
-                                    const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                    const size: number = ChatPortrait.settings.portraitSizeItem;
-                                    elementItemImage.width = size;
-                                    elementItemImage.height = size;
-                                    elementItemImage.src = value;
-                                    elementItemName.prepend(elementItemImage);
-                                }
-                            }
-                        }
-                    }
-                }else{
-                    for(let i = 0; i <  elementItemTextList.length; i++){
-                        const elementItemText:HTMLElement = <HTMLElement>elementItemTextList[i];
-                        elementItemText.style.display = 'flex';
-                        const value: string = ImageReplacerImpl[elementItemText.innerText];
+            // Check for Ability/Skills/Tools/Saving Throw for avoid the double portrait
+            if(elementItemNameList.length > 0){
+                for(let i = 0; i < elementItemNameList.length; i++){
+                    const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
+                    elementItemName.style.display = 'flex';
+                    if(elementItemName){
+                        const value: string = ImageReplacerImpl[elementItemName.innerText];
                         if(value){
                             if(elementItemImageList.length > 0){
                                 const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
                                 elementItemImage.src = value;
-                                elementItemText.prepend(elementItemImage);
+                                elementItemName.prepend(elementItemImage);
                             }else{
                                 const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                                 const size: number = ChatPortrait.settings.portraitSizeItem;
                                 elementItemImage.width = size;
                                 elementItemImage.height = size;
                                 elementItemImage.src = value;
-                                elementItemText.prepend(elementItemImage);
+                                elementItemName.prepend(elementItemImage);
                             }
                         }
-                        if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                          elementItemText.innerText = this.settings.displayUnknownPlaceHolderItemName;
+                    }
+                }
+            }else{
+                for(let i = 0; i <  elementItemTextList.length; i++){
+                    const elementItemText:HTMLElement = <HTMLElement>elementItemTextList[i];
+                    elementItemText.style.display = 'flex';
+                    const value: string = ImageReplacerImpl[elementItemText.innerText];
+                    if(value){
+                        if(elementItemImageList.length > 0){
+                            const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                            elementItemImage.src = value;
+                            elementItemText.prepend(elementItemImage);
+                        }else{
+                            const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                            const size: number = ChatPortrait.settings.portraitSizeItem;
+                            elementItemImage.width = size;
+                            elementItemImage.height = size;
+                            elementItemImage.src = value;
+                            elementItemText.prepend(elementItemImage);
                         }
                     }
-
+                    if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+                      elementItemText.innerText = this.settings.displayUnknownPlaceHolderItemName;
+                    }
                 }
+
+            }
 
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
@@ -398,6 +420,13 @@ export class ChatPortrait {
             displayUnknownPlaceHolderActorName: SettingsForm.getDisplayUnknownPlaceHolderActorName(),
             displayUnknownPlaceHolderItemName: SettingsForm.getDisplayUnknownPlaceHolderItemName(),
             displayUnknownPlaceHolderItemIcon: SettingsForm.getDisplayUnknownPlaceHolderItemIcon(),
+            displaySettingOTHER: SettingsForm.getDisplaySettingOTHER(),
+            displaySettingOOC: SettingsForm.getDisplaySettingOOC(),
+            displaySettingIC: SettingsForm.getDisplaySettingIC(),
+            displaySettingEMOTE: SettingsForm.getDisplaySettingEMOTE(),
+            displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
+            displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
+            displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
         };
     }
 
@@ -427,6 +456,13 @@ export class ChatPortrait {
             displayUnknownPlaceHolderActorName: 'Unknown Actor',
             displayUnknownPlaceHolderItemName: 'Unknown Item',
             displayUnknownPlaceHolderItemIcon: `/modules/${MODULE_NAME}/assets/inv-unidentified.png`,
+            displaySettingOTHER: true,
+            displaySettingOOC: true,
+            displaySettingIC: true,
+            displaySettingEMOTE: true,
+            displaySettingWHISPER: true,
+            displaySettingROLL: true,
+            displaySettingWhisperToOther: false,
         }
     }
 
@@ -721,20 +757,20 @@ export class ChatPortrait {
     }
 
     static getMessageTypeVisible = function(speakerInfo) {
-      const messageType = speakerInfo.data.type;
+      const messageType = speakerInfo.message.type;
       switch (messageType) {
           case CONST.CHAT_MESSAGE_TYPES.OTHER:
-              return CONST.CHAT_MESSAGE_TYPES.OTHER;
+            return CONST.CHAT_MESSAGE_TYPES.OTHER;
           case CONST.CHAT_MESSAGE_TYPES.OOC:
-              return CONST.CHAT_MESSAGE_TYPES.OOC;
+            return CONST.CHAT_MESSAGE_TYPES.OOC;
           case CONST.CHAT_MESSAGE_TYPES.IC:
-              return CONST.CHAT_MESSAGE_TYPES.IC;
+            return CONST.CHAT_MESSAGE_TYPES.IC;
           case CONST.CHAT_MESSAGE_TYPES.EMOTE:
-              return CONST.CHAT_MESSAGE_TYPES.EMOTE;
+            return CONST.CHAT_MESSAGE_TYPES.EMOTE;
           case CONST.CHAT_MESSAGE_TYPES.WHISPER:
-              return CONST.CHAT_MESSAGE_TYPES.WHISPER;
+            return CONST.CHAT_MESSAGE_TYPES.WHISPER;
           case CONST.CHAT_MESSAGE_TYPES.ROLL:
-              return CONST.CHAT_MESSAGE_TYPES.ROLL;
+            return CONST.CHAT_MESSAGE_TYPES.ROLL;
           default:
             // "Unknown tab
             return;

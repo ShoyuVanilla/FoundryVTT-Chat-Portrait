@@ -65,6 +65,13 @@ export class ChatPortraitForm extends FormApplication {
                 displayUnknownPlaceHolderActorName: 'Unknown Actor',
                 displayUnknownPlaceHolderItemName: 'Unknown Item',
                 displayUnknownPlaceHolderItemIcon: `/modules/${MODULE_NAME}/assets/inv-unidentified.png`,
+                displaySettingOTHER: true,
+                displaySettingOOC: true,
+                displaySettingIC: true,
+                displaySettingEMOTE: true,
+                displaySettingWHISPER: true,
+                displaySettingROLL: true,
+                displaySettingWhisperToOther: false,
             };
         }else{
             data = {
@@ -89,6 +96,13 @@ export class ChatPortraitForm extends FormApplication {
                 displayUnknownPlaceHolderActorName: SettingsForm.getDisplayUnknownPlaceHolderActorName(),
                 displayUnknownPlaceHolderItemName: SettingsForm.getDisplayUnknownPlaceHolderItemName(),
                 displayUnknownPlaceHolderItemIcon: SettingsForm.getDisplayUnknownPlaceHolderItemIcon(),
+                displaySettingOTHER: SettingsForm.getDisplaySettingOTHER(),
+                displaySettingOOC: SettingsForm.getDisplaySettingOOC(),
+                displaySettingIC: SettingsForm.getDisplaySettingIC(),
+                displaySettingEMOTE: SettingsForm.getDisplaySettingEMOTE(),
+                displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
+                displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
+                displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
             };
         }
 
@@ -172,6 +186,13 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setDisplayUnknownPlaceHolderActorName(formData.displayUnknownPlaceHolderActorName);
         SettingsForm.setDisplayUnknownPlaceHolderItemName(formData.displayUnknownPlaceHolderItemName);
         SettingsForm.setDisplayUnknownPlaceHolderItemIcon(formData.displayUnknownPlaceHolderItemIcon);
+        SettingsForm.setDisplaySettingOTHER(formData.displaySettingOTHER); 
+        SettingsForm.setDisplaySettingOOC(formData.displaySettingOOC); 
+        SettingsForm.setDisplaySettingIC(formData.displaySettingIC); 
+        SettingsForm.setDisplaySettingEMOTE(formData.displaySettingEMOTE); 
+        SettingsForm.setDisplaySettingWHISPER(formData.displaySettingWHISPER); 
+        SettingsForm.setDisplaySettingROLL(formData.displaySettingROLL);
+        SettingsForm.setDisplaySettingWhisperToOther(formData.displaySettingWhisperToOther);
     }
 
     getSelectList(myselectslist, selected) {
@@ -340,5 +361,48 @@ export class SettingsForm {
     }
     static setDisplayUnknownPlaceHolderItemIcon(value:string) {
         game.settings.set(MODULE_NAME, 'displayUnknownPlaceHolderItemIcon',value);
+    }
+
+    static getDisplaySettingOTHER() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displaySettingOTHER');
+    }
+    static setDisplaySettingOTHER(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displaySettingOTHER',value);
+    }
+    static getDisplaySettingOOC() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displaySettingOOC');
+    }
+    static setDisplaySettingOOC(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displaySettingOOC',value);
+    }
+    static getDisplaySettingIC() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displaySettingIC');
+    }
+    static setDisplaySettingIC(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displaySettingIC',value);
+    }
+    static getDisplaySettingEMOTE() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displaySettingEMOTE');
+    }
+    static setDisplaySettingEMOTE(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displaySettingEMOTE',value);
+    }
+    static getDisplaySettingWHISPER() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displaySettingWHISPER');
+    }
+    static setDisplaySettingWHISPER(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displaySettingWHISPER',value);
+    }
+    static getDisplaySettingROLL() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displaySettingROLL');
+    }
+    static setDisplaySettingROLL(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displaySettingROLL',value);
+    }
+    static getDisplaySettingWhisperToOther() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displaySettingWhisperToOther');
+    }
+    static setDisplaySettingWhisperToOther(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displaySettingWhisperToOther',value);
     }
 }

@@ -173,6 +173,55 @@ export const registerSettings = function () {
     // }
   });
 
+  game.settings.register(MODULE_NAME, 'displaySettingOTHER', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
+  game.settings.register(MODULE_NAME, 'displaySettingOOC', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
+  game.settings.register(MODULE_NAME, 'displaySettingIC', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
+  game.settings.register(MODULE_NAME, 'displaySettingEMOTE', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
+  game.settings.register(MODULE_NAME, 'displaySettingWHISPER', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
+  game.settings.register(MODULE_NAME, 'displaySettingROLL', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
+  game.settings.register(MODULE_NAME, 'displaySettingWhisperToOther', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
   game.settings.register(MODULE_NAME, 'useAvatarImage', {
     scope: 'world',
     config: false,

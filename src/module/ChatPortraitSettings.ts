@@ -19,4 +19,11 @@ export interface ChatPortraitSettings{
     displayUnknownPlaceHolderActorName: string,
     displayUnknownPlaceHolderItemName: string,
     displayUnknownPlaceHolderItemIcon: string,
+    displaySettingOTHER: boolean,
+    displaySettingOOC: boolean, 
+    displaySettingIC: boolean, 
+    displaySettingEMOTE: boolean,
+    displaySettingWHISPER: boolean,
+    displaySettingROLL: boolean,
+    displaySettingWhisperToOther: boolean,
 }
