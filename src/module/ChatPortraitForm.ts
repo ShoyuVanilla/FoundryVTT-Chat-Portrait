@@ -61,6 +61,7 @@ export class ChatPortraitForm extends FormApplication {
                 textSizeName: 0,
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, 'allCards'),
                 useAvatarImage: false,
+                displayPlayerName: false,
                 displayUnknownList: this.getSelectList(this.displayUnknownListOptions, 'none'),
                 displayUnknownPlaceHolderActorName: 'Unknown Actor',
                 displayUnknownPlaceHolderItemName: 'Unknown Item',
@@ -92,6 +93,7 @@ export class ChatPortraitForm extends FormApplication {
                 textSizeName: SettingsForm.getTextSizeName(),
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, SettingsForm.getDisplaySetting()),
                 useAvatarImage: SettingsForm.getUseAvatarImage(),
+                displayPlayerName: SettingsForm.getDisplayPlayerName(),
                 displayUnknownList: this.getSelectList(this.displayUnknownListOptions, SettingsForm.getDisplayUnknown()),
                 displayUnknownPlaceHolderActorName: SettingsForm.getDisplayUnknownPlaceHolderActorName(),
                 displayUnknownPlaceHolderItemName: SettingsForm.getDisplayUnknownPlaceHolderItemName(),
@@ -182,6 +184,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setTextSizeName(formData.textSizeName);
         SettingsForm.setDisplaySetting(formData.displaySetting);
         SettingsForm.setUseAvatarImage(formData.useAvatarImage);
+        SettingsForm.setDisplayPlayerName(formData.displayPlayerName);
         SettingsForm.setDisplayUnknown(formData.displayUnknown);
         SettingsForm.setDisplayUnknownPlaceHolderActorName(formData.displayUnknownPlaceHolderActorName);
         SettingsForm.setDisplayUnknownPlaceHolderItemName(formData.displayUnknownPlaceHolderItemName);
@@ -336,6 +339,12 @@ export class SettingsForm {
     }
     static setUseAvatarImage(value:boolean) {
         game.settings.set(MODULE_NAME, 'useAvatarImage',value);
+    }
+    static getDisplayPlayerName() {
+        return <boolean>game.settings.get(MODULE_NAME, 'displayPlayerName');
+    }
+    static setDisplayPlayerName(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displayPlayerName',value);
     }
     static getDisplayUnknown() {
       return <string>game.settings.get(MODULE_NAME, 'displayUnknown');

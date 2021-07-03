@@ -84,5 +84,7 @@
   "chat-portrait.settings.displaySettingROLL.name": "Display chat message of type ROLL",
   "chat-portrait.settings.displaySettingROLL.hint": "Configure custom styling for message of type ROLL",
   "chat-portrait.settings.displaySettingWhisperToOther.name": "Display chat message of whisper to other",
-  "chat-portrait.settings.displaySettingWhisperToOther.hint": "Configure custom styling for message of whisper to other"
+  "chat-portrait.settings.displaySettingWhisperToOther.hint": "Configure custom styling for message of whisper to other",
+  "chat-portrait.settings.displayPlayerName.name": "Shows the name of the player next to the name of the actor",
+  "chat-portrait.settings.displayPlayerName.hint": "Shows the name of the player next to the name of the actor for any IC messages"
 }

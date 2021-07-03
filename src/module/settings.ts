@@ -61,6 +61,20 @@ export const registerSettings = function () {
     default: false
   });
 
+  game.settings.register(MODULE_NAME, 'useAvatarImage', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register(MODULE_NAME, 'displayPlayerName', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
   game.settings.register(MODULE_NAME, 'portraitSize', {
     scope: 'world',
     config: false,
@@ -174,56 +188,49 @@ export const registerSettings = function () {
   });
 
   game.settings.register(MODULE_NAME, 'displaySettingOTHER', {
-    scope: 'world',
+    scope: 'client',
     config: false,
     type: Boolean,
     default: true
   });
 
   game.settings.register(MODULE_NAME, 'displaySettingOOC', {
-    scope: 'world',
+    scope: 'client',
     config: false,
     type: Boolean,
     default: true
   });
 
   game.settings.register(MODULE_NAME, 'displaySettingIC', {
-    scope: 'world',
+    scope: 'client',
     config: false,
     type: Boolean,
     default: true
   });
 
   game.settings.register(MODULE_NAME, 'displaySettingEMOTE', {
-    scope: 'world',
+    scope: 'client',
     config: false,
     type: Boolean,
     default: true
   });
 
   game.settings.register(MODULE_NAME, 'displaySettingWHISPER', {
-    scope: 'world',
+    scope: 'client',
     config: false,
     type: Boolean,
     default: true
   });
 
   game.settings.register(MODULE_NAME, 'displaySettingROLL', {
-    scope: 'world',
+    scope: 'client',
     config: false,
     type: Boolean,
     default: true
   });
 
   game.settings.register(MODULE_NAME, 'displaySettingWhisperToOther', {
-    scope: 'world',
-    config: false,
-    type: Boolean,
-    default: false
-  });
-
-  game.settings.register(MODULE_NAME, 'useAvatarImage', {
-    scope: 'world',
+    scope: 'client',
     config: false,
     type: Boolean,
     default: false

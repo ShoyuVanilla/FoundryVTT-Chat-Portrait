@@ -1,6 +1,11 @@
 
 
 
+## 0.3.1
+
+- Add an other module setting for make optional to visualize the name of the player on the chat 'displayPlayerName'
+- Set some module setting to 'client' instead of 'world'
+
 ## 0.3.0
 
 - Add other module settings 'displaySettingOTHER', 'displaySettingOOC', 'displaySettingIC', 'displaySettingEMOTE',
@@ -13,6 +18,7 @@
 ## 0.2.16 
 
 - Set default value of unknwon to 'none' instead 'allCards' because make sense
+
 ## 0.2.15 [Breaking changes]
 
 - Bug fix [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40)

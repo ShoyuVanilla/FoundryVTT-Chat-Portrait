@@ -243,7 +243,9 @@ export class ChatPortrait {
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
-            ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
+            if(this.settings.displayPlayerName){
+              ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
+            }
         });
     }
 
@@ -416,6 +418,7 @@ export class ChatPortrait {
             textSizeName: SettingsForm.getTextSizeName(),
             displaySetting: SettingsForm.getDisplaySetting(),
             useAvatarImage: SettingsForm.getUseAvatarImage(),
+            displayPlayerName: SettingsForm.getDisplayPlayerName(),
             displayUnknown: SettingsForm.getDisplayUnknown(),
             displayUnknownPlaceHolderActorName: SettingsForm.getDisplayUnknownPlaceHolderActorName(),
             displayUnknownPlaceHolderItemName: SettingsForm.getDisplayUnknownPlaceHolderItemName(),
@@ -452,6 +455,7 @@ export class ChatPortrait {
             textSizeName: 0,
             displaySetting: 'allCards',
             useAvatarImage: false,
+            displayPlayerName: false,
             displayUnknown: 'none',
             displayUnknownPlaceHolderActorName: 'Unknown Actor',
             displayUnknownPlaceHolderItemName: 'Unknown Item',
@@ -597,7 +601,7 @@ export class ChatPortrait {
       if (game.user.isGM) {
         return speaker.alias;
       }
-      return '???';
+      return this.settings.displayUnknownPlaceHolderActorName; //'???';
     }
 
     static getToken = function(sceneID, tokenID) {

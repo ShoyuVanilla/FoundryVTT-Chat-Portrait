@@ -33,9 +33,13 @@ due to my mistake during development I didn't realize that I had badly integrate
 
 ## Features/Settings
 
-- Use Token Image: Use the actor's Token image instead of the actor's standard image.
+- Use Token Image: Use the actor's Token image instead of the actor's standard image. Note: In the event the token associated with a chat message no longer exists, it will use the actor's prototype token's name. In the event the actor no longer exists, it will show "Unknown Actor" to all players, and the original chat message's alias (usually the actor's name) to the GM.
 
 - Use Token Name: Use the actor's Token name instead of the actor's standard name.
+
+- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. Note if true ignore the first option if a avatar is found or else go back to the standard actor/token image feature, this option is ignored if you are the GM or else everything you click has the avatar image of the GM.
+
+- Shows the name of the player next to the name of the actor for any IC messages
 
 - Portrait Size (px): Configure portrait image size on the chat messages. Default is 36 px
 
@@ -64,8 +68,6 @@ due to my mistake during development I didn't realize that I had badly integrate
 - Portrait Size for item (px): Configure portrait image size for item on the chat messages. Default is 36 px
 
 - Double Click on the image portrait or the name of the token "pan to token" on the current scene
-
-- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. Note if true ignore the first option if a avatar is found or else go back to the standard actor/token image feature, this option is ignored if you are the GM or else everything you click has the avatar image of the GM.
 
 - Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
   - allCards : Affect every message.
