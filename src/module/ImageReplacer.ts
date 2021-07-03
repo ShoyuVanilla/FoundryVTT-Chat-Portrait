@@ -95,6 +95,7 @@ export const imageReplacerEn:Record<string, string> =
         "Navigator's tools": `/modules/${MODULE_NAME}/assets/navigator_s_tools.svg`, // https://game-icons.net/1x1/delapouite/sextant.html
         "Poisoner's Kit": `/modules/${MODULE_NAME}/assets/poisoner_s_kit.svg`, // https://game-icons.net/1x1/lorc/poison-bottle.html
         "Thieves Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
+        "Thieves' Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
     }
 
 

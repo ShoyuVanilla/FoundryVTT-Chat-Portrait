@@ -1,5 +1,8 @@
 
 
+## 0.3.2
+
+- Some minor bug fix
 
 ## 0.3.1
 

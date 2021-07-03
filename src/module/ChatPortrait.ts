@@ -23,29 +23,29 @@ export class ChatPortrait {
         return;
       }
 
-      if(!this.settings.displaySettingWhisperToOther && ChatPortrait.isWhisperToOther(speakerInfo)){
+      if(!ChatPortrait.settings.displaySettingWhisperToOther && ChatPortrait.isWhisperToOther(speakerInfo)){
         // Don't update whispers that the current player isn't privy to
         return;
       }
 
       let messageType = ChatPortrait.getMessageTypeVisible(speakerInfo);
 
-      if(!this.settings.displaySettingOTHER && messageType == CONST.CHAT_MESSAGE_TYPES.OTHER){
+      if(!ChatPortrait.settings.displaySettingOTHER && messageType == CONST.CHAT_MESSAGE_TYPES.OTHER){
         return;
       }
-      if(!this.settings.displaySettingOOC && messageType == CONST.CHAT_MESSAGE_TYPES.OOC){
+      if(!ChatPortrait.settings.displaySettingOOC && messageType == CONST.CHAT_MESSAGE_TYPES.OOC){
         return;
       }
-      if(!this.settings.displaySettingIC && messageType == CONST.CHAT_MESSAGE_TYPES.IC){
+      if(!ChatPortrait.settings.displaySettingIC && messageType == CONST.CHAT_MESSAGE_TYPES.IC){
         return;
       }
-      if(!this.settings.displaySettingEMOTE && messageType == CONST.CHAT_MESSAGE_TYPES.EMOTE){
+      if(!ChatPortrait.settings.displaySettingEMOTE && messageType == CONST.CHAT_MESSAGE_TYPES.EMOTE){
         return;
       }
-      if(!this.settings.displaySettingWHISPER && messageType == CONST.CHAT_MESSAGE_TYPES.WHISPER){
+      if(!ChatPortrait.settings.displaySettingWHISPER && messageType == CONST.CHAT_MESSAGE_TYPES.WHISPER){
         return;
       }
-      if(!this.settings.displaySettingROLL && messageType == CONST.CHAT_MESSAGE_TYPES.ROLL){
+      if(!ChatPortrait.settings.displaySettingROLL && messageType == CONST.CHAT_MESSAGE_TYPES.ROLL){
         return;
       }
 
@@ -106,7 +106,7 @@ export class ChatPortrait {
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
         //const speaker = speakerInfo.message.speaker;
-        const useTokenName: boolean = this.settings.useTokenName;
+        const useTokenName: boolean = ChatPortrait.settings.useTokenName;
         if(useTokenName){
           ChatPortrait.replaceSenderWithTokenName(senderElement, speakerInfo);
         }
@@ -150,10 +150,10 @@ export class ChatPortrait {
                 const size: number = ChatPortrait.settings.textSizeName;
                 senderElement.style.fontSize = size + 'px';
                 if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                    senderElement.innerText = this.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
+                    senderElement.innerText = ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
                 }
             }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                senderElement.innerText = this.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
+                senderElement.innerText = ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
             }
 
             // Add click listener to image and text
@@ -164,16 +164,18 @@ export class ChatPortrait {
                 for(let i = 0; i < elementItemImageList.length; i++){
                     const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
                     const size: number = ChatPortrait.settings.portraitSizeItem;
-                    elementItemImage.width = size;
-                    elementItemImage.height = size;
+                    if(size && size > 0){
+                      elementItemImage.width = size;
+                      elementItemImage.height = size;
+                    }
                     if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                        elementItemImage.src = this.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
+                        elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                     }
                 }
             }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                 for(let i = 0; i < elementItemImageList.length; i++){
                     const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                    elementItemImage.src = this.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
+                    elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                 }
             }
 
@@ -182,12 +184,12 @@ export class ChatPortrait {
 
                 for(let i = 0; i < elementItemNameList.length; i++){
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
-                    elementItemName.innerText = this.settings.displayUnknownPlaceHolderItemName; //'Unknown Weapon';
+                    elementItemName.innerText = ChatPortrait.settings.displayUnknownPlaceHolderItemName; //'Unknown Weapon';
                 }
 
                 for(let i = 0; i < elementItemContentList.length; i++){
                     const elementItemContent:HTMLElement = <HTMLElement>elementItemContentList[i];
-                    elementItemContent.innerText = this.settings.displayUnknownPlaceHolderItemName; //'Unknown Weapon';
+                    elementItemContent.innerText = ChatPortrait.settings.displayUnknownPlaceHolderItemName; //'Unknown Weapon';
                 }
 
             }
@@ -201,16 +203,53 @@ export class ChatPortrait {
                         if(value){
                             if(elementItemImageList.length > 0){
                                 const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                                elementItemImage.src = value;
+                                const size: number = ChatPortrait.settings.portraitSizeItem;
+                                if(size && size > 0){
+                                  elementItemImage.width = size;
+                                  elementItemImage.height = size;
+                                }
+                                // Just ignore if a image is provided
+                                if(!elementItemImage.src){
+                                  elementItemImage.src = value;
+                                }
                                 elementItemName.prepend(elementItemImage);
                             }else{
                                 const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                                 const size: number = ChatPortrait.settings.portraitSizeItem;
-                                elementItemImage.width = size;
-                                elementItemImage.height = size;
-                                elementItemImage.src = value;
+                                if(size && size > 0){
+                                  elementItemImage.width = size;
+                                  elementItemImage.height = size;
+                                }
+                                // Just ignore if a image is provided
+                                if(!elementItemImage.src){
+                                  elementItemImage.src = value;
+                                }
                                 elementItemName.prepend(elementItemImage);
                             }
+                        }else{
+                          if(elementItemImageList.length > 0){
+                              const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                              const size: number = ChatPortrait.settings.portraitSizeItem;
+                              if(size && size > 0){
+                                elementItemImage.width = size;
+                                elementItemImage.height = size;
+                              }
+                              if(!elementItemImage.src){
+                                elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                              }
+                              elementItemName.prepend(elementItemImage);
+                          }else{
+                              const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                              const size: number = ChatPortrait.settings.portraitSizeItem;
+                              if(size && size > 0){
+                                elementItemImage.width = size;
+                                elementItemImage.height = size;
+                              }
+                              if(!elementItemImage.src){
+                                elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                              }
+                              elementItemName.prepend(elementItemImage);
+                          }
                         }
                     }
                 }
@@ -222,19 +261,56 @@ export class ChatPortrait {
                     if(value){
                         if(elementItemImageList.length > 0){
                             const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                            elementItemImage.src = value;
+                            const size: number = ChatPortrait.settings.portraitSizeItem;
+                            if(size && size > 0){
+                              elementItemImage.width = size;
+                              elementItemImage.height = size;
+                            }
+                            // Just ignore if a image is provided
+                            if(!elementItemImage.src){
+                              elementItemImage.src = value;
+                            }
                             elementItemText.prepend(elementItemImage);
                         }else{
                             const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                             const size: number = ChatPortrait.settings.portraitSizeItem;
-                            elementItemImage.width = size;
-                            elementItemImage.height = size;
-                            elementItemImage.src = value;
+                            if(size && size > 0){
+                              elementItemImage.width = size;
+                              elementItemImage.height = size;
+                            }
+                            // Just ignore if a image is provided
+                            if(!elementItemImage.src){
+                              elementItemImage.src = value;
+                            }
                             elementItemText.prepend(elementItemImage);
                         }
+                    }else{
+                      if(elementItemImageList.length > 0){
+                          const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                          const size: number = ChatPortrait.settings.portraitSizeItem;
+                          if(size && size > 0){
+                            elementItemImage.width = size;
+                            elementItemImage.height = size;
+                          }
+                          if(!elementItemImage.src){
+                            elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                          }
+                          elementItemText.prepend(elementItemImage);
+                      }else{
+                          const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                          const size: number = ChatPortrait.settings.portraitSizeItem;
+                          if(size && size > 0){
+                            elementItemImage.width = size;
+                            elementItemImage.height = size;
+                          }
+                          if(!elementItemImage.src){
+                            elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                          }
+                          elementItemText.prepend(elementItemImage);
+                      }
                     }
                     if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                      elementItemText.innerText = this.settings.displayUnknownPlaceHolderItemName;
+                      elementItemText.innerText = ChatPortrait.settings.displayUnknownPlaceHolderItemName;
                     }
                 }
 
@@ -243,7 +319,7 @@ export class ChatPortrait {
 
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
-            if(this.settings.displayPlayerName){
+            if(ChatPortrait.settings.displayPlayerName){
               ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
             }
         });
@@ -260,7 +336,7 @@ export class ChatPortrait {
 
       if (speaker) {
         if (!speaker.token && !speaker.actor){
-          if(message.user && this.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
+          if(message.user && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
             if(imgAvatar && !imgAvatar.includes("mystery-man")){
                 return imgAvatar;
@@ -272,11 +348,11 @@ export class ChatPortrait {
           }
         }
         // It's a chat message associated with an actor
-        const useTokenImage: boolean = this.settings.useTokenImage;
+        const useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
         const actor:Actor = ChatPortrait.getActor(speaker);
 
         // Make sense only for player and for non GM
-        if(actor?.data?.type == "character" && this.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
+        if(actor?.data?.type == "character" && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
             if(imgAvatar && !imgAvatar.includes("mystery-man")){
                 return imgAvatar;
@@ -312,7 +388,7 @@ export class ChatPortrait {
             return;
         }
         const img: HTMLImageElement = document.createElement('img');
-        const size: number = this.settings.portraitSize;
+        const size: number = ChatPortrait.settings.portraitSize;
         // Support for video or webm file
         //let thumb = diff.img;
         //if (VideoHelper.hasVideoExtension(diff.img))
@@ -346,9 +422,9 @@ export class ChatPortrait {
      * @param  {string} authorColor
      */
     static setImageBorder(img: HTMLImageElement, authorColor: string) {
-        const borderShape: string = this.settings.borderShape;
-        const borderWidth: number = this.settings.borderWidth;
-        const borderColor: string = this.settings.useUserColorAsBorderColor ? authorColor : this.settings.borderColor;
+        const borderShape: string = ChatPortrait.settings.borderShape;
+        const borderWidth: number = ChatPortrait.settings.borderWidth;
+        const borderColor: string = ChatPortrait.settings.useUserColorAsBorderColor ? authorColor : ChatPortrait.settings.borderColor;
         switch (borderShape) {
             case 'square':
                 img.style.border = `${borderWidth}px solid ${borderColor}`;
@@ -372,7 +448,7 @@ export class ChatPortrait {
      * @param  {string} authorColor
      */
     static setChatMessageBackground(html: JQuery, messageData: MessageRenderData, authorColor: string) {
-        const useUserBackgroundColor = this.settings.useUserColorAsChatBackgroundColor;
+        const useUserBackgroundColor = ChatPortrait.settings.useUserColorAsChatBackgroundColor;
         if(useUserBackgroundColor) {
             html[0].setAttribute('style','background-color:' + authorColor + ';background-blend-mode:screen;');
         }
@@ -388,7 +464,7 @@ export class ChatPortrait {
      * @param  {string} authorColor
      */
     static setChatMessageBorder(html: JQuery, messageData: MessageRenderData, authorColor: string) {
-        const useUserBorderColor = this.settings.useUserColorAsChatBorderColor;
+        const useUserBorderColor = ChatPortrait.settings.useUserColorAsChatBorderColor;
 
         // only override the border color if someone further up the chain hasn't already done so.
         if(useUserBorderColor && !messageData.borderColor) {
@@ -482,7 +558,7 @@ export class ChatPortrait {
     //   alias?: string;
     // }): string {
     //     if (!speaker.token && !speaker.actor) return;
-    //     const useTokenImage: boolean = this.settings.useTokenImage;
+    //     const useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
     //     let item: Item;
     //     if (speaker.token) {
     //         item = game.actors.tokens[speaker.token];
@@ -498,7 +574,7 @@ export class ChatPortrait {
     //     if (!item) {
     //         item  = game.actors.get(speaker.actor);
     //     }
-    //     const forceNameSearch = this.settings.forceNameSearch;
+    //     const forceNameSearch = ChatPortrait.settings.forceNameSearch;
     //     if (!item  && forceNameSearch) {
     //         item  = game.actors.find((a: Item) => a.name === speaker.alias);
     //     }
@@ -508,7 +584,7 @@ export class ChatPortrait {
     // static getSpeakerImage = function (message):string {
     //   const speaker = message.speaker;
     //   if (speaker) {
-    //       if (speaker.token && this.settings.useTokenImage) {
+    //       if (speaker.token && ChatPortrait.settings.useTokenImage) {
     //           //@ts-ignore
     //           const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
     //           if (token) {
@@ -516,7 +592,7 @@ export class ChatPortrait {
     //           }
     //       }
 
-    //       if (speaker.actor && !this.settings.useTokenImage) {
+    //       if (speaker.actor && !ChatPortrait.settings.useTokenImage) {
     //           const actor = Actors.instance.get(speaker.actor);
     //           if (actor) {
     //             //@ts-ignore
@@ -534,7 +610,7 @@ export class ChatPortrait {
     //       return false;
     //   } else {
     //     let bHasImage = false;
-    //     if (speaker.token && this.settings.useTokenImage) {
+    //     if (speaker.token && ChatPortrait.settings.useTokenImage) {
     //         //@ts-ignore
     //         const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
     //         if (token) {
@@ -567,7 +643,7 @@ export class ChatPortrait {
             //actor = game.actors.get(speaker.actor); // Deprecated on 0.8.6
             actor = Actors.instance.get(speaker.actor);
         }
-        const forceNameSearch = this.settings.forceNameSearch;
+        const forceNameSearch = ChatPortrait.settings.forceNameSearch;
         if (!actor && forceNameSearch) {
             actor = game.actors.find((a: Actor) => a.name === speaker.alias);
         }
@@ -601,7 +677,7 @@ export class ChatPortrait {
       if (game.user.isGM) {
         return speaker.alias;
       }
-      return this.settings.displayUnknownPlaceHolderActorName; //'???';
+      return ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'???';
     }
 
     static getToken = function(sceneID, tokenID) {
