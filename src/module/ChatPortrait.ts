@@ -4,7 +4,7 @@ import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { ImageReplacerImpl } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
-import { getCanvas, MODULE_NAME } from "./settings";
+import { getCanvas, INV_UNIDENTIFIED_BOOK, MODULE_NAME } from "./settings";
 
 /**
  * Main class wrapper for all of our features.
@@ -120,6 +120,18 @@ export class ChatPortrait {
         const imgElement: HTMLImageElement = ChatPortrait.generatePortraitImageElement(imgPath)
         .then((imgElement)=>{
 
+            // Very very rare use case ????
+            if(!imgElement){
+              imgElement = document.createElement('img');
+              const size: number = ChatPortrait.settings.portraitSize;
+              if(size && size > 0){
+                imgElement.width = size;
+                imgElement.height = size;
+              }
+              imgElement.src = INV_UNIDENTIFIED_BOOK;
+              imgElement.classList.add("message-portrait");
+            }
+            
             ChatPortrait.setImageBorder(imgElement, authorColor);
             // Place the image to left of the header by injecting the HTML
             const element: HTMLElement = html.find('.message-header')[0];
@@ -399,13 +411,17 @@ export class ChatPortrait {
             if( imgPath.endsWith("webm")){
                 img.src = imgThumb.thumb;
                 // If a url we need these anyway
-                img.width = size;
-                img.height = size;
+                if(size && size > 0){
+                  img.width = size;
+                  img.height = size;
+                }
             }else{
                 img.src = <string>imgThumb.src;
-                // If a url we need these anyway
-                img.width = size;
-                img.height = size;
+                if(size && size > 0){
+                  // If a url we need these anyway
+                  img.width = size;
+                  img.height = size;
+                }
             }
         } catch {
             img.src = imgPath;
