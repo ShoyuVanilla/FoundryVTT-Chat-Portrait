@@ -56,3 +56,8 @@
 .chat-portrait-playerName::after {
   content: ']';
 }
+
+/* Narrator Chat Module Support - Don't show portrait on Narrates */
+#chat-log .chat-message.message.flexcol.narrator-chat .message-header img.message-portrait {
+	display:none;
+}
