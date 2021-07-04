@@ -1,4 +1,7 @@
 
+## 0.3.5
+
+- Add css class for a "better"  display of the text on the chat 
 
 ## 0.3.4
 

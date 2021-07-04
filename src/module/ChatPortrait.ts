@@ -101,7 +101,7 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
+    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
         const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
         const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
@@ -155,6 +155,11 @@ export class ChatPortrait {
                   senderElement.appendChild(brElement);
                   senderElement.appendChild(copiedElement);
               }  
+            }
+
+            // Default style
+            if(!senderElement.classList.contains("chat-portrait-text-size-name")){
+              senderElement.classList.add("chat-portrait-text-size-name");
             }
 
             // Update size text name by settings
@@ -220,7 +225,10 @@ export class ChatPortrait {
             if(elementItemNameList.length > 0){
                 for(let i = 0; i < elementItemNameList.length; i++){
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
-                    elementItemName.style.display = 'flex';
+                    if(!elementItemName.classList.contains("chat-portrait-text-size-name")){
+                      elementItemName.classList.add("chat-portrait-text-size-name");
+                    }
+                    //elementItemName.style.display = 'flex';
                     if(elementItemName){
                         const value: string = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemName.innerText);
                         if(value){
@@ -291,7 +299,10 @@ export class ChatPortrait {
             }else{
                 for(let i = 0; i <  elementItemTextList.length; i++){
                     const elementItemText:HTMLElement = <HTMLElement>elementItemTextList[i];
-                    elementItemText.style.display = 'flex';
+                    if(!elementItemText.classList.contains("chat-portrait-text-size-name")){
+                      elementItemText.classList.add("chat-portrait-text-size-name");
+                    }
+                    //elementItemText.style.display = 'flex';
                     const value: string = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemText.innerText);
                     if(value){
                         if(elementItemImageList.length > 0){
