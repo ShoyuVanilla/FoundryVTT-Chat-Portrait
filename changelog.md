@@ -1,5 +1,13 @@
 
 
+## 0.3.4
+
+- Patch for module narrator [Narrator Chat Module Support](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/45)
+- Bug fix [Issue: Initiative Asset Missing](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/46)
+- Bug fix [Request: ImageReplacer for Long and Short Rests](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/47)
+- Add 'Attack Roll' and 'Damage Roll' to ImageReplacer
+- Bug fix and improve to ImageReaplacer mechanism
+
 ## 0.3.3
 
 - Some minor bug fix

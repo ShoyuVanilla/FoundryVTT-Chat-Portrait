@@ -20,6 +20,9 @@ export const ImageReplaceriInit = function():Record<string, string> {
 
 export const imageReplacerEn:Record<string, string> = 
     {
+        "Damage Roll": `/modules/${MODULE_NAME}/assets/damage_roll.svg`, // https://game-icons.net/1x1/delapouite/dice-fire.html
+        "Attack Roll": `/modules/${MODULE_NAME}/assets/attack_roll.svg`, // https://game-icons.net/1x1/delapouite/dice-shield.html
+
         // =======================================================================
         // dnd5e
         // =======================================================================
@@ -30,7 +33,7 @@ export const imageReplacerEn:Record<string, string> =
         "Intelligence": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // https://game-icons.net/1x1/lorc/fox-head.html
         "Wisdom": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // https://game-icons.net/1x1/lorc/owl.html
         "Charisma": `/modules/${MODULE_NAME}/assets/charisma.svg`, // https://game-icons.net/1x1/delapouite/eagle-head.html
-        "Initiative": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
+        "Initiative": `/modules/${MODULE_NAME}/assets/initiative.svg`, //https://game-icons.net/1x1/delapouite/acoustic-megaphone.html
 
         "Strength Check": `/modules/${MODULE_NAME}/assets/strength.svg`, // https://game-icons.net/1x1/delapouite/bear-head.html
         "Dexterity Check": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // https://game-icons.net/1x1/delapouite/feline.html
@@ -38,7 +41,7 @@ export const imageReplacerEn:Record<string, string> =
         "Intelligence Check": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // https://game-icons.net/1x1/lorc/fox-head.html
         "Wisdom Check": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // https://game-icons.net/1x1/lorc/owl.html
         "Charisma Check": `/modules/${MODULE_NAME}/assets/charisma.svg`, // https://game-icons.net/1x1/delapouite/eagle-head.html
-        "Initiative Check": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
+        "Initiative Check": `/modules/${MODULE_NAME}/assets/initiative.svg`, //https://game-icons.net/1x1/delapouite/acoustic-megaphone.html
 
         "Strength Save": `/modules/${MODULE_NAME}/assets/strength.svg`, // https://game-icons.net/1x1/delapouite/bear-head.html
         "Dexterity Save": `/modules/${MODULE_NAME}/assets/dexterity.svg`, // https://game-icons.net/1x1/delapouite/feline.html
@@ -46,7 +49,7 @@ export const imageReplacerEn:Record<string, string> =
         "Intelligence Save": `/modules/${MODULE_NAME}/assets/intelligence.svg`, // https://game-icons.net/1x1/lorc/fox-head.html
         "Wisdom Save": `/modules/${MODULE_NAME}/assets/wisdom.svg`, // https://game-icons.net/1x1/lorc/owl.html
         "Charisma Save": `/modules/${MODULE_NAME}/assets/charisma.svg`, // https://game-icons.net/1x1/delapouite/eagle-head.html
-        "Initiative Save": `/modules/${MODULE_NAME}/assets/initiative.svg`, //
+        "Initiative Save": `/modules/${MODULE_NAME}/assets/initiative.svg`, //https://game-icons.net/1x1/delapouite/acoustic-megaphone.html
 
         "Acrobatics": `/modules/${MODULE_NAME}/assets/acrobatics.svg`, // https://game-icons.net/1x1/delapouite/contortionist.html
         "Acrobatics Skill Check": `/modules/${MODULE_NAME}/assets/acrobatics.svg`, // https://game-icons.net/1x1/delapouite/contortionist.html
@@ -85,7 +88,6 @@ export const imageReplacerEn:Record<string, string> =
         "Survival": `/modules/${MODULE_NAME}/assets/survival.svg`, // https://game-icons.net/1x1/delapouite/deer-track.html
         "Survival Skill Check": `/modules/${MODULE_NAME}/assets/survival.svg`, // https://game-icons.net/1x1/delapouite/deer-track.html
 
-
         "Artisan's Tools": `/modules/${MODULE_NAME}/assets/artisan_s_tools.svg`, // https://game-icons.net/1x1/lorc/hammer-nails.html
         "Disguise Kit": `/modules/${MODULE_NAME}/assets/disguise_kit.svg`, // https://game-icons.net/1x1/lorc/duality-mask.html
         "Forgery Kit": `/modules/${MODULE_NAME}/assets/forgery_kit`, // https://game-icons.net/1x1/lorc/quill-ink.html
@@ -96,6 +98,9 @@ export const imageReplacerEn:Record<string, string> =
         "Poisoner's Kit": `/modules/${MODULE_NAME}/assets/poisoner_s_kit.svg`, // https://game-icons.net/1x1/lorc/poison-bottle.html
         "Thieves Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
         "Thieves' Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
+
+        "Short Rest": `/modules/${MODULE_NAME}/assets/short_rest.svg`, // https://game-icons.net/1x1/delapouite/wooden-chair.html 
+        "Long Rest": `/modules/${MODULE_NAME}/assets/long_rest.svg`, // https://game-icons.net/1x1/delapouite/person-in-bed.html
     }
 
 

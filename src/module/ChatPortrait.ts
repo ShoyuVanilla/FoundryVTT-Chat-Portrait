@@ -183,11 +183,22 @@ export class ChatPortrait {
                     if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                         elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                     }
+                    if(!elementItemImage.classList.contains("message-portrait")){
+                      elementItemImage.classList.add("message-portrait");
+                    }
                 }
             }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
                 for(let i = 0; i < elementItemImageList.length; i++){
                     const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
                     elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
+                    const size: number = ChatPortrait.settings.portraitSizeItem;
+                    if(size && size > 0){
+                      elementItemImage.width = size;
+                      elementItemImage.height = size;
+                    }
+                    if(!elementItemImage.classList.contains("message-portrait")){
+                      elementItemImage.classList.add("message-portrait");
+                    }
                 }
             }
 
@@ -211,7 +222,7 @@ export class ChatPortrait {
                     const elementItemName:HTMLElement = <HTMLElement>elementItemNameList[i];
                     elementItemName.style.display = 'flex';
                     if(elementItemName){
-                        const value: string = ImageReplacerImpl[elementItemName.innerText];
+                        const value: string = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemName.innerText);
                         if(value){
                             if(elementItemImageList.length > 0){
                                 const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
@@ -224,6 +235,9 @@ export class ChatPortrait {
                                 if(!elementItemImage.src){
                                   elementItemImage.src = value;
                                 }
+                                if(!elementItemImage.classList.contains("message-portrait")){
+                                  elementItemImage.classList.add("message-portrait");
+                                }
                                 elementItemName.prepend(elementItemImage);
                             }else{
                                 const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
@@ -235,6 +249,9 @@ export class ChatPortrait {
                                 // Just ignore if a image is provided
                                 if(!elementItemImage.src){
                                   elementItemImage.src = value;
+                                }
+                                if(!elementItemImage.classList.contains("message-portrait")){
+                                  elementItemImage.classList.add("message-portrait");
                                 }
                                 elementItemName.prepend(elementItemImage);
                             }
@@ -249,6 +266,9 @@ export class ChatPortrait {
                               if(!elementItemImage.src){
                                 elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                               }
+                              if(!elementItemImage.classList.contains("message-portrait")){
+                                elementItemImage.classList.add("message-portrait");
+                              }
                               elementItemName.prepend(elementItemImage);
                           }else{
                               const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
@@ -260,6 +280,9 @@ export class ChatPortrait {
                               if(!elementItemImage.src){
                                 elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                               }
+                              if(!elementItemImage.classList.contains("message-portrait")){
+                                elementItemImage.classList.add("message-portrait");
+                              }
                               elementItemName.prepend(elementItemImage);
                           }
                         }
@@ -269,7 +292,7 @@ export class ChatPortrait {
                 for(let i = 0; i <  elementItemTextList.length; i++){
                     const elementItemText:HTMLElement = <HTMLElement>elementItemTextList[i];
                     elementItemText.style.display = 'flex';
-                    const value: string = ImageReplacerImpl[elementItemText.innerText];
+                    const value: string = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemText.innerText);
                     if(value){
                         if(elementItemImageList.length > 0){
                             const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
@@ -282,6 +305,9 @@ export class ChatPortrait {
                             if(!elementItemImage.src){
                               elementItemImage.src = value;
                             }
+                            if(!elementItemImage.classList.contains("message-portrait")){
+                              elementItemImage.classList.add("message-portrait");
+                            }
                             elementItemText.prepend(elementItemImage);
                         }else{
                             const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
@@ -293,6 +319,9 @@ export class ChatPortrait {
                             // Just ignore if a image is provided
                             if(!elementItemImage.src){
                               elementItemImage.src = value;
+                            }
+                            if(!elementItemImage.classList.contains("message-portrait")){
+                              elementItemImage.classList.add("message-portrait");
                             }
                             elementItemText.prepend(elementItemImage);
                         }
@@ -307,6 +336,9 @@ export class ChatPortrait {
                           if(!elementItemImage.src){
                             elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                           }
+                          if(!elementItemImage.classList.contains("message-portrait")){
+                            elementItemImage.classList.add("message-portrait");
+                          }
                           elementItemText.prepend(elementItemImage);
                       }else{
                           const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
@@ -317,6 +349,9 @@ export class ChatPortrait {
                           }
                           if(!elementItemImage.src){
                             elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                          }
+                          if(!elementItemImage.classList.contains("message-portrait")){
+                            elementItemImage.classList.add("message-portrait");
                           }
                           elementItemText.prepend(elementItemImage);
                       }
@@ -872,7 +907,19 @@ export class ChatPortrait {
             return;
       }
       return; // if there is some future new message type, its probably better to default to be visible than to hide it.
-  }
+    }
+
+    static getImageReplacerAsset(imageReplacer:Record<string,string>, text:string){
+      let value;
+      if(text){
+        for (let key in imageReplacer) {
+          if(key && text.toLowerCase().trim().indexOf(key.toLowerCase().trim()) !== -1 ){
+            value = imageReplacer[key];
+          }
+        }
+      }
+      return value;
+    }
 
 
 }
