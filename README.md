@@ -108,7 +108,7 @@ due to my mistake during development I didn't realize that I had badly integrate
 
 - Placeholder for the label unknown item icon by default is '/modules/chat-portrait/assets/inv-unidentified.png' depends on the 'Display Unknown' setting
 
-- Setup additional custom styling on the text chat message (note override any other prior property)
+- CUSTOMIZE YOUR OWN TEXT WITH CSS : Setup additional custom styling on the text chat message (note override any other prior property)
 
 - [Passive settings] Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
 

@@ -1,4 +1,7 @@
 
+## 0.3.7
+
+- Some minor update
 
 ## 0.3.6
 

@@ -402,7 +402,16 @@ export class ChatPortrait {
                 return "icons/svg/mystery-man.svg";
             }
           }else{
-            return "icons/svg/mystery-man.svg";
+            if(message.user){
+              const imgAvatar:string = ChatPortrait.getUserAvatar(message);
+              if(imgAvatar && !imgAvatar.includes("mystery-man")){
+                return imgAvatar;
+              }else{
+                return "icons/svg/mystery-man.svg";
+              }
+            }else{
+              return "icons/svg/mystery-man.svg";
+            }
           }
         }
         // It's a chat message associated with an actor
@@ -794,8 +803,21 @@ export class ChatPortrait {
     }
 
     static shouldOverrideMessageUnknown = function(message) {
-        const speaker = message.message.speaker;
-        const actor = ChatPortrait.getActor(speaker);
+        const speaker = message?.message?.speaker;
+        let actor;
+        let mytype;
+        if(!speaker){
+          actor = game.users.get(message.user)?.character?.data;
+          mytype = actor?.type;
+        }
+        else if(!speaker.token && !speaker.actor){
+          actor = game.users.get(message.user)?.character?.data;
+          mytype = actor?.type;
+        }
+        else{
+          actor = ChatPortrait.getActor(speaker);
+          mytype = actor?.data?.type;
+        }
         const setting = game.settings.get(MODULE_NAME, "displayUnknown");
         if (setting !== "none") {
             //const user = game.users.get(message.user);
@@ -812,7 +834,7 @@ export class ChatPortrait {
                     || (setting === "selfAndGM" && (isSelf || isGM))
                     || (setting === "gm" && isGM)
                     || (setting === "player" && !isGM)
-                    || (setting === "onlyNpc" && actor?.data?.type == "npc" && !isGM)
+                    || (setting === "onlyNpc" && mytype == "npc" && !isGM)
                 ) {
                     return true;
                 }
@@ -847,31 +869,31 @@ export class ChatPortrait {
   }
 
     static getUserColor = function(message){
-        if (ChatPortrait.shouldOverrideMessageUnknown(message)) {
+        //if (ChatPortrait.shouldOverrideMessageUnknown(message)) {
             //const user = game.users.get(message.user);
             let user = game.users.get(message.user);
             if(!user){
                 user = game.users.get(message.user.id);
+                return user.data.color;
             }
-            return user.data.color;
-        }
-        return "";
+            return "";          
+        //}
+        //return "";
     }
 
     static getUserAvatar = function(message){
-        if (ChatPortrait.shouldOverrideMessageUnknown(message)) {
+        //if (ChatPortrait.shouldOverrideMessageUnknown(message)) {
             //const user = game.users.get(message.user);
             let user = game.users.get(message.user);
             if(!user){
                 user = game.users.get(message.user.id);
             }
-            if(user.data.avatar){ // image path
+            if(user.data && user.data.avatar){ // image path
                 return user.data.avatar;
-            }else{
-                return null;
             }
-        }
-        return null;
+            return null;
+        //}
+        //return null;
     }
 
     static isWhisperToOther = function(speakerInfo) {
