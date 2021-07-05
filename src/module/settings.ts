@@ -276,6 +276,15 @@ export const registerSettings = function () {
     default: `/modules/${MODULE_NAME}/assets/inv-unidentified.png`
   });
 
+  game.settings.register(MODULE_NAME, 'customStylingMessageText', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: 'font-size: 20px;font-weight: 700;color: #4b4a44;'
+  });
+
+
+
 }
 
 // function setup(templateSettings) {

@@ -73,6 +73,7 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingWHISPER: true,
                 displaySettingROLL: true,
                 displaySettingWhisperToOther: false,
+                customStylingMessageText: 'font-size: 20px;font-weight: 700;color: #4b4a44;',
             };
         }else{
             data = {
@@ -105,6 +106,7 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
                 displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
                 displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
+                customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
             };
         }
 
@@ -189,13 +191,14 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setDisplayUnknownPlaceHolderActorName(formData.displayUnknownPlaceHolderActorName);
         SettingsForm.setDisplayUnknownPlaceHolderItemName(formData.displayUnknownPlaceHolderItemName);
         SettingsForm.setDisplayUnknownPlaceHolderItemIcon(formData.displayUnknownPlaceHolderItemIcon);
-        SettingsForm.setDisplaySettingOTHER(formData.displaySettingOTHER); 
-        SettingsForm.setDisplaySettingOOC(formData.displaySettingOOC); 
-        SettingsForm.setDisplaySettingIC(formData.displaySettingIC); 
-        SettingsForm.setDisplaySettingEMOTE(formData.displaySettingEMOTE); 
-        SettingsForm.setDisplaySettingWHISPER(formData.displaySettingWHISPER); 
+        SettingsForm.setDisplaySettingOTHER(formData.displaySettingOTHER);
+        SettingsForm.setDisplaySettingOOC(formData.displaySettingOOC);
+        SettingsForm.setDisplaySettingIC(formData.displaySettingIC);
+        SettingsForm.setDisplaySettingEMOTE(formData.displaySettingEMOTE);
+        SettingsForm.setDisplaySettingWHISPER(formData.displaySettingWHISPER);
         SettingsForm.setDisplaySettingROLL(formData.displaySettingROLL);
         SettingsForm.setDisplaySettingWhisperToOther(formData.displaySettingWhisperToOther);
+        SettingsForm.setCustomStylingMessageText(formData.customStylingMessageText);
     }
 
     getSelectList(myselectslist, selected) {
@@ -414,4 +417,11 @@ export class SettingsForm {
     static setDisplaySettingWhisperToOther(value:boolean) {
         game.settings.set(MODULE_NAME, 'displaySettingWhisperToOther',value);
     }
+    static getCustomStylingMessageText() {
+      return <string>game.settings.get(MODULE_NAME, 'customStylingMessageText');
+    }
+    static setCustomStylingMessageText(value:string) {
+        game.settings.set(MODULE_NAME, 'customStylingMessageText',value);
+    }
+
 }

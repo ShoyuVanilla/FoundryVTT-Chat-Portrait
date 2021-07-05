@@ -21,10 +21,11 @@ export interface ChatPortraitSettings{
     displayUnknownPlaceHolderItemName: string,
     displayUnknownPlaceHolderItemIcon: string,
     displaySettingOTHER: boolean,
-    displaySettingOOC: boolean, 
-    displaySettingIC: boolean, 
+    displaySettingOOC: boolean,
+    displaySettingIC: boolean,
     displaySettingEMOTE: boolean,
     displaySettingWHISPER: boolean,
     displaySettingROLL: boolean,
     displaySettingWhisperToOther: boolean,
+    customStylingMessageText: string,
 }

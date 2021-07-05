@@ -131,7 +131,7 @@ export class ChatPortrait {
               imgElement.src = INV_UNIDENTIFIED_BOOK;
               imgElement.classList.add("message-portrait");
             }
-            
+
             ChatPortrait.setImageBorder(imgElement, authorColor);
             // Place the image to left of the header by injecting the HTML
             const element: HTMLElement = html.find('.message-header')[0];
@@ -145,7 +145,7 @@ export class ChatPortrait {
             const elementItemNameList = html.find('.item-card h3'); // work with more system ?
             const elementItemContentList = html.find('.item-card .card-content');
             */
-            if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {  
+            if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
               const flavorElement: JQuery = html.find('.flavor-text');
               if(flavorElement.length > 0){
                   const copiedElement: Node = flavorElement[0].cloneNode(true);
@@ -154,7 +154,7 @@ export class ChatPortrait {
                   const senderElement: HTMLElement = html.find('.message-sender')[0];
                   senderElement.appendChild(brElement);
                   senderElement.appendChild(copiedElement);
-              }  
+              }
             }
 
             // Default style
@@ -374,7 +374,7 @@ export class ChatPortrait {
 
             }
 
-
+            ChatPortrait.setCustomStylingText(html, messageData, authorColor);
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
             if(ChatPortrait.settings.displayPlayerName){
@@ -501,6 +501,16 @@ export class ChatPortrait {
         }
     }
 
+    static setCustomStylingText(html: JQuery, messageData: MessageRenderData, authorColor: string) {
+      const elementItemTextList = html.find('.chat-portrait-text-size-name');
+      for(let i = 0; i <  elementItemTextList.length; i++){
+        const elementItemText:HTMLElement = <HTMLElement>elementItemTextList[i];
+        elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
+        // You need this anyway
+        elementItemText.style.display = 'flex';
+      }
+    }
+
     /**
      * Set the background color of the entire message to be the color for the author.
      * Only do so if
@@ -568,6 +578,7 @@ export class ChatPortrait {
             displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
             displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
             displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
+            customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
         };
     }
 
@@ -605,6 +616,7 @@ export class ChatPortrait {
             displaySettingWHISPER: true,
             displaySettingROLL: true,
             displaySettingWhisperToOther: false,
+            customStylingMessageText: 'font-size: 20px;font-weight: 700;color: #4b4a44;',
         }
     }
 

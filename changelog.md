@@ -1,4 +1,8 @@
 
+
+## 0.3.6
+
+- Add another module setting for use a custom styling for the text and resolved this issue [Font Class of the Styling](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/49)
 ## 0.3.5
 
 - Add css class for a "better"  display of the text on the chat 
