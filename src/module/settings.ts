@@ -280,7 +280,7 @@ export const registerSettings = function () {
     scope: 'world',
     config: false,
     type: String,
-    default: 'font-size: 20px;font-weight: 700;color: #4b4a44;'
+    default: ''
   });
 
 

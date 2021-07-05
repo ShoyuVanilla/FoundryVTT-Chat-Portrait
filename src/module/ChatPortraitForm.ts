@@ -73,7 +73,7 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingWHISPER: true,
                 displaySettingROLL: true,
                 displaySettingWhisperToOther: false,
-                customStylingMessageText: 'font-size: 20px;font-weight: 700;color: #4b4a44;',
+                customStylingMessageText: '',
             };
         }else{
             data = {

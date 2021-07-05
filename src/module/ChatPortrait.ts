@@ -505,7 +505,9 @@ export class ChatPortrait {
       const elementItemTextList = html.find('.chat-portrait-text-size-name');
       for(let i = 0; i <  elementItemTextList.length; i++){
         const elementItemText:HTMLElement = <HTMLElement>elementItemTextList[i];
-        elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
+        if(ChatPortrait.settings.customStylingMessageText){
+          elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
+        }
         // You need this anyway
         elementItemText.style.display = 'flex';
       }
@@ -616,7 +618,7 @@ export class ChatPortrait {
             displaySettingWHISPER: true,
             displaySettingROLL: true,
             displaySettingWhisperToOther: false,
-            customStylingMessageText: 'font-size: 20px;font-weight: 700;color: #4b4a44;',
+            customStylingMessageText: '',
         }
     }
 
