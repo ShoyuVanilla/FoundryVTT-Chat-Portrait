@@ -407,7 +407,14 @@ export class ChatPortrait {
               if(imgAvatar && !imgAvatar.includes("mystery-man")){
                 return imgAvatar;
               }else{
-                return "icons/svg/mystery-man.svg";
+                // TODO This is just a partial solution....
+                const currentToken:Token = ChatPortrait.getFirstPlayerToken();
+                if(currentToken){
+                  speaker.token = currentToken;
+                  return currentToken.data.img;
+                }else{
+                  return "icons/svg/mystery-man.svg";
+                }
               }
             }else{
               return "icons/svg/mystery-man.svg";
@@ -785,6 +792,40 @@ export class ChatPortrait {
       return scene.data.tokens.find((token) => {
         return token.id === tokenID;
       });
+    }
+
+    /**
+     * Returns a list of selected (or owned, if no token is selected)
+     * note: ex getSelectedOrOwnedToken
+     */
+    static getFirstPlayerToken = function():Token
+    { 
+      try{
+        getCanvas();
+      }catch(e){
+        // Canvas not ready
+        return null;
+      }
+      // Get controlled token
+      let token:Token;
+      let controlled:Token[] = getCanvas().tokens.controlled;
+      // Do nothing if multiple tokens are selected
+      if (controlled.length && controlled.length > 1) {
+          return controlled[0];
+      }
+      // If exactly one token is selected, take that
+      token = controlled[0];
+      if(!token){
+          if(!controlled.length || controlled.length == 0 ){
+            // If no token is selected use the token of the users character
+            token = getCanvas().tokens.placeables.find(token => token.data._id === game.user.character?.data?._id);
+          }
+          // If no token is selected use the first owned token of the users character you found
+          if(!token){
+            token = getCanvas().tokens.ownedTokens[0];
+          }
+      }
+      return token;
     }
 
     static isSpeakerGM = function(message){
