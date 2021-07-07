@@ -263,20 +263,22 @@ export class ChatPortrait {
                                 }
                                 elementItemName.prepend(elementItemImage);
                             }else{
-                                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                const size: number = ChatPortrait.settings.portraitSizeItem;
-                                if(size && size > 0){
-                                  elementItemImage.width = size;
-                                  elementItemImage.height = size;
+                                if(ChatPortrait.settings.useImageReplacer){
+                                  const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                  const size: number = ChatPortrait.settings.portraitSizeItem;
+                                  if(size && size > 0){
+                                    elementItemImage.width = size;
+                                    elementItemImage.height = size;
+                                  }
+                                  // Just ignore if a image is provided
+                                  if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                    elementItemImage.src = value;
+                                  }
+                                  if(!elementItemImage.classList.contains("message-portrait")){
+                                    elementItemImage.classList.add("message-portrait");
+                                  }
+                                  elementItemName.prepend(elementItemImage);
                                 }
-                                // Just ignore if a image is provided
-                                if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                                  elementItemImage.src = value;
-                                }
-                                if(!elementItemImage.classList.contains("message-portrait")){
-                                  elementItemImage.classList.add("message-portrait");
-                                }
-                                elementItemName.prepend(elementItemImage);
                             }
                         }else{
                           if(elementItemImageList.length > 0){
@@ -294,19 +296,21 @@ export class ChatPortrait {
                               }
                               elementItemName.prepend(elementItemImage);
                           }else{
-                              const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                              const size: number = ChatPortrait.settings.portraitSizeItem;
-                              if(size && size > 0){
-                                elementItemImage.width = size;
-                                elementItemImage.height = size;
+                              if(ChatPortrait.settings.useImageReplacer){
+                                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                const size: number = ChatPortrait.settings.portraitSizeItem;
+                                if(size && size > 0){
+                                  elementItemImage.width = size;
+                                  elementItemImage.height = size;
+                                }
+                                if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                                }
+                                if(!elementItemImage.classList.contains("message-portrait")){
+                                  elementItemImage.classList.add("message-portrait");
+                                }
+                                elementItemName.prepend(elementItemImage);
                               }
-                              if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                                elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                              }
-                              if(!elementItemImage.classList.contains("message-portrait")){
-                                elementItemImage.classList.add("message-portrait");
-                              }
-                              elementItemName.prepend(elementItemImage);
                           }
                         }
                     }
@@ -339,20 +343,22 @@ export class ChatPortrait {
                             }
                             elementItemText.prepend(elementItemImage);
                         }else{
-                            const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                            const size: number = ChatPortrait.settings.portraitSizeItem;
-                            if(size && size > 0){
-                              elementItemImage.width = size;
-                              elementItemImage.height = size;
+                            if(ChatPortrait.settings.useImageReplacer){
+                              const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                              const size: number = ChatPortrait.settings.portraitSizeItem;
+                              if(size && size > 0){
+                                elementItemImage.width = size;
+                                elementItemImage.height = size;
+                              }
+                              // Just ignore if a image is provided
+                              if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                elementItemImage.src = value;
+                              }
+                              if(!elementItemImage.classList.contains("message-portrait")){
+                                elementItemImage.classList.add("message-portrait");
+                              }
+                              elementItemText.prepend(elementItemImage);
                             }
-                            // Just ignore if a image is provided
-                            if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                              elementItemImage.src = value;
-                            }
-                            if(!elementItemImage.classList.contains("message-portrait")){
-                              elementItemImage.classList.add("message-portrait");
-                            }
-                            elementItemText.prepend(elementItemImage);
                         }
                     }else{
                       if(elementItemImageList.length > 0){
@@ -370,19 +376,21 @@ export class ChatPortrait {
                           }
                           elementItemText.prepend(elementItemImage);
                       }else{
-                          const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                          const size: number = ChatPortrait.settings.portraitSizeItem;
-                          if(size && size > 0){
-                            elementItemImage.width = size;
-                            elementItemImage.height = size;
+                          if(ChatPortrait.settings.useImageReplacer){
+                            const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                            const size: number = ChatPortrait.settings.portraitSizeItem;
+                            if(size && size > 0){
+                              elementItemImage.width = size;
+                              elementItemImage.height = size;
+                            }
+                            if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                              elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                            }
+                            if(!elementItemImage.classList.contains("message-portrait")){
+                              elementItemImage.classList.add("message-portrait");
+                            }
+                            elementItemText.prepend(elementItemImage);
                           }
-                          if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                            elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                          }
-                          if(!elementItemImage.classList.contains("message-portrait")){
-                            elementItemImage.classList.add("message-portrait");
-                          }
-                          elementItemText.prepend(elementItemImage);
                       }
                     }
                     if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
@@ -429,14 +437,14 @@ export class ChatPortrait {
               if(imgAvatar && !imgAvatar.includes("mystery-man")){
                 return imgAvatar;
               }else{
-                // TODO This is just a partial solution....
-                const currentToken:Token = ChatPortrait.getFirstPlayerToken();
-                if(currentToken){
-                  speaker.token = currentToken;
-                  return currentToken.data.img;
-                }else{
+                // This is just a partial solution....
+                // const currentToken:Token = ChatPortrait.getFirstPlayerToken();
+                // if(currentToken){
+                //   speaker.token = currentToken;
+                //   return currentToken.data.img;
+                // }else{
                   return "icons/svg/mystery-man.svg";
-                }
+                // }
               }
             }else{
               return "icons/svg/mystery-man.svg";
@@ -846,8 +854,8 @@ export class ChatPortrait {
             // If no token is selected use the token of the users character
             token = getCanvas().tokens.placeables.find(token => token.data._id === game.user.character?.data?._id);
           }
-          // If no token is selected use the first owned token of the users character you found
-          if(!token){
+          // If no token is selected use the first owned token of the users character you found and is not GM
+          if(!token && !game.user.isGM){
             token = getCanvas().tokens.ownedTokens[0];
           }
       }

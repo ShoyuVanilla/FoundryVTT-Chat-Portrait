@@ -28,16 +28,25 @@ export const setupHooks = async () => {
   /**
    * Catch chat message creations and add some more data if we need to
   */
-  Hooks.on('preCreateChatMessage', (msg, options, userId) => {
+  Hooks.on('preCreateChatMessage', (msg, options, render, userId) => {
 
       // Update the speaker
-
-      let speakerInfo = {};
-
-      let updates = {
-        speaker: speakerInfo
+      if (!options.speaker.token && !options.speaker.actor){
+        let user = game.users.get(options.user);
+        let avatar
+        if(!user){
+            user = game.users.get(options.user.id);
+        }
+        let speakerInfo:any = {};
+        let mytoken = ChatPortrait.getFirstPlayerToken();
+        speakerInfo.alias = msg.alias;
+        speakerInfo.token = mytoken;
+        speakerInfo.actor = game.actors.get(user.data.character);
+        let updates = {
+          speaker: speakerInfo
+        }
+        msg.data.update(updates);
       }
-      msg.data.update(updates);
   });
 
 }

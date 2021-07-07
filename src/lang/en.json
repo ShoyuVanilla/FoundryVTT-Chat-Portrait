@@ -90,7 +90,7 @@
   "chat-portrait.settings.customStylingMessageText.name": "Setup additional custom styling on the text chat message",
   "chat-portrait.settings.customStylingMessageText.hint": "Setup additional custom styling on the text chat message (note override any other prior property)",
   "chat-portrait.settings.displayMessageTag.name": "Adds a textual tag to chat messages",
-  "chat-portrait.settings.displayMessageTag.hint": "Adds a textual tag to chat messages to easily identify whether the message is a whisper, blind roll, or self roll. ",
+  "chat-portrait.settings.displayMessageTag.hint": "Adds a textual tag to chat messages to easily identify whether the message is a whisper, blind roll, or self roll",
   "chat-portrait.from": "From",
   "chat-portrait.whisper": "Whisper",
   "chat-portrait.settings.useImageReplacer.name": "Use Image Replacer feature",

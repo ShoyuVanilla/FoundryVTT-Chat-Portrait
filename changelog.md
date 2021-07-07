@@ -1,11 +1,12 @@
 
 ## 0.3.9 (Developing)
 
-- Fixed incompatibility with midiqol
+- Fixed little incompatibility with midiqol
 - Try a bug fix [Doing Ability Checks/Saves causes Portrait to revert to Player Token, not Actor/Character token.](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/52)
 - Try a bug fix [Display Chat Flavor Text next to Portrait" has bad formatting](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/51)
 - Update ko language [v0.3.8 ko.json](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/50)
 - Custom integration of [FVTT-Chat-Message-Accessibility-Indicators](https://github.com/schultzcole/FVTT-Chat-Message-Accessibility-Indicators) for avoid collision between module , add a module settings for enable this
+
 ## 0.3.8
 
 - Some bug fix

@@ -77,6 +77,8 @@ due to my mistake during development I didn't realize that I had badly integrate
   - player : Only affect player messages.
   - none : Don't affect any messages.
 
+- Adds a textual tag to chat messages to easily identify whether the message is a whisper, blind roll, or self roll
+
 - Display chat message of type OTHER: Configure custom styling for message of type OTHER
 
 - Display chat message of type OOC: Configure custom styling for message of type OOC
@@ -110,7 +112,7 @@ due to my mistake during development I didn't realize that I had badly integrate
 
 - CUSTOMIZE YOUR OWN TEXT WITH CSS : Setup additional custom styling on the text chat message (note override any other prior property)
 
-- [Passive settings] Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
+- Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
 
   -  Dnd5e system with english (en) language
 

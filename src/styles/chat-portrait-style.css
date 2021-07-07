@@ -94,7 +94,7 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
-/*
+
 #chat-log .message .message-header {
   justify-content: space-between;
 }
@@ -108,8 +108,8 @@
   flex: 1 0 1px;
 }
 
-#chat-log .message .message-header .whisper-to {
+#chat-log .message .message-header .chat-portrait-whisper-to {
   line-height: 1rem;
   margin-bottom: .5rem;
 }
-*/
+
