@@ -61,13 +61,55 @@
 #chat-log .chat-message.message.flexcol.narrator-chat .message-header img.message-portrait {
 	display:none;
 }
-/*
+
 .chat-portrait-text-size-name {
+  /*
   line-height: 36px;
   font-family: "Modesto Condensed", "Palatino Linotype", serif;
   font-size: 20px;
   font-weight: 700;
   color: #4b4a44;
+  */
   display: flex;
+}
+
+
+.chat-portrait-indicator {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.chat-portrait-whisper-to * {
+  display: inline-block;
+  margin: 1px 3px 1px 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/*
+#chat-log .message .message-header {
+  justify-content: space-between;
+}
+
+#chat-log .message .message-header .message-metadata {
+  flex: 0 0 auto;
+  margin-left: 1rem;
+}
+
+#chat-log .message .message-header .message-sender {
+  flex: 1 0 1px;
+}
+
+#chat-log .message .message-header .whisper-to {
+  line-height: 1rem;
+  margin-bottom: .5rem;
 }
 */

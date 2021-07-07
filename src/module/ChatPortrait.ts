@@ -18,35 +18,37 @@ export class ChatPortrait {
      */
     static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo, imageReplacer): void {
 
+      let doNotStyling = false;
+
       if(!ChatPortrait.shouldOverrideMessageStyling(speakerInfo)){
         // Do not style this
-        return;
+        doNotStyling = true;
       }
 
       if(!ChatPortrait.settings.displaySettingWhisperToOther && ChatPortrait.isWhisperToOther(speakerInfo)){
         // Don't update whispers that the current player isn't privy to
-        return;
+        doNotStyling = true;
       }
 
       let messageType = ChatPortrait.getMessageTypeVisible(speakerInfo);
 
       if(!ChatPortrait.settings.displaySettingOTHER && messageType == CONST.CHAT_MESSAGE_TYPES.OTHER){
-        return;
+        doNotStyling = true;
       }
       if(!ChatPortrait.settings.displaySettingOOC && messageType == CONST.CHAT_MESSAGE_TYPES.OOC){
-        return;
+        doNotStyling = true;
       }
       if(!ChatPortrait.settings.displaySettingIC && messageType == CONST.CHAT_MESSAGE_TYPES.IC){
-        return;
+        doNotStyling = true;
       }
       if(!ChatPortrait.settings.displaySettingEMOTE && messageType == CONST.CHAT_MESSAGE_TYPES.EMOTE){
-        return;
+        doNotStyling = true;
       }
       if(!ChatPortrait.settings.displaySettingWHISPER && messageType == CONST.CHAT_MESSAGE_TYPES.WHISPER){
-        return;
+        doNotStyling = true;
       }
       if(!ChatPortrait.settings.displaySettingROLL && messageType == CONST.CHAT_MESSAGE_TYPES.ROLL){
-        return;
+        doNotStyling = true;
       }
 
       let senderElement: HTMLElement;
@@ -93,7 +95,17 @@ export class ChatPortrait {
         elementItemContentList = html.find('.item-card .card-content');
         elementItemTextList = html.find('message-header flavor-text');
       }
-      ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
+      if(doNotStyling){
+        if(ChatPortrait.settings.displayPlayerName){
+          ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
+        }
+        if(ChatPortrait.settings.displayMessageTag){
+          ChatPortrait.injectMessageTag(html, speakerInfo);
+          ChatPortrait.injectWhisperParticipants(html, speakerInfo);
+        }
+      }else{
+        ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
+      }
     }
 
     /**
@@ -230,7 +242,10 @@ export class ChatPortrait {
                     }
                     //elementItemName.style.display = 'flex';
                     if(elementItemName){
-                        const value: string = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemName.innerText);
+                        let value: string;
+                        if(ChatPortrait.settings.useImageReplacer){
+                          value = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemName.innerText);
+                        }
                         if(value){
                             if(elementItemImageList.length > 0){
                                 const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
@@ -303,7 +318,10 @@ export class ChatPortrait {
                       elementItemText.classList.add("chat-portrait-text-size-name");
                     }
                     //elementItemText.style.display = 'flex';
-                    const value: string = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemText.innerText);
+                    let value:string;
+                    if(ChatPortrait.settings.useImageReplacer){
+                      value = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemText.innerText);
+                    }
                     if(value){
                         if(elementItemImageList.length > 0){
                             const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
@@ -379,6 +397,10 @@ export class ChatPortrait {
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
             if(ChatPortrait.settings.displayPlayerName){
               ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
+            }
+            if(ChatPortrait.settings.displayMessageTag){
+              ChatPortrait.injectMessageTag(html, messageData);
+              ChatPortrait.injectWhisperParticipants(html, messageData);
             }
         });
     }
@@ -525,7 +547,7 @@ export class ChatPortrait {
           elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
         }
         // You need this anyway
-        elementItemText.style.display = 'flex';
+        //elementItemText.style.display = 'flex';
       }
     }
 
@@ -597,6 +619,8 @@ export class ChatPortrait {
             displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
             displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
             customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
+            displayMessageTag: SettingsForm.getDisplayMessageTag(),
+            useImageReplacer: SettingsForm.getUseImageReplacer(),
         };
     }
 
@@ -635,6 +659,8 @@ export class ChatPortrait {
             displaySettingROLL: true,
             displaySettingWhisperToOther: false,
             customStylingMessageText: '',
+            displayMessageTag: false,
+            useImageReplacer: true
         }
     }
 
@@ -799,7 +825,7 @@ export class ChatPortrait {
      * note: ex getSelectedOrOwnedToken
      */
     static getFirstPlayerToken = function():Token
-    { 
+    {
       try{
         getCanvas();
       }catch(e){
@@ -917,7 +943,7 @@ export class ChatPortrait {
                 user = game.users.get(message.user.id);
                 return user.data.color;
             }
-            return "";          
+            return "";
         //}
         //return "";
     }
@@ -1008,6 +1034,71 @@ export class ChatPortrait {
       }
       return value;
     }
+
+    static injectMessageTag(html, messageData:MessageRenderData) {
+      const timestampTag = html.find(".message-timestamp");
+
+      const indicatorElement = $("<span>");
+      indicatorElement.addClass("chat-portrait-indicator");
+
+      const whisperTargets = messageData.message.whisper;
+
+      const isBlind = messageData.message.blind || false;
+      const isWhisper = whisperTargets?.length > 0 || false;
+      const isSelf = isWhisper && whisperTargets.length === 1 && whisperTargets[0] === messageData.message.user;
+      const isRoll = messageData.message.roll !== undefined;
+
+      // Inject tag to the left of the timestamp
+      if (isBlind) {
+          indicatorElement.text(game.i18n.localize("CHAT.RollBlind"));
+          timestampTag.before(indicatorElement);
+      } else if (isSelf && whisperTargets[0]) {
+          indicatorElement.text(game.i18n.localize("CHAT.RollSelf"));
+          timestampTag.before(indicatorElement);
+      } else if (isRoll && isWhisper) {
+          indicatorElement.text(game.i18n.localize("CHAT.RollPrivate"));
+          timestampTag.before(indicatorElement);
+      } else if (isWhisper) {
+          indicatorElement.text(game.i18n.localize("chat-portrait.whisper"));
+          timestampTag.before(indicatorElement);
+      }
+  }
+
+  static injectWhisperParticipants(html, messageData) {
+      const alias = messageData.alias;
+      const whisperTargetString = messageData.whisperTo;
+      const whisperTargetIds = messageData.message.whisper;
+      const isWhisper = whisperTargetIds?.length > 0 || false;
+      const isRoll = messageData.message.roll !== undefined;
+
+      const authorId = messageData.message.user;
+      const userId = game.user.data._id;
+
+      if (!isWhisper) return;
+      if (userId !== authorId && !whisperTargetIds.includes(userId) ) return;
+
+      // remove the old whisper to content, if it exists
+      html.find(".chat-portrait-whisper-to").detach();
+
+      // if this is a roll
+      if (isRoll) return;
+
+      // add new content
+      const messageHeader = html.find(".message-header");
+
+      const whisperParticipants = $("<span>");
+      whisperParticipants.addClass("chat-portrait-whisper-to");
+
+      const whisperFrom = $("<span>");
+      whisperFrom.text(`${game.i18n.localize("chat-portrait.from")}: ${alias}`);
+
+      const whisperTo = $("<span>");
+      whisperTo.text(`${game.i18n.localize("CHAT.To")}: ${whisperTargetString}`);
+
+      whisperParticipants.append(whisperFrom);
+      whisperParticipants.append(whisperTo);
+      messageHeader.append(whisperParticipants);
+  }
 
 
 }

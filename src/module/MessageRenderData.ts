@@ -20,6 +20,7 @@ export interface MessageRenderData extends ChatMessage.MessageData{
 			token?: string;
 			alias?: string;
 		};
+    blind?: string;
 		timestamp: number;
 		type: number;
 		user: string;

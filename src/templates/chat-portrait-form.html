@@ -129,6 +129,18 @@
         </div>
 
         <div class="form-group">
+            <label>{{localize "chat-portrait.settings.displayMessageTag.name"}}</label>
+            <input type="checkbox" name="displayMessageTag" data-dtype="Boolean" {{checked displayMessageTag}}/>
+            <p class="notes">{{localize "chat-portrait.settings.displayMessageTag.hint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.useImageReplacer.name"}}</label>
+            <input type="checkbox" name="useImageReplacer" data-dtype="Boolean" {{checked useImageReplacer}}/>
+            <p class="notes">{{localize "chat-portrait.settings.useImageReplacer.hint"}}</p>
+        </div>
+
+        <div class="form-group">
             <label>{{localize "chat-portrait.settings.displaySettingOTHER.name"}}</label>
             <input type="checkbox" name="displaySettingOTHER" data-dtype="Boolean" {{checked displaySettingOTHER}}/>
             <p class="notes">{{localize "chat-portrait.settings.displaySettingOTHER.hint"}}</p>

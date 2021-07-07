@@ -172,6 +172,20 @@ export const registerSettings = function () {
     default: 0
   });
 
+  game.settings.register(MODULE_NAME, 'displayMessageTag', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register(MODULE_NAME, 'useImageReplacer', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
   game.settings.register(MODULE_NAME, 'displaySetting', {
     //name: "Display setting",
     //hint: "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",

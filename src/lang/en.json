@@ -88,5 +88,11 @@
   "chat-portrait.settings.displayPlayerName.name": "Shows the name of the player next to the name of the actor",
   "chat-portrait.settings.displayPlayerName.hint": "Shows the name of the player next to the name of the actor for any IC messages",
   "chat-portrait.settings.customStylingMessageText.name": "Setup additional custom styling on the text chat message",
-  "chat-portrait.settings.customStylingMessageText.hint": "Setup additional custom styling on the text chat message (note override any other prior property)"
+  "chat-portrait.settings.customStylingMessageText.hint": "Setup additional custom styling on the text chat message (note override any other prior property)",
+  "chat-portrait.settings.displayMessageTag.name": "Adds a textual tag to chat messages",
+  "chat-portrait.settings.displayMessageTag.hint": "Adds a textual tag to chat messages to easily identify whether the message is a whisper, blind roll, or self roll. ",
+  "chat-portrait.from": "From",
+  "chat-portrait.whisper": "Whisper",
+  "chat-portrait.settings.useImageReplacer.name": "Use Image Replacer feature",
+  "chat-portrait.settings.useImageReplacer.hint": "Some people do not like images from the Image Replacer by setting the checkbox to disable this function"
 }

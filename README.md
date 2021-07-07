@@ -141,3 +141,4 @@ Thanks to anyone who helps me with this code! I appreciate the user community's 
 - [Token Chat Link](https://github.com/espositos/fvtt-tokenchatlink)
 - [Deepflame's Chat Cards](https://gitlab.com/TimToxopeus/df-chat-cards)
 - [Illandril's Chat Enhancements](https://github.com/illandril/FoundryVTT-chat-enhancements/)
+- [FVTT-Chat-Message-Accessibility-Indicators](https://github.com/schultzcole/FVTT-Chat-Message-Accessibility-Indicators)

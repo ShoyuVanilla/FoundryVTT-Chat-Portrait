@@ -74,6 +74,8 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingROLL: true,
                 displaySettingWhisperToOther: false,
                 customStylingMessageText: '',
+                displayMessageTag: false,
+                useImageReplacer: true
             };
         }else{
             data = {
@@ -107,6 +109,8 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
                 displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
                 customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
+                displayMessageTag: SettingsForm.getDisplayMessageTag(),
+                useImageReplacer: SettingsForm.getUseImageReplacer(),
             };
         }
 
@@ -199,6 +203,8 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setDisplaySettingROLL(formData.displaySettingROLL);
         SettingsForm.setDisplaySettingWhisperToOther(formData.displaySettingWhisperToOther);
         SettingsForm.setCustomStylingMessageText(formData.customStylingMessageText);
+        SettingsForm.setDisplayMessageTag(formData.displayMessageTag);
+        SettingsForm.setUseImageReplacer(formData.useImageReplacer);
     }
 
     getSelectList(myselectslist, selected) {
@@ -423,5 +429,18 @@ export class SettingsForm {
     static setCustomStylingMessageText(value:string) {
         game.settings.set(MODULE_NAME, 'customStylingMessageText',value);
     }
+    static getDisplayMessageTag() {
+      return <boolean>game.settings.get(MODULE_NAME, 'displayMessageTag');
+    }
+    static setDisplayMessageTag(value:boolean) {
+        game.settings.set(MODULE_NAME, 'displayMessageTag',value);
+    }
+    static getUseImageReplacer() {
+      return <boolean>game.settings.get(MODULE_NAME, 'useImageReplacer');
+    }
+    static setUseImageReplacer(value:boolean) {
+        game.settings.set(MODULE_NAME, 'useImageReplacer',value);
+    }
+
 
 }

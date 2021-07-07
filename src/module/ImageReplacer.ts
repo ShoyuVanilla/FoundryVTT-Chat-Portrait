@@ -4,7 +4,7 @@ export let ImageReplacerImpl:Record<string, string> = {};
 /**
  * based on https://github.com/game-icons/icons/issues/516
  */
-export const ImageReplaceriInit = function():Record<string, string> {
+export const ImageReplacerInit = function():Record<string, string> {
     if(game.i18n.lang=="en"){
         ImageReplacerImpl = imageReplacerEn;
     }
@@ -18,7 +18,7 @@ export const ImageReplaceriInit = function():Record<string, string> {
     return ImageReplacerImpl;
 }
 
-export const imageReplacerEn:Record<string, string> = 
+export const imageReplacerEn:Record<string, string> =
     {
         "Damage Roll": `/modules/${MODULE_NAME}/assets/damage_roll.svg`, // https://game-icons.net/1x1/delapouite/dice-fire.html
         "Attack Roll": `/modules/${MODULE_NAME}/assets/attack_roll.svg`, // https://game-icons.net/1x1/delapouite/dice-shield.html
@@ -99,7 +99,7 @@ export const imageReplacerEn:Record<string, string> =
         "Thieves Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
         "Thieves' Tools": `/modules/${MODULE_NAME}/assets/thieves_tools.svg`, // https://game-icons.net/1x1/delapouite/lockpicks.html
 
-        "Short Rest": `/modules/${MODULE_NAME}/assets/short_rest.svg`, // https://game-icons.net/1x1/delapouite/wooden-chair.html 
+        "Short Rest": `/modules/${MODULE_NAME}/assets/short_rest.svg`, // https://game-icons.net/1x1/delapouite/wooden-chair.html
         "Long Rest": `/modules/${MODULE_NAME}/assets/long_rest.svg`, // https://game-icons.net/1x1/delapouite/person-in-bed.html
     }
 
