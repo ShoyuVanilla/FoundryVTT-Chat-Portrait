@@ -84,5 +84,9 @@
   "chat-portrait.settings.displaySettingROLL.name": "주사위 굴림 타입의 채팅 메시지 표시",
   "chat-portrait.settings.displaySettingROLL.hint": "주사위 굴림 타입 채팅 메시지에 대한 사용자 지정 스타일 설정입니다.",
   "chat-portrait.settings.displaySettingWhisperToOther.name": "타 유저에 대한 속삭임 메시지 표시",
-  "chat-portrait.settings.displaySettingWhisperToOther.hint": "타 유저에 대한 속삭임 메시지의 사용쟈 지정 스타일 설정입니다."
+  "chat-portrait.settings.displaySettingWhisperToOther.hint": "타 유저에 대한 속삭임 메시지의 사용쟈 지정 스타일 설정입니다.",
+  "chat-portrait.settings.displayPlayerName.name": "액터 이름 옆에 플레이어 이름 표시",
+  "chat-portrait.settings.displayPlayerName.hint": "모든 IC 메시지의 액터 옆에 플레이어의 이름을 표시합니다.",
+  "chat-portrait.settings.customStylingMessageText.name": "텍스트 채팅 메시지에 추가 사용자 지정 스타일 설정",
+  "chat-portrait.settings.customStylingMessageText.hint": "텍스트 채팅 메시지에 대한 추가적 사용자 지정 스타일 설정입니다.(기타 이전 속성을 덮어씀)"
 }
