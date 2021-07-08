@@ -12,7 +12,7 @@
     "update": "npm install --save-dev @league-of-foundry-developers/foundry-vtt-types@fvtt-0.7.10"
   },
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^0.7.9-6",
+    "@league-of-foundry-developers/foundry-vtt-types": "^0.7.10",
     "archiver": "^5.2.0",
     "chalk": "^4.1.0",
     "fs-extra": "^9.0.1",
