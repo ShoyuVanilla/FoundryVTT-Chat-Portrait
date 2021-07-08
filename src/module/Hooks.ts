@@ -49,9 +49,48 @@ export const setupHooks = async () => {
       }
   });
 
+  //@ts-ignore
+	//libWrapper.register(MODULE_NAME, 'ChatLog.prototype.scrollBottom',chatLogPrototypeScrollBottomHandler,'OVERRIDE');
+
+	// Posting messages should force a scroll if we're within range of the bottom, in the case that a new message is so large it is bigger than half the box.
+  //@ts-ignore
+	libWrapper.register(MODULE_NAME, 'ChatLog.prototype.postOne',chatLogPrototypePostOneHandler,'WRAPPER');
+
+	// When we first render, we should force a scroll.
+  //@ts-ignore
+	libWrapper.register(MODULE_NAME, 'ChatLog.prototype._render',chatLogPrototypeRenderHandler,'WRAPPER');
+
 }
 
 export const initHooks = () => {
   warn("Init Hooks processing");
 
+}
+
+
+// export const chatLogPrototypeScrollBottomHandler = function (force = false) {
+//   const log = ChatPortrait.getLogElement(this);
+//   if ( log )
+//   {
+//     if ( force || ChatPortrait.shouldScrollToBottom(log) ){
+//       log.scrollTop = log.scrollHeight;
+//     }
+//   }
+//   return;
+// }
+
+export const chatLogPrototypePostOneHandler = async function (wrapped, ...args) {
+  const log = ChatPortrait.getLogElement(this);
+  const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+  this.scrollBottom(shouldForceScroll);
+  return wrapped(...args);
+}
+
+export const chatLogPrototypeRenderHandler = async function (wrapped, ...args) {
+  const rendered = this.rendered;
+  if (rendered){
+     return; // Never re-render the Chat Log itself, only it's contents
+  }
+  this.scrollBottom(true);
+  return wrapped(...args);
 }

@@ -122,6 +122,8 @@ If you want to add your own system and/or language it's very simple!!! you can j
 
 ## Known issue
 
+- MINOR INCOMPATIBILITY with midi-qol, read the issue [Doing Ability Checks/Saves causes Portrait to revert to Player Token, not Actor/Character token.](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/52), not sure why but i lose information on the 'preCreateChatMessage' hook when midi-qol module is active.
+
 ## [Changelog](./changelog.md)
 
 ## Issues

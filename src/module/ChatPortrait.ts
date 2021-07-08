@@ -1,8 +1,9 @@
+import { i18n } from './../main';
 import { warn } from "../main";
 import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
 import { ChatPortraitSettings } from "./ChatPortraitSettings";
-import { ImageReplacerImpl } from "./ImageReplacer";
+import { imageReplacerDamageType, ImageReplacerImpl } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { getCanvas, INV_UNIDENTIFIED_BOOK, MODULE_NAME } from "./settings";
 
@@ -148,15 +149,7 @@ export class ChatPortrait {
             // Place the image to left of the header by injecting the HTML
             const element: HTMLElement = html.find('.message-header')[0];
             element.prepend(imgElement);
-            /*
-            const senderElement: HTMLElement = html.find('.message-sender')[0];
-            // Bug fix plutonium
-            senderElement.style.display = 'block';
-            const elementItemImageList = html.find('.item-card img');
-            //const elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
-            const elementItemNameList = html.find('.item-card h3'); // work with more system ?
-            const elementItemContentList = html.find('.item-card .card-content');
-            */
+
             if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
               const flavorElement: JQuery = html.find('.flavor-text');
               if(flavorElement.length > 0){
@@ -240,11 +233,14 @@ export class ChatPortrait {
                     if(!elementItemName.classList.contains("chat-portrait-text-size-name")){
                       elementItemName.classList.add("chat-portrait-text-size-name");
                     }
-                    //elementItemName.style.display = 'flex';
                     if(elementItemName){
                         let value: string;
+                        let images:string[];
                         if(ChatPortrait.settings.useImageReplacer){
-                          value = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemName.innerText);
+                          images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText);
+                          if(images && images.length > 0){
+                            value = images[0];
+                          }
                         }
                         if(value){
                             if(elementItemImageList.length > 0){
@@ -262,6 +258,20 @@ export class ChatPortrait {
                                   elementItemImage.classList.add("message-portrait");
                                 }
                                 elementItemName.prepend(elementItemImage);
+                                if(images[1]){
+                                  const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                  const size: number = ChatPortrait.settings.portraitSizeItem;
+                                  if(size && size > 0){
+                                    elementItemImage2.width = size;
+                                    elementItemImage2.height = size;
+                                  }
+                                  // Just ignore if a image is provided
+                                  elementItemImage2.src = images[1];
+                                  if(!elementItemImage2.classList.contains("message-portrait")){
+                                    elementItemImage2.classList.add("message-portrait");
+                                  }
+                                  elementItemImage.append(elementItemImage2);
+                                }
                             }else{
                                 if(ChatPortrait.settings.useImageReplacer){
                                   const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
@@ -321,10 +331,13 @@ export class ChatPortrait {
                     if(!elementItemText.classList.contains("chat-portrait-text-size-name")){
                       elementItemText.classList.add("chat-portrait-text-size-name");
                     }
-                    //elementItemText.style.display = 'flex';
                     let value:string;
+                    let images:string[];
                     if(ChatPortrait.settings.useImageReplacer){
-                      value = ChatPortrait.getImageReplacerAsset(imageReplacer, elementItemText.innerText);
+                      images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText);
+                      if(images && images.length > 0){
+                        value = images[0];
+                      }
                     }
                     if(value){
                         if(elementItemImageList.length > 0){
@@ -342,6 +355,20 @@ export class ChatPortrait {
                               elementItemImage.classList.add("message-portrait");
                             }
                             elementItemText.prepend(elementItemImage);
+                            if(images[1]){
+                              const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                              const size: number = ChatPortrait.settings.portraitSizeItem;
+                              if(size && size > 0){
+                                elementItemImage2.width = size;
+                                elementItemImage2.height = size;
+                              }
+                              // Just ignore if a image is provided
+                              elementItemImage2.src = images[1];
+                              if(!elementItemImage2.classList.contains("message-portrait")){
+                                elementItemImage2.classList.add("message-portrait");
+                              }
+                              elementItemImage.append(elementItemImage2);
+                            }
                         }else{
                             if(ChatPortrait.settings.useImageReplacer){
                               const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
@@ -944,31 +971,23 @@ export class ChatPortrait {
   }
 
     static getUserColor = function(message){
-        //if (ChatPortrait.shouldOverrideMessageUnknown(message)) {
-            //const user = game.users.get(message.user);
-            let user = game.users.get(message.user);
-            if(!user){
-                user = game.users.get(message.user.id);
-                return user.data.color;
-            }
-            return "";
-        //}
-        //return "";
+      let user = game.users.get(message.user);
+      if(!user){
+          user = game.users.get(message.user.id);
+          return user.data.color;
+      }
+      return "";
     }
 
     static getUserAvatar = function(message){
-        //if (ChatPortrait.shouldOverrideMessageUnknown(message)) {
-            //const user = game.users.get(message.user);
-            let user = game.users.get(message.user);
-            if(!user){
-                user = game.users.get(message.user.id);
-            }
-            if(user.data && user.data.avatar){ // image path
-                return user.data.avatar;
-            }
-            return null;
-        //}
-        //return null;
+      let user = game.users.get(message.user);
+      if(!user){
+          user = game.users.get(message.user.id);
+      }
+      if(user.data && user.data.avatar){ // image path
+          return user.data.avatar;
+      }
+      return null;
     }
 
     static isWhisperToOther = function(speakerInfo) {
@@ -1031,12 +1050,27 @@ export class ChatPortrait {
       return; // if there is some future new message type, its probably better to default to be visible than to hide it.
     }
 
-    static getImageReplacerAsset(imageReplacer:Record<string,string>, text:string){
-      let value;
+    static getImagesReplacerAsset(imageReplacer:Record<string,string>, text:string):string[]{
+      let value:string[] = new Array();
       if(text){
         for (let key in imageReplacer) {
-          if(key && text.toLowerCase().trim().indexOf(key.toLowerCase().trim()) !== -1 ){
-            value = imageReplacer[key];
+          if(key){
+            const mykeyvalue = i18n(key);
+            if(mykeyvalue && text.toLowerCase().trim().indexOf(mykeyvalue.toLowerCase().trim()) !== -1 ){
+              value.push(imageReplacer[key]);
+              // Special case
+              if(key == "DND5E.DamageRoll"){
+                for (let keydamage in imageReplacerDamageType) {
+                  const mykeydamagevalue = i18n(keydamage);
+                  if(mykeydamagevalue && text.toLowerCase().trim().indexOf(mykeydamagevalue.toLowerCase().trim()) !== -1 ){
+                    const srcdamageType = imageReplacerDamageType[keydamage];
+                    value.push(srcdamageType);
+                    break;
+                  }
+                }
+              }
+              break;
+            }
           }
         }
       }
@@ -1108,5 +1142,16 @@ export class ChatPortrait {
       messageHeader.append(whisperParticipants);
   }
 
+  static getLogElement = function(chatLog){
+    const el = chatLog.element;
+    const log = el.length ? el[0].querySelector("#chat-log") : null;
+    return log;
+  }
+
+  static shouldScrollToBottom = function(log){
+    // If more than half chat log height above the actual bottom, don't do the scroll.
+    const propOfClientHeightScrolled = (log.scrollHeight - log.clientHeight - log.scrollTop) / log.clientHeight;
+    return propOfClientHeightScrolled <= 0.5;
+  }
 
 }
