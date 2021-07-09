@@ -20,11 +20,6 @@ To install this module manually:
 1.  Click 'Install' and wait for installation to complete
 2.  Don't forget to enable the module in game using the "Manage Module" button
 
-## IMPORTANT NOTE FOR VERSION 0.2.15 AND NEWER
-
-Like said in this issue [Name appears as "Unknown Actor" and portrait still appears when styling is disabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/40),
-due to my mistake during development I didn't realize that I had badly integrated two features into one. Now I have separated the two functions at the level of the module settings, but to avoid problems you have to go and check your configurations on the module settings. I apologize for the inconvenience.
-
 ## TODO
 
 - Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use: Dnd5e, but anyone can point out what system has problem. i have prepared  a base code for support multysistem, but i will not actively developing on the short term. 
@@ -112,17 +107,15 @@ due to my mistake during development I didn't realize that I had badly integrate
 
 - CUSTOMIZE YOUR OWN TEXT WITH CSS : Setup additional custom styling on the text chat message (note override any other prior property)
 
-- Image Replacer: This is a passive/background feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems and languages :
+- Image Replacer: This feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems :
 
-  -  Dnd5e system with english (en) language
+  -  Dnd5e system
 
-If you want to add your own system and/or language it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
+If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
 
 ![replacer](./images/image_replacer_feature.png)
 
 ## Known issue
-
-- MINOR INCOMPATIBILITY with midi-qol, read the issue [Doing Ability Checks/Saves causes Portrait to revert to Player Token, not Actor/Character token.](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/52), not sure why but i lose information on the 'preCreateChatMessage' hook when midi-qol module is active.
 
 ## [Changelog](./changelog.md)
 
