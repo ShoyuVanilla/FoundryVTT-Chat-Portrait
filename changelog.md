@@ -6,6 +6,7 @@
 - Try a bug fix [Doing Ability Checks/Saves causes Portrait to revert to Player Token, not Actor/Character token.](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/52)
 - Added Universal Language Image Replacer (still limited to DnD5e)
 - Added Image Replacer for damage type
+  
 ## 0.3.9 (Developing)
 
 - Fixed little incompatibility with midiqol

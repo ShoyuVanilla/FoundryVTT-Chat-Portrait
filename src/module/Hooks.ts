@@ -23,7 +23,21 @@ export const setupHooks = async () => {
   Hooks.on('renderChatMessage', (message, html, speakerInfo) => {
     ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
     ChatLink.prepareEvent(message, html, speakerInfo);
+    setTimeout(
+      function() {
+        const log = document.querySelector("#chat-log");
+        const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+        if (log && shouldForceScroll) {  
+          //@ts-ignore
+          log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+        }
+      }, 50
+    );
   });
+
+  // Hooks.on('updateChatMessage', (message, update, options, user) => {
+ 
+  // });
 
   /**
    * Catch chat message creations and add some more data if we need to
@@ -50,15 +64,15 @@ export const setupHooks = async () => {
   });
 
   //@ts-ignore
-	//libWrapper.register(MODULE_NAME, 'ChatLog.prototype.scrollBottom',chatLogPrototypeScrollBottomHandler,'OVERRIDE');
+	// libWrapper.register(MODULE_NAME, 'ChatLog.prototype.scrollBottom',chatLogPrototypeScrollBottomHandler,'OVERRIDE');
 
 	// Posting messages should force a scroll if we're within range of the bottom, in the case that a new message is so large it is bigger than half the box.
   //@ts-ignore
-	libWrapper.register(MODULE_NAME, 'ChatLog.prototype.postOne',chatLogPrototypePostOneHandler,'WRAPPER');
+  // libWrapper.register(MODULE_NAME, 'ChatLog.prototype.postOne',chatLogPrototypePostOneHandler,'MIXED');
 
 	// When we first render, we should force a scroll.
   //@ts-ignore
-	libWrapper.register(MODULE_NAME, 'ChatLog.prototype._render',chatLogPrototypeRenderHandler,'WRAPPER');
+	// libWrapper.register(MODULE_NAME, 'ChatLog.prototype._render',chatLogPrototypeRenderHandler,'MIXED');
 
 }
 
@@ -68,29 +82,45 @@ export const initHooks = () => {
 }
 
 
-// export const chatLogPrototypeScrollBottomHandler = function (force = false) {
+// export const chatLogPrototypeScrollBottomHandler = function () {
+//   const force = args[0] || false;
 //   const log = ChatPortrait.getLogElement(this);
 //   if ( log )
 //   {
 //     if ( force || ChatPortrait.shouldScrollToBottom(log) ){
-//       log.scrollTop = log.scrollHeight;
+//       log.scrollTop = log.scrollHeight + log.offsetTop ;
 //     }
 //   }
 //   return;
 // }
 
-export const chatLogPrototypePostOneHandler = async function (wrapped, ...args) {
-  const log = ChatPortrait.getLogElement(this);
-  const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-  this.scrollBottom(shouldForceScroll);
-  return wrapped(...args);
-}
+// export const chatLogPrototypePostOneHandler = async function (wrapped, ...args) {
+//   //const log = ChatPortrait.getLogElement(this);
+//   //const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+//   //this.scrollBottom(shouldForceScroll);
+//   // Bug fix scroll issue
+// 	const log = document.querySelector("#chat-log");
+// 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+// 	if (log && shouldForceScroll) {
+// 		//@ts-ignore
+// 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+// 	}
+//   return wrapped(...args);
+// }
 
-export const chatLogPrototypeRenderHandler = async function (wrapped, ...args) {
-  const rendered = this.rendered;
-  if (rendered){
-     return; // Never re-render the Chat Log itself, only it's contents
-  }
-  this.scrollBottom(true);
-  return wrapped(...args);
-}
+// export const chatLogPrototypeRenderHandler = async function (wrapped, ...args) {
+//   // const rendered = this.rendered;
+//   // if (rendered){
+//   //   return wrapped(...args); // Never re-render the Chat Log itself, only it's contents
+//   // }
+//   // this.scrollBottom(true);
+//   // Bug fix scroll issue
+// 	const log = document.querySelector("#chat-log");
+// 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+// 	if (log && shouldForceScroll) {
+// 		//@ts-ignore
+// 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+// 	}
+  
+//   return wrapped(...args);
+// }

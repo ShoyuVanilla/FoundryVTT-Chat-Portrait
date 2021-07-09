@@ -16,6 +16,7 @@ import { registerSettings } from './module/settings';
 import { preloadTemplates } from './module/preloadTemplates';
 import { MODULE_NAME } from './module/settings';
 import { initHooks, readyHooks, setupHooks } from './module/Hooks';
+import { ChatPortrait } from './module/ChatPortrait';
 // import { installedModules, setupModules } from './module/setupModules';
 
 export let debugEnabled = 0;
@@ -68,7 +69,7 @@ Hooks.once('setup', function () {
 	// Do anything after initialization but before ready
 	//setupModules();
 
-  setupHooks();
+    setupHooks();
 
 	registerSettings();
 

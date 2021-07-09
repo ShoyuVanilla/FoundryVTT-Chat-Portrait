@@ -270,7 +270,7 @@ export class ChatPortrait {
                                   if(!elementItemImage2.classList.contains("message-portrait")){
                                     elementItemImage2.classList.add("message-portrait");
                                   }
-                                  elementItemImage.append(elementItemImage2);
+                                  elementItemName.prepend(elementItemImage2);
                                 }
                             }else{
                                 if(ChatPortrait.settings.useImageReplacer){
@@ -288,6 +288,20 @@ export class ChatPortrait {
                                     elementItemImage.classList.add("message-portrait");
                                   }
                                   elementItemName.prepend(elementItemImage);
+                                  if(images[1]){
+                                    const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                    const size: number = ChatPortrait.settings.portraitSizeItem;
+                                    if(size && size > 0){
+                                      elementItemImage2.width = size;
+                                      elementItemImage2.height = size;
+                                    }
+                                    // Just ignore if a image is provided
+                                    elementItemImage2.src = images[1];
+                                    if(!elementItemImage2.classList.contains("message-portrait")){
+                                      elementItemImage2.classList.add("message-portrait");
+                                    }
+                                    elementItemName.prepend(elementItemImage2);
+                                  }
                                 }
                             }
                         }else{
@@ -367,7 +381,7 @@ export class ChatPortrait {
                               if(!elementItemImage2.classList.contains("message-portrait")){
                                 elementItemImage2.classList.add("message-portrait");
                               }
-                              elementItemImage.append(elementItemImage2);
+                              elementItemText.prepend(elementItemImage2);
                             }
                         }else{
                             if(ChatPortrait.settings.useImageReplacer){
@@ -385,6 +399,20 @@ export class ChatPortrait {
                                 elementItemImage.classList.add("message-portrait");
                               }
                               elementItemText.prepend(elementItemImage);
+                              if(images[1]){
+                                const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                const size: number = ChatPortrait.settings.portraitSizeItem;
+                                if(size && size > 0){
+                                  elementItemImage2.width = size;
+                                  elementItemImage2.height = size;
+                                }
+                                // Just ignore if a image is provided
+                                elementItemImage2.src = images[1];
+                                if(!elementItemImage2.classList.contains("message-portrait")){
+                                  elementItemImage2.classList.add("message-portrait");
+                                }
+                                elementItemText.prepend(elementItemImage2);
+                              }
                             }
                         }
                     }else{
@@ -1065,7 +1093,7 @@ export class ChatPortrait {
                   if(mykeydamagevalue && text.toLowerCase().trim().indexOf(mykeydamagevalue.toLowerCase().trim()) !== -1 ){
                     const srcdamageType = imageReplacerDamageType[keydamage];
                     value.push(srcdamageType);
-                    break;
+                    // Add all damage types
                   }
                 }
               }
