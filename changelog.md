@@ -1,5 +1,9 @@
 
 
+## 0.3.11
+
+- Small bug fix on 'preCreateMessageChat' hook
+
 ## 0.3.10
 
 - Try bug fix for [Scrolling issue](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/53)
