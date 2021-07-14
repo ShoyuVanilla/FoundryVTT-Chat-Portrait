@@ -75,7 +75,8 @@ export class ChatPortraitForm extends FormApplication {
                 displaySettingWhisperToOther: false,
                 customStylingMessageText: '',
                 displayMessageTag: false,
-                useImageReplacer: true
+                useImageReplacer: true,
+                useImageReplacerDamageType: true
             };
         }else{
             data = {
@@ -111,6 +112,7 @@ export class ChatPortraitForm extends FormApplication {
                 customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
                 displayMessageTag: SettingsForm.getDisplayMessageTag(),
                 useImageReplacer: SettingsForm.getUseImageReplacer(),
+                useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
             };
         }
 
@@ -205,6 +207,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setCustomStylingMessageText(formData.customStylingMessageText);
         SettingsForm.setDisplayMessageTag(formData.displayMessageTag);
         SettingsForm.setUseImageReplacer(formData.useImageReplacer);
+        SettingsForm.setUseImageReplacerDamageType(formData.useImageReplacerDamageType);
     }
 
     getSelectList(myselectslist, selected) {
@@ -440,6 +443,12 @@ export class SettingsForm {
     }
     static setUseImageReplacer(value:boolean) {
         game.settings.set(MODULE_NAME, 'useImageReplacer',value);
+    }
+    static getUseImageReplacerDamageType() {
+      return <boolean>game.settings.get(MODULE_NAME, 'useImageReplacerDamageType');
+    }
+    static setUseImageReplacerDamageType(value:boolean) {
+        game.settings.set(MODULE_NAME, 'useImageReplacerDamageType',value);
     }
 
 

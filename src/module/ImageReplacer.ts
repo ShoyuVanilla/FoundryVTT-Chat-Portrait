@@ -69,24 +69,9 @@ export const imageReplacerUniversal:Record<string, string> =
 
     "DND5E.ShortRest": `/modules/${MODULE_NAME}/assets/short_rest.svg`, // https://game-icons.net/1x1/delapouite/wooden-chair.html
     "DND5E.LongRest": `/modules/${MODULE_NAME}/assets/long_rest.svg`, // https://game-icons.net/1x1/delapouite/person-in-bed.html
+    "DND5E.DeathSave": `/modules/${MODULE_NAME}/assets/death_saves.svg`,
 
-    // TODO
-
-    // "DND5E.DamageAcid": `/modules/${MODULE_NAME}/assets/acid.svg`,
-    // "DND5E.DamageBludgeoning": `/modules/${MODULE_NAME}/assets/bludgeoning.svg`,
-    // "DND5E.DamageCold": `/modules/${MODULE_NAME}/assets/cold.svg`,
-    // "DND5E.DamageFire": `/modules/${MODULE_NAME}/assets/fire.svg`,
-    // "DND5E.DamageForce": `/modules/${MODULE_NAME}/assets/force.svg`,
-    // "DND5E.DamageLightning": `/modules/${MODULE_NAME}/assets/lightning.svg`,
-    // "DND5E.DamageNecrotic": `/modules/${MODULE_NAME}/assets/necrotic.svg`,
-    // "DND5E.DamagePiercing": `/modules/${MODULE_NAME}/assets/piercing.svg`,
-    // "DND5E.DamagePhysical": `/modules/${MODULE_NAME}/assets/non_magical_physical.svg`,
-    // "DND5E.DamagePoison": `/modules/${MODULE_NAME}/assets/poison.svg`,
-    // "DND5E.DamagePsychic": `/modules/${MODULE_NAME}/assets/psychic.svg`,
-    // "DND5E.DamageRadiant": `/modules/${MODULE_NAME}/assets/radiant.svg`,
-    // "DND5E.DamageSlashing": `/modules/${MODULE_NAME}/assets/slashing.svg`,
-    // "DND5E.DamageThunder": `/modules/${MODULE_NAME}/assets/thunder.svg`,
-    // "DND5E.DeathSave": `/modules/${MODULE_NAME}/assets/death_saves.svg`,
+    // TODO CONDITION I JUST DON'T KNOW HO CAN BE USEFUL
 
     // "DND5E.ConBlinded": "Blinded",
     // "DND5E.ConCharmed": "Charmed",
@@ -125,5 +110,4 @@ export const imageReplacerDamageType:Record<string, string> =
   "DND5E.DamageRadiant": `/modules/${MODULE_NAME}/assets/radiant.svg`,
   "DND5E.DamageSlashing": `/modules/${MODULE_NAME}/assets/slashing.svg`,
   "DND5E.DamageThunder": `/modules/${MODULE_NAME}/assets/thunder.svg`,
-  "DND5E.DeathSave": `/modules/${MODULE_NAME}/assets/death_saves.svg`,
 }

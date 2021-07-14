@@ -186,6 +186,13 @@ export const registerSettings = function () {
     default: true
   });
 
+  game.settings.register(MODULE_NAME, 'useImageReplacerDamageType', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  });
+
   game.settings.register(MODULE_NAME, 'displaySetting', {
     //name: "Display setting",
     //hint: "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",

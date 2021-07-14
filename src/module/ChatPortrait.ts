@@ -258,19 +258,29 @@ export class ChatPortrait {
                                   elementItemImage.classList.add("message-portrait");
                                 }
                                 elementItemName.prepend(elementItemImage);
-                                if(images[1]){
-                                  const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                  const size: number = ChatPortrait.settings.portraitSizeItem;
-                                  if(size && size > 0){
-                                    elementItemImage2.width = size;
-                                    elementItemImage2.height = size;
+                                // DAMAGE TYPES
+                                if(images.length>1 && ChatPortrait.settings.useImageReplacerDamageType){
+                                  const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
+                                  for (var [index, item] of images.entries()) {
+                                    if(index>0){ // Jum first because is the item image
+                                      const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                      const size: number = ChatPortrait.settings.portraitSizeItem;
+                                      if(size && size > 0){
+                                        elementItemImage2.width = size;
+                                        elementItemImage2.height = size;
+                                      }
+                                      // Just ignore if a image is provided
+                                      elementItemImage2.src = item;//images[1];
+                                      if(!elementItemImage2.classList.contains("message-portrait")){
+                                        elementItemImage2.classList.add("message-portrait");
+                                      }
+                                      elementItemContainerDamageTypes.appendChild(elementItemImage2);
+                                    }
                                   }
-                                  // Just ignore if a image is provided
-                                  elementItemImage2.src = images[1];
-                                  if(!elementItemImage2.classList.contains("message-portrait")){
-                                    elementItemImage2.classList.add("message-portrait");
-                                  }
-                                  elementItemName.prepend(elementItemImage2);
+                                  // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+                                  // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
+                                  // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
+                                  elementItemName.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
                                 }
                             }else{
                                 if(ChatPortrait.settings.useImageReplacer){
@@ -288,19 +298,29 @@ export class ChatPortrait {
                                     elementItemImage.classList.add("message-portrait");
                                   }
                                   elementItemName.prepend(elementItemImage);
-                                  if(images[1]){
-                                    const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                    const size: number = ChatPortrait.settings.portraitSizeItem;
-                                    if(size && size > 0){
-                                      elementItemImage2.width = size;
-                                      elementItemImage2.height = size;
+                                  // DAMAGE TYPES
+                                  if(images.length>1 && ChatPortrait.settings.useImageReplacerDamageType){
+                                    const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
+                                    for (var [index, item] of images.entries()) {
+                                      if(index>0){ // Jum first because is the item image
+                                        const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                        const size: number = ChatPortrait.settings.portraitSizeItem;
+                                        if(size && size > 0){
+                                          elementItemImage2.width = size;
+                                          elementItemImage2.height = size;
+                                        }
+                                        // Just ignore if a image is provided
+                                        elementItemImage2.src = item;//images[1];
+                                        if(!elementItemImage2.classList.contains("message-portrait")){
+                                          elementItemImage2.classList.add("message-portrait");
+                                        }
+                                        elementItemContainerDamageTypes.appendChild(elementItemImage2);
+                                      }
                                     }
-                                    // Just ignore if a image is provided
-                                    elementItemImage2.src = images[1];
-                                    if(!elementItemImage2.classList.contains("message-portrait")){
-                                      elementItemImage2.classList.add("message-portrait");
-                                    }
-                                    elementItemName.prepend(elementItemImage2);
+                                    // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+                                    // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
+                                    // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
+                                    elementItemName.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
                                   }
                                 }
                             }
@@ -369,19 +389,29 @@ export class ChatPortrait {
                               elementItemImage.classList.add("message-portrait");
                             }
                             elementItemText.prepend(elementItemImage);
-                            if(images[1]){
-                              const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                              const size: number = ChatPortrait.settings.portraitSizeItem;
-                              if(size && size > 0){
-                                elementItemImage2.width = size;
-                                elementItemImage2.height = size;
+                            // DAMAGE TYPES
+                            if(images.length>1 && ChatPortrait.settings.useImageReplacerDamageType){
+                              const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
+                              for (var [index, item] of images.entries()) {
+                                if(index>0){ // Jum first because is the item image
+                                  const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                  const size: number = ChatPortrait.settings.portraitSizeItem;
+                                  if(size && size > 0){
+                                    elementItemImage2.width = size;
+                                    elementItemImage2.height = size;
+                                  }
+                                  // Just ignore if a image is provided
+                                  elementItemImage2.src = item;//images[1];
+                                  if(!elementItemImage2.classList.contains("message-portrait")){
+                                    elementItemImage2.classList.add("message-portrait");
+                                  }
+                                  elementItemContainerDamageTypes.appendChild(elementItemImage2);
+                                }
                               }
-                              // Just ignore if a image is provided
-                              elementItemImage2.src = images[1];
-                              if(!elementItemImage2.classList.contains("message-portrait")){
-                                elementItemImage2.classList.add("message-portrait");
-                              }
-                              elementItemText.prepend(elementItemImage2);
+                              // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+                              // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
+                              // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
+                              elementItemText.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
                             }
                         }else{
                             if(ChatPortrait.settings.useImageReplacer){
@@ -399,19 +429,29 @@ export class ChatPortrait {
                                 elementItemImage.classList.add("message-portrait");
                               }
                               elementItemText.prepend(elementItemImage);
-                              if(images[1]){
-                                const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                const size: number = ChatPortrait.settings.portraitSizeItem;
-                                if(size && size > 0){
-                                  elementItemImage2.width = size;
-                                  elementItemImage2.height = size;
+                              // DAMAGE TYPES
+                              if(images.length>1 && ChatPortrait.settings.useImageReplacerDamageType){
+                                const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
+                                for (var [index, item] of images.entries()) {
+                                  if(index>0){ // Jum first because is the item image
+                                    const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                    const size: number = ChatPortrait.settings.portraitSizeItem;
+                                    if(size && size > 0){
+                                      elementItemImage2.width = size;
+                                      elementItemImage2.height = size;
+                                    }
+                                    // Just ignore if a image is provided
+                                    elementItemImage2.src = item;//images[1];
+                                    if(!elementItemImage2.classList.contains("message-portrait")){
+                                      elementItemImage2.classList.add("message-portrait");
+                                    }
+                                    elementItemContainerDamageTypes.appendChild(elementItemImage2);
+                                  }
                                 }
-                                // Just ignore if a image is provided
-                                elementItemImage2.src = images[1];
-                                if(!elementItemImage2.classList.contains("message-portrait")){
-                                  elementItemImage2.classList.add("message-portrait");
-                                }
-                                elementItemText.prepend(elementItemImage2);
+                                // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+                                // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
+                                // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
+                                elementItemText.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
                               }
                             }
                         }
@@ -684,6 +724,7 @@ export class ChatPortrait {
             customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
             displayMessageTag: SettingsForm.getDisplayMessageTag(),
             useImageReplacer: SettingsForm.getUseImageReplacer(),
+            useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
         };
     }
 
@@ -723,7 +764,8 @@ export class ChatPortrait {
             displaySettingWhisperToOther: false,
             customStylingMessageText: '',
             displayMessageTag: false,
-            useImageReplacer: true
+            useImageReplacer: true,
+            useImageReplacerDamageType: true
         }
     }
 

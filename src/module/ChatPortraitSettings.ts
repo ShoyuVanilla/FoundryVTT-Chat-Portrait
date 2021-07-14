@@ -30,4 +30,5 @@ export interface ChatPortraitSettings{
     customStylingMessageText: string,
     displayMessageTag: boolean,
     useImageReplacer: boolean,
+    useImageReplacerDamageType: boolean,
 }
