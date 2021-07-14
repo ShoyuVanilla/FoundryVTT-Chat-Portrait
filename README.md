@@ -115,6 +115,18 @@ If you want to add your own system it's very simple!!! you can just give to me a
 
 ![replacer](./images/image_replacer_feature.png)
 
+
+[ON DEVELOPING ANY SUGGESTION IS WELCOME]
+
+- Image Replacer Damage Types: Add some image for better identify the type of damage of the weapon, for now the support is limited to the following systems :
+
+  -  Dnd5e system
+
+If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
+
+![replacer_damage_types](./images/damage_types_feature.png)
+
+
 ## Known issue
 
 ## [Changelog](./changelog.md)

@@ -111,3 +111,24 @@ export const imageReplacerDamageType:Record<string, string> =
   "DND5E.DamageSlashing": `/modules/${MODULE_NAME}/assets/slashing.svg`,
   "DND5E.DamageThunder": `/modules/${MODULE_NAME}/assets/thunder.svg`,
 }
+
+export const imageReplacerWeaponProperties:Record<string, string> =
+{
+  "DND5E.WeaponPropertiesAda": `/modules/${MODULE_NAME}/assets/adamantine.svg`,
+  "DND5E.WeaponPropertiesAmm": `/modules/${MODULE_NAME}/assets/ammunition.svg`,
+  "DND5E.WeaponPropertiesFin": `/modules/${MODULE_NAME}/assets/finesse.svg`,
+  "DND5E.WeaponPropertiesFir": `/modules/${MODULE_NAME}/assets/firearm.svg`,
+  "DND5E.WeaponPropertiesFoc": `/modules/${MODULE_NAME}/assets/focus.svg`,
+  "DND5E.WeaponPropertiesHvy": `/modules/${MODULE_NAME}/assets/heavy.svg`,
+  "DND5E.WeaponPropertiesLgt": `/modules/${MODULE_NAME}/assets/light.svg`,
+  "DND5E.WeaponPropertiesLod": `/modules/${MODULE_NAME}/assets/loading.svg`,
+  "DND5E.WeaponPropertiesMgc": `/modules/${MODULE_NAME}/assets/magical.svg`,
+  "DND5E.WeaponPropertiesRch": `/modules/${MODULE_NAME}/assets/reach.svg`,
+  "DND5E.WeaponPropertiesRel": `/modules/${MODULE_NAME}/assets/reload.svg`,
+  "DND5E.WeaponPropertiesRet": `/modules/${MODULE_NAME}/assets/returning.svg`,
+  "DND5E.WeaponPropertiesSil": `/modules/${MODULE_NAME}/assets/silvered.svg`,
+  "DND5E.WeaponPropertiesSpc": `/modules/${MODULE_NAME}/assets/special.svg`,
+  "DND5E.WeaponPropertiesThr": `/modules/${MODULE_NAME}/assets/thrown.svg`,
+  "DND5E.WeaponPropertiesTwo": `/modules/${MODULE_NAME}/assets/two-Handed.svg`,
+  "DND5E.WeaponPropertiesVer": `/modules/${MODULE_NAME}/assets/versatile.svg`,
+}

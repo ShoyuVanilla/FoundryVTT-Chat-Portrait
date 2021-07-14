@@ -1,12 +1,12 @@
 
 
-## 0.3.12
+## 0.3.12 [BREAKING CHANGES]
 
 - Add new module settings and management for dmaage types icons
 - Add new style for the visualizations of the damage types
 - Try to bug fix [Token portrait does not change even if the token do.](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/57)
-- Try to bug fix [Bug: Chat Portrait not working on /stream tab](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/56)
 - Some small bug fix here and there
+  
 ## 0.3.11
 
 - Small bug fix on 'preCreateMessageChat' hook

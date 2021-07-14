@@ -6,7 +6,7 @@ import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { imageReplacerDamageType, ImageReplacerImpl } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { getCanvas, INV_UNIDENTIFIED_BOOK, MODULE_NAME } from "./settings";
-import { ImageReplacerData } from '../ImageReplacerData';
+import { ImageReplacerData } from './ImageReplacerData';
 
 /**
  * Main class wrapper for all of our features.
@@ -260,7 +260,7 @@ export class ChatPortrait {
                                 }
                                 elementItemName.prepend(elementItemImage);
                                 // DAMAGE TYPES
-                                if(images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
+                                if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                                   const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
                                   for (var [index, item] of images.iconsDamageType.entries()) {
 
@@ -300,7 +300,7 @@ export class ChatPortrait {
                                   }
                                   elementItemName.prepend(elementItemImage);
                                   // DAMAGE TYPES
-                                  if(images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
+                                  if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                                     const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
                                     for (var [index, item] of images.iconsDamageType.entries()) {
 
@@ -391,7 +391,7 @@ export class ChatPortrait {
                             }
                             elementItemText.prepend(elementItemImage);
                             // DAMAGE TYPES
-                            if(images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
+                            if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                               const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
                               for (var [index, item] of images.iconsDamageType.entries()) {
 
@@ -431,7 +431,7 @@ export class ChatPortrait {
                               }
                               elementItemText.prepend(elementItemImage);
                               // DAMAGE TYPES
-                              if(images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
+                              if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                                 const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
                                 for (var [index, item] of images.iconsDamageType.entries()) {
 
@@ -558,22 +558,38 @@ export class ChatPortrait {
                 return imgAvatar;
             }
         }
-        if (speaker.token && !actor) {
-            //@ts-ignore
-            let token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
-            if(!token){
-                token = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
-            }
-            if(token){
-                const tokenData = token.data;
-                if (useTokenImage && tokenData?.img) {
-                    return tokenData.img;
-                } else if (!useTokenImage && tokenData?.actorData?.img) {
-                    return tokenData.actorData.img;
-                }
-            }
+        let token:Token;
+        let tokenData:Token.Data;
+        if (speaker.token) {
+            token = ChatPortrait.getToken(speaker.scene, speaker.token);
+            // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
+            if (!token) {
+              try{
+                //@ts-ignore
+                token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
+              }catch(e){
+                // Do nothing
+              }
+              if(!token){
+                tokenData = game.scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
+              }else{
+                tokenData = token.data;
+              }
+            }else{
+              tokenData = token.data;
+            }           
         }
-        return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
+        if(tokenData){
+          if (useTokenImage && tokenData?.img) {
+              return tokenData.img;
+          } else if (!useTokenImage && tokenData?.actorData?.img) {
+              return tokenData.actorData.img;
+          }else{
+            return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
+          } 
+        }else{
+          return useTokenImage ? actor?.data?.token?.img : actor.data.img;
+        } 
       }
       return "icons/svg/mystery-man.svg";
     }
@@ -964,7 +980,7 @@ export class ChatPortrait {
       if(message.user){
         let user = game.users.get(message.user);
         if(!user){
-            user = game.users.get(message.user.id);
+            user = game.users.get(message?.user?.id);
         }
         if (user) {
           return user.isGM;
@@ -1131,9 +1147,9 @@ export class ChatPortrait {
             if(mykeyvalue && text.toLowerCase().trim().indexOf(mykeyvalue.toLowerCase().trim()) !== -1 ){
               //value.push(imageReplacer[key]);
               value.iconMain = imageReplacer[key];
+              let damageTypes:string[] = new Array();
               // Special case
               if(key == "DND5E.DamageRoll"){
-                let damageTypes:string[] = new Array();
                 for (let keydamage in imageReplacerDamageType) {
                   const mykeydamagevalue = i18n(keydamage);
                   if(mykeydamagevalue && text.toLowerCase().trim().indexOf(mykeydamagevalue.toLowerCase().trim()) !== -1 ){
@@ -1142,8 +1158,8 @@ export class ChatPortrait {
                     // Add all damage types
                   }
                 }
-                value.iconsDamageType = damageTypes;
               }
+              value.iconsDamageType = damageTypes;
               break;
             }
           }

@@ -1,3 +1,4 @@
+import { Chatter } from "./Chatter";
 import { warn, error, debug, i18n } from "../main";
 import { ChatLink } from "./chatlink";
 import { ChatPortrait } from "./ChatPortrait";
@@ -23,6 +24,7 @@ export const setupHooks = async () => {
   Hooks.on('renderChatMessage', (message, html, speakerInfo) => {
     ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
     ChatLink.prepareEvent(message, html, speakerInfo);
+    
     setTimeout(
       function() {
         const log = document.querySelector("#chat-log");
@@ -34,6 +36,12 @@ export const setupHooks = async () => {
       }, 50
     );
   });
+
+  // Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
+  //    let speakerInfo = message.data.speaker;
+     
+
+  // });
 
   // Hooks.on('updateChatMessage', (message, update, options, user) => {
  
