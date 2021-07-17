@@ -5,6 +5,7 @@ import { ChatPortrait } from "./ChatPortrait";
 import { ImageReplacerInit } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { CHAT_PORTRAIT_MODULE_NAME, getGame } from "./settings";
+import { ChatSpeakerData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData";
 
 export let readyHooks = async () => {
 
@@ -17,11 +18,28 @@ export const setupHooks = async () => {
   if(ChatPortrait.settings.useImageReplacer){
     imageReplacer = ImageReplacerInit();
   }
+
+  let currentSpeakerBackUp:ChatSpeakerData;
   /**
   * This line connects our method above with the chat rendering.
   * Note that this happens after the core code has already generated HTML.
   */
   Hooks.on('renderChatMessage', async (message, html, speakerInfo) => {
+    if(!speakerInfo.message.speaker.token && currentSpeakerBackUp?.token){
+      if(currentSpeakerBackUp.scene) speakerInfo.message.speaker.scene = currentSpeakerBackUp.scene;
+      if(currentSpeakerBackUp.actor) speakerInfo.message.speaker.actor = currentSpeakerBackUp.actor;
+      if(currentSpeakerBackUp.token) speakerInfo.message.speaker.token = currentSpeakerBackUp.token;
+      if(currentSpeakerBackUp.alias) speakerInfo.message.speaker.alias = currentSpeakerBackUp.alias;
+
+     
+    }
+    if(!message.data.speaker.token && currentSpeakerBackUp?.token){
+      if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
+      if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
+      if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
+      if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
+    }
+
     ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
     ChatLink.prepareEvent(message, html, speakerInfo);
     
@@ -36,11 +54,14 @@ export const setupHooks = async () => {
     );
   });
 
-  // Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
-  //    let speakerInfo = message.data.speaker;
-     
-
-  // });
+  Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
+    if(!message.data.speaker.token && currentSpeakerBackUp?.token){
+      message.data.speaker.scene = currentSpeakerBackUp.scene;
+      message.data.speaker.actor = currentSpeakerBackUp.actor;
+      message.data.speaker.token = currentSpeakerBackUp.token;
+      message.data.speaker.alias = currentSpeakerBackUp.alias;
+    } 
+  });
 
   // Hooks.on('updateChatMessage', (message, update, options, user) => {
  
@@ -49,7 +70,7 @@ export const setupHooks = async () => {
   /**
    * Catch chat message creations and add some more data if we need to
   */
-  Hooks.on('preCreateChatMessage', (msg, options, render, userId) => {
+  Hooks.on('preCreateChatMessage', async (msg, options, render, userId) => {
       if(options){
         // Update the speaker
         if (!options.speaker || (!options.speaker.token && !options.speaker.actor)){
@@ -67,6 +88,12 @@ export const setupHooks = async () => {
             speaker: speakerInfo
           }
           msg.data.update(updates);
+        }      
+        // MidiQol , Better Rolls, and other modules.. sometime destroy the info 
+        // for my purpose i backup the speaker i will found on the preCreateChatMessage
+        else if(options.speaker){
+          currentSpeakerBackUp = options.speaker;
+          currentSpeakerBackUp.token = options.speaker.token.id;
         }
       }
   });

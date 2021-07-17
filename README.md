@@ -8,6 +8,8 @@ This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.
 
 ![Preview](./images/image02.png)
 
+## ATTENTION : Verion 0.4.X is a big update make sure to not update just before a game 
+
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.

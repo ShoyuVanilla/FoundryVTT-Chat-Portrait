@@ -252,9 +252,9 @@ export class ChatPortrait {
                                   elementItemImage.height = size;
                                 }
                                 // Just ignore if a image is provided
-                                if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
                                   elementItemImage.src = value;
-                                }
+                                //}
                                 if(!elementItemImage.classList.contains("message-portrait")){
                                   elementItemImage.classList.add("message-portrait");
                                 }
@@ -292,9 +292,9 @@ export class ChatPortrait {
                                     elementItemImage.height = size;
                                   }
                                   // Just ignore if a image is provided
-                                  if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                  //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
                                     elementItemImage.src = value;
-                                  }
+                                  //}
                                   if(!elementItemImage.classList.contains("message-portrait")){
                                     elementItemImage.classList.add("message-portrait");
                                   }
@@ -383,9 +383,9 @@ export class ChatPortrait {
                               elementItemImage.height = size;
                             }
                             // Just ignore if a image is provided
-                            if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                            //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
                               elementItemImage.src = value;
-                            }
+                            //}
                             if(!elementItemImage.classList.contains("message-portrait")){
                               elementItemImage.classList.add("message-portrait");
                             }
@@ -963,6 +963,29 @@ export class ChatPortrait {
      * Returns a list of selected (or owned, if no token is selected)
      * note: ex getSelectedOrOwnedToken
      */
+     static getFirstSelectedToken = function():Token|null
+     {
+       try{
+         getCanvas();
+       }catch(e){
+         // Canvas not ready
+         return null;
+       }
+       // Get controlled token
+       let token:Token|null = null;
+       let controlled:Token[] = <Token[]>getCanvas().tokens?.controlled;
+       // Do nothing if multiple tokens are selected
+       if (controlled.length && controlled.length > 1) {
+         token = <Token>controlled[0];
+       }
+       // If exactly one token is selected, take that
+       return token;
+     }
+
+    /**
+     * Returns a list of selected (or owned, if no token is selected)
+     * note: ex getSelectedOrOwnedToken
+     */
     static getFirstPlayerToken = function():Token|null
     {
       try{
@@ -972,20 +995,13 @@ export class ChatPortrait {
         return null;
       }
       // Get controlled token
-      let token:Token;
-      let controlled:Token[] = <Token[]>getCanvas().tokens?.controlled;
-      // Do nothing if multiple tokens are selected
-      if (controlled.length && controlled.length > 1) {
-          return controlled[0];
-      }
-      // If exactly one token is selected, take that
-      token = <Token>controlled[0];
+      let token:Token|null = ChatPortrait.getFirstSelectedToken();
       if(!token){
-          if(!controlled.length || controlled.length == 0 ){
+          //if(!controlled.length || controlled.length == 0 ){
             // If no token is selected use the token of the users character
             //@ts-ignore
             token = getCanvas().tokens.placeables.find((token:Token) => token.data._id === getGame().user.character?.data?._id);
-          }
+          //}
           // If no token is selected use the first owned token of the users character you found and is not GM
           if(!token && !getGame().user?.isGM){
             token = <Token>getCanvas().tokens?.ownedTokens[0];

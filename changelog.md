@@ -4,7 +4,7 @@
 ## 0.4.0 [BREAKING CHANGES]
 
 - Every OOC chat message type, try to use the img avatar by default
-- Apy async to reder of the chat message so world load more fast
+- Make async tha pai call to rendering of the chat message so world load more fast
 - Try to bug fix [BUG: Players' OOC messages use character image instead of player avatar](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/59)
 - Try to bug fix [Portait shows a broken image when using token wildcards, and Better Rolls is enabled](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/58)
 - Set to false the module settings for "Image Replacer Damage Type"
