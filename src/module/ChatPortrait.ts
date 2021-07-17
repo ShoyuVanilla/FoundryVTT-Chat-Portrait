@@ -119,7 +119,7 @@ export class ChatPortrait {
     static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
         const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
-        const authorColor: string = messageData.author ? messageData.author.data.color : 'black';
+        const authorColor = messageData.author ? <string>messageData.author.data.color : 'black';
         //const speaker = speakerInfo.message.speaker;
         const useTokenName: boolean = ChatPortrait.settings.useTokenName;
         if(useTokenName){
@@ -236,7 +236,7 @@ export class ChatPortrait {
                     }
                     if(elementItemName){
                         let value: string = "";
-                        let images:ImageReplacerData;
+                        let images:ImageReplacerData = { iconMain:"", iconsDamageType:[] };
                         if(ChatPortrait.settings.useImageReplacer){
                           images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText);
                           if(images && images.iconMain){
@@ -281,7 +281,7 @@ export class ChatPortrait {
                                   // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
                                   // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
                                   // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
-                                  elementItemName.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
+                                  elementItemName.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
                                 }
                             }else{
                                 if(ChatPortrait.settings.useImageReplacer){
@@ -321,7 +321,7 @@ export class ChatPortrait {
                                     // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
                                     // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
                                     // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
-                                    elementItemName.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
+                                    elementItemName.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
                                   }
                                 }
                             }
@@ -366,8 +366,8 @@ export class ChatPortrait {
                     if(!elementItemText.classList.contains("chat-portrait-text-size-name")){
                       elementItemText.classList.add("chat-portrait-text-size-name");
                     }
-                    let value:string;
-                    let images:ImageReplacerData;
+                    let value:string = "";
+                    let images:ImageReplacerData = { iconMain:"", iconsDamageType:[] };
                     if(ChatPortrait.settings.useImageReplacer){
                       images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText);
                       if(images && images.iconMain){
@@ -412,7 +412,7 @@ export class ChatPortrait {
                               // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
                               // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
                               // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
-                              elementItemText.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
+                              elementItemText.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
                             }
                         }else{
                             if(ChatPortrait.settings.useImageReplacer){
@@ -452,7 +452,7 @@ export class ChatPortrait {
                                 // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
                                 // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
                                 // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
-                                elementItemText.parentNode.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
+                                elementItemText.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
                               }
                             }
                         }
@@ -564,9 +564,9 @@ export class ChatPortrait {
         }
         // It's a chat message associated with an actor
         const useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
-        const actor:Actor = ChatPortrait.getActor(speaker);
+        const actor = ChatPortrait.getActor(speaker);
         // Make sense only for player and for non GM
-        if(actor.type == "character" && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
+        if(actor?.type == "character" && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)){
             const imgAvatar:string = ChatPortrait.getUserAvatar(message);
             if(imgAvatar && !imgAvatar.includes("mystery-man")){
               return imgAvatar;
@@ -576,19 +576,19 @@ export class ChatPortrait {
             }
         }
         let token:TokenDocument;
-        let tokenData:TokenDataProperties;
+        let tokenData:any;
         if (speaker.token) {
             token = ChatPortrait.getToken(speaker.scene, speaker.token);
             // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
             if (!token) {
               try{
-                token = getCanvas()?.tokens?.getDocuments().find((token:TokenDocument) => token.id === speaker.token);
+                token = <TokenDocument>getCanvas()?.tokens?.getDocuments().find((token:TokenDocument) => token.id === speaker.token);
                 //token = getCanvas()?.tokens?.getDocuments().find(speaker.token);
               }catch(e){
                 // Do nothing
               }
               if(!token){
-                tokenData = getGame().scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
+                tokenData = getGame().scenes?.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
               }else{
                 tokenData = token.data;
               }
@@ -602,11 +602,11 @@ export class ChatPortrait {
           } else if (!useTokenImage && tokenData?.actorData?.img) {
               return tokenData.actorData.img;
           }else{
-            return useTokenImage ? actor.token?.data?.img : actor.token.data.img; // actor?.img; // Deprecated on 0.8.6
+            return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
             //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
           } 
         }else{
-          return useTokenImage ? actor.token?.data?.img : <string>actor.img;
+          return useTokenImage ? <string>actor?.data.token.img : <string>actor?.img;
           //return useTokenImage ? actor?.data?.token?.img : actor.data.img;
         } 
       }
@@ -619,7 +619,7 @@ export class ChatPortrait {
      * @param  {string} imgPath
      * @returns HTMLImageElement
      */
-    static async generatePortraitImageElement(imgPath: string): Promise<HTMLImageElement> {
+    static async generatePortraitImageElement(imgPath: string): Promise<HTMLImageElement|undefined> {
         if (!imgPath){
             return;
         }
@@ -890,10 +890,10 @@ export class ChatPortrait {
     //   }
     // }
 
-    static getActor(speaker):Actor{
-        let actor: Actor =  getGame().actors.get(speaker.actor);
+    static getActor(speaker):Actor|undefined{
+        let actor =  getGame().actors?.get(speaker.actor);
         if(!actor){
-          actor = getGame().actors.tokens[speaker.token];
+          actor = getGame().actors?.tokens[speaker.token];
         }
         if (!actor) {
             //actor = getGame().actors.get(speaker.actor); // Deprecated on 0.8.6
@@ -901,15 +901,14 @@ export class ChatPortrait {
         }
         const forceNameSearch = ChatPortrait.settings.forceNameSearch;
         if (!actor && forceNameSearch) {
-            actor = getGame().actors.find((a: Actor) => a.token.name === speaker.alias);
+            actor = getGame().actors?.find((a: Actor) => a.data.token.name === speaker.alias);
         }
         return actor;
     }
 
     static getActorName = function(speaker) {
-      const actor:Actor = ChatPortrait.getActor(speaker);//getGame().actors.get(speaker.actor);
+      const actor = ChatPortrait.getActor(speaker);//getGame().actors.get(speaker.actor);
       if (actor) {
-        //@ts-ignore
         return actor.name;
       }
       return speaker.alias;
@@ -917,13 +916,13 @@ export class ChatPortrait {
 
     static getTokenName = function(speaker) {
       if (speaker.token) {
-        const scene = speaker.scene ? speaker.scene : getGame().scenes.current.id;
+        const scene = speaker.scene ? speaker.scene : getGame().scenes?.current?.id;
         const token = ChatPortrait.getToken(speaker.scene, speaker.token);
         if (token) {
           return token.name;
         }
       }
-      const actor = getGame().actors.get(speaker.actor);
+      const actor = getGame().actors?.get(speaker.actor);
       if (actor) {
         if (actor.data.token) {
           return actor.data.token.name;
@@ -932,19 +931,19 @@ export class ChatPortrait {
           return actor.name;
         }
       }
-      if (getGame().user.isGM) {
+      if (getGame().user?.isGM) {
         return speaker.alias;
       }
       return ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'???';
     }
 
     static getToken = function(sceneID, tokenID) {
-      const specifiedScene = getGame().scenes.get(sceneID);
+      const specifiedScene = getGame().scenes?.get(sceneID);
       if (specifiedScene) {
         return ChatPortrait.getTokenForScene(specifiedScene, tokenID);
       }
       let foundToken = null;
-      getGame().scenes.find((scene) => {
+      getGame().scenes?.find((scene) => {
         foundToken = ChatPortrait.getTokenForScene(scene, tokenID);
         return !!foundToken;
       });
@@ -964,7 +963,7 @@ export class ChatPortrait {
      * Returns a list of selected (or owned, if no token is selected)
      * note: ex getSelectedOrOwnedToken
      */
-    static getFirstPlayerToken = function():Token
+    static getFirstPlayerToken = function():Token|null
     {
       try{
         getCanvas();
@@ -974,13 +973,13 @@ export class ChatPortrait {
       }
       // Get controlled token
       let token:Token;
-      let controlled:Token[] = getCanvas().tokens.controlled;
+      let controlled:Token[] = <Token[]>getCanvas().tokens?.controlled;
       // Do nothing if multiple tokens are selected
       if (controlled.length && controlled.length > 1) {
           return controlled[0];
       }
       // If exactly one token is selected, take that
-      token = controlled[0];
+      token = <Token>controlled[0];
       if(!token){
           if(!controlled.length || controlled.length == 0 ){
             // If no token is selected use the token of the users character
@@ -988,8 +987,8 @@ export class ChatPortrait {
             token = getCanvas().tokens.placeables.find((token:Token) => token.data._id === getGame().user.character?.data?._id);
           }
           // If no token is selected use the first owned token of the users character you found and is not GM
-          if(!token && !getGame().user.isGM){
-            token = getCanvas().tokens.ownedTokens[0];
+          if(!token && !getGame().user?.isGM){
+            token = <Token>getCanvas().tokens?.ownedTokens[0];
           }
       }
       return token;
@@ -997,9 +996,9 @@ export class ChatPortrait {
 
     static isSpeakerGM = function(message){
       if(message.user){
-        let user = getGame().users.get(message.user);
+        let user = getGame().users?.get(message.user);
         if(!user){
-            user = getGame().users.get(message?.user?.id);
+            user = getGame().users?.get(message?.user?.id);
         }
         if (user) {
           return user.isGM;
@@ -1031,12 +1030,12 @@ export class ChatPortrait {
         const setting = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, "displayUnknown");
         if (setting !== "none") {
             //const user = getGame().users.get(message.user);
-            let user = getGame().users.get(message.user);
+            let user = getGame().users?.get(message.user);
             if(!user){
-                user = getGame().users.get(message.user.id);
+                user = getGame().users?.get(message.user.id);
             }
             if (user) {
-                const isSelf = user.data._id === getGame().user.data._id;
+                const isSelf = user.data._id === getGame().user?.data._id;
                 const isGM = user.isGM;
 
                 if ((setting === "allCards")
@@ -1057,12 +1056,12 @@ export class ChatPortrait {
       const setting = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, "displaySetting");
       if (setting !== "none") {
           //const user = getGame().users.get(message.user);
-          let user = getGame().users.get(message.user);
+          let user = getGame().users?.get(message.user);
           if(!user){
-              user = getGame().users.get(message.user.id);
+              user = getGame().users?.get(message.user.id);
           }
           if (user) {
-              const isSelf = user.data._id === getGame().user.data._id;
+              const isSelf = user.data._id === getGame().user?.data._id;
               const isGM = user.isGM;
 
               if ((setting === "allCards")
@@ -1078,35 +1077,41 @@ export class ChatPortrait {
       return false;
   }
 
-    static getUserColor = function(message){
-      let user = getGame().users.get(message.user);
+    static getUserColor = function(message):string|null{
+      let user = getGame().users?.get(message.user);
       if(!user){
-          user = getGame().users.get(message.user.id);
-          return user.data.color;
+          user = getGame().users?.get(message.user.id);
+          if(user){
+            return user.data.color;
+          }
       }
       return "";
     }
 
-    static getUserAvatar = function(message){
-      let user = getGame().users.get(message.user);
+    static getUserAvatar = function(message):string{
+      let user = getGame().users?.get(message.user);
       if(!user){
-          user = getGame().users.get(message.user.id);
+          user = getGame().users?.get(message.user.id);
       }
-      if(user.data && user.data.avatar){ // image path
-          return user.data.avatar;
+      if(user){
+        if(user.data && user.data.avatar){ // image path
+            return user.data.avatar;
+        }
       }
-      return null;
+      return "";
     }
 
-    static getUserName = function(message){
-      let user = getGame().users.get(message.user);
+    static getUserName = function(message):string{
+      let user = getGame().users?.get(message.user);
       if(!user){
-          user = getGame().users.get(message.user.id);
+          user = getGame().users?.get(message.user.id);
       }
-      if(user.data && user.data.avatar){ // image path
-          return user.data.name;
+      if(user){
+        if(user.data && user.data.avatar){ // image path
+            return user.data.name;
+        }
       }
-      return null;
+      return "";
     }
 
     static isWhisperToOther = function(speakerInfo) {
@@ -1237,7 +1242,7 @@ export class ChatPortrait {
       const isRoll = messageData.message.roll !== undefined;
 
       const authorId = messageData.message.user;
-      const userId = getGame().user.data._id;
+      const userId = getGame().user?.data._id;
 
       if (!isWhisper) return;
       if (userId !== authorId && !whisperTargetIds.includes(userId) ) return;

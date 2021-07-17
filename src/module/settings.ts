@@ -32,7 +32,7 @@ export const INV_UNIDENTIFIED_BOOK = `/modules/${CHAT_PORTRAIT_MODULE_NAME}/asse
  * @returns
  */
 export function getGame(): Game {
-  if (!(game instanceof Game) || !game.ready) {
+  if (!(game instanceof Game)) {
     throw new Error("Game Is Not Initialized");
   }
   return game;

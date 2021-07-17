@@ -69,7 +69,7 @@ Hooks.once('setup', function () {
 
     setupHooks();
 
-	registerSettings();
+	//registerSettings();
 
 });
 

@@ -53,16 +53,16 @@ export const setupHooks = async () => {
       if(options){
         // Update the speaker
         if (!options.speaker || (!options.speaker.token && !options.speaker.actor)){
-          let user = getGame().users.get(options.user);
+          let user = getGame().users?.get(options.user);
           let avatar
           if(!user){
-              user = getGame().users.get(options.user.id);
+              user = getGame().users?.get(options.user.id);
           }
           let speakerInfo:any = {};
           let mytoken = ChatPortrait.getFirstPlayerToken();
           speakerInfo.alias = msg.alias;
           speakerInfo.token = mytoken;
-          speakerInfo.actor = getGame().actors.get(user.data.character);
+          speakerInfo.actor = getGame().actors?.get(<string>user?.data.character);
           let updates = {
             speaker: speakerInfo
           }

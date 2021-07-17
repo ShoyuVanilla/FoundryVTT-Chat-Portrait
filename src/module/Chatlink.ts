@@ -121,10 +121,12 @@ export class ChatLink {
     }
 
     static getToken(speakerData) {
+        //@ts-ignore
         let token = getCanvas().tokens.placeables.find(t => t.id === speakerData.idToken);
-        if(!token)
+        if(!token){
+            //@ts-ignore
             token = getCanvas().tokens.placeables.find(t => t.document.data.actorId === speakerData.idActor);
-
+        }
         return token;
     }
 
@@ -140,14 +142,14 @@ export class ChatLink {
     }
 
     static isRightScene(user, speakerData) {
-        if (getCanvas().scene._id === speakerData.idScene)
+        if (getCanvas().scene?.id === speakerData.idScene)
             return true;
 
         let sceneNote;
         if (!speakerData.idScene) {
             sceneNote = ` ${ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME+'.noSceneFound')}`;
         } else {
-            let tokenScene = getGame().scenes.find(s => s.data._id === speakerData.idScene);
+            let tokenScene = getGame().scenes?.find(s => s.data._id === speakerData.idScene);
             sceneNote = ` ${ChatLink.i18nFormat(CHAT_PORTRAIT_MODULE_NAME+'.checkScene', {sceneName: tokenScene?.data.name})}`;
         }
 
@@ -183,7 +185,7 @@ export class ChatLink {
     }
 
     static doPanToToken(event, user, token) {
-        let scale = getCanvas().scene.data._viewPosition.scale;
+        let scale = getCanvas().scene?.data._viewPosition.scale;
 
         getCanvas().animatePan({x: token.x, y: token.y, scale: scale, duration: 500});
     }
@@ -199,9 +201,9 @@ export class ChatLink {
             return;
         }
 
-        if (token._controlled || getCanvas().tokens.controlled.length !== 1)
+        if (token._controlled || getCanvas().tokens?.controlled.length !== 1)
             token.control(releaseOthers);
-        else if (!token._controlled && getCanvas().tokens.controlled.length === 1)
+        else if (!token._controlled && getCanvas().tokens?.controlled.length === 1)
             token.control(releaseOthers);
         else
             token.release();
@@ -218,9 +220,9 @@ export class ChatLink {
             return;
         }
 
-        if (token.isTargeted && getGame().user.targets.size !== 1)
+        if (token.isTargeted && getGame().user?.targets.size !== 1)
             token.setTarget(true, releaseOthers);
-        else if (token.isTargeted && getGame().user.targets.size === 1)
+        else if (token.isTargeted && getGame().user?.targets.size === 1)
             token.setTarget(false, releaseOthers);
         else
             token.setTarget(true, releaseOthers);
@@ -232,7 +234,7 @@ export class ChatLink {
     }
 
     static warning(message) {
-        ui.notifications.warn(message);
+        ui.notifications?.warn(message);
     }
 
     // static formatLink(html) {
