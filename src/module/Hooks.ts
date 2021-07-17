@@ -54,14 +54,14 @@ export const setupHooks = async () => {
     );
   });
 
-  Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
-    if(!message.data.speaker.token && currentSpeakerBackUp?.token){
-      message.data.speaker.scene = currentSpeakerBackUp.scene;
-      message.data.speaker.actor = currentSpeakerBackUp.actor;
-      message.data.speaker.token = currentSpeakerBackUp.token;
-      message.data.speaker.alias = currentSpeakerBackUp.alias;
-    } 
-  });
+  // Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
+  //   if(!message.data.speaker.token && currentSpeakerBackUp?.token){
+  //     if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
+  //     if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
+  //     if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
+  //     if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
+  //   }
+  // });
 
   // Hooks.on('updateChatMessage', (message, update, options, user) => {
  

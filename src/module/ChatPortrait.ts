@@ -423,9 +423,9 @@ export class ChatPortrait {
                                 elementItemImage.height = size;
                               }
                               // Just ignore if a image is provided
-                              if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                              //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
                                 elementItemImage.src = value;
-                              }
+                              //}
                               if(!elementItemImage.classList.contains("message-portrait")){
                                 elementItemImage.classList.add("message-portrait");
                               }

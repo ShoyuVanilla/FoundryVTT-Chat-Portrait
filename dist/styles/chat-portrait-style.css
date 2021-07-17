@@ -1,0 +1,115 @@
+#chat-log .message .message-header img {
+  flex: 0 0 0px;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  object-fit: cover;
+}
+.chat-message,
+.chat-message.emote,
+.chat-message.blind {
+  background-image: url(../assets/parchment.jpg);
+  background-repeat: repeat;
+}
+.chat-message.whisper {
+  background-image: url(../assets/parchment-white.jpg);
+}
+/*
+.chat-portrait {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.chat-portrait-tooltip {
+  display: block;
+  padding: 2px 4px;
+  position: absolute;
+  background: #222;
+  border: 1px solid #191813;
+  border-radius: 3px;
+  color: #ddd;
+  text-align: left;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.chat-portrait-tooltip ul {
+  list-style-type: circle;
+}
+*/
+.chat-portrait-currentSpeaker {
+  flex: 0;
+  padding: 3px 0.5em;
+}
+
+.chat-portrait-currentSpeakerToggle:hover {
+  opacity: 1;
+}
+
+.chat-portrait-playerName {
+  opacity: 0.5;
+}
+
+.chat-portrait-playerName::before {
+  content: ' [';
+}
+
+.chat-portrait-playerName::after {
+  content: ']';
+}
+
+/* Narrator Chat Module Support - Don't show portrait on Narrates */
+#chat-log .chat-message.message.flexcol.narrator-chat .message-header img.message-portrait {
+	display:none;
+}
+
+.chat-portrait-text-size-name {
+  /*
+  line-height: 36px;
+  font-family: "Modesto Condensed", "Palatino Linotype", serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #4b4a44;
+  */
+  display: flex;
+}
+
+
+.chat-portrait-indicator {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.chat-portrait-whisper-to * {
+  display: inline-block;
+  margin: 1px 3px 1px 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+
+#chat-log .message .message-header {
+  justify-content: space-between;
+}
+
+#chat-log .message .message-header .message-metadata {
+  flex: 0 0 auto;
+  margin-left: 1rem;
+}
+
+#chat-log .message .message-header .message-sender {
+  flex: 1 0 1px;
+}
+
+#chat-log .message .message-header .chat-portrait-whisper-to {
+  line-height: 1rem;
+  margin-bottom: .5rem;
+}
+
