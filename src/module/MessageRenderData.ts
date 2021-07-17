@@ -1,7 +1,9 @@
+import { ChatMessageData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
+
 /**
  * Data passed by renderChatMessage Hook
  */
-export interface MessageRenderData extends ChatMessage.MessageData{
+export interface MessageRenderData extends ChatMessageData{
 
 	alias: string;
 	author: User;
@@ -27,6 +29,6 @@ export interface MessageRenderData extends ChatMessage.MessageData{
 		whisper: string[];
 		_id: string;
 	};
-	user: User;
+	user: string;
 	whisperTo: string;
 }

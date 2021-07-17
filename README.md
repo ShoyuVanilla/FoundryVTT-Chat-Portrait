@@ -32,7 +32,9 @@ To install this module manually:
 
 - Use Token Name: Use the actor's Token name instead of the actor's standard name.
 
-- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. Note if true ignore the first option if a avatar is found or else go back to the standard actor/token image feature, this option is ignored if you are the GM or else everything you click has the avatar image of the GM.
+- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. if true ignore the first option if a avatar image is not found is going back to the standard actor/token image of the 'mistery man', this option is ignored if you are the GM or else everything you click has the avatar image of the GM expcet the OOC chat message. NOTE: Every OOC message by default activate this mode (because make sense no token must be associated with a OOC message).
+
+![avatar](./images/use_image_avatar_feature.png)
 
 - Shows the name of the player next to the name of the actor for any IC messages
 
@@ -116,7 +118,7 @@ If you want to add your own system it's very simple!!! you can just give to me a
 ![replacer](./images/image_replacer_feature.png)
 
 
-[ON DEVELOPING ANY SUGGESTION IS WELCOME]
+[ON DEVELOPING SO ANY SUGGESTION IS WELCOME]
 
 - Image Replacer Damage Types: Add some image for better identify the type of damage of the weapon, for now the support is limited to the following systems :
 

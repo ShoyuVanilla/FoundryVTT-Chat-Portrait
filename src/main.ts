@@ -14,24 +14,22 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
 import { preloadTemplates } from './module/preloadTemplates';
-import { MODULE_NAME } from './module/settings';
+import { getGame,CHAT_PORTRAIT_MODULE_NAME } from './module/settings';
 import { initHooks, readyHooks, setupHooks } from './module/Hooks';
-import { ChatPortrait } from './module/ChatPortrait';
-// import { installedModules, setupModules } from './module/setupModules';
 
 export let debugEnabled = 0;
 // 0 = none, warnings = 1, debug = 2, all = 3
-export let debug = (...args) => {if (debugEnabled > 1) console.log(`DEBUG:${MODULE_NAME} | `, ...args)};
-export let log = (...args) => console.log(`${MODULE_NAME} | `, ...args);
-export let warn = (...args) => {if (debugEnabled > 0) console.warn(`${MODULE_NAME} | `, ...args)};
-export let error = (...args) => console.error(`${MODULE_NAME} | `, ...args);
-export let timelog = (...args) => warn(`${MODULE_NAME} | `, Date.now(), ...args);
+export let debug = (...args) => {if (debugEnabled > 1) console.log(`DEBUG:${CHAT_PORTRAIT_MODULE_NAME} | `, ...args)};
+export let log = (...args) => console.log(`${CHAT_PORTRAIT_MODULE_NAME} | `, ...args);
+export let warn = (...args) => {if (debugEnabled > 0) console.warn(`${CHAT_PORTRAIT_MODULE_NAME} | `, ...args)};
+export let error = (...args) => console.error(`${CHAT_PORTRAIT_MODULE_NAME} | `, ...args);
+export let timelog = (...args) => warn(`${CHAT_PORTRAIT_MODULE_NAME} | `, Date.now(), ...args);
 
 export let i18n = key => {
-  return game.i18n.localize(key);
+  return getGame().i18n.localize(key);
 };
 export let i18nFormat = (key, data = {}) => {
-  return game.i18n.format(key, data);
+  return getGame().i18n.format(key, data);
 }
 
 export let setDebugLevel = (debugText: string) => {
@@ -44,7 +42,7 @@ export let setDebugLevel = (debugText: string) => {
 /* Initialize module					*/
 /* ------------------------------------ */
 Hooks.once('init', async () => {
-	console.log(`${MODULE_NAME} | Initializing ${MODULE_NAME}`);
+	console.log(`${CHAT_PORTRAIT_MODULE_NAME} | Initializing ${CHAT_PORTRAIT_MODULE_NAME}`);
 
 	// Register custom module settings
 	registerSettings();
@@ -81,7 +79,7 @@ Hooks.once('setup', function () {
 Hooks.once('ready', () => {
 
 	// Do anything once the module is ready
-	// if (!game.modules.get("lib-wrapper")?.active && game.user.isGM){
+	// if (!getGame().modules.get("lib-wrapper")?.active && getGame().user.isGM){
    	// 	ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'libWrapper' module.`);
 	// 	return;
 	// }

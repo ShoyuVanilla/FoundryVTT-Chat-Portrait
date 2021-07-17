@@ -4,7 +4,7 @@ import { ChatLink } from "./chatlink";
 import { ChatPortrait } from "./ChatPortrait";
 import { ImageReplacerInit } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
-import { MODULE_NAME } from "./settings";
+import { CHAT_PORTRAIT_MODULE_NAME, getGame } from "./settings";
 
 export let readyHooks = async () => {
 
@@ -21,7 +21,7 @@ export const setupHooks = async () => {
   * This line connects our method above with the chat rendering.
   * Note that this happens after the core code has already generated HTML.
   */
-  Hooks.on('renderChatMessage', (message, html, speakerInfo) => {
+  Hooks.on('renderChatMessage', async (message, html, speakerInfo) => {
     ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
     ChatLink.prepareEvent(message, html, speakerInfo);
     
@@ -29,8 +29,7 @@ export const setupHooks = async () => {
       function() {
         const log = document.querySelector("#chat-log");
         const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-        if (log && shouldForceScroll) {  
-          //@ts-ignore
+        if (log && shouldForceScroll) { 
           log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
         }
       }, 50
@@ -54,16 +53,16 @@ export const setupHooks = async () => {
       if(options){
         // Update the speaker
         if (!options.speaker || (!options.speaker.token && !options.speaker.actor)){
-          let user = game.users.get(options.user);
+          let user = getGame().users.get(options.user);
           let avatar
           if(!user){
-              user = game.users.get(options.user.id);
+              user = getGame().users.get(options.user.id);
           }
           let speakerInfo:any = {};
           let mytoken = ChatPortrait.getFirstPlayerToken();
           speakerInfo.alias = msg.alias;
           speakerInfo.token = mytoken;
-          speakerInfo.actor = game.actors.get(user.data.character);
+          speakerInfo.actor = getGame().actors.get(user.data.character);
           let updates = {
             speaker: speakerInfo
           }
@@ -111,7 +110,6 @@ export const initHooks = () => {
 // 	const log = document.querySelector("#chat-log");
 // 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
 // 	if (log && shouldForceScroll) {
-// 		//@ts-ignore
 // 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
 // 	}
 //   return wrapped(...args);
@@ -127,7 +125,6 @@ export const initHooks = () => {
 // 	const log = document.querySelector("#chat-log");
 // 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
 // 	if (log && shouldForceScroll) {
-// 		//@ts-ignore
 // 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
 // 	}
   
