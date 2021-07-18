@@ -30,6 +30,15 @@ To install this module manually:
 
 - Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
 
+## Systems
+
+For now the following system are the only one i tested
+
+  -  Dnd5e system
+  -  PF2
+
+any other system need some fed back from the community
+
 ## Features/Settings
 
 - Use Token Image: Use the actor's Token image instead of the actor's standard image. Note: In the event the token associated with a chat message no longer exists, it will use the actor's prototype token's name. In the event the actor no longer exists, it will show "Unknown Actor" to all players, and the original chat message's alias (usually the actor's name) to the GM.
@@ -116,6 +125,7 @@ To install this module manually:
 - Image Replacer: This feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems :
 
   -  Dnd5e system
+  -  PF2
 
 If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
 
@@ -127,6 +137,7 @@ If you want to add your own system it's very simple!!! you can just give to me a
 - Image Replacer Damage Types: Add some image for better identify the type of damage of the weapon, for now the support is limited to the following systems :
 
   -  Dnd5e system
+  -  PF2
 
 If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
 

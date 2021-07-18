@@ -7,7 +7,6 @@ import { imageReplacerDamageType, ImageReplacerImpl } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { INV_UNIDENTIFIED_BOOK, CHAT_PORTRAIT_MODULE_NAME, getGame, getCanvas } from "./settings";
 import { ImageReplacerData } from './ImageReplacerData';
-import { TokenDataProperties } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/tokenData';
 
 /**
  * Main class wrapper for all of our features.
@@ -54,26 +53,29 @@ export class ChatPortrait {
         doNotStyling = true;
       }
 
-      let senderElement: HTMLElement;
+      // MULTISYSTEM MANAGEMENT
+      let messageSenderElement: HTMLElement;
+      let messageHeaderElement:HTMLElement;
       let elementItemImageList;
       let elementItemNameList;
       let elementItemContentList;
       let elementItemTextList;
       // GET Image, Text, Content of the item card by system used
       if (getGame().system.id === 'dnd5e') {
-        senderElement = html.find('.message-sender')[0];
+        messageSenderElement = html.find('.message-sender')[0];
+        messageHeaderElement = html.find('.message-header')[0];
         // Bug fix plutonium
-        senderElement.style.display = 'block';
-        elementItemImageList = html.find('.item-card img');
-        elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
-        //elementItemNameList = html.find('.item-card h3'); // work with more system ?
-        elementItemContentList = html.find('.item-card .card-content');
+        messageSenderElement.style.display = 'block';
+        elementItemImageList = html.find('.message-content img');
+        elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+        elementItemContentList = html.find('.message-content .card-content');
         elementItemTextList = html.find('.message-header .flavor-text');
       }
       else if(getGame().system.id === 'shadowrun5e'){
-        senderElement = html.find('.message-sender')[0];
+        messageSenderElement = html.find('.message-sender')[0];
+        messageHeaderElement = html.find('.message-header')[0];
         // Bug fix plutonium
-        senderElement.style.display = 'block';
+        messageSenderElement.style.display = 'block';
         elementItemImageList = html.find('.message-content img');
         elementItemNameList = html.find('.message-content h3'); // work with more system ?
         elementItemContentList = html.find('.message-content .card-main-content');
@@ -83,31 +85,40 @@ export class ChatPortrait {
     //     // TODO
 
     //   }
-    //   else if (getGame().system.id === 'pf2e') {
-    //     // TODO
-    //   }
+      else if (getGame().system.id === 'pf2e') {
+        messageSenderElement = html.find('.message-sender')[0];
+        messageHeaderElement = html.find('.message-header')[0];
+        // Bug fix plutonium
+        messageSenderElement.style.display = 'block';
+        elementItemImageList = html.find('.message-content img');
+        elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+        elementItemContentList = html.find('.message-content .card-content');
+        elementItemTextList = html.find('.message-header .flavor-text');
+      }
       else {
         warn(`System ${getGame().system.id} have not been implemented and therefore might not work properly.`);
         // BY DEFAULT DND5e Style
-        senderElement = html.find('.message-sender')[0];
+        messageSenderElement = html.find('.message-sender')[0];
+        messageHeaderElement = html.find('.message-header')[0];
         // Bug fix plutonium
-        senderElement.style.display = 'block';
+        messageSenderElement.style.display = 'block';
         elementItemImageList = html.find('.item-card img');
         elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
         //elementItemNameList = html.find('.item-card h3'); // work with more system ?
         elementItemContentList = html.find('.item-card .card-content');
         elementItemTextList = html.find('message-header flavor-text');
       }
+
       if(doNotStyling){
         if(ChatPortrait.settings.displayPlayerName){
-          ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
+          ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author);
         }
         if(ChatPortrait.settings.displayMessageTag){
           ChatPortrait.injectMessageTag(html, speakerInfo);
           ChatPortrait.injectWhisperParticipants(html, speakerInfo);
         }
       }else{
-        ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, senderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
+        ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, messageSenderElement, messageHeaderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
       }
     }
 
@@ -116,14 +127,14 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery, speakerInfo, senderElement:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
+    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery, speakerInfo, messageSender:HTMLElement, messageHeader:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
         const messageData:MessageRenderData = speakerInfo;
         let imgPath: string;
         const authorColor = messageData.author ? <string>messageData.author.data.color : 'black';
         //const speaker = speakerInfo.message.speaker;
         const useTokenName: boolean = ChatPortrait.settings.useTokenName;
         if(useTokenName){
-          ChatPortrait.replaceSenderWithTokenName(senderElement, speakerInfo);
+          ChatPortrait.replaceSenderWithTokenName(messageSender, speakerInfo);
         }
 
         if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
@@ -148,8 +159,8 @@ export class ChatPortrait {
 
             ChatPortrait.setImageBorder(imgElement, authorColor);
             // Place the image to left of the header by injecting the HTML
-            const element: HTMLElement = html.find('.message-header')[0];
-            element.prepend(imgElement);
+            //const messageHeader: HTMLElement = html.find('.message-header')[0];
+            messageHeader.prepend(imgElement);
 
             if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
               const flavorElement: JQuery = html.find('.flavor-text');
@@ -157,26 +168,26 @@ export class ChatPortrait {
                   const copiedElement: Node = flavorElement[0].cloneNode(true);
                   flavorElement.remove();
                   const brElement: HTMLElement = document.createElement('br');
-                  const senderElement: HTMLElement = html.find('.message-sender')[0];
-                  senderElement.appendChild(brElement);
-                  senderElement.appendChild(copiedElement);
+                  //const senderElement: HTMLElement = html.find('.message-sender')[0];
+                  messageSender.appendChild(brElement);
+                  messageSender.appendChild(copiedElement);
               }
             }
 
             // Default style
-            if(!senderElement.classList.contains("chat-portrait-text-size-name")){
-              senderElement.classList.add("chat-portrait-text-size-name");
+            if(!messageSender.classList.contains("chat-portrait-text-size-name")){
+              messageSender.classList.add("chat-portrait-text-size-name");
             }
 
             // Update size text name by settings
             if(ChatPortrait.settings.textSizeName > 0){
                 const size: number = ChatPortrait.settings.textSizeName;
-                senderElement.style.fontSize = size + 'px';
+                messageSender.style.fontSize = size + 'px';
                 if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                    senderElement.innerText = ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
+                    messageSender.innerText = ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
                 }
             }else if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
-                senderElement.innerText = ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
+                messageSender.innerText = ChatPortrait.settings.displayUnknownPlaceHolderActorName; //'Unknown Actor';
             }
 
             // Add click listener to image and text
@@ -253,7 +264,9 @@ export class ChatPortrait {
                                 }
                                 // Just ignore if a image is provided
                                 //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                if(value.length > 0) {
                                   elementItemImage.src = value;
+                                }
                                 //}
                                 if(!elementItemImage.classList.contains("message-portrait")){
                                   elementItemImage.classList.add("message-portrait");
@@ -262,7 +275,7 @@ export class ChatPortrait {
                                 // DAMAGE TYPES
                                 if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                                   const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
-                                  for (var [index, item] of images.iconsDamageType.entries()) {
+                                  for (var [index, itemImage] of images.iconsDamageType.entries()) {
 
                                     const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                                     const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -271,7 +284,9 @@ export class ChatPortrait {
                                       elementItemImage2.height = size;
                                     }
                                     // Just ignore if a image is provided
-                                    elementItemImage2.src = item;//images[1];
+                                    if(itemImage.length > 0) {
+                                      elementItemImage2.src = itemImage;//images[1];
+                                    }
                                     if(!elementItemImage2.classList.contains("message-portrait")){
                                       elementItemImage2.classList.add("message-portrait");
                                     }
@@ -293,7 +308,9 @@ export class ChatPortrait {
                                   }
                                   // Just ignore if a image is provided
                                   //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                  if(value.length > 0) {
                                     elementItemImage.src = value;
+                                  }
                                   //}
                                   if(!elementItemImage.classList.contains("message-portrait")){
                                     elementItemImage.classList.add("message-portrait");
@@ -302,7 +319,7 @@ export class ChatPortrait {
                                   // DAMAGE TYPES
                                   if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                                     const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
-                                    for (var [index, item] of images.iconsDamageType.entries()) {
+                                    for (var [index, itemImage] of images.iconsDamageType.entries()) {
 
                                       const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                                       const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -311,7 +328,9 @@ export class ChatPortrait {
                                         elementItemImage2.height = size;
                                       }
                                       // Just ignore if a image is provided
-                                      elementItemImage2.src = item;//images[1];
+                                      if(itemImage.length > 0) {
+                                        elementItemImage2.src = itemImage;//images[1];
+                                      }
                                       if(!elementItemImage2.classList.contains("message-portrait")){
                                         elementItemImage2.classList.add("message-portrait");
                                       }
@@ -384,7 +403,9 @@ export class ChatPortrait {
                             }
                             // Just ignore if a image is provided
                             //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                            if(value.length > 0) {
                               elementItemImage.src = value;
+                            }
                             //}
                             if(!elementItemImage.classList.contains("message-portrait")){
                               elementItemImage.classList.add("message-portrait");
@@ -393,7 +414,7 @@ export class ChatPortrait {
                             // DAMAGE TYPES
                             if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                               const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
-                              for (var [index, item] of images.iconsDamageType.entries()) {
+                              for (var [index, itemImage] of images.iconsDamageType.entries()) {
 
                                 const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                                 const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -402,7 +423,9 @@ export class ChatPortrait {
                                   elementItemImage2.height = size;
                                 }
                                 // Just ignore if a image is provided
-                                elementItemImage2.src = item;//images[1];
+                                if(itemImage.length > 0) {
+                                  elementItemImage2.src = itemImage;//images[1];
+                                }
                                 if(!elementItemImage2.classList.contains("message-portrait")){
                                   elementItemImage2.classList.add("message-portrait");
                                 }
@@ -424,7 +447,9 @@ export class ChatPortrait {
                               }
                               // Just ignore if a image is provided
                               //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                              if(value.length > 0) {
                                 elementItemImage.src = value;
+                              }
                               //}
                               if(!elementItemImage.classList.contains("message-portrait")){
                                 elementItemImage.classList.add("message-portrait");
@@ -433,7 +458,7 @@ export class ChatPortrait {
                               // DAMAGE TYPES
                               if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                                 const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
-                                for (var [index, item] of images.iconsDamageType.entries()) {
+                                for (var [index, itemImage] of images.iconsDamageType.entries()) {
 
                                   const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                                   const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -442,7 +467,9 @@ export class ChatPortrait {
                                     elementItemImage2.height = size;
                                   }
                                   // Just ignore if a image is provided
-                                  elementItemImage2.src = item;//images[1];
+                                  if(itemImage.length > 0) {
+                                    elementItemImage2.src = itemImage;//images[1];
+                                  }
                                   if(!elementItemImage2.classList.contains("message-portrait")){
                                     elementItemImage2.classList.add("message-portrait");
                                   }
@@ -500,7 +527,7 @@ export class ChatPortrait {
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
             if(ChatPortrait.settings.displayPlayerName){
-              ChatPortrait.appendPlayerName(senderElement, speakerInfo.author);
+              ChatPortrait.appendPlayerName(messageSender, speakerInfo.author);
             }
             if(ChatPortrait.settings.displayMessageTag){
               ChatPortrait.injectMessageTag(html, messageData);
@@ -576,7 +603,8 @@ export class ChatPortrait {
             }
         }
         let token:TokenDocument;
-        let tokenData:any;
+        //@ts-ignore
+        let tokenData:TokenData;
         if (speaker.token) {
             token = ChatPortrait.getToken(speaker.scene, speaker.token);
             // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
@@ -602,7 +630,22 @@ export class ChatPortrait {
           } else if (!useTokenImage && tokenData?.actorData?.img) {
               return tokenData.actorData.img;
           }else{
-            return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
+            // Super ugly but is more mutlisystem compatible
+            let imgToken:string = "";
+            if(useTokenImage){
+              imgToken = <string>actor?.data.token.img;
+            }
+            if(!imgToken){
+              imgToken = <string>actor?.token?.data?.img
+            }
+            if(!imgToken){
+              imgToken = <string>actor?.data.img;
+            }
+            if(!imgToken){
+              imgToken = <string>tokenData.img;
+            }
+            return imgToken;
+            //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
             //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
           } 
         }else{
@@ -1190,30 +1233,45 @@ export class ChatPortrait {
       return; // if there is some future new message type, its probably better to default to be visible than to hide it.
     }
 
-    static getImagesReplacerAsset(imageReplacer:Record<string,string>, text:string):ImageReplacerData{
+    static getImagesReplacerAsset(imageReplacer:Record<string,string>, innerText:string):ImageReplacerData{
       //let value:string[] = new Array();
       let value:ImageReplacerData = new ImageReplacerData();
-      if(text){
+      if(innerText){
+        // Clean up the string for multisystem (D&D5, PF2, ecc.)
+        let text:string = innerText.toLowerCase().trim();
+        text = text.split(/\r?\n/)[0];
+        text = text.replace(/\W/g, '');
+        text = text.replace('skill','');
+        text = text.replace('check','');
+        text = text.replace('ability','');
         for (let key in imageReplacer) {
           if(key){
-            const mykeyvalue = i18n(key);
-            if(mykeyvalue && text.toLowerCase().trim().indexOf(mykeyvalue.toLowerCase().trim()) !== -1 ){
-              //value.push(imageReplacer[key]);
-              value.iconMain = imageReplacer[key];
-              let damageTypes:string[] = new Array();
-              // Special case
-              if(key == "DND5E.DamageRoll"){
-                for (let keydamage in imageReplacerDamageType) {
-                  const mykeydamagevalue = i18n(keydamage);
-                  if(mykeydamagevalue && text.toLowerCase().trim().indexOf(mykeydamagevalue.toLowerCase().trim()) !== -1 ){
-                    const srcdamageType = imageReplacerDamageType[keydamage];
-                    damageTypes.push(srcdamageType);
-                    // Add all damage types
+            let mykeyvalue = i18n(key);
+            if(mykeyvalue){
+              mykeyvalue = mykeyvalue.toLowerCase().trim();
+              mykeyvalue = mykeyvalue.split(/\r?\n/)[0];
+              mykeyvalue = mykeyvalue.replace(/\W/g, '');
+              mykeyvalue = mykeyvalue.replace('skill','');
+              mykeyvalue = mykeyvalue.replace('check','');
+              mykeyvalue = mykeyvalue.replace('ability','');
+              if(text.trim().indexOf(mykeyvalue.trim()) !== -1 ){
+                //value.push(imageReplacer[key]);
+                value.iconMain = imageReplacer[key];
+                let damageTypes:string[] = new Array();
+                // Special case
+                if(key == "DND5E.DamageRoll"){
+                  for (let keydamage in imageReplacerDamageType) {
+                    const mykeydamagevalue = i18n(keydamage);
+                    if(mykeydamagevalue && text.toLowerCase().trim().indexOf(mykeydamagevalue.toLowerCase().trim()) !== -1 ){
+                      const srcdamageType = imageReplacerDamageType[keydamage];
+                      damageTypes.push(srcdamageType);
+                      // Add all damage types
+                    }
                   }
                 }
+                value.iconsDamageType = damageTypes;
+                break;
               }
-              value.iconsDamageType = damageTypes;
-              break;
             }
           }
         }
