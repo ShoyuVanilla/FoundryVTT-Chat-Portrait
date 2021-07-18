@@ -122,6 +122,8 @@ any other system need some fed back from the community
 
 - CUSTOMIZE YOUR OWN TEXT WITH CSS : Setup additional custom styling on the text chat message (note override any other prior property)
 
+![chat_portrait_feature](./images/chat_portrait_feature.png)
+
 - Image Replacer: This feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems :
 
   -  Dnd5e system
