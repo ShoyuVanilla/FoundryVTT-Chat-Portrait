@@ -3,8 +3,12 @@
 ## 0.4.1
 
 - Add support for PF2
-- Added retrieve image for very old toen structure
+- Added retrieve image for very old token structure (0.7.X)
 - Add support for Imager Replacer with system PF2
+- Bug fix get avatar image emthod
+- Bug fix on the workflow
+- Try to bug fix [Missing portraits + conflict with Monk's Token Bar](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/60)
+- Many, many, many other bug fixing on the workflow o
 
 ## 0.4.0 [BREAKING CHANGES]
 
