@@ -5,7 +5,6 @@ import { ChatPortrait } from "./ChatPortrait";
 import { ImageReplacerInit } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { CHAT_PORTRAIT_MODULE_NAME, getGame } from "./settings";
-import { ChatSpeakerData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData";
 
 export let readyHooks = async () => {
 
@@ -30,9 +29,8 @@ export const setupHooks = async () => {
       if(currentSpeakerBackUp.actor) speakerInfo.message.speaker.actor = currentSpeakerBackUp.actor;
       if(currentSpeakerBackUp.token) speakerInfo.message.speaker.token = currentSpeakerBackUp.token;
       if(currentSpeakerBackUp.alias) speakerInfo.message.speaker.alias = currentSpeakerBackUp.alias;
-
-     
     }
+
     if(!message.data.speaker.token && currentSpeakerBackUp?.token){
       if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
       if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
@@ -42,12 +40,12 @@ export const setupHooks = async () => {
 
     ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
     ChatLink.prepareEvent(message, html, speakerInfo);
-    
+
     setTimeout(
       function() {
         const log = document.querySelector("#chat-log");
         const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-        if (log && shouldForceScroll) { 
+        if (log && shouldForceScroll) {
           log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
         }
       }, 50
@@ -63,8 +61,12 @@ export const setupHooks = async () => {
   //   }
   // });
 
+  Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
+    let test = "";
+  });
+
   // Hooks.on('updateChatMessage', (message, update, options, user) => {
- 
+
   // });
 
   /**
@@ -88,8 +90,8 @@ export const setupHooks = async () => {
             speaker: speakerInfo
           }
           msg.data.update(updates);
-        }      
-        // MidiQol , Better Rolls, and other modules.. sometime destroy the info 
+        }
+        // MidiQol , Better Rolls, and other modules.. sometime destroy the info
         // for my purpose i backup the speaker i will found on the preCreateChatMessage
         else if(options.speaker){
           currentSpeakerBackUp = options.speaker;
@@ -154,6 +156,6 @@ export const initHooks = () => {
 // 	if (log && shouldForceScroll) {
 // 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
 // 	}
-  
+
 //   return wrapped(...args);
 // }
