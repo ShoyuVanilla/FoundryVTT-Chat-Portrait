@@ -7,17 +7,26 @@ export class ChatLink {
         ChatLink.showTooltip = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
     }
     static prepareEvent(message, html, speakerInfo) {
-        let clickable = html.find('.message-sender');
-        let speaker = speakerInfo.message.speaker;
+        let clickable = html.find('.chat-card'); // message-sender
+        if (!clickable) {
+            clickable = html.find('.message-sender');
+        }
+        let speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
         if (!(speaker.actor || speaker.token)) {
             return;
         }
         // Removed 4535992 just a bug i can avoid to manage
         //ChatLink.formatLink(clickable);
-        let speakerName = clickable[0].textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
+        let speakerName = clickable[0]?.textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
         let speakerData = { idScene: speaker.scene, idActor: speaker.actor, idToken: speaker.token, name: speakerName };
-        if (!speakerData.idScene)
-            speakerData.idScene = speakerInfo.author.viewedScene;
+        if (!speakerData.idScene) {
+            if (speakerInfo.author) {
+                speakerData.idScene = speakerInfo.author.viewedScene;
+            }
+            else {
+                speakerData.idScene = getGame().scenes?.current?.id;
+            }
+        }
         function clicks(e, speakerData) {
             ChatLink.clickCount++;
             if (ChatLink.clickCount == 1) {
@@ -40,16 +49,22 @@ export class ChatLink {
     }
     static prepareEventImage(message, html, speakerInfo) {
         let clickable = html.find('.message-portrait');
-        let speaker = speakerInfo.message.speaker;
+        let speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
         if (!(speaker.actor || speaker.token)) {
             return;
         }
         // Removed 4535992 just a bug i can avoid to manage
         //ChatLink.formatLink(clickable);
-        let speakerName = clickable[0].textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
+        let speakerName = clickable[0]?.textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
         let speakerData = { idScene: speaker.scene, idActor: speaker.actor, idToken: speaker.token, name: speakerName };
-        if (!speakerData.idScene)
-            speakerData.idScene = speakerInfo.author.viewedScene;
+        if (!speakerData.idScene) {
+            if (speakerInfo.author) {
+                speakerData.idScene = speakerInfo.author.viewedScene;
+            }
+            else {
+                speakerData.idScene = getGame().scenes?.current?.id;
+            }
+        }
         function clicks(e, speakerData) {
             ChatLink.clickCount++;
             if (ChatLink.clickCount == 1) {

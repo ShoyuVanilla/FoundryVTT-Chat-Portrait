@@ -1,5 +1,4 @@
 import { warn } from "../main.js";
-import { ChatLink } from "./chatlink.js";
 import { ChatPortrait } from "./ChatPortrait.js";
 import { ImageReplacerInit } from "./ImageReplacer.js";
 import { getGame } from "./settings.js";
@@ -38,7 +37,6 @@ export const setupHooks = async () => {
                 message.data.speaker.alias = currentSpeakerBackUp.alias;
         }
         ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-        ChatLink.prepareEvent(message, html, speakerInfo);
         setTimeout(function () {
             const log = document.querySelector("#chat-log");
             const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
@@ -54,6 +52,32 @@ export const setupHooks = async () => {
     //     if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
     //     if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
     //   }
+    //   if(render.render){
+    //     //var parser = new DOMParser();
+    //     //var doc = parser.parseFromString(message.data.content, 'text/html');
+    //     const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
+    //     let speakerInfo = message.data.speaker;
+    //     //@ts-ignore
+    //     if(!speakerInfo.alias && speakerInfo.document?.alias){
+    //       //@ts-ignore
+    //       speakerInfo.alias = speakerInfo.document?.alias;
+    //     }
+    //     await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer).then((htmlBase)=>{
+    //         let updates = {
+    //           //speaker: speakerInfo,
+    //           content: $(htmlBase).html()//htmlBase.prop('innerHTML')
+    //         }
+    //         message.data.update(updates);
+    //         // ChatMessage.create({
+    //         //   speaker: speakerInfo,
+    //         //   content: htmlBase.prop('outerHTML')
+    //         // });
+    //         // return;
+    //     });
+    //   }
+    // });
+    // Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
+    //   let test = "";
     // });
     // Hooks.on('updateChatMessage', (message, update, options, user) => {
     // });
@@ -79,7 +103,7 @@ export const setupHooks = async () => {
                 };
                 msg.data.update(updates);
             }
-            // MidiQol , Better Rolls, and other modules.. sometime destroy the info 
+            // MidiQol , Better Rolls, and other modules.. sometime destroy the info
             // for my purpose i backup the speaker i will found on the preCreateChatMessage
             else if (options.speaker) {
                 currentSpeakerBackUp = options.speaker;
@@ -87,52 +111,7 @@ export const setupHooks = async () => {
             }
         }
     });
-    //@ts-ignore
-    // libWrapper.register(MODULE_NAME, 'ChatLog.prototype.scrollBottom',chatLogPrototypeScrollBottomHandler,'OVERRIDE');
-    // Posting messages should force a scroll if we're within range of the bottom, in the case that a new message is so large it is bigger than half the box.
-    //@ts-ignore
-    // libWrapper.register(MODULE_NAME, 'ChatLog.prototype.postOne',chatLogPrototypePostOneHandler,'MIXED');
-    // When we first render, we should force a scroll.
-    //@ts-ignore
-    // libWrapper.register(MODULE_NAME, 'ChatLog.prototype._render',chatLogPrototypeRenderHandler,'MIXED');
 };
 export const initHooks = () => {
     warn("Init Hooks processing");
 };
-// export const chatLogPrototypeScrollBottomHandler = function () {
-//   const force = args[0] || false;
-//   const log = ChatPortrait.getLogElement(this);
-//   if ( log )
-//   {
-//     if ( force || ChatPortrait.shouldScrollToBottom(log) ){
-//       log.scrollTop = log.scrollHeight + log.offsetTop ;
-//     }
-//   }
-//   return;
-// }
-// export const chatLogPrototypePostOneHandler = async function (wrapped, ...args) {
-//   //const log = ChatPortrait.getLogElement(this);
-//   //const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-//   //this.scrollBottom(shouldForceScroll);
-//   // Bug fix scroll issue
-// 	const log = document.querySelector("#chat-log");
-// 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-// 	if (log && shouldForceScroll) {
-// 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-// 	}
-//   return wrapped(...args);
-// }
-// export const chatLogPrototypeRenderHandler = async function (wrapped, ...args) {
-//   // const rendered = this.rendered;
-//   // if (rendered){
-//   //   return wrapped(...args); // Never re-render the Chat Log itself, only it's contents
-//   // }
-//   // this.scrollBottom(true);
-//   // Bug fix scroll issue
-// 	const log = document.querySelector("#chat-log");
-// 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-// 	if (log && shouldForceScroll) {
-// 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-// 	}
-//   return wrapped(...args);
-// }
