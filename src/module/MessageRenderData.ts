@@ -31,4 +31,5 @@ export interface MessageRenderData extends ChatMessageData{
 	};
 	user: string;
 	whisperTo: string;
+	document:any;
 }

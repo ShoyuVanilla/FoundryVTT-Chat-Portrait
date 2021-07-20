@@ -1,9 +1,12 @@
-#chat-log .message .message-header img {
+#chat-log .message .message-header img
+/* #chat-log .message .card-header img  */
+{
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
   object-fit: cover;
 }
+
 .chat-message,
 .chat-message.emote,
 .chat-message.blind {
@@ -58,7 +61,9 @@
 }
 
 /* Narrator Chat Module Support - Don't show portrait on Narrates */
-#chat-log .chat-message.message.flexcol.narrator-chat .message-header img.message-portrait {
+#chat-log .chat-message.message.flexcol.narrator-chat .message-header img.message-portrait
+/* #chat-log .chat-message.message.flexcol.narrator-chat .card-header img.message-portrait  */
+{
 	display:none;
 }
 
@@ -95,20 +100,28 @@
 }
 
 
-#chat-log .message .message-header {
+#chat-log .message .message-header
+/* #chat-log .message .card-header */
+{
   justify-content: space-between;
 }
 
-#chat-log .message .message-header .message-metadata {
+#chat-log .message .message-header .message-metadata
+/* #chat-log .message .card-header .message-metadata  */
+{
   flex: 0 0 auto;
   margin-left: 1rem;
 }
 
-#chat-log .message .message-header .message-sender {
+#chat-log .message .message-header .message-sender
+/* #chat-log .message .card-header .message-sender  */
+{
   flex: 1 0 1px;
 }
 
-#chat-log .message .message-header .chat-portrait-whisper-to {
+#chat-log .message .message-header .chat-portrait-whisper-to
+/* #chat-log .message .card-header .chat-portrait-whisper-to  */
+{
   line-height: 1rem;
   margin-bottom: .5rem;
 }

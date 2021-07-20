@@ -5,6 +5,7 @@ import { ChatPortrait } from "./ChatPortrait";
 import { ImageReplacerInit } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { CHAT_PORTRAIT_MODULE_NAME, getGame } from "./settings";
+import { ChatSpeakerData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData";
 
 export let readyHooks = async () => {
 
@@ -23,7 +24,8 @@ export const setupHooks = async () => {
   * This line connects our method above with the chat rendering.
   * Note that this happens after the core code has already generated HTML.
   */
-  Hooks.on('renderChatMessage', async (message, html, speakerInfo) => {
+  Hooks.on('renderChatMessage', async (message:ChatMessage, html:JQuery<HTMLElement>, speakerInfo) => {
+    
     if(!speakerInfo.message.speaker.token && currentSpeakerBackUp?.token){
       if(currentSpeakerBackUp.scene) speakerInfo.message.speaker.scene = currentSpeakerBackUp.scene;
       if(currentSpeakerBackUp.actor) speakerInfo.message.speaker.actor = currentSpeakerBackUp.actor;
@@ -39,8 +41,7 @@ export const setupHooks = async () => {
     }
 
     ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-    ChatLink.prepareEvent(message, html, speakerInfo);
-
+    
     setTimeout(
       function() {
         const log = document.querySelector("#chat-log");
@@ -59,11 +60,34 @@ export const setupHooks = async () => {
   //     if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
   //     if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
   //   }
+  //   if(render.render){
+  //     //var parser = new DOMParser();
+  //     //var doc = parser.parseFromString(message.data.content, 'text/html');
+  //     const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
+  //     let speakerInfo = message.data.speaker;
+  //     //@ts-ignore
+  //     if(!speakerInfo.alias && speakerInfo.document?.alias){
+  //       //@ts-ignore
+  //       speakerInfo.alias = speakerInfo.document?.alias;
+  //     }
+  //     await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer).then((htmlBase)=>{
+  //         let updates = {
+  //           //speaker: speakerInfo,
+  //           content: $(htmlBase).html()//htmlBase.prop('innerHTML')
+  //         }
+  //         message.data.update(updates);
+  //         // ChatMessage.create({
+  //         //   speaker: speakerInfo,
+  //         //   content: htmlBase.prop('outerHTML')
+  //         // });
+  //         // return;
+  //     });
+  //   }
   // });
 
-  Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
-    let test = "";
-  });
+  // Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
+  //   let test = "";
+  // });
 
   // Hooks.on('updateChatMessage', (message, update, options, user) => {
 
@@ -99,63 +123,9 @@ export const setupHooks = async () => {
         }
       }
   });
-
-  //@ts-ignore
-	// libWrapper.register(MODULE_NAME, 'ChatLog.prototype.scrollBottom',chatLogPrototypeScrollBottomHandler,'OVERRIDE');
-
-	// Posting messages should force a scroll if we're within range of the bottom, in the case that a new message is so large it is bigger than half the box.
-  //@ts-ignore
-  // libWrapper.register(MODULE_NAME, 'ChatLog.prototype.postOne',chatLogPrototypePostOneHandler,'MIXED');
-
-	// When we first render, we should force a scroll.
-  //@ts-ignore
-	// libWrapper.register(MODULE_NAME, 'ChatLog.prototype._render',chatLogPrototypeRenderHandler,'MIXED');
-
 }
 
 export const initHooks = () => {
   warn("Init Hooks processing");
 
 }
-
-
-// export const chatLogPrototypeScrollBottomHandler = function () {
-//   const force = args[0] || false;
-//   const log = ChatPortrait.getLogElement(this);
-//   if ( log )
-//   {
-//     if ( force || ChatPortrait.shouldScrollToBottom(log) ){
-//       log.scrollTop = log.scrollHeight + log.offsetTop ;
-//     }
-//   }
-//   return;
-// }
-
-// export const chatLogPrototypePostOneHandler = async function (wrapped, ...args) {
-//   //const log = ChatPortrait.getLogElement(this);
-//   //const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-//   //this.scrollBottom(shouldForceScroll);
-//   // Bug fix scroll issue
-// 	const log = document.querySelector("#chat-log");
-// 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-// 	if (log && shouldForceScroll) {
-// 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-// 	}
-//   return wrapped(...args);
-// }
-
-// export const chatLogPrototypeRenderHandler = async function (wrapped, ...args) {
-//   // const rendered = this.rendered;
-//   // if (rendered){
-//   //   return wrapped(...args); // Never re-render the Chat Log itself, only it's contents
-//   // }
-//   // this.scrollBottom(true);
-//   // Bug fix scroll issue
-// 	const log = document.querySelector("#chat-log");
-// 	const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-// 	if (log && shouldForceScroll) {
-// 		log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-// 	}
-
-//   return wrapped(...args);
-// }

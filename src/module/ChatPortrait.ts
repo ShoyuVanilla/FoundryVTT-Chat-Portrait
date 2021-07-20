@@ -1,4 +1,4 @@
-import { i18n } from './../main';
+import { error, i18n } from './../main';
 import { warn } from "../main";
 import { ChatLink } from "./chatlink";
 import { SettingsForm } from "./ChatPortraitForm";
@@ -19,7 +19,11 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessage(chatMessage: ChatMessage, html:JQuery, speakerInfo, imageReplacer): void {
+    static onRenderChatMessage(
+        chatMessage: ChatMessage, 
+        html:JQuery<HTMLElement>, 
+        speakerInfo,
+        imageReplacer): JQuery<HTMLElement>{
 
       let doNotStyling = false;
 
@@ -71,45 +75,36 @@ export class ChatPortrait {
         elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
         elementItemContentList = html.find('.message-content .card-content');
         elementItemTextList = html.find('.message-header .flavor-text');
-      }
-      else if(getGame().system.id === 'shadowrun5e'){
-        messageSenderElement = html.find('.message-sender')[0];
-        messageHeaderElement = html.find('.message-header')[0];
-        // Bug fix plutonium
-        messageSenderElement.style.display = 'block';
-        elementItemImageList = html.find('.message-content img');
-        elementItemNameList = html.find('.message-content h3'); // work with more system ?
-        elementItemContentList = html.find('.message-content .card-main-content');
-        elementItemTextList = html.find('.message-header .flavor-text');
-      }
-    //   else if (getGame().system.id === 'D35E') {
-    //     // TODO
 
-    //   }
-      else if (getGame().system.id === 'pf2e') {
-        messageSenderElement = html.find('.message-sender')[0];
-        messageHeaderElement = html.find('.message-header')[0];
-        // Bug fix plutonium
-        messageSenderElement.style.display = 'block';
-        elementItemImageList = html.find('.message-content img');
-        elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
-        elementItemContentList = html.find('.message-content .card-content');
-        elementItemTextList = html.find('.message-header .flavor-text');
-      }
-      else {
-        warn(`System ${getGame().system.id} have not been implemented and therefore might not work properly.`);
-        // BY DEFAULT DND5e Style
-        messageSenderElement = html.find('.message-sender')[0];
-        messageHeaderElement = html.find('.message-header')[0];
-        // Bug fix plutonium
-        messageSenderElement.style.display = 'block';
-        elementItemImageList = html.find('.item-card img');
-        elementItemNameList = html.find('.item-card .item-name'); // work only with dnd5e
-        //elementItemNameList = html.find('.item-card h3'); // work with more system ?
-        elementItemContentList = html.find('.item-card .card-content');
-        elementItemTextList = html.find('message-header flavor-text');
-      }
+      }else{
 
+        messageSenderElement = html.find('.chat-card')[0];
+        if(!messageSenderElement){
+          messageSenderElement = html.find('.message-sender')[0];
+        }
+        messageHeaderElement = html.find('.card-header')[0];
+        if(!messageHeaderElement){
+          messageHeaderElement = html.find('.message-header')[0];
+        }
+        //elementItemImageList = html.find('.card-header img');
+        if(!elementItemImageList){
+          elementItemImageList = html.find('.message-content img');
+        }
+        //elementItemNameList = html.find('.card-header h3'); // work only with dnd5e
+        if(!elementItemNameList){
+          elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+        }
+        //elementItemContentList = html.find('.card-content');
+        if(!elementItemContentList){
+          elementItemContentList = html.find('.message-content'); //.message-content .card-content
+        }
+        //elementItemTextList = html.find('.card-content p');
+        if(!elementItemTextList){
+          elementItemTextList = html.find('.message-header .flavor-text');
+        }
+        // Bug fix plutonium
+        messageSenderElement.style.display = 'block';
+      }
       if(doNotStyling){
         if(ChatPortrait.settings.displayPlayerName){
           ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author);
@@ -118,9 +113,26 @@ export class ChatPortrait {
           ChatPortrait.injectMessageTag(html, speakerInfo);
           ChatPortrait.injectWhisperParticipants(html, speakerInfo);
         }
+        ChatLink.prepareEvent(chatMessage, html, speakerInfo);
+        return html;
       }else{
-        ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, messageSenderElement, messageHeaderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
+        //@ts-ignore
+        return ChatPortrait.onRenderChatMessageInternal(
+            chatMessage, 
+            html, 
+            speakerInfo, 
+            messageSenderElement, 
+            messageHeaderElement, 
+            elementItemImageList, 
+            elementItemNameList, 
+            elementItemContentList, 
+            elementItemTextList, 
+            imageReplacer
+        ).then((html:JQuery<HTMLElement>) => {
+          return html;
+        });
       }
+
     }
 
     /**
@@ -128,24 +140,43 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery, speakerInfo, messageSender:HTMLElement, messageHeader:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): void {
-        const messageData:MessageRenderData = speakerInfo;
+    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery<HTMLElement>, speakerInfo, messageSender:HTMLElement,messageHeader:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): Promise<JQuery<HTMLElement>> {
+
+        let messageDataBase:MessageRenderData = speakerInfo;
         let imgPath: string;
-        const authorColor = messageData.author ? <string>messageData.author.data.color : 'black';
-        //const speaker = speakerInfo.message.speaker;
+        let authorColor = "black";
+        if(messageDataBase.author){
+          authorColor = <string>messageDataBase.author.data.color;
+        }else{
+          //@ts-ignore
+          authorColor = <string>messageDataBase?.document?.user.color;
+        }
+        let speaker:any;
+        if(speakerInfo.message?.user){
+          speaker = speakerInfo;
+        }
+        if(!speaker && speakerInfo.message){
+          speaker = speakerInfo.message.speaker
+        }
+        if(!speaker){
+          speaker = speakerInfo
+        }
+        if(!speaker.alias && speaker.document?.alias){
+          speaker.alias = speaker.document?.alias;
+        }
         const useTokenName: boolean = ChatPortrait.settings.useTokenName;
         if(useTokenName){
-          ChatPortrait.replaceSenderWithTokenName(messageSender, speakerInfo);
+          ChatPortrait.replaceSenderWithTokenName(messageSender, speaker);
         }
 
-        if(ChatPortrait.shouldOverrideMessageUnknown(messageData)){
+        if(ChatPortrait.shouldOverrideMessageUnknown(messageDataBase)){
             imgPath = "icons/svg/mystery-man.svg";
         }else{
-            imgPath = ChatPortrait.loadActorImagePathForChatMessage(html,speakerInfo);
+            imgPath = ChatPortrait.loadActorImagePathForChatMessage(html,speaker);
         }
-        ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement)=>{
+        return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement)=>{
 
-
+            const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
             // Very very rare use case ????
             if(!imgElement){
               imgElement = document.createElement('img');
@@ -157,7 +188,7 @@ export class ChatPortrait {
               }
               // WE TRY TO GET THE AVATAR IMAGE ANYWAY
               if(ChatPortrait.settings.useAvatarImage){
-                imgElement.src = ChatPortrait.getUserAvatarImage(speakerInfo.message);
+                imgElement.src = ChatPortrait.getUserAvatarImage(speaker);
               }
               if(!imgElement.src || imgElement.src.length <= 0){
                 imgElement.src = INV_UNIDENTIFIED_BOOK;
@@ -169,8 +200,8 @@ export class ChatPortrait {
             // Place the image to left of the header by injecting the HTML
             //const messageHeader: HTMLElement = html.find('.message-header')[0];
             messageHeader.prepend(imgElement);
-
-            if (messageData.message.flavor && ChatPortrait.settings.flavorNextToPortrait) {
+            
+            if (ChatPortrait.settings.flavorNextToPortrait) {
               const flavorElement: JQuery = html.find('.flavor-text');
               if(flavorElement.length > 0){
                   const copiedElement: Node = flavorElement[0].cloneNode(true);
@@ -199,7 +230,7 @@ export class ChatPortrait {
             }
 
             // Add click listener to image and text
-            ChatLink.prepareEventImage(chatMessage, html, speakerInfo);
+            ChatLink.prepareEventImage(chatMessage, html, speaker);
 
             // Update size item image by settings
             if(elementItemImageList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36 && ChatPortrait.settings.portraitSizeItem > 0){
@@ -535,12 +566,14 @@ export class ChatPortrait {
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
             if(ChatPortrait.settings.displayPlayerName){
-              ChatPortrait.appendPlayerName(messageSender, speakerInfo.author);
+              ChatPortrait.appendPlayerName(messageSender, speaker.author);
             }
             if(ChatPortrait.settings.displayMessageTag){
               ChatPortrait.injectMessageTag(html, messageData);
               ChatPortrait.injectWhisperParticipants(html, messageData);
             }
+            ChatLink.prepareEvent(chatMessage, html, speakerInfo);
+            return html;
         });
     }
 
@@ -551,8 +584,8 @@ export class ChatPortrait {
      */
     //static loadActorImagePathForChatMessage(speaker: {scene?: string;actor?: string;token?: string;alias?: string; }): string {
     static loadActorImagePathForChatMessage(html:JQuery<HTMLElement>, speakerInfo): string {
-      const message = speakerInfo.message;
-      const speaker = message.speaker;
+      const message = speakerInfo.message ? speakerInfo.message : speakerInfo.document;
+      const speaker = message.speaker ? message.speaker : speakerInfo;
       const isOOC = ChatPortrait.getMessageTypeVisible(speakerInfo) === CONST.CHAT_MESSAGE_TYPES.OOC;
       if(message.user && isOOC){
         const imgAvatar:string = ChatPortrait.getUserAvatarImage(message);
@@ -1113,6 +1146,9 @@ export class ChatPortrait {
             if(!user){
                 user = getGame().users?.get(message.user.id);
             }
+            if(!user){
+              user = getGame().users?.get(message.document?.user?.id);
+            }
             if (user) {
                 const isSelf = user.data._id === getGame().user?.data._id;
                 const isGM = user.isGM;
@@ -1126,6 +1162,8 @@ export class ChatPortrait {
                 ) {
                     return true;
                 }
+            }else{
+              error("Impossibile to get message user");
             }
         }
         return false;
@@ -1137,7 +1175,10 @@ export class ChatPortrait {
           //const user = getGame().users.get(message.user);
           let user = getGame().users?.get(message.user);
           if(!user){
-              user = getGame().users?.get(message.user.id);
+              user = getGame().users?.get(message.user?.id);
+          }
+          if(!user){
+            user = getGame().users?.get(message.document?.user?.id);
           }
           if (user) {
               const isSelf = user.data._id === getGame().user?.data._id;
@@ -1151,6 +1192,8 @@ export class ChatPortrait {
               ) {
                   return true;
               }
+          }else{
+            error("Impossibile to get message user");
           }
       }
       return false;
@@ -1168,10 +1211,17 @@ export class ChatPortrait {
     }
 
     static getUserAvatarImage = function(message):string{
-      let user = getGame().users?.get(message.user);
-      if(!user){
-          user = getGame().users?.get(message.user.id);
+      let userId = "";
+      if(message.document){
+        userId = message.document.user.id;
       }
+      if(!userId){
+        userId = message.user;
+      }
+      if(!userId){
+        userId = message.user.id;
+      }
+      let user = getGame().users?.get(userId);
       if(user){
         if(user.data && user.data.avatar){ // image path
           return user.data.avatar;
@@ -1194,13 +1244,13 @@ export class ChatPortrait {
     }
 
     static isWhisperToOther = function(speakerInfo) {
-        const whisper = speakerInfo.message.whisper;
+        const whisper = speakerInfo?.message?.whisper;
         //if (e.data.blind && e.data.whisper.find(element => element == getGame().userId) == undefined) return false;
         return whisper && whisper.length > 0 && whisper.indexOf(getGame().userId) === -1;
     }
 
     static replaceSenderWithTokenName = function(messageSenderElem, speakerInfo) {
-      const speaker = speakerInfo.message.speaker;
+      const speaker = speakerInfo;
       const actorName = (ChatPortrait.getActorName(speaker) || '').trim();
       const name = (ChatPortrait.getTokenName(speaker) || '').trim();
       if(actorName !== name) {
@@ -1232,7 +1282,10 @@ export class ChatPortrait {
     }
 
     static getMessageTypeVisible = function(speakerInfo) {
-      const messageType = speakerInfo.message.type;
+      let messageType:number = speakerInfo.message?.type;
+      if(speakerInfo.document){
+        messageType = speakerInfo.document?.data.type
+      }
       switch (messageType) {
           case CONST.CHAT_MESSAGE_TYPES.OTHER:
             return CONST.CHAT_MESSAGE_TYPES.OTHER;
@@ -1315,12 +1368,12 @@ export class ChatPortrait {
       const indicatorElement = $("<span>");
       indicatorElement.addClass("chat-portrait-indicator");
 
-      const whisperTargets = messageData.message.whisper;
+      const whisperTargets = messageData.whisper;
 
-      const isBlind = messageData.message.blind || false;
+      const isBlind = messageData.blind || false;
       const isWhisper = whisperTargets?.length > 0 || false;
-      const isSelf = isWhisper && whisperTargets.length === 1 && whisperTargets[0] === messageData.message.user;
-      const isRoll = messageData.message.roll !== undefined;
+      const isSelf = isWhisper && whisperTargets.length === 1 && whisperTargets[0] === messageData.user;
+      const isRoll = messageData.roll !== undefined;
 
       // Inject tag to the left of the timestamp
       if (isBlind) {
@@ -1341,11 +1394,11 @@ export class ChatPortrait {
   static injectWhisperParticipants(html, messageData) {
       const alias = messageData.alias;
       const whisperTargetString = messageData.whisperTo;
-      const whisperTargetIds = messageData.message.whisper;
+      const whisperTargetIds = messageData.whisper;
       const isWhisper = whisperTargetIds?.length > 0 || false;
-      const isRoll = messageData.message.roll !== undefined;
+      const isRoll = messageData.roll !== undefined;
 
-      const authorId = messageData.message.user;
+      const authorId = messageData.user;
       const userId = getGame().user?.data._id;
 
       if (!isWhisper) return;
@@ -1358,7 +1411,7 @@ export class ChatPortrait {
       if (isRoll) return;
 
       // add new content
-      const messageHeader = html.find(".message-header");
+      const messageHeader = html.find(".card-header"); // message-header
 
       const whisperParticipants = $("<span>");
       whisperParticipants.addClass("chat-portrait-whisper-to");
