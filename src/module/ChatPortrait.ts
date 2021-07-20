@@ -86,21 +86,21 @@ export class ChatPortrait {
         if(!messageHeaderElement){
           messageHeaderElement = html.find('.card-header')[0];
         }
-        elementItemImageList = html.find('.message-content img');
+        // elementItemImageList = html.find('.message-content img');
         if(!elementItemImageList){
-          elementItemImageList = html.find('.card-header img');
+          elementItemImageList = html.find('.card-content img');
         }
-        elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+        // elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
         if(!elementItemNameList){
-          elementItemNameList = html.find('.card-header h3'); // work only with dnd5e
+          elementItemNameList = html.find('.card-content h3'); // work only with dnd5e
         }
-        elementItemContentList = html.find('.message-content');
+        // elementItemContentList = html.find('.message-content');
         if(!elementItemContentList){
           elementItemContentList = html.find('.card-content'); //.message-content .card-content
         }
-        elementItemTextList = html.find('.message-header .flavor-text');
+        // elementItemTextList = html.find('.message-header .flavor-text');
         if(!elementItemTextList){
-          elementItemTextList = html.find('.card-content p');
+          elementItemTextList = html.find('.card-header p');
         }
         // Bug fix plutonium
         //messageSenderElement.style.display = 'block';
@@ -193,7 +193,9 @@ export class ChatPortrait {
               if(!imgElement.src || imgElement.src.length <= 0){
                 imgElement.src = INV_UNIDENTIFIED_BOOK;
               }
-              imgElement.classList.add("message-portrait");
+              if(!imgElement.classList.contains("message-portrait")){
+                imgElement.classList.add("message-portrait");
+              }
             }
 
             ChatPortrait.setImageBorder(imgElement, authorColor);
@@ -565,6 +567,7 @@ export class ChatPortrait {
             ChatPortrait.setCustomStylingText(html, messageData, authorColor);
             ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
             ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
+            // Final settings
             if(ChatPortrait.settings.displayPlayerName){
               ChatPortrait.appendPlayerName(messageSender, speaker.author);
             }
@@ -748,7 +751,9 @@ export class ChatPortrait {
             img.width = size;
             img.height = size;
         }
-        img.classList.add("message-portrait");
+        if(!img.classList.contains("message-portrait")){
+          img.classList.add("message-portrait");
+        }
         return img;
     }
 
@@ -1277,7 +1282,9 @@ export class ChatPortrait {
       const playerName = author.name;
       const playerNameElem = document.createElement('span');
       playerNameElem.appendChild(document.createTextNode(playerName));
-      playerNameElem.classList.add(CHAT_PORTRAIT_MODULE_NAME + '-playerName');
+      if(!playerNameElem.classList.contains(CHAT_PORTRAIT_MODULE_NAME + '-playerName')){
+        playerNameElem.classList.add(CHAT_PORTRAIT_MODULE_NAME + '-playerName');
+      }
       messageSenderElem.append(playerNameElem);
     }
 

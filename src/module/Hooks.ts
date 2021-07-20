@@ -41,7 +41,7 @@ export const setupHooks = async () => {
     }
 
     ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-    
+    let test2 = "";
     setTimeout(
       function() {
         const log = document.querySelector("#chat-log");
@@ -53,37 +53,36 @@ export const setupHooks = async () => {
     );
   });
 
-  // Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
-  //   if(!message.data.speaker.token && currentSpeakerBackUp?.token){
-  //     if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
-  //     if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
-  //     if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
-  //     if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
-  //   }
-  //   if(render.render){
-  //     //var parser = new DOMParser();
-  //     //var doc = parser.parseFromString(message.data.content, 'text/html');
-  //     const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
-  //     let speakerInfo = message.data.speaker;
-  //     //@ts-ignore
-  //     if(!speakerInfo.alias && speakerInfo.document?.alias){
-  //       //@ts-ignore
-  //       speakerInfo.alias = speakerInfo.document?.alias;
-  //     }
-  //     await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer).then((htmlBase)=>{
-  //         let updates = {
-  //           //speaker: speakerInfo,
-  //           content: $(htmlBase).html()//htmlBase.prop('innerHTML')
-  //         }
-  //         message.data.update(updates);
-  //         // ChatMessage.create({
-  //         //   speaker: speakerInfo,
-  //         //   content: htmlBase.prop('outerHTML')
-  //         // });
-  //         // return;
-  //     });
-  //   }
-  // });
+  Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
+    if(!message.data.speaker.token && currentSpeakerBackUp?.token){
+      if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
+      if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
+      if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
+      if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
+    }
+    if(render.render){
+      //var parser = new DOMParser();
+      //var doc = parser.parseFromString(message.data.content, 'text/html');
+      const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
+      let speakerInfo = message.data.speaker;
+      //@ts-ignore
+      if(!speakerInfo.alias && speakerInfo.document?.alias){
+        //@ts-ignore
+        speakerInfo.alias = speakerInfo.document?.alias;
+      }
+      await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+      let updates = {
+        content: html.html()
+      };
+      message.data.update(updates);
+      //@ts-ignore
+      speakerInfo.message = {};
+       //@ts-ignore
+      speakerInfo.message = message.data;
+      let test = "";
+      Hooks.call('renderChatMessage',message, html, speakerInfo);
+    }
+  });
 
   // Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
   //   let test = "";
