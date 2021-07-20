@@ -52,44 +52,43 @@ export class ChatPortrait {
         let elementItemContentList;
         let elementItemTextList;
         // GET Image, Text, Content of the item card by system used
-        if (getGame().system.id === 'dnd5e') {
-            messageSenderElement = html.find('.message-sender')[0];
-            messageHeaderElement = html.find('.message-header')[0];
-            // Bug fix plutonium
-            messageSenderElement.style.display = 'block';
-            elementItemImageList = html.find('.message-content img');
-            elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
-            elementItemContentList = html.find('.message-content .card-content');
-            elementItemTextList = html.find('.message-header .flavor-text');
-        }
-        else {
+        // if (getGame().system.id === 'dnd5e') {
+        //   messageSenderElement = html.find('.message-sender')[0];
+        //   messageHeaderElement = html.find('.message-header')[0];
+        //   // Bug fix plutonium
+        //   messageSenderElement.style.display = 'block';
+        //   elementItemImageList = html.find('.message-content img');
+        //   elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+        //   elementItemContentList = html.find('.message-content .card-content');
+        //   elementItemTextList = html.find('.message-header .flavor-text');
+        // }else{
+        messageSenderElement = html.find('.message-sender')[0];
+        if (!messageSenderElement) {
             messageSenderElement = html.find('.chat-card')[0];
-            if (!messageSenderElement) {
-                messageSenderElement = html.find('.message-sender')[0];
-            }
-            messageHeaderElement = html.find('.card-header')[0];
-            if (!messageHeaderElement) {
-                messageHeaderElement = html.find('.message-header')[0];
-            }
-            //elementItemImageList = html.find('.card-header img');
-            if (!elementItemImageList) {
-                elementItemImageList = html.find('.message-content img');
-            }
-            //elementItemNameList = html.find('.card-header h3'); // work only with dnd5e
-            if (!elementItemNameList) {
-                elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
-            }
-            //elementItemContentList = html.find('.card-content');
-            if (!elementItemContentList) {
-                elementItemContentList = html.find('.message-content'); //.message-content .card-content
-            }
-            //elementItemTextList = html.find('.card-content p');
-            if (!elementItemTextList) {
-                elementItemTextList = html.find('.message-header .flavor-text');
-            }
-            // Bug fix plutonium
-            messageSenderElement.style.display = 'block';
         }
+        messageHeaderElement = html.find('.message-header')[0];
+        if (!messageHeaderElement) {
+            messageHeaderElement = html.find('.card-header')[0];
+        }
+        elementItemImageList = html.find('.message-content img');
+        if (!elementItemImageList) {
+            elementItemImageList = html.find('.card-header img');
+        }
+        elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+        if (!elementItemNameList) {
+            elementItemNameList = html.find('.card-header h3'); // work only with dnd5e
+        }
+        elementItemContentList = html.find('.message-content');
+        if (!elementItemContentList) {
+            elementItemContentList = html.find('.card-content'); //.message-content .card-content
+        }
+        elementItemTextList = html.find('.message-header .flavor-text');
+        if (!elementItemTextList) {
+            elementItemTextList = html.find('.card-content p');
+        }
+        // Bug fix plutonium
+        //messageSenderElement.style.display = 'block';
+        // }
         if (doNotStyling) {
             if (ChatPortrait.settings.displayPlayerName) {
                 ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author);
