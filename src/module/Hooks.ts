@@ -24,7 +24,7 @@ export const setupHooks = async () => {
   * This line connects our method above with the chat rendering.
   * Note that this happens after the core code has already generated HTML.
   */
-  Hooks.on('renderChatMessage', async (message:ChatMessage, html:JQuery<HTMLElement>, speakerInfo) => {
+  Hooks.on('renderChatMessage', (message:ChatMessage, html:JQuery<HTMLElement>, speakerInfo) => {
     
     if(!speakerInfo.message.speaker.token && currentSpeakerBackUp?.token){
       if(currentSpeakerBackUp.scene) speakerInfo.message.speaker.scene = currentSpeakerBackUp.scene;
@@ -53,37 +53,46 @@ export const setupHooks = async () => {
     );
   });
 
-  Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
-    if(!message.data.speaker.token && currentSpeakerBackUp?.token){
-      if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
-      if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
-      if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
-      if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
-    }
-    if(render.render){
-      //var parser = new DOMParser();
-      //var doc = parser.parseFromString(message.data.content, 'text/html');
-      const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
-      let speakerInfo = message.data.speaker;
-      //@ts-ignore
-      if(!speakerInfo.alias && speakerInfo.document?.alias){
-        //@ts-ignore
-        speakerInfo.alias = speakerInfo.document?.alias;
-      }
-      await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-      let updates = {
-        content: html.html()
-      };
-      message.data.update(updates);
-      //@ts-ignore
-      speakerInfo.message = {};
-       //@ts-ignore
-      speakerInfo.message = message.data;
-      let test = "";
-      Hooks.call('renderChatMessage',message, html, speakerInfo);
-    }
-  });
 
+  Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
+    // if(!message.data.speaker.token && currentSpeakerBackUp?.token){
+    //   if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
+    //   if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
+    //   if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
+    //   if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
+    // }
+    // if(render.render){
+    //   const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
+    //   let speakerInfo = message.data.speaker;
+    //   //@ts-ignore
+    //   if(!speakerInfo.alias && speakerInfo.document?.alias){
+    //     //@ts-ignore
+    //     speakerInfo.alias = speakerInfo.document?.alias;
+    //   }
+    //   await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+    //   let updates = {
+    //     content: html.html()
+    //   };
+    //   message.data.update(updates);
+    //   //@ts-ignore
+    //   speakerInfo.message = {};
+    //    //@ts-ignore
+    //   speakerInfo.message = message.data;
+    // }
+    return;
+  });
+ 
+
+  // let chatData:any = {
+  //   type: ChatPortrait.getMessageTypeVisible(speakerInfo),
+  //   user: getGame().user,
+  //   speaker: speakerInfo,
+  //   content: message.data.content,
+  //   //@ts-ignore
+  //   whisper: message.data.whisper ? message.data.whisper : speakerInfo.document.data.whisper,
+  // };
+  // await ChatMessage.create(chatData,{});
+  
   // Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
   //   let test = "";
   // });
@@ -92,10 +101,12 @@ export const setupHooks = async () => {
 
   // });
 
+  let flag = true;
+
   /**
    * Catch chat message creations and add some more data if we need to
   */
-  Hooks.on('preCreateChatMessage', async (msg, options, render, userId) => {
+  Hooks.on('preCreateChatMessage', async (message:ChatMessage, options, render, userId) => {
       if(options){
         // Update the speaker
         if (!options.speaker || (!options.speaker.token && !options.speaker.actor)){
@@ -106,13 +117,13 @@ export const setupHooks = async () => {
           }
           let speakerInfo:any = {};
           let mytoken = ChatPortrait.getFirstPlayerToken();
-          speakerInfo.alias = msg.alias;
+          speakerInfo.alias = message.alias;
           speakerInfo.token = mytoken;
           speakerInfo.actor = getGame().actors?.get(<string>user?.data.character);
           let updates = {
             speaker: speakerInfo
           }
-          msg.data.update(updates);
+          message.data.update(updates);
         }
         // MidiQol , Better Rolls, and other modules.. sometime destroy the info
         // for my purpose i backup the speaker i will found on the preCreateChatMessage
@@ -121,6 +132,38 @@ export const setupHooks = async () => {
           currentSpeakerBackUp.token = options.speaker.token.id;
         }
       }
+      // if(render.render){
+      //   const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
+      //   let speakerInfo = message.data.speaker;
+      //   //@ts-ignore
+      //   if(!speakerInfo.alias && speakerInfo.document?.alias){
+      //     //@ts-ignore
+      //     speakerInfo.alias = speakerInfo.document?.alias;
+      //   }
+      //   await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+      //   let updates = {
+      //     content: html.html()
+      //   };
+      //   message.data.update(updates);
+      //   //@ts-ignore
+      //   speakerInfo.message = {};
+      //    //@ts-ignore
+      //   speakerInfo.message = message.data; 
+      //   if(flag){
+      //     let chatData:any = {
+      //       type: ChatPortrait.getMessageTypeVisible(speakerInfo),
+      //       user: getGame().user,
+      //       speaker: speakerInfo,
+      //       content: message.data.content,
+      //       //@ts-ignore
+      //       whisper: message.data.whisper ? message.data.whisper : speakerInfo.document.data.whisper,
+      //     };
+      //     flag = false;
+      //     ChatMessage.create(chatData,{});
+      //   }else{
+      //     flag = true;
+      //   }
+      // }
   });
 }
 

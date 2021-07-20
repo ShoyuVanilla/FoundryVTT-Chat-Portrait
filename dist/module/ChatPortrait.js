@@ -70,19 +70,19 @@ export class ChatPortrait {
         if (!messageHeaderElement) {
             messageHeaderElement = html.find('.card-header')[0];
         }
-        // elementItemImageList = html.find('.message-content img');
+        elementItemImageList = html.find('.message-content img');
         if (!elementItemImageList) {
             elementItemImageList = html.find('.card-content img');
         }
-        // elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+        elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
         if (!elementItemNameList) {
             elementItemNameList = html.find('.card-content h3'); // work only with dnd5e
         }
-        // elementItemContentList = html.find('.message-content');
+        elementItemContentList = html.find('.message-content');
         if (!elementItemContentList) {
             elementItemContentList = html.find('.card-content'); //.message-content .card-content
         }
-        // elementItemTextList = html.find('.message-header .flavor-text');
+        elementItemTextList = html.find('.message-header .flavor-text');
         if (!elementItemTextList) {
             elementItemTextList = html.find('.card-header p');
         }
