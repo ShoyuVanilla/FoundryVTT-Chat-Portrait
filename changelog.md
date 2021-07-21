@@ -1,5 +1,10 @@
 
 
+## 0.4.2
+
+- Some bug fix
+- CSS compatibility fit turnamarker module
+
 ## 0.4.1
 
 - Add support for PF2

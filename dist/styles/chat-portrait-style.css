@@ -126,3 +126,7 @@
   margin-bottom: .5rem;
 }
 
+#chat-log .message .message-content img
+{
+  max-width: fit-content;
+}

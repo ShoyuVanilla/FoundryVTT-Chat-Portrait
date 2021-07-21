@@ -98,8 +98,11 @@ export const setupHooks = async () => {
             if (!options.speaker || (!options.speaker.token && !options.speaker.actor)) {
                 let user = getGame().users?.get(options.user);
                 let avatar;
-                if (!user) {
-                    user = getGame().users?.get(options.user.id);
+                if (!user && options.user) {
+                    user = getGame().users?.get(options.user?.id);
+                }
+                else {
+                    user = getGame().users?.get(userId);
                 }
                 let speakerInfo = {};
                 let mytoken = ChatPortrait.getFirstPlayerToken();
@@ -115,7 +118,9 @@ export const setupHooks = async () => {
             // for my purpose i backup the speaker i will found on the preCreateChatMessage
             else if (options.speaker) {
                 currentSpeakerBackUp = options.speaker;
-                currentSpeakerBackUp.token = options.speaker.token.id;
+                if (options.speaker.token) {
+                    currentSpeakerBackUp.token = options.speaker.token?.id;
+                }
             }
         }
         // if(render.render){

@@ -8,14 +8,14 @@ import { getGame } from './settings';
  * When a chat message enters the chat it should be binded
  * with ChatPortraitChatCard.bind().
  */
-export class ChatPortraitChatCard { //extends ChatMessage{
+export class ChatPortraitChatCard extends ChatMessage{
 
   	speaker:Actor;
-	id: string;
-	roll:Roll;
+	// id: string;
+	// roll:Roll;
 
 	constructor(message, html, speakerInfo, imageReplacer) {
-		//super(message.data.document);
+		super(message.data.document);
 		this.updateBinding(message, html, speakerInfo, imageReplacer);
 	}
 
@@ -33,9 +33,9 @@ export class ChatPortraitChatCard { //extends ChatMessage{
 		// IMPLEMENTATION WARNING: DO NOT STORE html into the class properties (NO this.html AT ALL)
 		// Foundry will sometimes call renderChatMessage() multiple times with un-bound HTML,
 		// and we can't do anything except rely on closures to handle those events.
-		this.id = message.id;
+		// this.id = message.id;
 		this.speaker = <Actor>getGame().actors?.get(message.data.speaker.actor);
-		this.roll = message?.roll ? message?.roll : message?.data?.document?.roll;
+		// this.roll = message?.roll ? message?.roll : message?.data?.document?.roll;
 		//message.BetterRoll = this.roll;
 
 		// Hide Save DCs
