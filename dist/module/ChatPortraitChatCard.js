@@ -8,6 +8,7 @@ import { getGame } from "./settings.js";
  */
 export class ChatPortraitChatCard {
     constructor(message, html, speakerInfo, imageReplacer) {
+        //super(message.data.document);
         this.updateBinding(message, html, speakerInfo, imageReplacer);
     }
     get message() {
@@ -25,6 +26,7 @@ export class ChatPortraitChatCard {
         // and we can't do anything except rely on closures to handle those events.
         this.id = message.id;
         this.speaker = getGame().actors?.get(message.data.speaker.actor);
+        this.roll = message?.roll ? message?.roll : message?.data?.document?.roll;
         //message.BetterRoll = this.roll;
         // Hide Save DCs
         // const actor = this.speaker;
@@ -96,5 +98,3 @@ export class ChatPortraitChatCard {
         }
     }
 }
-/** Min version to enable the card on, to prevent breakage */
-ChatPortraitChatCard.min_version = "1.4";

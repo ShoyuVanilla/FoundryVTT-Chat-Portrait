@@ -2,7 +2,6 @@ import { warn } from "../main.js";
 import { ChatPortrait } from "./ChatPortrait.js";
 import { ImageReplacerInit } from "./ImageReplacer.js";
 import { getGame } from "./settings.js";
-import { ChatPortraitChatCard } from "./ChatPortraitChatCard.js";
 export let readyHooks = async () => {
 };
 export const setupHooks = async () => {
@@ -39,17 +38,15 @@ export const setupHooks = async () => {
             if (currentSpeakerBackUp.alias)
                 message.data.speaker.alias = currentSpeakerBackUp.alias;
         }
-        // ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-        // setTimeout(
-        //   function() {
-        //     const log = document.querySelector("#chat-log");
-        //     const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-        //     if (log && shouldForceScroll) {
-        //       log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-        //     }
-        //   }, 50
-        // );
-        ChatPortraitChatCard.bind(message, html, speakerInfo, imageReplacer);
+        ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+        setTimeout(function () {
+            const log = document.querySelector("#chat-log");
+            const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+            if (log && shouldForceScroll) {
+                log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+            }
+        }, 50);
+        // ChatPortraitChatCard.bind(message, html, speakerInfo, imageReplacer);
     });
     // Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
     //   if(!message.data.speaker.token && currentSpeakerBackUp?.token){
@@ -91,7 +88,7 @@ export const setupHooks = async () => {
     // });
     // Hooks.on('updateChatMessage', (message, update, options, user) => {
     // });
-    let flag = true;
+    // let flag = true;
     /**
      * Catch chat message creations and add some more data if we need to
     */

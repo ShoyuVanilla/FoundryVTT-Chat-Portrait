@@ -1,3 +1,4 @@
+import { DOCUMENT_PERMISSIONS } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/fields.mjs';
 import { log } from '../main';
 import { ChatPortrait } from './ChatPortrait';
 import { getGame } from './settings';
@@ -7,19 +8,19 @@ import { getGame } from './settings';
  * When a chat message enters the chat it should be binded
  * with ChatPortraitChatCard.bind().
  */
-export class ChatPortraitChatCard{
-	/** Min version to enable the card on, to prevent breakage */
-	static min_version = "1.4";
+export class ChatPortraitChatCard { //extends ChatMessage{
 
-  id: string;
-  speaker:Actor;
+  	speaker:Actor;
+	id: string;
+	roll:Roll;
 
 	constructor(message, html, speakerInfo, imageReplacer) {
+		//super(message.data.document);
 		this.updateBinding(message, html, speakerInfo, imageReplacer);
 	}
 
 	get message() {
-		return getGame().messages?.get(this.id);
+		return getGame().messages?.get(<string>this.id);
 	}
 
 	/**
@@ -34,6 +35,7 @@ export class ChatPortraitChatCard{
 		// and we can't do anything except rely on closures to handle those events.
 		this.id = message.id;
 		this.speaker = <Actor>getGame().actors?.get(message.data.speaker.actor);
+		this.roll = message?.roll ? message?.roll : message?.data?.document?.roll;
 		//message.BetterRoll = this.roll;
 
 		// Hide Save DCs
@@ -57,7 +59,7 @@ export class ChatPortraitChatCard{
 		// 	}
 		// })
 
-    ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+    	ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
 
 	}
 
@@ -78,13 +80,13 @@ export class ChatPortraitChatCard{
 		if (existing) {
 			log("Retrieved existing card");
 			//existing.updateBinding(message, chatCard);
-      existing.updateBinding(message, html, speakerInfo, imageReplacer);
+      		existing.updateBinding(message, html, speakerInfo, imageReplacer);
 
 			// Pulse the card to make it look more obvious
 			// Wait for the event queue before doing so to allow CSS calculations to work,
 			// otherwise the border color will be incorrectly transparent
 			window.setTimeout(() => {
-        //@ts-ignore
+        		//@ts-ignore
 				gsap?.from(html.get(), {
 					"border-color": "red",
 					"box-shadow": "0 0 6px inset #ff6400",
@@ -92,19 +94,19 @@ export class ChatPortraitChatCard{
 			}, 0);
 
 			// Scroll to bottom if the last card had updated
-      const messagesSize:number = getGame().messages?.size || 0;
+      		const messagesSize:number = getGame().messages?.size || 0;
 			const last = getGame().messages?.contents[messagesSize - 1];
 			if (last?.id === existing.id) {
 				//window.setTimeout(() => { ui.chat?.scrollBottom(); }, 0);
-        window.setTimeout(
-          function() {
-            const log = document.querySelector("#chat-log");
-            const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-            if (log && shouldForceScroll) {
-              log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-            }
-          }, 50
-        );
+				window.setTimeout(
+				function() {
+					const log = document.querySelector("#chat-log");
+					const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+					if (log && shouldForceScroll) {
+					log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+					}
+				}, 50
+				);
 			}
 			return existing;
 		} else {
@@ -114,11 +116,26 @@ export class ChatPortraitChatCard{
 		}
 	}
 
+	// fromMessage(message:ChatMessage) {
+	// 	const data = message.data.rollflags.betterrolls5e;
+	// 	const roll = new CustomItemRoll(null, data?.params ?? {}, data?.fields ?? []);
+	// 	roll._currentId = -1;
+	// 	roll.messageId = message.id;
+	// 	roll.rolled = true;
+	// 	if (data) {
+	// 		roll.isCrit = data.isCrit;
+	// 		roll.entries = FoundryProxy.create(data.entries);
+	// 		roll.properties = data.properties;
+	// 		roll.params = data.params;
 
+	// 		// Set these up so that lazy loading can be done
+	// 		roll.actorId = data.actorId;
+	// 		roll.itemId = data.itemId;
+	// 		roll.tokenId = data.tokenId;
+	// 	}
 
+	// 	roll.storedItemData = message.getFlag("dnd5e", "itemData");
 
-
-
-
-
+	// 	return roll;
+	// }
 }

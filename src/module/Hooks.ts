@@ -42,19 +42,19 @@ export const setupHooks = async () => {
       if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
     }
 
-    // ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+    ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
 
-    // setTimeout(
-    //   function() {
-    //     const log = document.querySelector("#chat-log");
-    //     const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-    //     if (log && shouldForceScroll) {
-    //       log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-    //     }
-    //   }, 50
-    // );
+    setTimeout(
+      function() {
+        const log = document.querySelector("#chat-log");
+        const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+        if (log && shouldForceScroll) {
+          log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+        }
+      }, 50
+    );
 
-    ChatPortraitChatCard.bind(message, html, speakerInfo, imageReplacer);
+    // ChatPortraitChatCard.bind(message, html, speakerInfo, imageReplacer);
   });
 
 
@@ -104,7 +104,7 @@ export const setupHooks = async () => {
 
   // });
 
-  let flag = true;
+  // let flag = true;
 
   /**
    * Catch chat message creations and add some more data if we need to
