@@ -2,6 +2,7 @@ import { warn } from "../main.js";
 import { ChatPortrait } from "./ChatPortrait.js";
 import { ImageReplacerInit } from "./ImageReplacer.js";
 import { getGame } from "./settings.js";
+import { ChatPortraitChatCard } from "./ChatPortraitChatCard.js";
 export let readyHooks = async () => {
 };
 export const setupHooks = async () => {
@@ -14,6 +15,8 @@ export const setupHooks = async () => {
     /**
     * This line connects our method above with the chat rendering.
     * Note that this happens after the core code has already generated HTML.
+    * Bind to any newly rendered chat cards at runtime
+    * For whatever reason, this callback is sometimes called with unattached html elements
     */
     Hooks.on('renderChatMessage', (message, html, speakerInfo) => {
         if (!speakerInfo.message.speaker.token && currentSpeakerBackUp?.token) {
@@ -36,43 +39,44 @@ export const setupHooks = async () => {
             if (currentSpeakerBackUp.alias)
                 message.data.speaker.alias = currentSpeakerBackUp.alias;
         }
-        ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-        let test2 = "";
-        setTimeout(function () {
-            const log = document.querySelector("#chat-log");
-            const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
-            if (log && shouldForceScroll) {
-                log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
-            }
-        }, 50);
+        // ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+        // setTimeout(
+        //   function() {
+        //     const log = document.querySelector("#chat-log");
+        //     const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
+        //     if (log && shouldForceScroll) {
+        //       log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+        //     }
+        //   }, 50
+        // );
+        ChatPortraitChatCard.bind(message, html, speakerInfo, imageReplacer);
     });
-    Hooks.on('createChatMessage', async (message, render, userId) => {
-        // if(!message.data.speaker.token && currentSpeakerBackUp?.token){
-        //   if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
-        //   if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
-        //   if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
-        //   if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
-        // }
-        // if(render.render){
-        //   const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
-        //   let speakerInfo = message.data.speaker;
-        //   //@ts-ignore
-        //   if(!speakerInfo.alias && speakerInfo.document?.alias){
-        //     //@ts-ignore
-        //     speakerInfo.alias = speakerInfo.document?.alias;
-        //   }
-        //   await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-        //   let updates = {
-        //     content: html.html()
-        //   };
-        //   message.data.update(updates);
-        //   //@ts-ignore
-        //   speakerInfo.message = {};
-        //    //@ts-ignore
-        //   speakerInfo.message = message.data;
-        // }
-        return;
-    });
+    // Hooks.on('createChatMessage', async (message:ChatMessage, render, userId) => {
+    //   if(!message.data.speaker.token && currentSpeakerBackUp?.token){
+    //     if(currentSpeakerBackUp.scene) message.data.speaker.scene = currentSpeakerBackUp.scene;
+    //     if(currentSpeakerBackUp.actor) message.data.speaker.actor = currentSpeakerBackUp.actor;
+    //     if(currentSpeakerBackUp.token) message.data.speaker.token = currentSpeakerBackUp.token;
+    //     if(currentSpeakerBackUp.alias) message.data.speaker.alias = currentSpeakerBackUp.alias;
+    //   }
+    //   if(render.render){
+    //     const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
+    //     let speakerInfo = message.data.speaker;
+    //     //@ts-ignore
+    //     if(!speakerInfo.alias && speakerInfo.document?.alias){
+    //       //@ts-ignore
+    //       speakerInfo.alias = speakerInfo.document?.alias;
+    //     }
+    //     await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+    //     let updates = {
+    //       content: html.html()
+    //     };
+    //     message.data.update(updates);
+    //     //@ts-ignore
+    //     speakerInfo.message = {};
+    //      //@ts-ignore
+    //     speakerInfo.message = message.data;
+    //   }
+    // });
     // let chatData:any = {
     //   type: ChatPortrait.getMessageTypeVisible(speakerInfo),
     //   user: getGame().user,
@@ -117,39 +121,38 @@ export const setupHooks = async () => {
                 currentSpeakerBackUp.token = options.speaker.token.id;
             }
         }
-        if (render.render) {
-            const html = $("<div>" + message.data.content + "</div>");
-            let speakerInfo = message.data.speaker;
-            //@ts-ignore
-            if (!speakerInfo.alias && speakerInfo.document?.alias) {
-                //@ts-ignore
-                speakerInfo.alias = speakerInfo.document?.alias;
-            }
-            await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
-            let updates = {
-                content: html.html()
-            };
-            message.data.update(updates);
-            //@ts-ignore
-            speakerInfo.message = {};
-            //@ts-ignore
-            speakerInfo.message = message.data;
-            if (flag) {
-                let chatData = {
-                    type: ChatPortrait.getMessageTypeVisible(speakerInfo),
-                    user: getGame().user,
-                    speaker: speakerInfo,
-                    content: message.data.content,
-                    //@ts-ignore
-                    whisper: message.data.whisper ? message.data.whisper : speakerInfo.document.data.whisper,
-                };
-                flag = false;
-                ChatMessage.create(chatData, {});
-            }
-            else {
-                flag = true;
-            }
-        }
+        // if(render.render){
+        //   const html:JQuery<HTMLElement> = $("<div>" + message.data.content + "</div>");
+        //   let speakerInfo = message.data.speaker;
+        //   //@ts-ignore
+        //   if(!speakerInfo.alias && speakerInfo.document?.alias){
+        //     //@ts-ignore
+        //     speakerInfo.alias = speakerInfo.document?.alias;
+        //   }
+        //   await ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
+        //   let updates = {
+        //     content: html.html()
+        //   };
+        //   message.data.update(updates);
+        //   //@ts-ignore
+        //   speakerInfo.message = {};
+        //    //@ts-ignore
+        //   speakerInfo.message = message.data;
+        //   if(flag){
+        //     let chatData:any = {
+        //       type: ChatPortrait.getMessageTypeVisible(speakerInfo),
+        //       user: getGame().user,
+        //       speaker: speakerInfo,
+        //       content: message.data.content,
+        //       //@ts-ignore
+        //       whisper: message.data.whisper ? message.data.whisper : speakerInfo.document.data.whisper,
+        //     };
+        //     flag = false;
+        //     ChatMessage.create(chatData,{});
+        //   }else{
+        //     flag = true;
+        //   }
+        // }
     });
 };
 export const initHooks = () => {
