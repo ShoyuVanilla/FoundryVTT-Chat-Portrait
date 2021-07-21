@@ -1,5 +1,9 @@
 
 
+## 0.4.3
+
+- CSS compatibility fir for Chat Images module
+
 ## 0.4.2
 
 - Some bug fix

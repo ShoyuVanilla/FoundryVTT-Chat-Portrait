@@ -130,3 +130,9 @@
 {
   max-width: fit-content;
 }
+
+#chat-log .message .message-content .chat-images-container img
+{
+  width: 100%;
+  height: 100%;
+}
