@@ -1,5 +1,9 @@
 
 
+## 0.4.4
+
+- CCS bug fixing for module settings to "Text next to portrait"
+
 ## 0.4.3
 
 - CSS compatibility fir for Chat Images module

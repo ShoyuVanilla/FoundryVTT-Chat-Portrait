@@ -75,7 +75,8 @@
   font-weight: 700;
   color: #4b4a44;
   */
-  display: flex;
+  /*display: flex;*/
+  /*display: inline-block;*/
 }
 
 
@@ -126,11 +127,13 @@
   margin-bottom: .5rem;
 }
 
+/* Turm Marker Alt Module Support */
 #chat-log .message .message-content img
 {
   max-width: fit-content;
 }
 
+/* Chat Images Module Support - Don't show portrait on Narrates */
 #chat-log .message .message-content .chat-images-container img
 {
   width: 100%;

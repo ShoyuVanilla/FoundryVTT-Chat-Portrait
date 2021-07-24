@@ -290,29 +290,159 @@ export class ChatPortrait {
                         let value: string = "";
                         let images:ImageReplacerData = { iconMain:"", iconsDamageType:[] };
                         if(ChatPortrait.useImageReplacer(html)){
-                          images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText);
+                          images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText, elementItemContentList[i]);
                           if(images && images.iconMain){
                             value = images.iconMain;
                           }
                         }
                         if(value){
-                            if(elementItemImageList.length > 0){
-                                const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                          if(elementItemImageList.length > 0){
+                            const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                            const size: number = ChatPortrait.settings.portraitSizeItem;
+                            if(size && size > 0){
+                              elementItemImage.width = size;
+                              elementItemImage.height = size;
+                            }
+                            // Just ignore if a image is provided
+                            //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                            if(value.length > 0) {
+                              elementItemImage.src = value;
+                            }
+                            //}
+                            if(!elementItemImage.classList.contains("message-portrait")){
+                              elementItemImage.classList.add("message-portrait");
+                            }
+                            elementItemName.prepend(elementItemImage);
+                            // DAMAGE TYPES
+                            if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
+                              const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
+                              for (var [index, itemImage] of images.iconsDamageType.entries()) {
+
+                                const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                const size: number = ChatPortrait.settings.portraitSizeItem;
+                                if(size && size > 0){
+                                  elementItemImage2.width = size;
+                                  elementItemImage2.height = size;
+                                }
+                                // Just ignore if a image is provided
+                                if(itemImage.length > 0) {
+                                  elementItemImage2.src = itemImage;//images[1];
+                                }
+                                if(!elementItemImage2.classList.contains("message-portrait")){
+                                  elementItemImage2.classList.add("message-portrait");
+                                }
+                                elementItemContainerDamageTypes.appendChild(elementItemImage2);
+
+                              }
+                              // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+                              // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
+                              // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
+                              elementItemName.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
+                            }
+                          }else{
+                            if(ChatPortrait.useImageReplacer(html)){
+                              const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                              const size: number = ChatPortrait.settings.portraitSizeItem;
+                              if(size && size > 0){
+                                elementItemImage.width = size;
+                                elementItemImage.height = size;
+                              }
+                              // Just ignore if a image is provided
+                              //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                              if(value.length > 0) {
+                                elementItemImage.src = value;
+                              }
+                              //}
+                              if(!elementItemImage.classList.contains("message-portrait")){
+                                elementItemImage.classList.add("message-portrait");
+                              }
+                              elementItemName.prepend(elementItemImage);
+                              // DAMAGE TYPES
+                              if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
+                                const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
+                                for (var [index, itemImage] of images.iconsDamageType.entries()) {
+
+                                  const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                  const size: number = ChatPortrait.settings.portraitSizeItem;
+                                  if(size && size > 0){
+                                    elementItemImage2.width = size;
+                                    elementItemImage2.height = size;
+                                  }
+                                  // Just ignore if a image is provided
+                                  if(itemImage.length > 0) {
+                                    elementItemImage2.src = itemImage;//images[1];
+                                  }
+                                  if(!elementItemImage2.classList.contains("message-portrait")){
+                                    elementItemImage2.classList.add("message-portrait");
+                                  }
+                                  elementItemContainerDamageTypes.appendChild(elementItemImage2);
+
+                                }
+                                // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+                                // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
+                                // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
+                                elementItemName.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
+                              }
+                            }
+                          }
+                        }else{
+                          if(elementItemImageList.length > 0){
+                              const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                              const size: number = ChatPortrait.settings.portraitSizeItem;
+                              if(size && size > 0){
+                                elementItemImage.width = size;
+                                elementItemImage.height = size;
+                              }
+                              if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                              }
+                              if(!elementItemImage.classList.contains("message-portrait")){
+                                elementItemImage.classList.add("message-portrait");
+                              }
+                              elementItemName.prepend(elementItemImage);
+
+                              // DAMAGE TYPES
+                              if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
+                                const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
+                                for (var [index, itemImage] of images.iconsDamageType.entries()) {
+
+                                  const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                  const size: number = ChatPortrait.settings.portraitSizeItem;
+                                  if(size && size > 0){
+                                    elementItemImage2.width = size;
+                                    elementItemImage2.height = size;
+                                  }
+                                  // Just ignore if a image is provided
+                                  if(itemImage.length > 0) {
+                                    elementItemImage2.src = itemImage;//images[1];
+                                  }
+                                  if(!elementItemImage2.classList.contains("message-portrait")){
+                                    elementItemImage2.classList.add("message-portrait");
+                                  }
+                                  elementItemContainerDamageTypes.appendChild(elementItemImage2);
+
+                                }
+                                // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+                                // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
+                                // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
+                                elementItemName.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
+                              }
+                          }else{
+                              if(ChatPortrait.useImageReplacer(html)){
+                                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                                 const size: number = ChatPortrait.settings.portraitSizeItem;
                                 if(size && size > 0){
                                   elementItemImage.width = size;
                                   elementItemImage.height = size;
                                 }
-                                // Just ignore if a image is provided
-                                //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                                if(value.length > 0) {
-                                  elementItemImage.src = value;
+                                if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                                 }
-                                //}
                                 if(!elementItemImage.classList.contains("message-portrait")){
                                   elementItemImage.classList.add("message-portrait");
                                 }
                                 elementItemName.prepend(elementItemImage);
+
                                 // DAMAGE TYPES
                                 if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
                                   const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
@@ -339,82 +469,6 @@ export class ChatPortrait {
                                   // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
                                   elementItemName.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
                                 }
-                            }else{
-                                if(ChatPortrait.useImageReplacer(html)){
-                                  const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                  const size: number = ChatPortrait.settings.portraitSizeItem;
-                                  if(size && size > 0){
-                                    elementItemImage.width = size;
-                                    elementItemImage.height = size;
-                                  }
-                                  // Just ignore if a image is provided
-                                  //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                                  if(value.length > 0) {
-                                    elementItemImage.src = value;
-                                  }
-                                  //}
-                                  if(!elementItemImage.classList.contains("message-portrait")){
-                                    elementItemImage.classList.add("message-portrait");
-                                  }
-                                  elementItemName.prepend(elementItemImage);
-                                  // DAMAGE TYPES
-                                  if(images && images.iconsDamageType.length>0 && ChatPortrait.settings.useImageReplacerDamageType){
-                                    const elementItemContainerDamageTypes:HTMLImageElement = <HTMLImageElement> document.createElement("div");
-                                    for (var [index, itemImage] of images.iconsDamageType.entries()) {
-
-                                      const elementItemImage2:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                      const size: number = ChatPortrait.settings.portraitSizeItem;
-                                      if(size && size > 0){
-                                        elementItemImage2.width = size;
-                                        elementItemImage2.height = size;
-                                      }
-                                      // Just ignore if a image is provided
-                                      if(itemImage.length > 0) {
-                                        elementItemImage2.src = itemImage;//images[1];
-                                      }
-                                      if(!elementItemImage2.classList.contains("message-portrait")){
-                                        elementItemImage2.classList.add("message-portrait");
-                                      }
-                                      elementItemContainerDamageTypes.appendChild(elementItemImage2);
-
-                                    }
-                                    // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
-                                    // If elementItemText does not have a next sibling, then it must be the last child — elementItemText.nextSibling returns null,
-                                    // and elementItemContainerDamageTypes is inserted at the end of the child node list (immediately after elementItemText).
-                                    elementItemName.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemName.nextSibling);
-                                  }
-                                }
-                            }
-                        }else{
-                          if(elementItemImageList.length > 0){
-                              const elementItemImage:HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                              const size: number = ChatPortrait.settings.portraitSizeItem;
-                              if(size && size > 0){
-                                elementItemImage.width = size;
-                                elementItemImage.height = size;
-                              }
-                              if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                                elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                              }
-                              if(!elementItemImage.classList.contains("message-portrait")){
-                                elementItemImage.classList.add("message-portrait");
-                              }
-                              elementItemName.prepend(elementItemImage);
-                          }else{
-                              if(ChatPortrait.useImageReplacer(html)){
-                                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                const size: number = ChatPortrait.settings.portraitSizeItem;
-                                if(size && size > 0){
-                                  elementItemImage.width = size;
-                                  elementItemImage.height = size;
-                                }
-                                if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                                }
-                                if(!elementItemImage.classList.contains("message-portrait")){
-                                  elementItemImage.classList.add("message-portrait");
-                                }
-                                elementItemName.prepend(elementItemImage);
                               }
                           }
                         }
@@ -429,7 +483,7 @@ export class ChatPortrait {
                     let value:string = "";
                     let images:ImageReplacerData = { iconMain:"", iconsDamageType:[] };
                     if(ChatPortrait.useImageReplacer(html)){
-                      images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText);
+                      images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText, elementItemContentList[i]);
                       if(images && images.iconMain){
                         value = images.iconMain;
                       }
@@ -1310,50 +1364,97 @@ export class ChatPortrait {
             // "Unknown tab
             return;
       }
-      return; // if there is some future new message type, its probably better to default to be visible than to hide it.
+      //return; // if there is some future new message type, its probably better to default to be visible than to hide it.
     }
 
-    static getImagesReplacerAsset(imageReplacer:Record<string,string>, innerText:string):ImageReplacerData{
+    static getImagesReplacerAsset(imageReplacer:Record<string,string>, innerText:string, elementItemContent):ImageReplacerData{
       //let value:string[] = new Array();
       let value:ImageReplacerData = new ImageReplacerData();
-      if(innerText){
+      let innerTextTmp = innerText;
+      //let betterRollLabelAttack = ($(elementItemContent).find(".br5e-roll-label")[0])?.innerText;
+      //let betterRollLabelDamage = ($(elementItemContent).find(".br5e-roll-label")[1])?.innerText;
+      let fullTextContent = ($(elementItemContent)[0])?.innerText;
+      let innerTextDamageTmp = fullTextContent; //Damage -Slashing
+      if(innerTextTmp){
         // Clean up the string for multisystem (D&D5, PF2, ecc.)
-        let text:string = innerText.toLowerCase().trim();
-        text = text.split(/\r?\n/)[0];
-        text = text.replace(/\W/g, '');
-        text = text.replace('skill','');
-        text = text.replace('check','');
-        text = text.replace('ability','');
-        for (let key in imageReplacer) {
-          if(key){
-            let mykeyvalue = i18n(key);
-            if(mykeyvalue){
-              mykeyvalue = mykeyvalue.toLowerCase().trim();
-              mykeyvalue = mykeyvalue.split(/\r?\n/)[0];
-              mykeyvalue = mykeyvalue.replace(/\W/g, '');
-              mykeyvalue = mykeyvalue.replace('skill','');
-              mykeyvalue = mykeyvalue.replace('check','');
-              mykeyvalue = mykeyvalue.replace('ability','');
-              if(text.trim().indexOf(mykeyvalue.trim()) !== -1 ){
-                //value.push(imageReplacer[key]);
-                value.iconMain = imageReplacer[key];
-                let damageTypes:string[] = new Array();
-                // Special case
-                if(key == "DND5E.DamageRoll"){
-                  for (let keydamage in imageReplacerDamageType) {
-                    const mykeydamagevalue = i18n(keydamage);
-                    if(mykeydamagevalue && text.toLowerCase().trim().indexOf(mykeydamagevalue.toLowerCase().trim()) !== -1 ){
+        //let text:string = "";
+        innerTextTmp = innerTextTmp.toLowerCase().trim();
+        let arr1 = innerTextTmp.split(/\r?\n/);
+        for (let i = 0; i < arr1.length; i++) {
+          let text = arr1[i];
+          if(text){
+            text = text.replace(/\W/g, ' ');
+            text = text.replace('skill','');
+            text = text.replace('check','');
+            text = text.replace('ability','');
+            text = text.replace(/[0-9]/g, '');
+            text = text.toLowerCase().trim();          
+            for (let key in imageReplacer) {
+              if(key){
+                let mykeyvalue = i18n(key);
+                if(mykeyvalue){
+                  //mykeyvalue = mykeyvalue.toLowerCase().trim();      
+                  //let arr2 = mykeyvalue.split(/\r?\n/);
+                  //for (let j = 0; j < arr2.length; j++) {
+                    let keyValue = mykeyvalue;//arr2[j];
+                    if(keyValue){
+                      keyValue = keyValue.replace(/\W/g, ' ');
+                      keyValue = keyValue.replace('skill','');
+                      keyValue = keyValue.replace('check','');
+                      keyValue = keyValue.replace('ability','');
+                      keyValue = keyValue.replace(/[0-9]/g, '');
+                      keyValue = keyValue.toLowerCase().trim();
+                      if(text.trim().indexOf(keyValue) !== -1 ){
+                        //value.push(imageReplacer[key]);
+                        value.iconMain = imageReplacer[key]; 
+                        break;              
+                      }
+                    }
+                  //}
+                }
+              }
+            }
+          }
+        }
+      } // InnerTexTmp
+      if(ChatPortrait.settings.useImageReplacerDamageType && innerTextDamageTmp){
+        let damageTypes:string[] = new Array();
+        let arr4 = innerTextDamageTmp.split(/\r?\n/);
+        for (let i = 0; i < arr4.length; i++) {
+          let textDamage = arr4[i];
+          if(textDamage){ 
+            textDamage = textDamage.replace(/\W/g, ' ');
+            textDamage = textDamage.replace('skill','');
+            textDamage = textDamage.replace('check','');
+            textDamage = textDamage.replace('ability','');
+            textDamage = textDamage.replace(/[0-9]/g, '');
+            textDamage = textDamage.toLowerCase().trim();        
+            for (let keydamage in imageReplacerDamageType) {
+              let mykeydamagevalue = i18n(keydamage);
+              if(mykeydamagevalue){
+                //mykeydamagevalue = mykeydamagevalue.toLowerCase().trim();
+                //let arr3 = mykeydamagevalue.split(/\r?\n/);
+                //for (let x = 0; x < arr3.length; x++) {
+                  let damageValue = mykeydamagevalue;//arr3[x];
+                  if(damageValue){
+                    damageValue = damageValue.replace(/\W/g, ' ');
+                    damageValue = damageValue.replace('skill','');
+                    damageValue = damageValue.replace('check','');
+                    damageValue = damageValue.replace('ability','');
+                    damageValue = damageValue.replace(/[0-9]/g, '');
+                    damageValue = damageValue.toLowerCase().trim();
+                    damageValue = ' ' + damageValue;
+                    if(textDamage.toLowerCase().trim().indexOf(damageValue) !== -1 ){
                       const srcdamageType = imageReplacerDamageType[keydamage];
                       damageTypes.push(srcdamageType);
                       // Add all damage types
                     }
                   }
-                }
-                value.iconsDamageType = damageTypes;
-                break;
+                //}
               }
             }
           }
+          value.iconsDamageType = damageTypes;
         }
       }
       return value;
