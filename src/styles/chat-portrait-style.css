@@ -60,23 +60,15 @@
   content: ']';
 }
 
-/* Narrator Chat Module Support - Don't show portrait on Narrates */
+/* Narrator Chat Module Support - Don't show portrait on Narrates
 #chat-log .chat-message.message.flexcol.narrator-chat .message-header img.message-portrait
-/* #chat-log .chat-message.message.flexcol.narrator-chat .card-header img.message-portrait  */
 {
 	display:none;
 }
+*/
 
 .chat-portrait-text-size-name {
-  /*
-  line-height: 36px;
-  font-family: "Modesto Condensed", "Palatino Linotype", serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: #4b4a44;
-  */
-  /*display: flex;*/
-  /*display: inline-block;*/
+
 }
 
 
@@ -125,12 +117,6 @@
 {
   line-height: 1rem;
   margin-bottom: .5rem;
-}
-
-/* Turm Marker Alt Module Support */
-#chat-log .message .message-content img
-{
-  max-width: fit-content;
 }
 
 /* Chat Images Module Support - Don't show portrait on Narrates */

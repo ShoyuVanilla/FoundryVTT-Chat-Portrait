@@ -57,6 +57,10 @@ export class ChatPortrait {
       if(!ChatPortrait.settings.displaySettingROLL && messageType == CONST.CHAT_MESSAGE_TYPES.ROLL){
         doNotStyling = true;
       }
+      // Do not styling narrator message because it's make no sense
+      if(speakerInfo.alias == "Narrator"){
+        doNotStyling = true;
+      }
 
       // MULTISYSTEM MANAGEMENT
       let messageSenderElement: HTMLElement;

@@ -1,8 +1,17 @@
 
 
+## 0.4.5
+
+- Bug fix [Initiative roll bugged 0.4.4](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/66)
+- Bug fix [background color with narrator tools](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/65)
+
 ## 0.4.4
 
 - CCS bug fixing for module settings to "Text next to portrait"
+- Bug fix [Text unreadable for some chat cards in PF1](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/64)
+- Bug fix [Chat flavor text looks a bit wonky and out of place](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/63)
+- Bug fix [« Cannot Read property 'id' » when loading & combat state](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/62)
+- Bug fix [Latest release breaks PF2E formatting](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/61)
 
 ## 0.4.3
 
