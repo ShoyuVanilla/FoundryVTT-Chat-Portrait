@@ -58,7 +58,7 @@ export class ChatPortrait {
         doNotStyling = true;
       }
       // Do not styling narrator message because it's make no sense
-      if(speakerInfo.alias == "Narrator"){
+      if(speakerInfo.alias == "Narrator" || speakerInfo.alias == i18n("NT.Narrator")){
         doNotStyling = true;
       }
 
