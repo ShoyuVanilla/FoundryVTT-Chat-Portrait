@@ -1,6 +1,5 @@
 import { i18n } from "../main.js";
 import { ChatPortraitForm } from "./ChatPortraitForm.js";
-import { ChatLink } from "./chatlink.js";
 export const CHAT_PORTRAIT_MODULE_NAME = 'chat-portrait';
 export const INV_UNIDENTIFIED_BOOK = `/modules/${CHAT_PORTRAIT_MODULE_NAME}/assets/inv-unidentified-book.png`;
 /**
@@ -144,15 +143,15 @@ export const registerSettings = function () {
         type: Boolean,
         default: false
     });
-    getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip', {
-        // name : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.name'),
-        // hint : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.hint'),
-        scope: 'world',
-        config: false,
-        type: Boolean,
-        default: false,
-        onChange: value => { ChatLink.updateSettings(); }
-    });
+    // getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip', {
+    //   // name : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.name'),
+    //   // hint : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.hint'),
+    //   scope : 'world',
+    //   config : false,
+    //   type : Boolean,
+    //   default : false,
+    //   onChange: value => { ChatLink.updateSettings(); }
+    // });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'textSizeName', {
         scope: 'world',
         config: false,

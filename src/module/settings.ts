@@ -1,7 +1,6 @@
 import { debug, log, setDebugLevel, warn, i18n } from '../main';
 import { ChatPortraitForm } from './ChatPortraitForm';
 import { ChatPortrait } from './ChatPortrait';
-import { ChatLink } from './chatlink';
 
 export const CHAT_PORTRAIT_MODULE_NAME = 'chat-portrait';
 
@@ -170,15 +169,15 @@ export const registerSettings = function () {
     default: false
   });
 
-  getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip', {
-    // name : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.name'),
-    // hint : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.hint'),
-    scope : 'world',
-    config : false,
-    type : Boolean,
-    default : false,
-    onChange: value => { ChatLink.updateSettings(); }
-  });
+  // getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip', {
+  //   // name : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.name'),
+  //   // hint : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.hint'),
+  //   scope : 'world',
+  //   config : false,
+  //   type : Boolean,
+  //   default : false,
+  //   onChange: value => { ChatLink.updateSettings(); }
+  // });
 
   getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'textSizeName', {
     scope: 'world',

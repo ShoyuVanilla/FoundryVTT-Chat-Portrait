@@ -1,11 +1,8 @@
 import { warn, error, debug, i18n } from "../main";
-import { ChatLink } from "./chatlink";
 import { ChatPortrait } from "./ChatPortrait";
 import { ImageReplacerInit } from "./ImageReplacer";
-import { MessageRenderData } from "./MessageRenderData";
 import { CHAT_PORTRAIT_MODULE_NAME, getGame } from "./settings";
 import { ChatSpeakerData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData";
-import { ChatPortraitChatCard } from "./ChatPortraitChatCard";
 
 export let readyHooks = async () => {
 

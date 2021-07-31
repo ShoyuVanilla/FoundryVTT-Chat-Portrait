@@ -1,4 +1,16 @@
+## 0.4.7
 
+- Some bug fixing and improvement
+- Try to fix [[PF1] Applying damage from a chat card focuses the speaker](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/70)
+- Try to fix [Chat images don't show up](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/69)
+- Try to fix [Background images obscure roll type colouring](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/68)
+- Try to fix [Damage Log compatibility request](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/67)
+
+## 0.4.6
+
+- Small bug fix for Narrator Module multi language [
+background color with narrator tools
+](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/65)
 
 ## 0.4.5
 

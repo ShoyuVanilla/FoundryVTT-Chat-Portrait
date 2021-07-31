@@ -54,7 +54,7 @@ export class ChatPortraitForm extends FormApplication {
                 useUserColorAsChatBorderColor: false,
                 flavorNextToPortrait: false,
                 forceNameSearch: false,
-                hoverTooltip: false,
+                // hoverTooltip: false,
                 textSizeName: 0,
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, 'allCards'),
                 useAvatarImage: false,
@@ -90,7 +90,7 @@ export class ChatPortraitForm extends FormApplication {
                 useUserColorAsChatBorderColor: SettingsForm.getUseUserColorAsChatBorderColor(),
                 flavorNextToPortrait: SettingsForm.getFlavorNextToPortrait(),
                 forceNameSearch: SettingsForm.getForceNameSearch(),
-                hoverTooltip: SettingsForm.getHoverTooltip(),
+                // hoverTooltip: SettingsForm.getHoverTooltip(),
                 textSizeName: SettingsForm.getTextSizeName(),
                 displaySettingList: this.getSelectList(this.displaySettingListOptions, SettingsForm.getDisplaySetting()),
                 useAvatarImage: SettingsForm.getUseAvatarImage(),
@@ -185,7 +185,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setUseUserColorAsChatBorderColor(formData.useUserColorAsChatBorderColor);
         SettingsForm.setFlavorNextToPortrait(formData.flavorNextToPortrait);
         SettingsForm.setForceNameSearch(formData.forceNameSearch);
-        SettingsForm.setHoverTooltip(formData.hoverTooltip);
+        // SettingsForm.setHoverTooltip(formData.hoverTooltip);
         SettingsForm.setTextSizeName(formData.textSizeName);
         SettingsForm.setDisplaySetting(formData.displaySetting);
         SettingsForm.setUseAvatarImage(formData.useAvatarImage);
@@ -325,12 +325,12 @@ export class SettingsForm {
     static setForceNameSearch(value:boolean) {
         getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'forceNameSearch',value);
     }
-    static getHoverTooltip() {
-        return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
-    }
-    static setHoverTooltip(value:boolean) {
-        getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip',value);
-    }
+    // static getHoverTooltip() {
+    //     return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
+    // }
+    // static setHoverTooltip(value:boolean) {
+    //     getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip',value);
+    // }
     static getTextSizeName() {
         return <number>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'textSizeName');
     }

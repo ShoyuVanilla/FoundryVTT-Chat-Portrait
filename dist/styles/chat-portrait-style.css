@@ -1,12 +1,12 @@
-#chat-log .message .message-header img
-/* #chat-log .message .card-header img  */
+.message .message-header img
+/* .message .card-header img  */
 {
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
   object-fit: cover;
 }
-
+/*
 .chat-message,
 .chat-message.emote,
 .chat-message.blind {
@@ -16,6 +16,7 @@
 .chat-message.whisper {
   background-image: url(../assets/parchment-white.jpg);
 }
+*/
 /*
 .chat-portrait {
   text-decoration: underline;
@@ -79,7 +80,7 @@
   line-height: 1rem;
   border: 1px solid #999;
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.05);
+  background: #999;
 }
 
 .chat-portrait-whisper-to * {
@@ -89,38 +90,38 @@
   line-height: 1rem;
   border: 1px solid #999;
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.05);
+  background: #999;
 }
 
 
-#chat-log .message .message-header
-/* #chat-log .message .card-header */
+.message .message-header
+/* .message .card-header */
 {
   justify-content: space-between;
 }
 
-#chat-log .message .message-header .message-metadata
-/* #chat-log .message .card-header .message-metadata  */
+.message .message-header .message-metadata
+/* .message .card-header .message-metadata  */
 {
   flex: 0 0 auto;
   margin-left: 1rem;
 }
 
-#chat-log .message .message-header .message-sender
-/* #chat-log .message .card-header .message-sender  */
+.message .message-header .message-sender
+/* .message .card-header .message-sender  */
 {
   flex: 1 0 1px;
 }
 
-#chat-log .message .message-header .chat-portrait-whisper-to
-/* #chat-log .message .card-header .chat-portrait-whisper-to  */
+.message .message-header .chat-portrait-whisper-to
+/* .message .card-header .chat-portrait-whisper-to  */
 {
   line-height: 1rem;
   margin-bottom: .5rem;
 }
 
-/* Chat Images Module Support - Don't show portrait on Narrates */
-#chat-log .message .message-content .chat-images-container img
+/* Chat Images Module Support */
+.message .message-content .chat-images-container img
 {
   width: 100%;
   height: 100%;

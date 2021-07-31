@@ -1,3 +1,4 @@
+import { ChatPortrait } from "./ChatPortrait.js";
 import { getCanvas, getGame, CHAT_PORTRAIT_MODULE_NAME } from "./settings.js";
 export class ChatLink {
     static init() {
@@ -7,9 +8,14 @@ export class ChatLink {
         ChatLink.showTooltip = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
     }
     static prepareEvent(message, html, speakerInfo) {
-        let clickable = html.find('.chat-card'); // message-sender
+        // let clickable = html.find('.chat-card'); // message-sender
+        // if(!clickable){
+        //     clickable = html.find('.message-sender');	
+        // }
+        let clickable = html.find('.message-portrait');
         if (!clickable) {
-            clickable = html.find('.message-sender');
+            // Ignored some system as strange behavior
+            return;
         }
         let speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
         if (!(speaker.actor || speaker.token)) {
@@ -27,25 +33,28 @@ export class ChatLink {
                 speakerData.idScene = getGame().scenes?.current?.id;
             }
         }
-        function clicks(e, speakerData) {
-            ChatLink.clickCount++;
-            if (ChatLink.clickCount == 1) {
-                ChatLink.clickTimer = setTimeout(() => {
-                    ChatLink.clickCount = 0;
-                    ChatLink.selectToken(e, speakerData);
-                }, ChatLink.clickTimeout);
-            }
-            else {
-                ChatLink.clickCount = 0;
-                clearTimeout(ChatLink.clickTimer);
-                ChatLink.panToToken(e, speakerData);
-            }
-        }
-        clickable.on('click', (e) => {
-            clicks(e, speakerData);
-        }).on('dblclick', (e) => {
-            e.preventDefault();
-        });
+        clickable.hover((event) => {
+            ChatLink.hoverIn(event, speaker);
+        }, ChatLink.hoverOut);
+        clickable.dblclick((event) => ChatLink.panToToken(speakerData));
+        // function clicks(e, speakerData) {
+        //     ChatLink.clickCount++;
+        //     if (ChatLink.clickCount == 1) {
+        //         ChatLink.clickTimer = setTimeout(() => {
+        //             ChatLink.clickCount = 0;
+        //             ChatLink.selectToken(e, speakerData);
+        //         }, ChatLink.clickTimeout);
+        //     } else {
+        //         ChatLink.clickCount = 0;
+        //         clearTimeout(ChatLink.clickTimer);
+        //         ChatLink.panToToken(speakerData);
+        //     }
+        // }
+        // clickable.on('click', (e) => {
+        //     clicks(e, speakerData)
+        // }).on('dblclick', (e) => {
+        //     e.preventDefault();
+        // });
     }
     static prepareEventImage(message, html, speakerInfo) {
         let clickable = html.find('.message-portrait');
@@ -65,35 +74,40 @@ export class ChatLink {
                 speakerData.idScene = getGame().scenes?.current?.id;
             }
         }
-        function clicks(e, speakerData) {
-            ChatLink.clickCount++;
-            if (ChatLink.clickCount == 1) {
-                ChatLink.clickTimer = setTimeout(() => {
-                    ChatLink.clickCount = 0;
-                    ChatLink.selectToken(e, speakerData);
-                }, ChatLink.clickTimeout);
-            }
-            else {
-                ChatLink.clickCount = 0;
-                clearTimeout(ChatLink.clickTimer);
-                ChatLink.panToToken(e, speakerData);
-            }
-        }
-        clickable.on('click', (e) => {
-            clicks(e, speakerData);
-        }).on('dblclick', (e) => {
-            e.preventDefault();
-        });
+        clickable.hover((event) => {
+            ChatLink.hoverIn(event, speaker);
+        }, ChatLink.hoverOut);
+        clickable.dblclick((event) => ChatLink.panToToken(speakerData));
+        // function clicks(e, speakerData) {
+        //     ChatLink.clickCount++;
+        //     if (ChatLink.clickCount == 1) {
+        //         ChatLink.clickTimer = setTimeout(() => {
+        //             ChatLink.clickCount = 0;
+        //             ChatLink.selectToken(e, speakerData);
+        //         }, ChatLink.clickTimeout);
+        //     } else {
+        //         ChatLink.clickCount = 0;
+        //         clearTimeout(ChatLink.clickTimer);
+        //         ChatLink.panToToken(speakerData);
+        //     }
+        // }
+        // clickable.on('click', (e) => {
+        //     clicks(e, speakerData)
+        // }).on('dblclick', (e) => {
+        //     e.preventDefault();
+        // });
     }
     // If it's reached this far, assume scene is correct.
-    static panToToken(event, speakerData) {
+    static panToToken(speakerData) {
         let user = getGame().user;
         let token = ChatLink.getToken(speakerData);
-        if (!ChatLink.tokenExists(user, speakerData, token))
+        if (!ChatLink.tokenExists(user, speakerData, token)) {
             return;
-        if (!ChatLink.permissionToSee(user, speakerData, token))
+        }
+        if (!ChatLink.permissionToSee(user, speakerData, token)) {
             return;
-        ChatLink.doPanToToken(event, user, token);
+        }
+        ChatLink.doPanToToken(user, token);
     }
     static selectToken(event, speakerData) {
         let user = getGame().user;
@@ -133,8 +147,9 @@ export class ChatLink {
         ChatLink.warning(message);
     }
     static permissionToSee(user, speakerData, token) {
-        if (user.isGM || token.visible)
+        if (user.isGM || token.visible) {
             return true;
+        }
         ChatLink.warning(ChatLink.playerWarning(speakerData));
     }
     static permissionToControl(user, token) {
@@ -154,10 +169,13 @@ export class ChatLink {
             ChatLink.controlToken(event, user, token, ctrlKey);
         }
     }
-    static doPanToToken(event, user, token) {
+    static doPanToToken(user, token) {
         //@ts-ignore
         let scale = getCanvas().scene?._viewPosition.scale;
         getCanvas().animatePan({ x: token.x, y: token.y, scale: scale, duration: 500 });
+        if (token && token.isVisible) {
+            getCanvas().animatePan({ ...token.center, duration: 250 });
+        }
     }
     static controlToken(event, user, token, ctrlKey) {
         let releaseOthers = { releaseOthers: !ctrlKey };
@@ -207,6 +225,24 @@ ChatLink.hoverTimeout = 1000;
 ChatLink.hoverTimer = null;
 ChatLink.i18n = (toTranslate) => getGame().i18n.localize(toTranslate);
 ChatLink.i18nFormat = (toTranslate, data) => getGame().i18n.format(toTranslate, data);
+ChatLink.hoverIn = (event, speaker) => {
+    let token = ChatPortrait.getTokenFromSpeaker(speaker);
+    if (token && token.isVisible) {
+        event.fromChat = true;
+        //@ts-ignore
+        token._onHoverIn(event);
+        ChatLink.lastHoveredToken = token;
+    }
+};
+ChatLink.hoverOut = (event) => {
+    //@ts-ignore
+    if (ChatLink.lastHoveredToken && ChatLink.lastHoveredToken._hover) {
+        event.fromChat = true;
+        //@ts-ignore
+        ChatLink.lastHoveredToken._onHoverOut(event);
+        ChatLink.lastHoveredToken = null;
+    }
+};
 // export class TooltipHelper {
 //     static getContent() {
 //         let tips = getGame().user.isGM ? TooltipHelper.gmTips() : TooltipHelper.playerTips();
