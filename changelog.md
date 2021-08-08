@@ -1,3 +1,7 @@
+## 0.4.9
+
+- Bug fix wildcard image token
+
 ## 0.4.8
 
 - Update ko.json lang

@@ -694,11 +694,21 @@ export class ChatPortrait {
             }
             let imgToken = "";
             if (tokenData) {
-                if (useTokenImage && tokenData?.img) {
-                    imgToken = tokenData.img;
+                if (useTokenImage) {
+                    if (tokenData?.img) {
+                        imgToken = tokenData.img;
+                    }
+                    if (!imgToken && tokenData?.data?.img) {
+                        imgToken = tokenData?.data?.img;
+                    }
                 }
-                if (!useTokenImage && tokenData?.actorData?.img) {
-                    imgToken = tokenData.actorData.img;
+                else {
+                    if (tokenData?.actorData?.img) {
+                        imgToken = tokenData.actorData.img;
+                    }
+                    if (!imgToken && tokenData?.data?.actorData?.img) {
+                        imgToken = tokenData.data?.actorData.img;
+                    }
                 }
                 // if(!imgToken || imgToken.includes("mystery-man")){
                 //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
