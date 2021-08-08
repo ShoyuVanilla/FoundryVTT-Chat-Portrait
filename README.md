@@ -8,8 +8,6 @@ This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.
 
 ![Preview](./images/image02.png)
 
-## ATTENTION : Verion 0.4.X is a big update make sure to not update just before a game 
-
 ## NOTE: If you are a javascript developer and not a typescript developer, you can just use the javascript files under the dist folder or rename the file from .ts to .js
 
 ## Installation

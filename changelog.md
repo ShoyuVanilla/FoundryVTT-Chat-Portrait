@@ -1,3 +1,8 @@
+## 0.4.8
+
+- Update ko.json lang
+- Try to fix [Suggestion: whisper colors](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/72)
+
 ## 0.4.7
 
 - Some bug fixing and improvement

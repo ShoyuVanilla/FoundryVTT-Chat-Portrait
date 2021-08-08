@@ -881,7 +881,11 @@ export class ChatPortrait {
     static setChatMessageBackground(html: JQuery, messageData: MessageRenderData, authorColor: string) {
         const useUserBackgroundColor = ChatPortrait.settings.useUserColorAsChatBackgroundColor;
         if(useUserBackgroundColor) {
-            html[0].setAttribute('style','background-color:' + authorColor + ';background-blend-mode:screen;');
+            //html[0].setAttribute('style','background-color:' + authorColor + ';background-blend-mode:screen;');
+            html[0].style.background = "url(../ui/parchment.jpg) repeat";
+            html[0].style.backgroundColor = authorColor;
+            //@ts-ignore
+            html[0].style.backgroundBlendMode = 'screen';
         }
     }
 
@@ -984,41 +988,6 @@ export class ChatPortrait {
             useImageReplacerDamageType: true
         }
     }
-
-    // /**
-    //  * Load the appropriate actor image path for a given message, leveraging token or actor or actor search.
-    //  * @param  {{scene?:string;actor?:string;token?:string;alias?:string;}} speaker
-    //  * @returns string
-    //  */
-    //  static loadItemImagePathForChatMessage(speaker: {
-    //   scene?: string;
-    //   item?: string;
-    //   token?: string;
-    //   alias?: string;
-    // }): string {
-    //     if (!speaker.token && !speaker.actor) return;
-    //     const useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
-    //     let item: Item;
-    //     if (speaker.token) {
-    //         item = getGame().actors.tokens[speaker.token];
-    //         if (!item) {
-    //             const tokenData = getGame().scenes.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token);
-    //             if (useTokenImage && tokenData?.img) {
-    //                 return tokenData.img;
-    //             } else if (!useTokenImage && tokenData?.actorData?.img) {
-    //                 return tokenData.actorData.img;
-    //             }
-    //         }
-    //     }
-    //     if (!item) {
-    //         item  = getGame().actors.get(speaker.actor);
-    //     }
-    //     const forceNameSearch = ChatPortrait.settings.forceNameSearch;
-    //     if (!item  && forceNameSearch) {
-    //         item  = getGame().actors.find((a: Item) => a.name === speaker.alias);
-    //     }
-    //     return useTokenImage ? item?.data?.token?.img : item?.img;
-    // }
 
     // static getSpeakerImage = function (message):string {
     //   const speaker = message.speaker;

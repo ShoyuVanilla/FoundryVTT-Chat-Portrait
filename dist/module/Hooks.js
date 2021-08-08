@@ -17,7 +17,7 @@ export const setupHooks = async () => {
     * Bind to any newly rendered chat cards at runtime
     * For whatever reason, this callback is sometimes called with unattached html elements
     */
-    Hooks.on('renderChatMessage', (message, html, speakerInfo) => {
+    Hooks.on('renderChatMessage', async (message, html, speakerInfo) => {
         if (!speakerInfo.message.speaker.token && currentSpeakerBackUp?.token) {
             if (currentSpeakerBackUp.scene)
                 speakerInfo.message.speaker.scene = currentSpeakerBackUp.scene;
