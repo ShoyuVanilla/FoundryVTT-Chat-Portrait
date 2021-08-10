@@ -28,7 +28,7 @@ export class ChatPortrait {
       let doNotStyling = false;
 
       // PreHook (can abort the interaction with the door)
-      if (Hooks.call('ChatPortraitPreStyling') === false) {
+      if (Hooks.call('ChatPortraitEnabled') === false) {
         return html;
       }
 

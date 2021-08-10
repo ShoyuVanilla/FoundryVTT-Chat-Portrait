@@ -18,7 +18,7 @@ export class ChatPortrait {
     static onRenderChatMessage(chatMessage, html, speakerInfo, imageReplacer) {
         let doNotStyling = false;
         // PreHook (can abort the interaction with the door)
-        if (Hooks.call('ChatPortraitPreStyling') === false) {
+        if (Hooks.call('ChatPortraitEnabled') === false) {
             return html;
         }
         if (!ChatPortrait.shouldOverrideMessageStyling(speakerInfo)) {

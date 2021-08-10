@@ -32,7 +32,7 @@ To install this module manually:
 
 Hooks :
 
-`ChatPortraitPreStyling` is called before the interaction with the chat is executed. When any of executed hooks return `false` the interaction is aborted with the default one.
+`ChatPortraitEnabled` is called before the interaction with the chat is executed. When any of executed hooks return `false` the interaction is aborted with the default one of foundry.
 
 
 `ChatPortraitReplaceData` is called like a replacement to the standard chat portrait recovery image, so any system or GM can use a customized version for a specific module.
@@ -61,7 +61,7 @@ Use your own code to enable/disable the module chat-portrait...
 
 // DO SOME CHECK 'BEFORE' APPLY THE CHAT PORTRAIT STYLING
 
-Hooks.call('ChatPortraitPreStyling');
+Hooks.call('ChatPortraitEnabled');
 
 ```
 
@@ -69,7 +69,7 @@ How you can use this on your code....
 
 ```js
 
-Hooks.on('ChatPortraitPreStyling', () => {
+Hooks.on('ChatPortraitEnabled', () => {
 
     // DO SOMETHING AND RETURN OR TRUE OR FALSE FOR ENABLE THE MODULE CHAT PORTRAIT
 })
