@@ -292,11 +292,11 @@ export class ChatPortrait {
                     }
                     if(elementItemName){
                         let value: string = "";
-                        let images:ImageReplacerData = { iconMain:"", iconsDamageType:[] };
+                        let images:ImageReplacerData = { iconMainImage:"", iconMainReplacer:"", iconsDamageType:[] };
                         if(ChatPortrait.useImageReplacer(html)){
                           images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText, elementItemContentList[i]);
-                          if(images && images.iconMain){
-                            value = images.iconMain;
+                          if(images && images.iconMainReplacer){
+                            value = images.iconMainReplacer;
                           }
                         }
                         if(value){
@@ -485,11 +485,11 @@ export class ChatPortrait {
                       elementItemText.classList.add("chat-portrait-text-size-name");
                     }
                     let value:string = "";
-                    let images:ImageReplacerData = { iconMain:"", iconsDamageType:[] };
+                    let images:ImageReplacerData = { iconMainImage:"", iconMainReplacer:"", iconsDamageType:[] };
                     if(ChatPortrait.useImageReplacer(html)){
                       images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText, elementItemContentList[i]);
-                      if(images && images.iconMain){
-                        value = images.iconMain;
+                      if(images && images.iconMainReplacer){
+                        value = images.iconMainReplacer;
                       }
                     }
                     if(value){
@@ -1467,7 +1467,7 @@ export class ChatPortrait {
                       keyValue = keyValue.toLowerCase().trim();
                       if(text.trim().indexOf(keyValue) !== -1 ){
                         //value.push(imageReplacer[key]);
-                        value.iconMain = imageReplacer[key]; 
+                        value.iconMainReplacer = imageReplacer[key]; 
                         break;              
                       }
                     }

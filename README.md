@@ -24,9 +24,58 @@ To install this module manually:
 
 ## TODO
 
-- Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use: Dnd5e, but anyone can point out what system has problem. i have prepared  a base code for support multysistem, but i will not actively developing on the short term. 
+- Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use or ask by issue request, but anyone can point out what system has problem. i have prepared  a base code for support multysistem, i will not actively developing on the short term. 
 
 - Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
+
+## Hooks (on developing, but any feedback is more than welcome)
+
+Hooks are only executed for the user using the door.
+
+`PreArmsReachInteraction` is called before the interaction with a door is executed. When any of executed hooks return `false` the interaction is aborted.
+
+`ReplaceArmsReachInteraction` is called like a replacement to the standard interaction with a door, so any system or GM can use a customized version.
+
+### Door Data
+
+```js
+const doorData = {
+    /// door data of the source door (WARNING: this data may change in the future)
+    sourceData,
+    /// id of the token (tokens interaction with the door)
+    selectedOrOwnedTokenId,
+    /// door data of the target data (WARNING: this data may change in the future)
+    targetData,
+    /// id of the user using the door (current user)
+    userId
+}
+
+/// WARNING: internal data - do not use if possible
+// sourceData and targetData schema is defined in: src/module/models.ts (or module/models.js)
+```
+
+### Example
+
+```js
+
+// REPLACE THE DEFAULT CHAT PORTRAIT IMAGE WIHT A CUTOM ONE
+// THIS WILL OVERRIDE ANY OTHER SETTING
+
+const result = { status: 0 }; // PUT YOUR OBJECT
+Hooks.call('ReplaceArmsReachInteraction', imageReplacerData, result);
+// and then i'll do something with `result.status`
+
+// How you can use this....
+
+Hooks.on('ReplaceArmsReachInteraction', (doorData, result) => {
+    const { sourceData, selectedTokenId, targetData, userId } = doorData
+
+    result.status = ......
+
+    // DO SOMETHING AND RETURN A IMAGE PATH
+    
+    return result;
+})
 
 ## Systems
 

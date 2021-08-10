@@ -1,4 +1,6 @@
 export class ImageReplacerData {
-  iconMain:string = "";
+  iconMainImage:string = "";
+  iconMainReplacer:string = "";
   iconsDamageType:string[] = new Array();
+  
 }
