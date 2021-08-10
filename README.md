@@ -30,52 +30,85 @@ To install this module manually:
 
 ## Hooks (on developing, but any feedback is more than welcome)
 
-Hooks are only executed for the user using the door.
+Hooks :
 
-`PreArmsReachInteraction` is called before the interaction with a door is executed. When any of executed hooks return `false` the interaction is aborted.
+`ChatPortraitPreStyling` is called before the interaction with the chat is executed. When any of executed hooks return `false` the interaction is aborted with the default one.
 
-`ReplaceArmsReachInteraction` is called like a replacement to the standard interaction with a door, so any system or GM can use a customized version.
 
-### Door Data
+`ChatPortraitReplaceData` is called like a replacement to the standard chat portrait recovery image, so any system or GM can use a customized version for a specific module.
+
+### Image Replacer Data
 
 ```js
-const doorData = {
-    /// door data of the source door (WARNING: this data may change in the future)
-    sourceData,
-    /// id of the token (tokens interaction with the door)
-    selectedOrOwnedTokenId,
-    /// door data of the target data (WARNING: this data may change in the future)
-    targetData,
-    /// id of the user using the door (current user)
-    userId
+
+const chatPortraitCustomData = {
+    /// url or file string reference to the image portrait path
+    iconMainCustomImage,
+    /// (on developing) url or file string reference to the image replacer portrait path
+    iconMainCustomReplacer: 
+    // OTHER SETTINGS BY REQUEST
 }
 
 /// WARNING: internal data - do not use if possible
-// sourceData and targetData schema is defined in: src/module/models.ts (or module/models.js)
+// data schema is defined in: src/module/ChatPortraitModels.ts (or module/ChatPortraitModels.js)
 ```
 
 ### Example
 
+Use your own code to enable/disable the module chat-portrait...
+
 ```js
 
-// REPLACE THE DEFAULT CHAT PORTRAIT IMAGE WIHT A CUTOM ONE
-// THIS WILL OVERRIDE ANY OTHER SETTING
+// DO SOME CHECK 'BEFORE' APPLY THE CHAT PORTRAIT STYLING
 
-const result = { status: 0 }; // PUT YOUR OBJECT
-Hooks.call('ReplaceArmsReachInteraction', imageReplacerData, result);
-// and then i'll do something with `result.status`
+Hooks.call('ChatPortraitPreStyling');
 
-// How you can use this....
+```
 
-Hooks.on('ReplaceArmsReachInteraction', (doorData, result) => {
-    const { sourceData, selectedTokenId, targetData, userId } = doorData
+How you can use this on your code....
 
-    result.status = ......
+```js
 
-    // DO SOMETHING AND RETURN A IMAGE PATH
-    
-    return result;
+Hooks.on('ChatPortraitPreStyling', () => {
+
+    // DO SOMETHING AND RETURN OR TRUE OR FALSE FOR ENABLE THE MODULE CHAT PORTRAIT
 })
+
+```
+
+Use your own code for give me a customized image reference to put on the portrait , if you want you can give me a specific image reference for the 'Image Replacer" feature.
+
+```js
+
+const chatPortraitCustomData = { 
+  iconMainCustomImage: "http://myimageurl/test.png",
+  iconMainCustomReplacer: "", // On developing
+}; 
+
+Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData);
+// and then i'll do something with `chatPortraitCustomData.iconMainCustomImage`
+
+const blabla = chatPortraitCustomData;
+
+```
+
+How you can use this on your code....
+
+```js
+
+Hooks.on('ChatPortraitReplaceData', (chatPortraitCustomData) => {
+    const { iconMainCustomImage, iconMainCustomReplacer} = chatPortraitCustomData;
+
+    // Set your own image
+
+    chatPortraitCustomData.iconMainCustomImage = ......
+
+    // DO SOMETHING AND RETURN A NUMBER ON chatPortraitCustomData
+    
+    return chatPortraitCustomData; // this is blabla
+})
+
+```
 
 ## Systems
 

@@ -1,3 +1,9 @@
+## 0.5.0
+
+- Some bug fix
+- Fix a incompativility with Dmaage Log module
+- Add some hooks
+
 ## 0.4.9
 
 - Bug fix wildcard image token

@@ -4,7 +4,7 @@ import { ChatLink } from "./chatlink.js";
 import { SettingsForm } from "./ChatPortraitForm.js";
 import { imageReplacerDamageType } from "./ImageReplacer.js";
 import { INV_UNIDENTIFIED_BOOK, CHAT_PORTRAIT_MODULE_NAME, getGame, getCanvas } from "./settings.js";
-import { ImageReplacerData } from "./ImageReplacerData.js";
+import { ImageReplacerData } from "./ChatPortraitModels.js";
 import { isMonkTokenBarXP } from "./CompatibilityModuleSettings.js";
 /**
  * Main class wrapper for all of our features.
@@ -17,6 +17,10 @@ export class ChatPortrait {
      */
     static onRenderChatMessage(chatMessage, html, speakerInfo, imageReplacer) {
         let doNotStyling = false;
+        // PreHook (can abort the interaction with the door)
+        if (Hooks.call('ChatPortraitPreStyling') === false) {
+            return html;
+        }
         if (!ChatPortrait.shouldOverrideMessageStyling(speakerInfo)) {
             // Do not style this
             doNotStyling = true;
@@ -150,6 +154,14 @@ export class ChatPortrait {
         else {
             imgPath = ChatPortrait.loadActorImagePathForChatMessage(html, speaker);
         }
+        const chatPortraitCustomData = {
+            iconMainCustomImage: imgPath,
+            iconMainCustomReplacer: "",
+        };
+        Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData);
+        if (chatPortraitCustomData.iconMainCustomImage) {
+            imgPath = chatPortraitCustomData.iconMainCustomImage;
+        }
         return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement) => {
             const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
             // Very very rare use case ????
@@ -255,11 +267,11 @@ export class ChatPortrait {
                     }
                     if (elementItemName) {
                         let value = "";
-                        let images = { iconMain: "", iconsDamageType: [] };
+                        let images = { iconMainReplacer: "", iconsDamageType: [] };
                         if (ChatPortrait.useImageReplacer(html)) {
                             images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText, elementItemContentList[i]);
-                            if (images && images.iconMain) {
-                                value = images.iconMain;
+                            if (images && images.iconMainReplacer) {
+                                value = images.iconMainReplacer;
                             }
                         }
                         if (value) {
@@ -442,11 +454,11 @@ export class ChatPortrait {
                         elementItemText.classList.add("chat-portrait-text-size-name");
                     }
                     let value = "";
-                    let images = { iconMain: "", iconsDamageType: [] };
+                    let images = { iconMainReplacer: "", iconsDamageType: [] };
                     if (ChatPortrait.useImageReplacer(html)) {
                         images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText, elementItemContentList[i]);
-                        if (images && images.iconMain) {
-                            value = images.iconMain;
+                        if (images && images.iconMainReplacer) {
+                            value = images.iconMainReplacer;
                         }
                     }
                     if (value) {
@@ -1050,7 +1062,7 @@ export class ChatPortrait {
                                     keyValue = keyValue.toLowerCase().trim();
                                     if (text.trim().indexOf(keyValue) !== -1) {
                                         //value.push(imageReplacer[key]);
-                                        value.iconMain = imageReplacer[key];
+                                        value.iconMainReplacer = imageReplacer[key];
                                         break;
                                     }
                                 }

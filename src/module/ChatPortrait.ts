@@ -6,7 +6,7 @@ import { ChatPortraitSettings } from "./ChatPortraitSettings";
 import { imageReplacerDamageType, ImageReplacerImpl } from "./ImageReplacer";
 import { MessageRenderData } from "./MessageRenderData";
 import { INV_UNIDENTIFIED_BOOK, CHAT_PORTRAIT_MODULE_NAME, getGame, getCanvas } from "./settings";
-import { ImageReplacerData } from './ImageReplacerData';
+import { ChatPortraitCustomData, ImageReplacerData } from './ChatPortraitModels';
 import { isMonkTokenBarXP } from './CompatibilityModuleSettings';
 
 /**
@@ -26,6 +26,11 @@ export class ChatPortrait {
         imageReplacer): JQuery<HTMLElement>{
 
       let doNotStyling = false;
+
+      // PreHook (can abort the interaction with the door)
+      if (Hooks.call('ChatPortraitPreStyling') === false) {
+        return html;
+      }
 
       if(!ChatPortrait.shouldOverrideMessageStyling(speakerInfo)){
         // Do not style this
@@ -178,6 +183,18 @@ export class ChatPortrait {
         }else{
             imgPath = ChatPortrait.loadActorImagePathForChatMessage(html,speaker);
         }
+
+        const chatPortraitCustomData:ChatPortraitCustomData = { 
+          iconMainCustomImage: imgPath,
+          iconMainCustomReplacer: "",
+        }; 
+        
+        Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData);
+
+        if(chatPortraitCustomData.iconMainCustomImage){
+          imgPath = chatPortraitCustomData.iconMainCustomImage;
+        }
+
         return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement)=>{
 
             const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
@@ -292,7 +309,7 @@ export class ChatPortrait {
                     }
                     if(elementItemName){
                         let value: string = "";
-                        let images:ImageReplacerData = { iconMainImage:"", iconMainReplacer:"", iconsDamageType:[] };
+                        let images:ImageReplacerData = { iconMainReplacer:"", iconsDamageType:[] };
                         if(ChatPortrait.useImageReplacer(html)){
                           images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText, elementItemContentList[i]);
                           if(images && images.iconMainReplacer){
@@ -485,7 +502,7 @@ export class ChatPortrait {
                       elementItemText.classList.add("chat-portrait-text-size-name");
                     }
                     let value:string = "";
-                    let images:ImageReplacerData = { iconMainImage:"", iconMainReplacer:"", iconsDamageType:[] };
+                    let images:ImageReplacerData = { iconMainReplacer:"", iconsDamageType:[] };
                     if(ChatPortrait.useImageReplacer(html)){
                       images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText, elementItemContentList[i]);
                       if(images && images.iconMainReplacer){
