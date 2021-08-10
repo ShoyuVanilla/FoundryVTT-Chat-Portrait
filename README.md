@@ -37,7 +37,7 @@ Hooks :
 
 `ChatPortraitReplaceData` is called like a replacement to the standard chat portrait recovery image, so any system or GM can use a customized version for a specific module.
 
-### Image Replacer Data
+### Chat Portrait Custom Data
 
 ```js
 
