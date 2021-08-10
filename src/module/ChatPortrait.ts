@@ -599,6 +599,8 @@ export class ChatPortrait {
                           elementItemText.prepend(elementItemImage);
                       }else{
                           if(ChatPortrait.useImageReplacer(html)){
+                            // REMOVED SEEM OVERKILL
+                            /*
                             const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
                             const size: number = ChatPortrait.settings.portraitSizeItem;
                             if(size && size > 0){
@@ -612,6 +614,7 @@ export class ChatPortrait {
                               elementItemImage.classList.add("message-portrait");
                             }
                             elementItemText.prepend(elementItemImage);
+                            */
                           }
                       }
                     }
@@ -733,44 +736,52 @@ export class ChatPortrait {
               }
             }else{
               tokenData = token.data;
-            }           
+            }  
+            
+            let imgToken:string = "";
+            if(tokenData){
+              if(useTokenImage){
+                if (tokenData?.img) {
+                  imgToken = tokenData.img;
+                }
+
+                if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.img) {
+                  imgToken = tokenData?.data?.img;
+                }
+              }else{
+                if (tokenData?.actorData?.img) {
+                  imgToken = tokenData.actorData.img;
+                }
+
+                if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.actorData?.img) {
+                  imgToken = tokenData.data?.actorData.img;
+                }
+              }
+              // if((!imgToken || ChatPortrait.isWildcardImage(imgToken)) || imgToken.includes("mystery-man")){
+                //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
+                //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
+              //}
+              
+              if(imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes("mystery-man")){
+                return imgToken;
+              }
+            }
         }
 
-        let imgToken:string = "";
-        if(tokenData){
-          if(useTokenImage){
-            if (tokenData?.img) {
-              imgToken = tokenData.img;
-            }
-
-            if (!imgToken && tokenData?.data?.img) {
-              imgToken = tokenData?.data?.img;
-            }
-          }else{
-            if (tokenData?.actorData?.img) {
-              imgToken = tokenData.actorData.img;
-            }
-
-            if (!imgToken && tokenData?.data?.actorData?.img) {
-              imgToken = tokenData.data?.actorData.img;
-            }
-          }
-          // if(!imgToken || imgToken.includes("mystery-man")){
-            //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
-            //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
-          //}
-          if(imgToken && !imgToken.includes("mystery-man")){
-            return imgToken;
-          }
-        }
         let imgActor:string = "";
-        if(actor && (!imgToken || imgToken.includes("mystery-man"))){
+        if(actor){
 
           if((!imgActor || imgActor.includes("mystery-man")) && useTokenImage){
             imgActor = <string>actor?.data.token.img;
+            if(imgActor && ChatPortrait.isWildcardImage(imgActor)){
+              imgActor = "";
+            }
           }
           if((!imgActor || imgActor.includes("mystery-man")) && useTokenImage){
-            imgActor= <string>actor?.token?.data?.img
+            imgActor = <string>actor?.token?.data?.img
+            if(imgActor && ChatPortrait.isWildcardImage(imgActor)){
+              imgActor = "";
+            }
           }
           if(!imgActor || imgActor.includes("mystery-man")){
             imgActor = <string>actor?.data.img;
@@ -1595,6 +1606,12 @@ export class ChatPortrait {
     // If more than half chat log height above the actual bottom, don't do the scroll.
     const propOfClientHeightScrolled = (log.scrollHeight - log.clientHeight - log.scrollTop) / log.clientHeight;
     return propOfClientHeightScrolled <= 0.5;
+  }
+
+  static isWildcardImage(imgUrl){
+    let filename = imgUrl.split('/').pop();
+    let baseFileName = filename.substr(0, filename.lastIndexOf('.'));
+    return baseFileName == "*";
   }
 
 }

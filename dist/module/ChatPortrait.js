@@ -555,19 +555,22 @@ export class ChatPortrait {
                         }
                         else {
                             if (ChatPortrait.useImageReplacer(html)) {
-                                const elementItemImage = document.createElement("img");
-                                const size = ChatPortrait.settings.portraitSizeItem;
-                                if (size && size > 0) {
-                                    elementItemImage.width = size;
-                                    elementItemImage.height = size;
+                                // REMOVED SEEM OVERKILL
+                                /*
+                                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                const size: number = ChatPortrait.settings.portraitSizeItem;
+                                if(size && size > 0){
+                                  elementItemImage.width = size;
+                                  elementItemImage.height = size;
                                 }
-                                if (!elementItemImage.src || elementItemImage.src?.includes("mystery-man")) {
-                                    elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                                if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                                 }
-                                if (!elementItemImage.classList.contains("message-portrait")) {
-                                    elementItemImage.classList.add("message-portrait");
+                                if(!elementItemImage.classList.contains("message-portrait")){
+                                  elementItemImage.classList.add("message-portrait");
                                 }
                                 elementItemText.prepend(elementItemImage);
+                                */
                             }
                         }
                     }
@@ -691,40 +694,46 @@ export class ChatPortrait {
                 else {
                     tokenData = token.data;
                 }
-            }
-            let imgToken = "";
-            if (tokenData) {
-                if (useTokenImage) {
-                    if (tokenData?.img) {
-                        imgToken = tokenData.img;
+                let imgToken = "";
+                if (tokenData) {
+                    if (useTokenImage) {
+                        if (tokenData?.img) {
+                            imgToken = tokenData.img;
+                        }
+                        if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.img) {
+                            imgToken = tokenData?.data?.img;
+                        }
                     }
-                    if (!imgToken && tokenData?.data?.img) {
-                        imgToken = tokenData?.data?.img;
+                    else {
+                        if (tokenData?.actorData?.img) {
+                            imgToken = tokenData.actorData.img;
+                        }
+                        if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.actorData?.img) {
+                            imgToken = tokenData.data?.actorData.img;
+                        }
                     }
-                }
-                else {
-                    if (tokenData?.actorData?.img) {
-                        imgToken = tokenData.actorData.img;
+                    // if((!imgToken || ChatPortrait.isWildcardImage(imgToken)) || imgToken.includes("mystery-man")){
+                    //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
+                    //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
+                    //}
+                    if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes("mystery-man")) {
+                        return imgToken;
                     }
-                    if (!imgToken && tokenData?.data?.actorData?.img) {
-                        imgToken = tokenData.data?.actorData.img;
-                    }
-                }
-                // if(!imgToken || imgToken.includes("mystery-man")){
-                //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
-                //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
-                //}
-                if (imgToken && !imgToken.includes("mystery-man")) {
-                    return imgToken;
                 }
             }
             let imgActor = "";
-            if (actor && (!imgToken || imgToken.includes("mystery-man"))) {
+            if (actor) {
                 if ((!imgActor || imgActor.includes("mystery-man")) && useTokenImage) {
                     imgActor = actor?.data.token.img;
+                    if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
+                        imgActor = "";
+                    }
                 }
                 if ((!imgActor || imgActor.includes("mystery-man")) && useTokenImage) {
                     imgActor = actor?.token?.data?.img;
+                    if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
+                        imgActor = "";
+                    }
                 }
                 if (!imgActor || imgActor.includes("mystery-man")) {
                     imgActor = actor?.data.img;
@@ -1158,6 +1167,11 @@ export class ChatPortrait {
         whisperParticipants.append(whisperFrom);
         whisperParticipants.append(whisperTo);
         messageHeader.append(whisperParticipants);
+    }
+    static isWildcardImage(imgUrl) {
+        let filename = imgUrl.split('/').pop();
+        let baseFileName = filename.substr(0, filename.lastIndexOf('.'));
+        return baseFileName == "*";
     }
 }
 ChatPortrait.getActorName = function (speaker) {
