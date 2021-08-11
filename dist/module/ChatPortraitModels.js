@@ -6,7 +6,6 @@ export class ImageReplacerData {
 }
 export class ChatPortraitCustomData {
     constructor() {
-        this.iconMainCustomImage = "";
-        this.iconMainCustomReplacer = "";
+        this.customIconPortraitImage = "";
     }
 }

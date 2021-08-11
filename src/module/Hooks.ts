@@ -11,7 +11,7 @@ export let readyHooks = async () => {
 export const setupHooks = async () => {
 
   // setup all the hooks
-  let imageReplacer;
+  let imageReplacer:Record<string,string>;
   if(ChatPortrait.settings.useImageReplacer){
     imageReplacer = ImageReplacerInit();
   }

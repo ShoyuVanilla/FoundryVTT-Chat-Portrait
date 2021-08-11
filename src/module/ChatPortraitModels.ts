@@ -4,6 +4,6 @@ export class ImageReplacerData {
 }
 
 export class ChatPortraitCustomData{
-  iconMainCustomImage:string = "";
-  iconMainCustomReplacer:string = "";
+  customIconPortraitImage:string = "";
+  customImageReplacer:Record<string,string>
 }

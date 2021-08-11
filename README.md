@@ -43,9 +43,9 @@ Hooks :
 
 const chatPortraitCustomData = {
     /// url or file string reference to the image portrait path
-    iconMainCustomImage,
+    customIconPortraitImage,
     /// (on developing) url or file string reference to the image replacer portrait path
-    iconMainCustomReplacer: 
+    customImageReplacer
     // OTHER SETTINGS BY REQUEST
 }
 
@@ -81,12 +81,13 @@ Use your own code for give me a customized image reference to put on the portrai
 ```js
 
 const chatPortraitCustomData = { 
-  iconMainCustomImage: "http://myimageurl/test.png",
-  iconMainCustomReplacer: "", // On developing
+  customIconPortraitImage: "http://myimageurl/test.png",
+  customImageReplacer: imageReplacer, // Customize your own imageReplacer
 }; 
 
-Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData);
-// and then i'll do something with `chatPortraitCustomData.iconMainCustomImage`
+Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData, chatMessage);
+
+// and then i'll do something with `chatPortraitCustomData`
 
 const blabla = chatPortraitCustomData;
 
@@ -96,14 +97,13 @@ How you can use this on your code....
 
 ```js
 
-Hooks.on('ChatPortraitReplaceData', (chatPortraitCustomData) => {
-    const { iconMainCustomImage, iconMainCustomReplacer} = chatPortraitCustomData;
-
+Hooks.on('ChatPortraitReplaceData', (chatPortraitCustomData, chatMessage) => {
+   
     // Set your own image
 
-    chatPortraitCustomData.iconMainCustomImage = ......
+    chatPortraitCustomData.customIconPortraitImage = ......
 
-    // DO SOMETHING AND RETURN A NUMBER ON chatPortraitCustomData
+    // DO SOMETHING AND RETURN A NEW chatPortraitCustomData
     
     return chatPortraitCustomData; // this is blabla
 })

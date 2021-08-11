@@ -23,7 +23,7 @@ export class ChatPortrait {
         chatMessage: ChatMessage, 
         html:JQuery<HTMLElement>, 
         speakerInfo,
-        imageReplacer): JQuery<HTMLElement>{
+        imageReplacer:Record<string,string>): JQuery<HTMLElement>{
 
       let doNotStyling = false;
 
@@ -149,7 +149,7 @@ export class ChatPortrait {
      * @param  {JQuery} html
      * @param  {MessageRenderData} messageData
      */
-    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery<HTMLElement>, speakerInfo, messageSender:HTMLElement,messageHeader:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer): Promise<JQuery<HTMLElement>> {
+    static onRenderChatMessageInternal(chatMessage: ChatMessage, html:JQuery<HTMLElement>, speakerInfo, messageSender:HTMLElement,messageHeader:HTMLElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer:Record<string,string>): Promise<JQuery<HTMLElement>> {
 
         let messageDataBase:MessageRenderData = speakerInfo;
         let imgPath: string;
@@ -185,16 +185,20 @@ export class ChatPortrait {
         }
 
         const chatPortraitCustomData:ChatPortraitCustomData = { 
-          iconMainCustomImage: imgPath,
-          iconMainCustomReplacer: "",
+          customIconPortraitImage: imgPath,
+          customImageReplacer: imageReplacer
         }; 
         
-        Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData);
+        Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData, chatMessage);
 
-        if(chatPortraitCustomData.iconMainCustomImage){
-          imgPath = chatPortraitCustomData.iconMainCustomImage;
+        if(chatPortraitCustomData.customIconPortraitImage){
+          imgPath = chatPortraitCustomData.customIconPortraitImage;
         }
-
+        // ty to Mejari for the contribute
+        let imageReplacerToUse = imageReplacer;
+        if(!!chatPortraitCustomData.customImageReplacer && typeof chatPortraitCustomData.customImageReplacer == 'object') {
+          imageReplacerToUse = chatPortraitCustomData.customImageReplacer;
+        }
         return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement)=>{
 
             const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
@@ -311,7 +315,7 @@ export class ChatPortrait {
                         let value: string = "";
                         let images:ImageReplacerData = { iconMainReplacer:"", iconsDamageType:[] };
                         if(ChatPortrait.useImageReplacer(html)){
-                          images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemName.innerText, elementItemContentList[i]);
+                          images = ChatPortrait.getImagesReplacerAsset(imageReplacerToUse, elementItemName.innerText, elementItemContentList[i]);
                           if(images && images.iconMainReplacer){
                             value = images.iconMainReplacer;
                           }
@@ -504,7 +508,7 @@ export class ChatPortrait {
                     let value:string = "";
                     let images:ImageReplacerData = { iconMainReplacer:"", iconsDamageType:[] };
                     if(ChatPortrait.useImageReplacer(html)){
-                      images = ChatPortrait.getImagesReplacerAsset(imageReplacer, elementItemText.innerText, elementItemContentList[i]);
+                      images = ChatPortrait.getImagesReplacerAsset(imageReplacerToUse, elementItemText.innerText, elementItemContentList[i]);
                       if(images && images.iconMainReplacer){
                         value = images.iconMainReplacer;
                       }

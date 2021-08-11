@@ -1,3 +1,7 @@
+## 0.5.1
+
+- Integration of the feture request for better hooks [Feature Request: Ability for modules to add custom message-portrait images](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/73)
+
 ## 0.5.0
 
 - Some bug fix
