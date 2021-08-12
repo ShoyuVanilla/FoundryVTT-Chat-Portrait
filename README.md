@@ -110,6 +110,25 @@ Hooks.on('ChatPortraitReplaceData', (chatPortraitCustomData, chatMessage) => {
 
 ```
 
+### Full Example
+
+```
+Hooks.on('ChatPortraitReplaceData', (chatPortraitCustomData, chatMessage) => {
+	const speaker = ChatMessage.getSpeakerActor(chatMessage.data.speaker);
+	if('KW_WarfareUnitSheet' === speaker?.sheet?.constructor.name) {
+		chatPortraitCustomData.iconMainCustomReplacer = {
+			"KW_WARFARE.Power": "systems/dnd5e/icons/skills/yellow_08.jpg",
+			"KW_WARFARE.Attack": "systems/dnd5e/icons/skills/red_31.jpg",
+			"KW_WARFARE.Morale": "systems/dnd5e/icons/skills/yellow_17.jpg",
+			"KW_WARFARE.Command": "systems/dnd5e/icons/skills/ice_16.jpg"
+		};
+	}
+	return chatPortraitCustomData;
+});
+```
+
+![hooks feature](./images/hooks_feature.png)
+
 ## Systems
 
 For now the following system are the only one i tested
