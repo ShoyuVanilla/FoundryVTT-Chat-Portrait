@@ -1,3 +1,7 @@
+## 0.5.2
+
+- Bug fix [Missing character sheet portraits on initiative rolls](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/75)
+
 ## 0.5.1
 
 - Integration of the feture request for better hooks [Feature Request: Ability for modules to add custom message-portrait images](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/73)

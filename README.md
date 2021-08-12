@@ -140,11 +140,11 @@ any other system need some fed back from the community
 
 ## Features/Settings
 
-- Use Token Image: Use the actor's Token image instead of the actor's standard image. Note: In the event the token associated with a chat message no longer exists, it will use the actor's prototype token's name. In the event the actor no longer exists, it will show "Unknown Actor" to all players, and the original chat message's alias (usually the actor's name) to the GM.
+- Use Token Image: Use the actor's Token image instead of the actor's standard image. Note: In the event the token associated with a chat message no longer exists, it will use the actor's prototype token's name. In the event the actor no longer exists, it will try to get the avatar image of the player/GM, and the original chat message's alias (usually the actor's name) to the GM.
 
 - Use Token Name: Use the actor's Token name instead of the actor's standard name.
 
-- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. if true ignore the first option if a avatar image is not found is going back to the standard actor/token image of the 'mistery man', this option is ignored if you are the GM or else everything you click has the avatar image of the GM expcet the OOC chat message. NOTE: Every OOC message by default activate this mode (because make sense no token must be associated with a OOC message).
+- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. if true ignore the first option if a avatar image is not found is going back to the standard actor/token image of the 'mistery man', this option is ignored if you are the GM or else because everything you click will have the avatar image of the GM expect for the OOC chat message. NOTE: Every OOC message by default activate this mode because make sense no token must be associated with a OOC message even for player.
 
 ![avatar](./images/use_image_avatar_feature.png)
 

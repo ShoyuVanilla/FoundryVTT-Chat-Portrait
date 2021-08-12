@@ -633,7 +633,8 @@ export class ChatPortrait {
             }
         }
         if (speaker) {
-            if (!speaker.token && !speaker.actor) {
+            // CASE 1
+            if ((!speaker.token && !speaker.actor) || ChatPortrait.settings.useAvatarImage) {
                 if (message.user && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)) {
                     const imgAvatar = ChatPortrait.getUserAvatarImage(message);
                     if (imgAvatar && !imgAvatar.includes("mystery-man")) {
@@ -644,8 +645,8 @@ export class ChatPortrait {
                         return imgAvatar ? imgAvatar : imgFinal;
                     }
                 }
-                else {
-                    if (message.user) {
+                else if (!speaker.token && !speaker.actor) {
+                    if (message.user && ChatPortrait.settings.useAvatarImage) {
                         const imgAvatar = ChatPortrait.getUserAvatarImage(message);
                         if (imgAvatar && !imgAvatar.includes("mystery-man")) {
                             return imgAvatar;
@@ -775,7 +776,21 @@ export class ChatPortrait {
             //return  useTokenImage ? <string>actor?.data.token.img : <string>actor?.img;
             //return useTokenImage ? actor?.data?.token?.img : actor.data.img;
         }
-        return imgFinal;
+        else if (message && message.user) {
+            // CASE 2
+            const imgAvatar = ChatPortrait.getUserAvatarImage(message);
+            if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+                return imgAvatar;
+            }
+            else {
+                warn("No specific avatar player image found it for player '" + ChatPortrait.getUserName(message) + "'");
+                return imgAvatar ? imgAvatar : imgFinal;
+            }
+        }
+        else {
+            // CASE 3    
+            return imgFinal;
+        }
     }
     /**
      * Generate portrait HTML Image Element to insert into chat messages.
