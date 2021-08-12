@@ -181,7 +181,7 @@ export class ChatPortrait {
         if(ChatPortrait.shouldOverrideMessageUnknown(messageDataBase)){
             imgPath = "icons/svg/mystery-man.svg";
         }else{
-            imgPath = ChatPortrait.loadActorImagePathForChatMessage(html,speaker);
+            imgPath = ChatPortrait.loadImagePathForChatMessage(html,speaker);
         }
 
         const chatPortraitCustomData:ChatPortraitCustomData = { 
@@ -668,7 +668,7 @@ export class ChatPortrait {
      * @returns string
      */
     //static loadActorImagePathForChatMessage(speaker: {scene?: string;actor?: string;token?: string;alias?: string; }): string {
-    static loadActorImagePathForChatMessage(html:JQuery<HTMLElement>, speakerInfo): string {
+    static loadImagePathForChatMessage(html:JQuery<HTMLElement>, speakerInfo): string {
       const message = speakerInfo.message ? speakerInfo.message : speakerInfo.document;
       const speaker = message.speaker ? message.speaker : speakerInfo;
       const isOOC = ChatPortrait.getMessageTypeVisible(speakerInfo) === CONST.CHAT_MESSAGE_TYPES.OOC;
@@ -997,6 +997,7 @@ export class ChatPortrait {
             displayMessageTag: SettingsForm.getDisplayMessageTag(),
             useImageReplacer: SettingsForm.getUseImageReplacer(),
             useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
+            applyOnCombatTracker: SettingsForm.getApplyOnCombatTracker(),
         };
     }
 
@@ -1037,7 +1038,8 @@ export class ChatPortrait {
             customStylingMessageText: '',
             displayMessageTag: false,
             useImageReplacer: true,
-            useImageReplacerDamageType: true
+            useImageReplacerDamageType: true,
+            applyOnCombatTracker: false,
         }
     }
 
@@ -1104,6 +1106,22 @@ export class ChatPortrait {
             actor = getGame().actors?.find((a: Actor) => a.data.token.name === speaker.alias);
         }
         return actor;
+    }
+
+    static getActorFromActorID(actorID, tokenID):Actor|undefined{
+      let actor =  getGame().actors?.get(actorID);
+      if(!actor){
+        actor = getGame().actors?.tokens[tokenID];
+      }
+      if (!actor) {
+          //actor = getGame().actors.get(actorID); // Deprecated on 0.8.6
+          actor = Actors.instance.get(actorID);
+      }
+      // const forceNameSearch = ChatPortrait.settings.forceNameSearch;
+      // if (!actor && forceNameSearch) {
+      //     actor = getGame().actors?.find((a: Actor) => a.data.token.name === speaker.alias);
+      // }
+      return actor;
     }
 
     static getActorName = function(speaker) {
@@ -1273,6 +1291,18 @@ export class ChatPortrait {
       return false;
     }
 
+    static isGMFromUserID = function(userID){
+      if(userID){
+        let user = getGame().users?.get(userID);
+        if (user) {
+          return user.isGM;
+        }else{
+          return false;
+        }
+      }
+      return false;
+    }
+
     static shouldOverrideMessageUnknown = function(message) {
         const speaker = message?.message?.speaker;
         let actor;
@@ -1382,11 +1412,31 @@ export class ChatPortrait {
       return "icons/svg/mystery-man.svg";
     }
 
+    static getUserAvatarImageFromUserID = function(userId:string):string{
+      let user = getGame().users?.get(userId);
+      if(user){
+        if(user.data && user.data.avatar){ // image path
+          return user.data.avatar;
+        }
+      }
+      return "icons/svg/mystery-man.svg";
+    }
+
     static getUserName = function(message):string{
       let user = getGame().users?.get(message.user);
       if(!user){
           user = getGame().users?.get(message.user.id);
       }
+      if(user){
+        if(user.data && user.data.avatar){ // image path
+            return user.data.name;
+        }
+      }
+      return "";
+    }
+
+    static getUserNameFromUserID = function(userID):string{
+      let user = getGame().users?.get(userID);
       if(user){
         if(user.data && user.data.avatar){ // image path
             return user.data.name;
@@ -1644,6 +1694,170 @@ export class ChatPortrait {
     let filename = imgUrl.split('/').pop();
     let baseFileName = filename.substr(0, filename.lastIndexOf('.'));
     return baseFileName == "*";
+  }
+
+  static loadImagePathForCombatTracker(tokenID:string, actorID:string, userID:string, sceneID:string, isOwnedFromPLayer:boolean): string {
+
+    let imgFinal:string = "icons/svg/mystery-man.svg";
+    //
+      // CASE 1
+      if ((!tokenID && !actorID) || ChatPortrait.settings.useAvatarImage){
+        if(userID && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)){
+          const imgAvatar:string = ChatPortrait.getUserAvatarImageFromUserID(userID);
+          if(imgAvatar && !imgAvatar.includes("mystery-man")){
+            return imgAvatar;
+          }else{
+            warn("No specific avatar player image found it for player '"+ChatPortrait.getUserNameFromUserID(userID)+"'");
+            return imgAvatar ? imgAvatar : imgFinal;
+          }
+        }else if(!tokenID && !actorID){
+          if(userID && ChatPortrait.settings.useAvatarImage){
+            const imgAvatar:string = ChatPortrait.getUserAvatarImageFromUserID(userID);
+            if(imgAvatar && !imgAvatar.includes("mystery-man")){
+              return imgAvatar;
+            }else{
+              // This is just a partial solution....
+              // const currentToken:Token = ChatPortrait.getFirstPlayerToken();
+              // if(currentToken){
+              //   speaker.token = currentToken;
+              //   return currentToken.data.img;
+              // }else{
+              
+              //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");              
+              //return imgAvatar ? imgAvatar : imgFinal;
+
+              // }
+            }
+          }else{
+            //warn("No message user is found");
+            return imgFinal;
+          }
+        }
+      }
+      // It's a chat message associated with an actor
+      const useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
+      const actor = ChatPortrait.getActorFromActorID(actorID, tokenID);
+      // Make sense only for player and for non GM
+      if(actor?.type == "character" && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)){
+          const imgAvatar:string = ChatPortrait.getUserAvatarImageFromUserID(userID);
+          if(imgAvatar && !imgAvatar.includes("mystery-man")){
+            return imgAvatar;
+          }else{
+            //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");
+          }
+      }
+
+      let token:TokenDocument;
+      //@ts-ignore
+      let tokenData:TokenData;
+      if (tokenID) {
+          token = <TokenDocument>ChatPortrait.getTokenFromScene(sceneID, tokenID)?.document;
+          if(!token){
+            token = <TokenDocument>ChatPortrait.getTokenFromId(tokenID)?.document;
+          }
+          if(!token && actorID){
+            token = <TokenDocument>ChatPortrait.getTokenFromActor(actorID)?.document;
+          }
+          // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
+          if (!token) {
+            try{
+              token = <TokenDocument>getCanvas()?.tokens?.getDocuments().find((token:TokenDocument) => token.id === tokenID);
+              //token = getCanvas()?.tokens?.getDocuments().find(speaker.token);
+            }catch(e){
+              // Do nothing
+            }
+            if(!token){
+              tokenData = getGame().scenes?.get(sceneID)?.data?.tokens?.find(t => t._id === tokenID); // Deprecated on 0.8.6
+            }else{
+              tokenData = token.data;
+            }
+          }else{
+            tokenData = token.data;
+          }  
+          
+          let imgToken:string = "";
+          if(tokenData){
+            if(useTokenImage){
+              if (tokenData?.img) {
+                imgToken = tokenData.img;
+              }
+
+              if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.img) {
+                imgToken = tokenData?.data?.img;
+              }
+            }else{
+              if (tokenData?.actorData?.img) {
+                imgToken = tokenData.actorData.img;
+              }
+
+              if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.actorData?.img) {
+                imgToken = tokenData.data?.actorData.img;
+              }
+            }
+            // if((!imgToken || ChatPortrait.isWildcardImage(imgToken)) || imgToken.includes("mystery-man")){
+              //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
+              //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
+            //}
+            
+            if(imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes("mystery-man")){
+              return imgToken;
+            }
+          }
+      }
+
+      // MOD COMBAT TRACKER NEED TOKEN RETRIEVE ANYWAY IF TOKEN IS NOT OWNED
+      let imgToken:string = "";
+      if(!useTokenImage && !isOwnedFromPLayer){
+        if (tokenData?.img) {
+          imgToken = tokenData.img;
+        }
+
+        if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.img) {
+          imgToken = tokenData?.data?.img;
+        }
+
+        if(imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes("mystery-man")){
+          return imgToken;
+        }
+      }
+      // END MOD COMBAT TRACKER IF TOKEN IS NOT OWNED
+
+      let imgActor:string = "";
+      if(actor){
+
+        if((!imgActor || imgActor.includes("mystery-man")) && useTokenImage){
+          imgActor = <string>actor?.data.token.img;
+          if(imgActor && ChatPortrait.isWildcardImage(imgActor)){
+            imgActor = "";
+          }
+        }
+        if((!imgActor || imgActor.includes("mystery-man")) && useTokenImage){
+          imgActor = <string>actor?.token?.data?.img
+          if(imgActor && ChatPortrait.isWildcardImage(imgActor)){
+            imgActor = "";
+          }
+        }
+        if(!imgActor || imgActor.includes("mystery-man")){
+          imgActor = <string>actor?.data.img;
+        }
+        if(imgActor && !imgActor.includes("mystery-man")){
+          return imgActor;
+        }
+      }
+      
+      let imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
+      // if (isMonkTokenBarXP(html)) {
+      //   return imgAvatar;
+      // }else {
+        if(imgAvatar && !imgAvatar.includes("mystery-man")){
+          return imgAvatar;
+        }else{
+          //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");
+          return imgAvatar ? imgAvatar : INV_UNIDENTIFIED_BOOK;
+        } 
+      // }
+      //return  useTokenImage ? <string>actor?.data.token.img : <string>actor?.img;
+      //return useTokenImage ? actor?.data?.token?.img : actor.data.img;
   }
 
 }

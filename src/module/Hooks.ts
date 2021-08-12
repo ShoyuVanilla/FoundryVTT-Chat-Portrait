@@ -1,10 +1,75 @@
-import { warn, error, debug, i18n } from "../main";
+import { warn, error, debug, i18n, log } from "../main";
 import { ChatPortrait } from "./ChatPortrait";
 import { ImageReplacerInit } from "./ImageReplacer";
 import { CHAT_PORTRAIT_MODULE_NAME, getGame } from "./settings";
 import { ChatSpeakerData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData";
+import EmbeddedCollection from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/embedded-collection.mjs";
+import { CombatData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
 
 export let readyHooks = async () => {
+
+    // When the combat tracker is rendered, we need to completely replace
+    // its HTML with a custom version.
+    Hooks.on('renderCombatTracker', async (app, html:JQuery<HTMLElement>, options) => {
+      if(ChatPortrait.settings.applyOnCombatTracker){
+        // If there's as combat, we can proceed.
+        if (getGame().combat) {
+          // Retrieve a list of the combatants
+          let combatants = <EmbeddedCollection<typeof Combatant, CombatData>>getGame().combat?.data.combatants;
+
+          combatants.forEach(async c => {
+            // Add class to trigger drag events.
+            let $combatant = html.find(`.combatant[data-combatant-id="${c.id}"]`);
+            //$combatant.addClass('actor-elem');
+            //@ts-ignore
+            let img:HTMLImageElement = $combatant.find('.token-image')[0];
+            let actorID = <string>c.actor?.id;
+            let tokenID = <string>c.token?.id;
+            let token:Token = <Token>ChatPortrait.getTokenFromId(tokenID);
+            let userID = "";
+            let isOwnedFromPLayer = false;
+            if(ChatPortrait.settings.useAvatarImage && !ChatPortrait.settings.useTokenImage){
+              // if user not admin is owner of the token
+              //userID = (!getGame().user?.isGM && token.actor?.hasPerm(<User>getGame().user, "OWNER")) ? <string>getGame().user?.id : "";
+              //userID = (!getGame().user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>getGame().user?.id : "";                 
+              let permissions:Record<string, 0 | 1 | 2 | 3> = <Record<string, 0 | 1 | 2 | 3>>token.document.actor?.data.permission;
+              for (let keyPermission in permissions) {
+                let valuePermission = <number>permissions[keyPermission];
+                if(getGame().user?.isGM){
+                  if(getGame().user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER){
+                    userID = <string>keyPermission
+                    break;
+                  }
+                }else{
+                  if(getGame().user?.id === keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER){
+                    userID = <string>getGame().user?.id;
+                    isOwnedFromPLayer = true;
+                    break;
+                  }
+                }
+              }
+            }
+
+            let sceneID = <string>token.scene.id;
+            let imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
+
+            try {
+              let imgThumb = await ImageHelper.createThumbnail(imgPath);
+              if( imgPath.endsWith("webm")){
+                  img.src = imgThumb.thumb;
+              }else{
+                  img.src = <string>imgThumb.src;
+              }
+            } catch {
+                img.src = imgPath;
+            }
+
+            img.setAttribute('data-src',imgPath);
+
+          });
+        }
+      }
+    });
 
 }
 

@@ -207,6 +207,13 @@ export const registerSettings = function () {
     default: false
   });
 
+  getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
   getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySetting', {
     //name: "Display setting",
     //hint: "Configure which cards should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.",

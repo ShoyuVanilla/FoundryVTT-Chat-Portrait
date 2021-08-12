@@ -153,7 +153,7 @@ export class ChatLink {
         ChatLink.warning(ChatLink.playerWarning(speakerData));
     }
     static permissionToControl(user, token) {
-        return user.isGM || token.actor.hasPerm(user, "OWNER");
+        return user.isGM || token.actor?.hasPerm(user, "OWNER");
     }
     static doSelectToken(event, user, token) {
         let ctrlKey = event.ctrlKey;

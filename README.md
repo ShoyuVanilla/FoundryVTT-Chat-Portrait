@@ -140,45 +140,51 @@ any other system need some fed back from the community
 
 ## Features/Settings
 
-- Use Token Image: Use the actor's Token image instead of the actor's standard image. Note: In the event the token associated with a chat message no longer exists, it will use the actor's prototype token's name. In the event the actor no longer exists, it will try to get the avatar image of the player/GM, and the original chat message's alias (usually the actor's name) to the GM.
+- **Use Token Image**: Use the actor's Token image instead of the actor's standard image. Note: In the event the token associated with a chat message no longer exists, it will use the actor's prototype token's name. In the event the actor no longer exists, it will try to get the avatar image of the player/GM, and the original chat message's alias (usually the actor's name) to the GM.
 
-- Use Token Name: Use the actor's Token name instead of the actor's standard name.
+- **Use Token Name**: Use the actor's Token name instead of the actor's standard name.
 
-- Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image. if true ignore the first option if a avatar image is not found is going back to the standard actor/token image of the 'mistery man', this option is ignored if you are the GM or else because everything you click will have the avatar image of the GM expect for the OOC chat message. NOTE: Every OOC message by default activate this mode because make sense no token must be associated with a OOC message even for player.
+- **Use Avatar Player Image: Use the player's Avatar image instead of the token/actor standard image**. if true ignore the first option if a avatar image is not found is going back to the standard actor/token image of the 'mistery man', this option is ignored if you are the GM or else because everything you click will have the avatar image of the GM expect for the OOC chat message. NOTE: Every OOC message by default activate this mode because make sense no token must be associated with a OOC message even for player.
 
 ![avatar](./images/use_image_avatar_feature.png)
 
-- Shows the name of the player next to the name of the actor for any IC messages
+- **Apply chat portrait on combat tracker**: Apply the recovery of the image on the combat tracker. 
 
-- Portrait Size (px): Configure portrait image size on the chat messages. Default is 36 px
+  - If you are a GM and the combatant is not owned from any player the 'Use token image' feature is enabled anyway. 
+  - If you are a GM the 'Use Avatar Image feature' is ignored and the 'Use token image' feature is enabled anyway for all the tokens not owned from any player.
+  - If you are NOT a GM and is enable the 'Use avatar image' feature and the player owned more than a token in combat the image is the same (the avatar image of the player)
 
-- Portrait Border Shape: Configure border shape of the portraits displayed on the chat messages. Setting this as None disables other border options
+- **Shows the name of the player next to the name of the actor for any IC messages**
+
+- **Portrait Size (px)**: Configure portrait image size on the chat messages. Default is 36 px
+
+- **Portrait Border Shape**: Configure border shape of the portraits displayed on the chat messages. Setting this as None disables other border options
     - Square
     - Circle
     - None
 
-- Use Player Color for Portrait Border
+- **Use Player Color for Portrait Border**
   - Portrait Border Color
   - Portrait Border Width (px)
 
-- Configure portrait border width. Default is 2 px
+- **Configure portrait border width**. Default is 2 px
 
-- Change Color of Message Border: Use the actor's player's color for the border of the entire chat message
+- **Change Color of Message Border**: Use the actor's player's color for the border of the entire chat message
 
-- Change Color of Message Background: Use the actor's player's color for the background of the entire chat message
+- **Change Color of Message Background**: Use the actor's player's color for the background of the entire chat message
 
 
 ![background](./images/background_color_feature.png)
 
-- Display Chat Flavor Text next to Portrait
+- **Display Chat Flavor Text next to Portrait**
 
-- Force Name Search: If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module.
+- **Force Name Search**: If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module. This not work on the 'Combat Tracker feature'
 
-- Portrait Size for item (px): Configure portrait image size for item on the chat messages. Default is 36 px
+- **Portrait Size for item (px)**: Configure portrait image size for item on the chat messages. Default is 36 px
 
-- Double Click on the image portrait or the name of the token "pan to token" on the current scene
+- **Double Click on the image portrait or the name of the token "pan to token" on the current scene**
 
-- Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
+- **Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window**:
   - allCards : Affect every message.
   - selfAndGM : Affect own messages and GM messages.
   - self : Only affect own messages.
@@ -186,23 +192,23 @@ any other system need some fed back from the community
   - player : Only affect player messages.
   - none : Don't affect any messages.
 
-- Adds a textual tag to chat messages to easily identify whether the message is a whisper, blind roll, or self roll
+- **Adds a textual tag to chat messages to easily identify whether the message is a whisper, blind roll, or self roll**
 
-- Display chat message of type OTHER: Configure custom styling for message of type OTHER
+- **Display chat message of type OTHER**: Configure custom styling for message of type OTHER
 
-- Display chat message of type OOC: Configure custom styling for message of type OOC
+- **Display chat message of type OOC**: Configure custom styling for message of type OOC
 
-- Display chat message of type IC: Configure custom styling for message of type IC
+- **Display chat message of type IC**: Configure custom styling for message of type IC
 
-- Display chat message of type EMOTE: Configure custom styling for message of type EMOTE
+- **Display chat message of type EMOTE**: Configure custom styling for message of type EMOTE
   
-- Display chat message of type WHISPER: Configure custom styling for message of type WHISPER
+- **Display chat message of type WHISPER**: Configure custom styling for message of type WHISPER
 
-- Display chat message of type ROLL: Configure custom styling for message of type ROLL
+- **Display chat message of type ROLL**: Configure custom styling for message of type ROLL
  
-- Display chat message of whisper to other: Configure custom styling for message of whisper to other
+- **Display chat message of whisper to other**: Configure custom styling for message of whisper to other
 
-- Configure which cards should use the unknown custom styling, and which ones should be left as default. Changing this may require you to refresh your window.
+- **Configure which cards should use the unknown custom styling, and which ones should be left as default. Changing this may require you to refresh your window**:
   - allCards : Affect every message.
   - selfAndGM : Affect own messages and GM messages.
   - self : Only affect own messages.
@@ -213,17 +219,17 @@ any other system need some fed back from the community
 
 ![Unknown](./images/unknown_actor_and_weapon_feature.png)
 
-- Placeholder for the label unknown Actor name by default is 'Unknown Actor' depends on the 'Display Unknown' setting
+- **Placeholder for the label unknown Actor name**: by default is 'Unknown Actor' depends on the 'Display Unknown' setting
 
-- Placeholder for the label unknown item name by default is 'Unknown Item' depends on the 'Display Unknown' setting
+- **Placeholder for the label unknown item name**: by default is 'Unknown Item' depends on the 'Display Unknown' setting
 
-- Placeholder for the label unknown item icon by default is '/modules/chat-portrait/assets/inv-unidentified.png' depends on the 'Display Unknown' setting
+- **Placeholder for the label unknown item icon**: by default is '/modules/chat-portrait/assets/inv-unidentified.png' depends on the 'Display Unknown' setting
 
-- CUSTOMIZE YOUR OWN TEXT WITH CSS : Setup additional custom styling on the text chat message (note override any other prior property)
+- **CUSTOMIZE YOUR OWN TEXT WITH CSS** : Setup additional custom styling on the text chat message (note override any other prior property)
 
 ![chat_portrait_feature](./images/chat_portrait_feature.png)
 
-- Image Replacer: This feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems :
+- **Image Replacer**: This feature for avoid the double portrait when you roll Ability / Skills / Saving Throw / Tools, for now the support is limited to the following systems :
 
   -  Dnd5e system
   -  PF2
@@ -235,7 +241,7 @@ If you want to add your own system it's very simple!!! you can just give to me a
 
 [ON DEVELOPING SO ANY SUGGESTION IS WELCOME]
 
-- Image Replacer Damage Types: Add some image for better identify the type of damage of the weapon, for now the support is limited to the following systems :
+- **Image Replacer Damage Types**: Add some image for better identify the type of damage of the weapon, for now the support is limited to the following systems :
 
   -  Dnd5e system
   -  PF2
@@ -243,7 +249,6 @@ If you want to add your own system it's very simple!!! you can just give to me a
 If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
 
 ![replacer_damage_types](./images/damage_types_feature.png)
-
 
 ## Known issue
 

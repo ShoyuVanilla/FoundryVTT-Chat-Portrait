@@ -96,5 +96,7 @@
   "chat-portrait.settings.useImageReplacer.name": "Use Image Replacer feature",
   "chat-portrait.settings.useImageReplacer.hint": "Some people do not like images from the Image Replacer now you can disable this function",
   "chat-portrait.settings.useImageReplacerDamageType.name": "Use Image Replacer for Damage Type feature",
-  "chat-portrait.settings.useImageReplacerDamageType.hint": "Some people do not like images from the Image Replacer for Damage Type now you can disable this function"
+  "chat-portrait.settings.useImageReplacerDamageType.hint": "Some people do not like images from the Image Replacer for Damage Type now you can disable this function",
+  "chat-portrait.settings.applyOnCombatTracker.name": "Apply chat portrait on combat tracker",
+  "chat-portrait.settings.applyOnCombatTracker.hint": "Apply the recovery of the image on the combat tracker. Note: if you are a GM and the combatant is not owned from a player the 'Use token image' is enabled anyway"
 }

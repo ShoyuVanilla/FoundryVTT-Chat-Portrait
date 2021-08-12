@@ -147,6 +147,12 @@
         </div>
 
         <div class="form-group">
+            <label>{{localize "chat-portrait.settings.applyOnCombatTracker.name"}}</label>
+            <input type="checkbox" name="applyOnCombatTracker" data-dtype="Boolean" {{checked applyOnCombatTracker}}/>
+            <p class="notes">{{localize "chat-portrait.settings.applyOnCombatTracker.hint"}}</p>
+        </div>
+
+        <div class="form-group">
             <label>{{localize "chat-portrait.settings.displaySettingOTHER.name"}}</label>
             <input type="checkbox" name="displaySettingOTHER" data-dtype="Boolean" {{checked displaySettingOTHER}}/>
             <p class="notes">{{localize "chat-portrait.settings.displaySettingOTHER.hint"}}</p>

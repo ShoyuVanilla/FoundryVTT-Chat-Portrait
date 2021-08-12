@@ -86,7 +86,8 @@ export class ChatPortraitForm extends FormApplication {
                 customStylingMessageText: '',
                 displayMessageTag: false,
                 useImageReplacer: true,
-                useImageReplacerDamageType: true
+                useImageReplacerDamageType: true,
+                applyOnCombatTracker: false,
             };
         }
         else {
@@ -124,6 +125,7 @@ export class ChatPortraitForm extends FormApplication {
                 displayMessageTag: SettingsForm.getDisplayMessageTag(),
                 useImageReplacer: SettingsForm.getUseImageReplacer(),
                 useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
+                applyOnCombatTracker: SettingsForm.getApplyOnCombatTracker(),
             };
         }
         return data;
@@ -207,6 +209,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setDisplayMessageTag(formData.displayMessageTag);
         SettingsForm.setUseImageReplacer(formData.useImageReplacer);
         SettingsForm.setUseImageReplacerDamageType(formData.useImageReplacerDamageType);
+        SettingsForm.setApplyOnCombatTracker(formData.applyOnCombatTracker);
     }
     getSelectList(myselectslist, selected) {
         let options = [];
@@ -415,5 +418,11 @@ export class SettingsForm {
     }
     static setUseImageReplacerDamageType(value) {
         getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacerDamageType', value);
+    }
+    static getApplyOnCombatTracker() {
+        return getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker');
+    }
+    static setApplyOnCombatTracker(value) {
+        getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker', value);
     }
 }
