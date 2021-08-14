@@ -1,3 +1,7 @@
+## 0.5.4
+
+- Some performance on chat portrait mechanism to the combat tracker
+
 ## 0.5.3
 
 - Add the feature to add the chat portrait mechanism to the combat tracker, base don the issue [Missing character sheet portraits on initiative rolls](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/75)

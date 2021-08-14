@@ -2,6 +2,7 @@ import { warn } from "../main.js";
 import { ChatPortrait } from "./ChatPortrait.js";
 import { ImageReplacerInit } from "./ImageReplacer.js";
 import { getGame } from "./settings.js";
+let mapCombatTrackerPortrait = new Map();
 export let readyHooks = async () => {
     // When the combat tracker is rendered, we need to completely replace
     // its HTML with a custom version.
@@ -17,49 +18,61 @@ export let readyHooks = async () => {
                     //$combatant.addClass('actor-elem');
                     //@ts-ignore
                     let img = $combatant.find('.token-image')[0];
-                    let actorID = c.actor?.id;
                     let tokenID = c.token?.id;
-                    let token = ChatPortrait.getTokenFromId(tokenID);
-                    let userID = "";
-                    let isOwnedFromPLayer = false;
-                    if (ChatPortrait.settings.useAvatarImage && !ChatPortrait.settings.useTokenImage) {
-                        // if user not admin is owner of the token
-                        //userID = (!getGame().user?.isGM && token.actor?.hasPerm(<User>getGame().user, "OWNER")) ? <string>getGame().user?.id : "";
-                        //userID = (!getGame().user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>getGame().user?.id : "";                 
-                        let permissions = token.document.actor?.data.permission;
-                        for (let keyPermission in permissions) {
-                            let valuePermission = permissions[keyPermission];
-                            if (getGame().user?.isGM) {
-                                if (getGame().user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
-                                    userID = keyPermission;
-                                    break;
+                    let imgPath = "icons/svg/mystery-man.svg";
+                    if (!mapCombatTrackerPortrait.get(tokenID)) {
+                        let actorID = c.actor?.id;
+                        let token = ChatPortrait.getTokenFromId(tokenID);
+                        let userID = "";
+                        let isOwnedFromPLayer = false;
+                        if (ChatPortrait.settings.useAvatarImage && !ChatPortrait.settings.useTokenImage) {
+                            // if user not admin is owner of the token
+                            //userID = (!getGame().user?.isGM && token.actor?.hasPerm(<User>getGame().user, "OWNER")) ? <string>getGame().user?.id : "";
+                            //userID = (!getGame().user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>getGame().user?.id : "";                 
+                            let permissions = token.document.actor?.data.permission;
+                            for (let keyPermission in permissions) {
+                                let valuePermission = permissions[keyPermission];
+                                if (getGame().user?.isGM) {
+                                    if (getGame().user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
+                                        userID = keyPermission;
+                                        break;
+                                    }
                                 }
+                                else {
+                                    if (getGame().user?.id === keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
+                                        userID = getGame().user?.id;
+                                        isOwnedFromPLayer = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        let sceneID = token.scene.id;
+                        imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
+                        try {
+                            let imgThumb = await ImageHelper.createThumbnail(imgPath);
+                            if (imgPath.endsWith("webm")) {
+                                imgPath = imgThumb.thumb;
                             }
                             else {
-                                if (getGame().user?.id === keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
-                                    userID = getGame().user?.id;
-                                    isOwnedFromPLayer = true;
-                                    break;
-                                }
+                                imgPath = imgThumb.src;
                             }
                         }
-                    }
-                    let sceneID = token.scene.id;
-                    let imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
-                    try {
-                        let imgThumb = await ImageHelper.createThumbnail(imgPath);
-                        if (imgPath.endsWith("webm")) {
-                            img.src = imgThumb.thumb;
+                        catch {
+                            //img.src = imgPath;
                         }
-                        else {
-                            img.src = imgThumb.src;
-                        }
+                        mapCombatTrackerPortrait.set(tokenID, imgPath);
                     }
-                    catch {
-                        img.src = imgPath;
+                    else {
+                        imgPath = mapCombatTrackerPortrait.get(tokenID);
                     }
-                    img.setAttribute('data-src', imgPath);
+                    if (imgPath) {
+                        img.setAttribute('data-src', imgPath);
+                    }
                 });
+            }
+            else {
+                mapCombatTrackerPortrait.clear();
             }
         }
     });
