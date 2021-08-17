@@ -58,18 +58,18 @@ export let readyHooks = async () => {
 
               let sceneID = <string>token.scene.id;
               imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
-
-              try {
-                let imgThumb = await ImageHelper.createThumbnail(imgPath);
-                if( imgPath.endsWith("webm")){
-                  imgPath = imgThumb.thumb;
-                }else{
-                  imgPath = <string>imgThumb.src;
+              if(imgPath?.includes(".webm")){
+                try {
+                  let imgThumb = await ImageHelper.createThumbnail(imgPath);
+                  if( imgPath.includes(".webm")){
+                    imgPath = imgThumb.thumb;
+                  }else{
+                    imgPath = <string>imgThumb.src;
+                  }
+                } catch {
+                    //img.src = imgPath;
                 }
-              } catch {
-                  //img.src = imgPath;
               }
-
               mapCombatTrackerPortrait.set(tokenID,imgPath);
             }
             else{

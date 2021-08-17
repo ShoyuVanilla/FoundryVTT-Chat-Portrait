@@ -811,7 +811,7 @@ export class ChatPortrait {
         //let thumb = 'icons/svg/mystery-man.svg';
         try {
             let imgThumb = await ImageHelper.createThumbnail(imgPath, { width: size, height: size });
-            if (imgPath.endsWith("webm")) {
+            if (imgPath.includes(".webm")) {
                 img.src = imgThumb.thumb;
                 // If a url we need these anyway
                 if (size && size > 0) {
