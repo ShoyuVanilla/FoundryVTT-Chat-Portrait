@@ -1,3 +1,8 @@
+## 0.5.6
+
+- Some performance on chat portrait mechanism to the combat tracker
+- Some performance on chat portrait on chat message building
+
 ## 0.5.5
 
 - Some performance on chat portrait mechanism to the combat tracker

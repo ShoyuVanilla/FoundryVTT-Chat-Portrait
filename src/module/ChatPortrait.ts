@@ -859,27 +859,37 @@ export class ChatPortrait {
         //if (VideoHelper.hasVideoExtension(diff.img))
         //    thumb = await ImageHelper.createThumbnail(diff.img, { width: 48, height: 48 });
         //let thumb = 'icons/svg/mystery-man.svg';
-        try {
-            let imgThumb = await ImageHelper.createThumbnail(imgPath, { width: size, height: size });
-            if( imgPath.includes(".webm")){
-                img.src = imgThumb.thumb;
-                // If a url we need these anyway
-                if(size && size > 0){
-                  img.width = size;
-                  img.height = size;
-                }
-            }else{
-                img.src = <string>imgThumb.src;
-                if(size && size > 0){
+        if(imgPath.includes(".webm")){
+          try {
+              let imgThumb = await ImageHelper.createThumbnail(imgPath, { width: size, height: size });
+              if( imgPath.includes(".webm")){
+                  img.src = imgThumb.thumb;
                   // If a url we need these anyway
-                  img.width = size;
-                  img.height = size;
-                }
-            }
-        } catch {
-            img.src = imgPath;
+                  if(size && size > 0){
+                    img.width = size;
+                    img.height = size;
+                  }
+              }else{
+                  img.src = <string>imgThumb.src;
+                  if(size && size > 0){
+                    // If a url we need these anyway
+                    img.width = size;
+                    img.height = size;
+                  }
+              }
+          } catch {
+              img.src = imgPath;
+              if(size && size > 0){
+                img.width = size;
+                img.height = size;
+              }
+          }
+        }else{
+          img.src = imgPath;
+          if(size && size > 0){
             img.width = size;
             img.height = size;
+          }
         }
         if(!img.classList.contains("message-portrait")){
           img.classList.add("message-portrait");
