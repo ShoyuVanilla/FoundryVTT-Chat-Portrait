@@ -1,5 +1,5 @@
 {
-  "dataPath": "D:/FoundryVTT",
+  "dataPath": "/absolute/path/to/your/FoundryVTT/Data",
   "repository": "",
   "rawURL": ""
 }

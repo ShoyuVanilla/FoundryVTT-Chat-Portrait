@@ -1,9 +1,9 @@
 import { warn } from "../main.js";
 import { ChatPortrait } from "./ChatPortrait.js";
 import { ImageReplacerInit } from "./ImageReplacer.js";
-import { getGame } from "./settings.js";
-let mapCombatTrackerPortrait = new Map();
-export let readyHooks = async () => {
+import { getCanvas, getGame } from "./settings.js";
+const mapCombatTrackerPortrait = new Map();
+export const readyHooks = async () => {
     // When the combat tracker is rendered, we need to completely replace
     // its HTML with a custom version.
     Hooks.on('renderCombatTracker', async (app, html, options) => {
@@ -11,27 +11,27 @@ export let readyHooks = async () => {
             // If there's as combat, we can proceed.
             if (getGame().combat) {
                 // Retrieve a list of the combatants
-                let combatants = getGame().combat?.data.combatants;
+                const combatants = getGame().combat?.data.combatants;
                 combatants.forEach(async (c) => {
                     // Add class to trigger drag events.
-                    let $combatant = html.find(`.combatant[data-combatant-id="${c.id}"]`);
+                    const $combatant = html.find(`.combatant[data-combatant-id="${c.id}"]`);
                     //$combatant.addClass('actor-elem');
                     //@ts-ignore
-                    let img = $combatant.find('.token-image')[0];
-                    let tokenID = c.token?.id;
-                    let imgPath = "icons/svg/mystery-man.svg";
+                    const img = $combatant.find('.token-image')[0];
+                    const tokenID = c.token?.id;
+                    let imgPath = 'icons/svg/mystery-man.svg';
                     if (!mapCombatTrackerPortrait.get(tokenID)) {
-                        let actorID = c.actor?.id;
-                        let token = ChatPortrait.getTokenFromId(tokenID);
-                        let userID = "";
+                        const actorID = c.actor?.id;
+                        const token = ChatPortrait.getTokenFromId(tokenID);
+                        let userID = '';
                         let isOwnedFromPLayer = false;
                         if (ChatPortrait.settings.useAvatarImage && !ChatPortrait.settings.useTokenImage) {
                             // if user not admin is owner of the token
                             //userID = (!getGame().user?.isGM && token.actor?.hasPerm(<User>getGame().user, "OWNER")) ? <string>getGame().user?.id : "";
-                            //userID = (!getGame().user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>getGame().user?.id : "";                 
-                            let permissions = token.document.actor?.data.permission;
-                            for (let keyPermission in permissions) {
-                                let valuePermission = permissions[keyPermission];
+                            //userID = (!getGame().user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>getGame().user?.id : "";
+                            const permissions = (token.actor?.data.permission);
+                            for (const keyPermission in permissions) {
+                                const valuePermission = permissions[keyPermission];
                                 if (getGame().user?.isGM) {
                                     if (getGame().user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
                                         userID = keyPermission;
@@ -47,12 +47,12 @@ export let readyHooks = async () => {
                                 }
                             }
                         }
-                        let sceneID = token.scene.id;
+                        const sceneID = getCanvas().tokens?.get(token.id).scene.id;
                         imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
-                        if (imgPath?.includes(".webm")) {
+                        if (imgPath?.includes('.webm')) {
                             try {
-                                let imgThumb = await ImageHelper.createThumbnail(imgPath);
-                                if (imgPath.includes(".webm")) {
+                                const imgThumb = await ImageHelper.createThumbnail(imgPath);
+                                if (imgPath.includes('.webm')) {
                                     imgPath = imgThumb.thumb;
                                 }
                                 else {
@@ -87,11 +87,11 @@ export const setupHooks = async () => {
     }
     let currentSpeakerBackUp;
     /**
-    * This line connects our method above with the chat rendering.
-    * Note that this happens after the core code has already generated HTML.
-    * Bind to any newly rendered chat cards at runtime
-    * For whatever reason, this callback is sometimes called with unattached html elements
-    */
+     * This line connects our method above with the chat rendering.
+     * Note that this happens after the core code has already generated HTML.
+     * Bind to any newly rendered chat cards at runtime
+     * For whatever reason, this callback is sometimes called with unattached html elements
+     */
     Hooks.on('renderChatMessage', async (message, html, speakerInfo) => {
         if (!speakerInfo.message.speaker.token && currentSpeakerBackUp?.token) {
             if (currentSpeakerBackUp.scene)
@@ -115,10 +115,10 @@ export const setupHooks = async () => {
         }
         ChatPortrait.onRenderChatMessage(message, html, speakerInfo, imageReplacer);
         setTimeout(function () {
-            const log = document.querySelector("#chat-log");
+            const log = document.querySelector('#chat-log');
             const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
             if (log && shouldForceScroll) {
-                log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+                log.scrollTo({ behavior: 'smooth', top: log.scrollHeight });
             }
         }, 50);
         // ChatPortraitChatCard.bind(message, html, speakerInfo, imageReplacer);
@@ -166,7 +166,7 @@ export const setupHooks = async () => {
     // let flag = true;
     /**
      * Catch chat message creations and add some more data if we need to
-    */
+     */
     Hooks.on('preCreateChatMessage', async (message, options, render, userId) => {
         if (options) {
             // Update the speaker
@@ -179,13 +179,13 @@ export const setupHooks = async () => {
                 else {
                     user = getGame().users?.get(userId);
                 }
-                let speakerInfo = {};
-                let mytoken = ChatPortrait.getFirstPlayerToken();
+                const speakerInfo = {};
+                const mytoken = ChatPortrait.getFirstPlayerToken();
                 speakerInfo.alias = message.alias;
                 speakerInfo.token = mytoken;
                 speakerInfo.actor = getGame().actors?.get(user?.data.character);
-                let updates = {
-                    speaker: speakerInfo
+                const updates = {
+                    speaker: speakerInfo,
                 };
                 message.data.update(updates);
             }
@@ -233,5 +233,5 @@ export const setupHooks = async () => {
     });
 };
 export const initHooks = () => {
-    warn("Init Hooks processing");
+    warn('Init Hooks processing');
 };

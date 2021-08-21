@@ -4,31 +4,31 @@ export class ChatPortraitForm extends FormApplication {
     constructor(object, options = {}) {
         super(object, options);
         this.borderShapeListOptions = {
-            'square': i18n(CHAT_PORTRAIT_MODULE_NAME + '.square'),
-            'circle': i18n(CHAT_PORTRAIT_MODULE_NAME + '.circle'),
-            'none': i18n(CHAT_PORTRAIT_MODULE_NAME + '.none')
+            square: i18n(CHAT_PORTRAIT_MODULE_NAME + '.square'),
+            circle: i18n(CHAT_PORTRAIT_MODULE_NAME + '.circle'),
+            none: i18n(CHAT_PORTRAIT_MODULE_NAME + '.none'),
         };
         this.displaySettingListOptions = {
-            'allCards': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.allCards'),
-            'selfAndGM': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.selfAndGM'),
-            'self': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.self'),
-            'gm': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.gm'),
-            'player': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.player'),
-            'none': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.none'), //"Don't affect any messages.",
+            allCards: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.allCards'),
+            selfAndGM: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.selfAndGM'),
+            self: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.self'),
+            gm: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.gm'),
+            player: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.player'),
+            none: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displaySetting.choice.none'), //"Don't affect any messages.",
         };
         this.displayUnknownListOptions = {
-            'allCards': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.allCards'),
-            'selfAndGM': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.selfAndGM'),
-            'self': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.self'),
-            'gm': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.gm'),
-            'player': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.player'),
-            'none': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.none'),
-            'onlyNpc': i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.onlyNpc'), //"Affect any messages done from a NPC (need a compatible system with the 'npc' type like D&D5)."
+            allCards: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.allCards'),
+            selfAndGM: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.selfAndGM'),
+            self: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.self'),
+            gm: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.gm'),
+            player: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.player'),
+            none: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.none'),
+            onlyNpc: i18n(CHAT_PORTRAIT_MODULE_NAME + '.displayUnknown.choice.onlyNpc'), //"Affect any messages done from a NPC (need a compatible system with the 'npc' type like D&D5)."
         };
     }
     /**
-    * Default Options for this FormApplication
-    */
+     * Default Options for this FormApplication
+     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             title: i18n(CHAT_PORTRAIT_MODULE_NAME + '.form-title'),
@@ -36,21 +36,21 @@ export class ChatPortraitForm extends FormApplication {
             template: `modules/${CHAT_PORTRAIT_MODULE_NAME}/templates/chat-portrait-form.html`,
             width: 500,
             closeOnSubmit: true,
-            classes: ["sheet"]
+            classes: ['sheet'],
         });
     }
     getData(options) {
         /*
-        return mergeObject(super.getData(),{
-                borderShapeList: {
-                    'square': i18n(MODULE_NAME+'.square'),
-                    'circle': i18n(MODULE_NAME+'.circle'),
-                    'none': i18n(MODULE_NAME+'.none')
-                }
-            },
-            this.reset ? ChatPortrait.defaultSettings :mergeObject(ChatPortrait.defaultSettings, getGame().settings.get(MODULE_NAME, 'settings'))
-        );
-        */
+            return mergeObject(super.getData(),{
+                    borderShapeList: {
+                        'square': i18n(MODULE_NAME+'.square'),
+                        'circle': i18n(MODULE_NAME+'.circle'),
+                        'none': i18n(MODULE_NAME+'.none')
+                    }
+                },
+                this.reset ? ChatPortrait.defaultSettings :mergeObject(ChatPortrait.defaultSettings, getGame().settings.get(MODULE_NAME, 'settings'))
+            );
+            */
         let data;
         if (this.reset) {
             data = {
@@ -136,40 +136,42 @@ export class ChatPortraitForm extends FormApplication {
         this.toggleUseUserColorAsBorderColor();
         html.find('select[name="borderShape"]').change(this.toggleBorderShape.bind(this));
         html.find('input[name="useUserColorAsBorderColor"]').change(this.toggleUseUserColorAsBorderColor.bind(this));
-        html.find('input[name="useUserColorAsBackgroundColor"]').change(this.toggleUseUserColorAsBackgroundColor.bind(this));
+        html
+            .find('input[name="useUserColorAsBackgroundColor"]')
+            .change(this.toggleUseUserColorAsBackgroundColor.bind(this));
         html.find('button[name="reset"]').click(this.onReset.bind(this));
         this.reset = false;
     }
     toggleBorderShape() {
         const noneBorder = $('select[name="borderShape"]').val() === 'none';
         const useUserColor = $('input[name="useUserColorAsBorderColor"]')[0].checked;
-        $('input[name="useUserColorAsBorderColor"]').prop("disabled", noneBorder);
-        $('input[name="useUserColorAsBackgroundColor"]').prop("disabled", noneBorder);
-        $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderWidth"]').prop("disabled", noneBorder);
+        $('input[name="useUserColorAsBorderColor"]').prop('disabled', noneBorder);
+        $('input[name="useUserColorAsBackgroundColor"]').prop('disabled', noneBorder);
+        $('input[name="borderColor"]').prop('disabled', noneBorder || useUserColor);
+        $('input[name="borderColorSelector"]').prop('disabled', noneBorder || useUserColor);
+        $('input[name="borderWidth"]').prop('disabled', noneBorder);
     }
     toggleUseUserColorAsBorderColor() {
         const noneBorder = $('select[name="borderShape"]').val() === 'none';
         const useUserColor = $('input[name="useUserColorAsBorderColor"]')[0].checked;
-        $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
+        $('input[name="borderColor"]').prop('disabled', noneBorder || useUserColor);
+        $('input[name="borderColorSelector"]').prop('disabled', noneBorder || useUserColor);
     }
     toggleUseUserColorAsBackgroundColor() {
         const noneBorder = $('select[name="borderShape"]').val() === 'none';
         const useUserColor = $('input[name="useUserColorAsBackgroundColor"]')[0].checked;
-        $('input[name="borderColor"]').prop("disabled", noneBorder || useUserColor);
-        $('input[name="borderColorSelector"]').prop("disabled", noneBorder || useUserColor);
+        $('input[name="borderColor"]').prop('disabled', noneBorder || useUserColor);
+        $('input[name="borderColorSelector"]').prop('disabled', noneBorder || useUserColor);
     }
     onReset() {
         this.reset = true;
         this.render();
     }
     /**
-    * Executes on form submission.
-    * @param {Object} event - the form submission event
-    * @param {Object} formData - the form data
-    */
+     * Executes on form submission.
+     * @param {Object} event - the form submission event
+     * @param {Object} formData - the form data
+     */
     async _updateObject(event, formData) {
         // let settings = mergeObject(ChatPortrait.settings, formData,
         //     {
@@ -212,7 +214,7 @@ export class ChatPortraitForm extends FormApplication {
         SettingsForm.setApplyOnCombatTracker(formData.applyOnCombatTracker);
     }
     getSelectList(myselectslist, selected) {
-        let options = [];
+        const options = [];
         Object.keys(myselectslist).forEach((x, i) => {
             options.push({ value: x, selected: x == selected });
         });

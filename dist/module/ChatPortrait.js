@@ -49,7 +49,7 @@ export class ChatPortrait {
             doNotStyling = true;
         }
         // Do not styling narrator message because it's make no sense the module has is own css customizing
-        if (speakerInfo.alias == i18n("NT.Narrator")) {
+        if (speakerInfo.alias == i18n('NT.Narrator')) {
             doNotStyling = true;
         }
         // MULTISYSTEM MANAGEMENT
@@ -123,7 +123,7 @@ export class ChatPortrait {
     static onRenderChatMessageInternal(chatMessage, html, speakerInfo, messageSender, messageHeader, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer) {
         let messageDataBase = speakerInfo;
         let imgPath;
-        let authorColor = "black";
+        let authorColor = 'black';
         if (messageDataBase.author) {
             authorColor = messageDataBase.author.data.color;
         }
@@ -149,14 +149,14 @@ export class ChatPortrait {
             ChatPortrait.replaceSenderWithTokenName(messageSender, speaker);
         }
         if (ChatPortrait.shouldOverrideMessageUnknown(messageDataBase)) {
-            imgPath = "icons/svg/mystery-man.svg";
+            imgPath = 'icons/svg/mystery-man.svg';
         }
         else {
             imgPath = ChatPortrait.loadImagePathForChatMessage(html, speaker);
         }
         const chatPortraitCustomData = {
             customIconPortraitImage: imgPath,
-            customImageReplacer: imageReplacer
+            customImageReplacer: imageReplacer,
         };
         Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData, chatMessage);
         if (chatPortraitCustomData.customIconPortraitImage) {
@@ -172,7 +172,7 @@ export class ChatPortrait {
             // Very very rare use case ????
             if (!imgElement) {
                 imgElement = document.createElement('img');
-                imgElement.src = "";
+                imgElement.src = '';
                 const size = ChatPortrait.settings.portraitSize;
                 if (size && size > 0) {
                     imgElement.width = size;
@@ -185,8 +185,8 @@ export class ChatPortrait {
                 if (!imgElement.src || imgElement.src.length <= 0) {
                     imgElement.src = INV_UNIDENTIFIED_BOOK;
                 }
-                if (!imgElement.classList.contains("message-portrait")) {
-                    imgElement.classList.add("message-portrait");
+                if (!imgElement.classList.contains('message-portrait')) {
+                    imgElement.classList.add('message-portrait');
                 }
             }
             ChatPortrait.setImageBorder(imgElement, authorColor);
@@ -205,8 +205,8 @@ export class ChatPortrait {
                 }
             }
             // Default style
-            if (!messageSender.classList.contains("chat-portrait-text-size-name")) {
-                messageSender.classList.add("chat-portrait-text-size-name");
+            if (!messageSender.classList.contains('chat-portrait-text-size-name')) {
+                messageSender.classList.add('chat-portrait-text-size-name');
             }
             // Update size text name by settings
             if (ChatPortrait.settings.textSizeName > 0) {
@@ -222,7 +222,9 @@ export class ChatPortrait {
             // Add click listener to image and text
             ChatLink.prepareEventImage(chatMessage, html, speaker);
             // Update size item image by settings
-            if (elementItemImageList.length > 0 && ChatPortrait.settings.portraitSizeItem != 36 && ChatPortrait.settings.portraitSizeItem > 0) {
+            if (elementItemImageList.length > 0 &&
+                ChatPortrait.settings.portraitSizeItem != 36 &&
+                ChatPortrait.settings.portraitSizeItem > 0) {
                 for (let i = 0; i < elementItemImageList.length; i++) {
                     const elementItemImage = elementItemImageList[i];
                     const size = ChatPortrait.settings.portraitSizeItem;
@@ -233,8 +235,8 @@ export class ChatPortrait {
                     if (ChatPortrait.shouldOverrideMessageUnknown(messageData)) {
                         elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
                     }
-                    if (!elementItemImage.classList.contains("message-portrait")) {
-                        elementItemImage.classList.add("message-portrait");
+                    if (!elementItemImage.classList.contains('message-portrait')) {
+                        elementItemImage.classList.add('message-portrait');
                     }
                 }
             }
@@ -247,8 +249,8 @@ export class ChatPortrait {
                         elementItemImage.width = size;
                         elementItemImage.height = size;
                     }
-                    if (!elementItemImage.classList.contains("message-portrait")) {
-                        elementItemImage.classList.add("message-portrait");
+                    if (!elementItemImage.classList.contains('message-portrait')) {
+                        elementItemImage.classList.add('message-portrait');
                     }
                 }
             }
@@ -267,12 +269,12 @@ export class ChatPortrait {
             if (elementItemNameList.length > 0) {
                 for (let i = 0; i < elementItemNameList.length; i++) {
                     const elementItemName = elementItemNameList[i];
-                    if (!elementItemName.classList.contains("chat-portrait-text-size-name")) {
-                        elementItemName.classList.add("chat-portrait-text-size-name");
+                    if (!elementItemName.classList.contains('chat-portrait-text-size-name')) {
+                        elementItemName.classList.add('chat-portrait-text-size-name');
                     }
                     if (elementItemName) {
-                        let value = "";
-                        let images = { iconMainReplacer: "", iconsDamageType: [] };
+                        let value = '';
+                        let images = { iconMainReplacer: '', iconsDamageType: [] };
                         if (ChatPortrait.useImageReplacer(html)) {
                             images = ChatPortrait.getImagesReplacerAsset(imageReplacerToUse, elementItemName.innerText, elementItemContentList[i]);
                             if (images && images.iconMainReplacer) {
@@ -293,15 +295,15 @@ export class ChatPortrait {
                                     elementItemImage.src = value;
                                 }
                                 //}
-                                if (!elementItemImage.classList.contains("message-portrait")) {
-                                    elementItemImage.classList.add("message-portrait");
+                                if (!elementItemImage.classList.contains('message-portrait')) {
+                                    elementItemImage.classList.add('message-portrait');
                                 }
                                 elementItemName.prepend(elementItemImage);
                                 // DAMAGE TYPES
                                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
-                                    const elementItemContainerDamageTypes = document.createElement("div");
+                                    const elementItemContainerDamageTypes = (document.createElement('div'));
                                     for (var [index, itemImage] of images.iconsDamageType.entries()) {
-                                        const elementItemImage2 = document.createElement("img");
+                                        const elementItemImage2 = document.createElement('img');
                                         const size = ChatPortrait.settings.portraitSizeItem;
                                         if (size && size > 0) {
                                             elementItemImage2.width = size;
@@ -311,8 +313,8 @@ export class ChatPortrait {
                                         if (itemImage.length > 0) {
                                             elementItemImage2.src = itemImage; //images[1];
                                         }
-                                        if (!elementItemImage2.classList.contains("message-portrait")) {
-                                            elementItemImage2.classList.add("message-portrait");
+                                        if (!elementItemImage2.classList.contains('message-portrait')) {
+                                            elementItemImage2.classList.add('message-portrait');
                                         }
                                         elementItemContainerDamageTypes.appendChild(elementItemImage2);
                                     }
@@ -324,7 +326,7 @@ export class ChatPortrait {
                             }
                             else {
                                 if (ChatPortrait.useImageReplacer(html)) {
-                                    const elementItemImage = document.createElement("img");
+                                    const elementItemImage = document.createElement('img');
                                     const size = ChatPortrait.settings.portraitSizeItem;
                                     if (size && size > 0) {
                                         elementItemImage.width = size;
@@ -336,15 +338,15 @@ export class ChatPortrait {
                                         elementItemImage.src = value;
                                     }
                                     //}
-                                    if (!elementItemImage.classList.contains("message-portrait")) {
-                                        elementItemImage.classList.add("message-portrait");
+                                    if (!elementItemImage.classList.contains('message-portrait')) {
+                                        elementItemImage.classList.add('message-portrait');
                                     }
                                     elementItemName.prepend(elementItemImage);
                                     // DAMAGE TYPES
                                     if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
-                                        const elementItemContainerDamageTypes = document.createElement("div");
+                                        const elementItemContainerDamageTypes = (document.createElement('div'));
                                         for (var [index, itemImage] of images.iconsDamageType.entries()) {
-                                            const elementItemImage2 = document.createElement("img");
+                                            const elementItemImage2 = document.createElement('img');
                                             const size = ChatPortrait.settings.portraitSizeItem;
                                             if (size && size > 0) {
                                                 elementItemImage2.width = size;
@@ -354,8 +356,8 @@ export class ChatPortrait {
                                             if (itemImage.length > 0) {
                                                 elementItemImage2.src = itemImage; //images[1];
                                             }
-                                            if (!elementItemImage2.classList.contains("message-portrait")) {
-                                                elementItemImage2.classList.add("message-portrait");
+                                            if (!elementItemImage2.classList.contains('message-portrait')) {
+                                                elementItemImage2.classList.add('message-portrait');
                                             }
                                             elementItemContainerDamageTypes.appendChild(elementItemImage2);
                                         }
@@ -375,18 +377,18 @@ export class ChatPortrait {
                                     elementItemImage.width = size;
                                     elementItemImage.height = size;
                                 }
-                                if (!elementItemImage.src || elementItemImage.src?.includes("mystery-man")) {
+                                if (!elementItemImage.src || elementItemImage.src?.includes('mystery-man')) {
                                     elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                                 }
-                                if (!elementItemImage.classList.contains("message-portrait")) {
-                                    elementItemImage.classList.add("message-portrait");
+                                if (!elementItemImage.classList.contains('message-portrait')) {
+                                    elementItemImage.classList.add('message-portrait');
                                 }
                                 elementItemName.prepend(elementItemImage);
                                 // DAMAGE TYPES
                                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
-                                    const elementItemContainerDamageTypes = document.createElement("div");
+                                    const elementItemContainerDamageTypes = (document.createElement('div'));
                                     for (var [index, itemImage] of images.iconsDamageType.entries()) {
-                                        const elementItemImage2 = document.createElement("img");
+                                        const elementItemImage2 = document.createElement('img');
                                         const size = ChatPortrait.settings.portraitSizeItem;
                                         if (size && size > 0) {
                                             elementItemImage2.width = size;
@@ -396,8 +398,8 @@ export class ChatPortrait {
                                         if (itemImage.length > 0) {
                                             elementItemImage2.src = itemImage; //images[1];
                                         }
-                                        if (!elementItemImage2.classList.contains("message-portrait")) {
-                                            elementItemImage2.classList.add("message-portrait");
+                                        if (!elementItemImage2.classList.contains('message-portrait')) {
+                                            elementItemImage2.classList.add('message-portrait');
                                         }
                                         elementItemContainerDamageTypes.appendChild(elementItemImage2);
                                     }
@@ -409,24 +411,24 @@ export class ChatPortrait {
                             }
                             else {
                                 if (ChatPortrait.useImageReplacer(html)) {
-                                    const elementItemImage = document.createElement("img");
+                                    const elementItemImage = document.createElement('img');
                                     const size = ChatPortrait.settings.portraitSizeItem;
                                     if (size && size > 0) {
                                         elementItemImage.width = size;
                                         elementItemImage.height = size;
                                     }
-                                    if (!elementItemImage.src || elementItemImage.src?.includes("mystery-man")) {
+                                    if (!elementItemImage.src || elementItemImage.src?.includes('mystery-man')) {
                                         elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                                     }
-                                    if (!elementItemImage.classList.contains("message-portrait")) {
-                                        elementItemImage.classList.add("message-portrait");
+                                    if (!elementItemImage.classList.contains('message-portrait')) {
+                                        elementItemImage.classList.add('message-portrait');
                                     }
                                     elementItemName.prepend(elementItemImage);
                                     // DAMAGE TYPES
                                     if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
-                                        const elementItemContainerDamageTypes = document.createElement("div");
+                                        const elementItemContainerDamageTypes = (document.createElement('div'));
                                         for (var [index, itemImage] of images.iconsDamageType.entries()) {
-                                            const elementItemImage2 = document.createElement("img");
+                                            const elementItemImage2 = document.createElement('img');
                                             const size = ChatPortrait.settings.portraitSizeItem;
                                             if (size && size > 0) {
                                                 elementItemImage2.width = size;
@@ -436,8 +438,8 @@ export class ChatPortrait {
                                             if (itemImage.length > 0) {
                                                 elementItemImage2.src = itemImage; //images[1];
                                             }
-                                            if (!elementItemImage2.classList.contains("message-portrait")) {
-                                                elementItemImage2.classList.add("message-portrait");
+                                            if (!elementItemImage2.classList.contains('message-portrait')) {
+                                                elementItemImage2.classList.add('message-portrait');
                                             }
                                             elementItemContainerDamageTypes.appendChild(elementItemImage2);
                                         }
@@ -455,11 +457,11 @@ export class ChatPortrait {
             else {
                 for (let i = 0; i < elementItemTextList.length; i++) {
                     const elementItemText = elementItemTextList[i];
-                    if (!elementItemText.classList.contains("chat-portrait-text-size-name")) {
-                        elementItemText.classList.add("chat-portrait-text-size-name");
+                    if (!elementItemText.classList.contains('chat-portrait-text-size-name')) {
+                        elementItemText.classList.add('chat-portrait-text-size-name');
                     }
-                    let value = "";
-                    let images = { iconMainReplacer: "", iconsDamageType: [] };
+                    let value = '';
+                    let images = { iconMainReplacer: '', iconsDamageType: [] };
                     if (ChatPortrait.useImageReplacer(html)) {
                         images = ChatPortrait.getImagesReplacerAsset(imageReplacerToUse, elementItemText.innerText, elementItemContentList[i]);
                         if (images && images.iconMainReplacer) {
@@ -480,15 +482,15 @@ export class ChatPortrait {
                                 elementItemImage.src = value;
                             }
                             //}
-                            if (!elementItemImage.classList.contains("message-portrait")) {
-                                elementItemImage.classList.add("message-portrait");
+                            if (!elementItemImage.classList.contains('message-portrait')) {
+                                elementItemImage.classList.add('message-portrait');
                             }
                             elementItemText.prepend(elementItemImage);
                             // DAMAGE TYPES
                             if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
-                                const elementItemContainerDamageTypes = document.createElement("div");
+                                const elementItemContainerDamageTypes = (document.createElement('div'));
                                 for (var [index, itemImage] of images.iconsDamageType.entries()) {
-                                    const elementItemImage2 = document.createElement("img");
+                                    const elementItemImage2 = document.createElement('img');
                                     const size = ChatPortrait.settings.portraitSizeItem;
                                     if (size && size > 0) {
                                         elementItemImage2.width = size;
@@ -498,8 +500,8 @@ export class ChatPortrait {
                                     if (itemImage.length > 0) {
                                         elementItemImage2.src = itemImage; //images[1];
                                     }
-                                    if (!elementItemImage2.classList.contains("message-portrait")) {
-                                        elementItemImage2.classList.add("message-portrait");
+                                    if (!elementItemImage2.classList.contains('message-portrait')) {
+                                        elementItemImage2.classList.add('message-portrait');
                                     }
                                     elementItemContainerDamageTypes.appendChild(elementItemImage2);
                                 }
@@ -511,7 +513,7 @@ export class ChatPortrait {
                         }
                         else {
                             if (ChatPortrait.useImageReplacer(html)) {
-                                const elementItemImage = document.createElement("img");
+                                const elementItemImage = document.createElement('img');
                                 const size = ChatPortrait.settings.portraitSizeItem;
                                 if (size && size > 0) {
                                     elementItemImage.width = size;
@@ -523,15 +525,15 @@ export class ChatPortrait {
                                     elementItemImage.src = value;
                                 }
                                 //}
-                                if (!elementItemImage.classList.contains("message-portrait")) {
-                                    elementItemImage.classList.add("message-portrait");
+                                if (!elementItemImage.classList.contains('message-portrait')) {
+                                    elementItemImage.classList.add('message-portrait');
                                 }
                                 elementItemText.prepend(elementItemImage);
                                 // DAMAGE TYPES
                                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
-                                    const elementItemContainerDamageTypes = document.createElement("div");
+                                    const elementItemContainerDamageTypes = (document.createElement('div'));
                                     for (var [index, itemImage] of images.iconsDamageType.entries()) {
-                                        const elementItemImage2 = document.createElement("img");
+                                        const elementItemImage2 = document.createElement('img');
                                         const size = ChatPortrait.settings.portraitSizeItem;
                                         if (size && size > 0) {
                                             elementItemImage2.width = size;
@@ -541,8 +543,8 @@ export class ChatPortrait {
                                         if (itemImage.length > 0) {
                                             elementItemImage2.src = itemImage; //images[1];
                                         }
-                                        if (!elementItemImage2.classList.contains("message-portrait")) {
-                                            elementItemImage2.classList.add("message-portrait");
+                                        if (!elementItemImage2.classList.contains('message-portrait')) {
+                                            elementItemImage2.classList.add('message-portrait');
                                         }
                                         elementItemContainerDamageTypes.appendChild(elementItemImage2);
                                     }
@@ -562,11 +564,11 @@ export class ChatPortrait {
                                 elementItemImage.width = size;
                                 elementItemImage.height = size;
                             }
-                            if (!elementItemImage.src || elementItemImage.src?.includes("mystery-man")) {
+                            if (!elementItemImage.src || elementItemImage.src?.includes('mystery-man')) {
                                 elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                             }
-                            if (!elementItemImage.classList.contains("message-portrait")) {
-                                elementItemImage.classList.add("message-portrait");
+                            if (!elementItemImage.classList.contains('message-portrait')) {
+                                elementItemImage.classList.add('message-portrait');
                             }
                             elementItemText.prepend(elementItemImage);
                         }
@@ -574,20 +576,20 @@ export class ChatPortrait {
                             if (ChatPortrait.useImageReplacer(html)) {
                                 // REMOVED SEEM OVERKILL
                                 /*
-                                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                                const size: number = ChatPortrait.settings.portraitSizeItem;
-                                if(size && size > 0){
-                                  elementItemImage.width = size;
-                                  elementItemImage.height = size;
-                                }
-                                if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
-                                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                                }
-                                if(!elementItemImage.classList.contains("message-portrait")){
-                                  elementItemImage.classList.add("message-portrait");
-                                }
-                                elementItemText.prepend(elementItemImage);
-                                */
+                                            const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                                            const size: number = ChatPortrait.settings.portraitSizeItem;
+                                            if(size && size > 0){
+                                              elementItemImage.width = size;
+                                              elementItemImage.height = size;
+                                            }
+                                            if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                              elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                                            }
+                                            if(!elementItemImage.classList.contains("message-portrait")){
+                                              elementItemImage.classList.add("message-portrait");
+                                            }
+                                            elementItemText.prepend(elementItemImage);
+                                            */
                             }
                         }
                     }
@@ -621,10 +623,10 @@ export class ChatPortrait {
         const message = speakerInfo.message ? speakerInfo.message : speakerInfo.document;
         const speaker = message.speaker ? message.speaker : speakerInfo;
         const isOOC = ChatPortrait.getMessageTypeVisible(speakerInfo) === CONST.CHAT_MESSAGE_TYPES.OOC;
-        let imgFinal = "icons/svg/mystery-man.svg";
+        let imgFinal = 'icons/svg/mystery-man.svg';
         if (message.user && isOOC) {
             const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-            if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+            if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                 return imgAvatar;
             }
             else {
@@ -637,7 +639,7 @@ export class ChatPortrait {
             if ((!speaker.token && !speaker.actor) || ChatPortrait.settings.useAvatarImage) {
                 if (message.user && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)) {
                     const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-                    if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+                    if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                         return imgAvatar;
                     }
                     else {
@@ -648,7 +650,7 @@ export class ChatPortrait {
                 else if (!speaker.token && !speaker.actor) {
                     if (message.user && ChatPortrait.settings.useAvatarImage) {
                         const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-                        if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+                        if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                             return imgAvatar;
                         }
                         else {
@@ -658,7 +660,7 @@ export class ChatPortrait {
                             //   speaker.token = currentToken;
                             //   return currentToken.data.img;
                             // }else{
-                            //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");              
+                            //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");
                             //return imgAvatar ? imgAvatar : imgFinal;
                             // }
                         }
@@ -673,9 +675,9 @@ export class ChatPortrait {
             const useTokenImage = ChatPortrait.settings.useTokenImage;
             const actor = ChatPortrait.getActor(speaker);
             // Make sense only for player and for non GM
-            if (actor?.type == "character" && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)) {
+            if (actor?.type == 'character' && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)) {
                 const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-                if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+                if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                     return imgAvatar;
                 }
                 else {
@@ -686,24 +688,28 @@ export class ChatPortrait {
             //@ts-ignore
             let tokenData;
             if (speaker.token) {
-                token = ChatPortrait.getTokenFromScene(speaker.scene, speaker.token)?.document;
+                token = ChatPortrait.getTokenFromScene(speaker.scene, speaker.token);
                 if (!token) {
-                    token = ChatPortrait.getTokenFromId(speaker.token)?.document;
+                    token = ChatPortrait.getTokenFromId(speaker.token);
                 }
                 if (!token && speaker.actor) {
-                    token = ChatPortrait.getTokenFromActor(speaker.actor)?.document;
+                    token = ChatPortrait.getTokenFromActor(speaker.actor);
                 }
                 // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
                 if (!token) {
                     try {
-                        token = getCanvas()?.tokens?.getDocuments().find((token) => token.id === speaker.token);
+                        token = getCanvas()
+                            ?.tokens?.getDocuments()
+                            .find((token) => token.id === speaker.token);
                         //token = getCanvas()?.tokens?.getDocuments().find(speaker.token);
                     }
                     catch (e) {
                         // Do nothing
                     }
                     if (!token) {
-                        tokenData = getGame().scenes?.get(speaker.scene)?.data?.tokens?.find(t => t._id === speaker.token); // Deprecated on 0.8.6
+                        tokenData = getGame()
+                            .scenes?.get(speaker.scene)
+                            ?.data?.tokens?.find((t) => t._id === speaker.token); // Deprecated on 0.8.6
                     }
                     else {
                         tokenData = token.data;
@@ -712,7 +718,7 @@ export class ChatPortrait {
                 else {
                     tokenData = token.data;
                 }
-                let imgToken = "";
+                let imgToken = '';
                 if (tokenData) {
                     if (useTokenImage) {
                         if (tokenData?.img) {
@@ -734,29 +740,29 @@ export class ChatPortrait {
                     //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
                     //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
                     //}
-                    if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes("mystery-man")) {
+                    if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes('mystery-man')) {
                         return imgToken;
                     }
                 }
             }
-            let imgActor = "";
+            let imgActor = '';
             if (actor) {
-                if ((!imgActor || imgActor.includes("mystery-man")) && useTokenImage) {
+                if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
                     imgActor = actor?.data.token.img;
                     if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
-                        imgActor = "";
+                        imgActor = '';
                     }
                 }
-                if ((!imgActor || imgActor.includes("mystery-man")) && useTokenImage) {
+                if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
                     imgActor = actor?.token?.data?.img;
                     if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
-                        imgActor = "";
+                        imgActor = '';
                     }
                 }
-                if (!imgActor || imgActor.includes("mystery-man")) {
+                if (!imgActor || imgActor.includes('mystery-man')) {
                     imgActor = actor?.data.img;
                 }
-                if (imgActor && !imgActor.includes("mystery-man")) {
+                if (imgActor && !imgActor.includes('mystery-man')) {
                     return imgActor;
                 }
             }
@@ -765,7 +771,7 @@ export class ChatPortrait {
                 return imgAvatar;
             }
             else {
-                if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+                if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                     return imgAvatar;
                 }
                 else {
@@ -779,7 +785,7 @@ export class ChatPortrait {
         else if (message && message.user) {
             // CASE 2
             const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-            if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+            if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                 return imgAvatar;
             }
             else {
@@ -788,7 +794,7 @@ export class ChatPortrait {
             }
         }
         else {
-            // CASE 3    
+            // CASE 3
             return imgFinal;
         }
     }
@@ -802,17 +808,17 @@ export class ChatPortrait {
             return;
         }
         const img = document.createElement('img');
-        img.src = "";
+        img.src = '';
         const size = ChatPortrait.settings.portraitSize;
         // Support for video or webm file
         //let thumb = diff.img;
         //if (VideoHelper.hasVideoExtension(diff.img))
         //    thumb = await ImageHelper.createThumbnail(diff.img, { width: 48, height: 48 });
         //let thumb = 'icons/svg/mystery-man.svg';
-        if (imgPath.includes(".webm")) {
+        if (imgPath.includes('.webm')) {
             try {
                 let imgThumb = await ImageHelper.createThumbnail(imgPath, { width: size, height: size });
-                if (imgPath.includes(".webm")) {
+                if (imgPath.includes('.webm')) {
                     img.src = imgThumb.thumb;
                     // If a url we need these anyway
                     if (size && size > 0) {
@@ -844,8 +850,8 @@ export class ChatPortrait {
                 img.height = size;
             }
         }
-        if (!img.classList.contains("message-portrait")) {
-            img.classList.add("message-portrait");
+        if (!img.classList.contains('message-portrait')) {
+            img.classList.add('message-portrait');
         }
         return img;
     }
@@ -857,7 +863,9 @@ export class ChatPortrait {
     static setImageBorder(img, authorColor) {
         const borderShape = ChatPortrait.settings.borderShape;
         const borderWidth = ChatPortrait.settings.borderWidth;
-        const borderColor = ChatPortrait.settings.useUserColorAsBorderColor ? authorColor : ChatPortrait.settings.borderColor;
+        const borderColor = ChatPortrait.settings.useUserColorAsBorderColor
+            ? authorColor
+            : ChatPortrait.settings.borderColor;
         switch (borderShape) {
             case 'square':
                 img.style.border = `${borderWidth}px solid ${borderColor}`;
@@ -894,7 +902,7 @@ export class ChatPortrait {
         const useUserBackgroundColor = ChatPortrait.settings.useUserColorAsChatBackgroundColor;
         if (useUserBackgroundColor) {
             //html[0].setAttribute('style','background-color:' + authorColor + ';background-blend-mode:screen;');
-            html[0].style.background = "url(../ui/parchment.jpg) repeat";
+            html[0].style.background = 'url(../ui/parchment.jpg) repeat';
             html[0].style.backgroundColor = authorColor;
             //@ts-ignore
             html[0].style.backgroundBlendMode = 'screen';
@@ -1077,7 +1085,7 @@ export class ChatPortrait {
         let innerTextTmp = innerText;
         //let betterRollLabelAttack = ($(elementItemContent).find(".br5e-roll-label")[0])?.innerText;
         //let betterRollLabelDamage = ($(elementItemContent).find(".br5e-roll-label")[1])?.innerText;
-        let fullTextContent = ($(elementItemContent)[0])?.innerText;
+        let fullTextContent = $(elementItemContent)[0]?.innerText;
         let innerTextDamageTmp = fullTextContent; //Damage -Slashing
         if (innerTextTmp) {
             // Clean up the string for multisystem (D&D5, PF2, ecc.)
@@ -1097,7 +1105,7 @@ export class ChatPortrait {
                         if (key) {
                             let mykeyvalue = i18n(key);
                             if (mykeyvalue) {
-                                //mykeyvalue = mykeyvalue.toLowerCase().trim();      
+                                //mykeyvalue = mykeyvalue.toLowerCase().trim();
                                 //let arr2 = mykeyvalue.split(/\r?\n/);
                                 //for (let j = 0; j < arr2.length; j++) {
                                 let keyValue = mykeyvalue; //arr2[j];
@@ -1173,9 +1181,9 @@ export class ChatPortrait {
         return false;
     }
     static injectMessageTag(html, messageData) {
-        const timestampTag = html.find(".message-timestamp");
-        const indicatorElement = $("<span>");
-        indicatorElement.addClass("chat-portrait-indicator");
+        const timestampTag = html.find('.message-timestamp');
+        const indicatorElement = $('<span>');
+        indicatorElement.addClass('chat-portrait-indicator');
         const whisperTargets = messageData.whisper;
         const isBlind = messageData.blind || false;
         const isWhisper = whisperTargets?.length > 0 || false;
@@ -1183,19 +1191,19 @@ export class ChatPortrait {
         const isRoll = messageData.roll !== undefined;
         // Inject tag to the left of the timestamp
         if (isBlind) {
-            indicatorElement.text(getGame().i18n.localize("CHAT.RollBlind"));
+            indicatorElement.text(getGame().i18n.localize('CHAT.RollBlind'));
             timestampTag.before(indicatorElement);
         }
         else if (isSelf && whisperTargets[0]) {
-            indicatorElement.text(getGame().i18n.localize("CHAT.RollSelf"));
+            indicatorElement.text(getGame().i18n.localize('CHAT.RollSelf'));
             timestampTag.before(indicatorElement);
         }
         else if (isRoll && isWhisper) {
-            indicatorElement.text(getGame().i18n.localize("CHAT.RollPrivate"));
+            indicatorElement.text(getGame().i18n.localize('CHAT.RollPrivate'));
             timestampTag.before(indicatorElement);
         }
         else if (isWhisper) {
-            indicatorElement.text(getGame().i18n.localize("chat-portrait.whisper"));
+            indicatorElement.text(getGame().i18n.localize('chat-portrait.whisper'));
             timestampTag.before(indicatorElement);
         }
     }
@@ -1212,18 +1220,18 @@ export class ChatPortrait {
         if (userId !== authorId && !whisperTargetIds.includes(userId))
             return;
         // remove the old whisper to content, if it exists
-        html.find(".chat-portrait-whisper-to").detach();
+        html.find('.chat-portrait-whisper-to').detach();
         // if this is a roll
         if (isRoll)
             return;
         // add new content
-        const messageHeader = html.find(".card-header"); // message-header
-        const whisperParticipants = $("<span>");
-        whisperParticipants.addClass("chat-portrait-whisper-to");
-        const whisperFrom = $("<span>");
-        whisperFrom.text(`${getGame().i18n.localize("chat-portrait.from")}: ${alias}`);
-        const whisperTo = $("<span>");
-        whisperTo.text(`${getGame().i18n.localize("CHAT.To")}: ${whisperTargetString}`);
+        const messageHeader = html.find('.card-header'); // message-header
+        const whisperParticipants = $('<span>');
+        whisperParticipants.addClass('chat-portrait-whisper-to');
+        const whisperFrom = $('<span>');
+        whisperFrom.text(`${getGame().i18n.localize('chat-portrait.from')}: ${alias}`);
+        const whisperTo = $('<span>');
+        whisperTo.text(`${getGame().i18n.localize('CHAT.To')}: ${whisperTargetString}`);
         whisperParticipants.append(whisperFrom);
         whisperParticipants.append(whisperTo);
         messageHeader.append(whisperParticipants);
@@ -1231,16 +1239,16 @@ export class ChatPortrait {
     static isWildcardImage(imgUrl) {
         let filename = imgUrl.split('/').pop();
         let baseFileName = filename.substr(0, filename.lastIndexOf('.'));
-        return baseFileName == "*";
+        return baseFileName == '*';
     }
     static loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer) {
-        let imgFinal = "icons/svg/mystery-man.svg";
+        let imgFinal = 'icons/svg/mystery-man.svg';
         //
         // CASE 1
         if ((!tokenID && !actorID) || ChatPortrait.settings.useAvatarImage) {
             if (userID && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)) {
                 const imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
-                if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+                if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                     return imgAvatar;
                 }
                 else {
@@ -1251,7 +1259,7 @@ export class ChatPortrait {
             else if (!tokenID && !actorID) {
                 if (userID && ChatPortrait.settings.useAvatarImage) {
                     const imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
-                    if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+                    if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                         return imgAvatar;
                     }
                     else {
@@ -1261,7 +1269,7 @@ export class ChatPortrait {
                         //   speaker.token = currentToken;
                         //   return currentToken.data.img;
                         // }else{
-                        //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");              
+                        //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");
                         //return imgAvatar ? imgAvatar : imgFinal;
                         // }
                     }
@@ -1276,9 +1284,9 @@ export class ChatPortrait {
         const useTokenImage = ChatPortrait.settings.useTokenImage;
         const actor = ChatPortrait.getActorFromActorID(actorID, tokenID);
         // Make sense only for player and for non GM
-        if (actor?.type == "character" && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)) {
+        if (actor?.type == 'character' && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)) {
             const imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
-            if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+            if (imgAvatar && !imgAvatar.includes('mystery-man')) {
                 return imgAvatar;
             }
             else {
@@ -1289,24 +1297,28 @@ export class ChatPortrait {
         //@ts-ignore
         let tokenData;
         if (tokenID) {
-            token = ChatPortrait.getTokenFromScene(sceneID, tokenID)?.document;
+            token = ChatPortrait.getTokenFromScene(sceneID, tokenID);
             if (!token) {
-                token = ChatPortrait.getTokenFromId(tokenID)?.document;
+                token = ChatPortrait.getTokenFromId(tokenID);
             }
             if (!token && actorID) {
-                token = ChatPortrait.getTokenFromActor(actorID)?.document;
+                token = ChatPortrait.getTokenFromActor(actorID);
             }
             // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
             if (!token) {
                 try {
-                    token = getCanvas()?.tokens?.getDocuments().find((token) => token.id === tokenID);
+                    token = getCanvas()
+                        ?.tokens?.getDocuments()
+                        .find((token) => token.id === tokenID);
                     //token = getCanvas()?.tokens?.getDocuments().find(speaker.token);
                 }
                 catch (e) {
                     // Do nothing
                 }
                 if (!token) {
-                    tokenData = getGame().scenes?.get(sceneID)?.data?.tokens?.find(t => t._id === tokenID); // Deprecated on 0.8.6
+                    tokenData = getGame()
+                        .scenes?.get(sceneID)
+                        ?.data?.tokens?.find((t) => t._id === tokenID); // Deprecated on 0.8.6
                 }
                 else {
                     tokenData = token.data;
@@ -1315,7 +1327,7 @@ export class ChatPortrait {
             else {
                 tokenData = token.data;
             }
-            let imgToken = "";
+            let imgToken = '';
             if (tokenData) {
                 if (useTokenImage) {
                     if (tokenData?.img) {
@@ -1337,13 +1349,13 @@ export class ChatPortrait {
                 //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
                 //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
                 //}
-                if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes("mystery-man")) {
+                if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes('mystery-man')) {
                     return imgToken;
                 }
             }
         }
         // MOD COMBAT TRACKER NEED TOKEN RETRIEVE ANYWAY IF TOKEN IS NOT OWNED
-        let imgToken = "";
+        let imgToken = '';
         if (!useTokenImage && !isOwnedFromPLayer) {
             if (tokenData?.img) {
                 imgToken = tokenData.img;
@@ -1351,29 +1363,29 @@ export class ChatPortrait {
             if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.img) {
                 imgToken = tokenData?.data?.img;
             }
-            if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes("mystery-man")) {
+            if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes('mystery-man')) {
                 return imgToken;
             }
         }
         // END MOD COMBAT TRACKER IF TOKEN IS NOT OWNED
-        let imgActor = "";
+        let imgActor = '';
         if (actor) {
-            if ((!imgActor || imgActor.includes("mystery-man")) && useTokenImage) {
+            if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
                 imgActor = actor?.data.token.img;
                 if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
-                    imgActor = "";
+                    imgActor = '';
                 }
             }
-            if ((!imgActor || imgActor.includes("mystery-man")) && useTokenImage) {
+            if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
                 imgActor = actor?.token?.data?.img;
                 if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
-                    imgActor = "";
+                    imgActor = '';
                 }
             }
-            if (!imgActor || imgActor.includes("mystery-man")) {
+            if (!imgActor || imgActor.includes('mystery-man')) {
                 imgActor = actor?.data.img;
             }
-            if (imgActor && !imgActor.includes("mystery-man")) {
+            if (imgActor && !imgActor.includes('mystery-man')) {
                 return imgActor;
             }
         }
@@ -1381,7 +1393,7 @@ export class ChatPortrait {
         // if (isMonkTokenBarXP(html)) {
         //   return imgAvatar;
         // }else {
-        if (imgAvatar && !imgAvatar.includes("mystery-man")) {
+        if (imgAvatar && !imgAvatar.includes('mystery-man')) {
             return imgAvatar;
         }
         else {
@@ -1403,12 +1415,12 @@ ChatPortrait.getActorName = function (speaker) {
 ChatPortrait.getTokenName = function (speaker) {
     if (speaker.token) {
         const scene = speaker.scene ? speaker.scene : getGame().scenes?.current?.id;
-        let token = ChatPortrait.getTokenFromScene(speaker.scene, speaker.token)?.document;
+        let token = ChatPortrait.getTokenFromScene(speaker.scene, speaker.token);
         if (!token) {
-            token = ChatPortrait.getTokenFromId(speaker.token)?.document;
+            token = ChatPortrait.getTokenFromId(speaker.token);
         }
         if (!token && speaker.actor) {
-            token = ChatPortrait.getTokenFromActor(speaker.actor)?.document;
+            token = ChatPortrait.getTokenFromActor(speaker.actor);
         }
         if (token) {
             return token.name;
@@ -1439,8 +1451,8 @@ ChatPortrait.getTokenFromActor = function (actorID) {
     let token = null;
     const scene = getGame().scenes?.get(getGame().user?.viewedScene);
     if (scene) {
-        const thisSceneToken = scene.data.tokens.find((token) => {
-            return token.actor && token.actor.id === actorID;
+        const thisSceneToken = scene.data.tokens.find((tokenTmp) => {
+            return (tokenTmp.actor && tokenTmp.actor.id === actorID);
         });
         if (thisSceneToken) {
             token = ChatPortrait.getTokenFromId(thisSceneToken.id);
@@ -1450,7 +1462,7 @@ ChatPortrait.getTokenFromActor = function (actorID) {
 };
 ChatPortrait.getTokenFromId = function (tokenId) {
     try {
-        return getCanvas().tokens?.get(tokenId);
+        return getCanvas().tokens?.get(tokenId)?.document;
     }
     catch (e) {
         return null;
@@ -1463,17 +1475,18 @@ ChatPortrait.getTokenFromScene = function (sceneID, tokenID) {
         if (!specifiedScene) {
             return null;
         }
-        return specifiedScene.data.tokens.find((token) => {
-            return token.id === tokenID;
+        const tokenDoc = specifiedScene.data.tokens.find((tokenTmp) => {
+            return (tokenTmp.id === tokenID);
         });
+        return tokenDoc;
     }
     let foundToken = null;
-    getGame().scenes?.find((scene) => {
+    getGame().scenes?.find((sceneTmp) => {
         //foundToken = ChatPortrait.getTokenForScene(scene, tokenID);
-        if (!scene) {
+        if (!sceneTmp) {
             foundToken = null;
         }
-        foundToken = scene.data.tokens.find((token) => {
+        foundToken = sceneTmp.data.tokens.find((token) => {
             return token.id === tokenID;
         });
         return !!foundToken;
@@ -1528,7 +1541,7 @@ ChatPortrait.getFirstPlayerToken = function () {
         //if(!controlled.length || controlled.length == 0 ){
         // If no token is selected use the token of the users character
         //@ts-ignore
-        token = getCanvas().tokens.placeables.find((token) => token.data._id === getGame().user.character?.data?._id);
+        token = getCanvas().tokens.placeables.find((token) => token.data._id === getGame().user?.character?.data?._id);
         //}
         // If no token is selected use the first owned token of the users character you found and is not GM
         if (!token && !getGame().user?.isGM) {
@@ -1582,8 +1595,8 @@ ChatPortrait.shouldOverrideMessageUnknown = function (message) {
         actor = ChatPortrait.getActor(speaker);
         mytype = actor?.data?.type;
     }
-    const setting = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, "displayUnknown");
-    if (setting !== "none") {
+    const setting = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknown');
+    if (setting !== 'none') {
         //const user = getGame().users.get(message.user);
         let user = getGame().users?.get(message.user);
         if (!user) {
@@ -1595,24 +1608,24 @@ ChatPortrait.shouldOverrideMessageUnknown = function (message) {
         if (user) {
             const isSelf = user.data._id === getGame().user?.data._id;
             const isGM = user.isGM;
-            if ((setting === "allCards")
-                || (setting === "self" && isSelf)
-                || (setting === "selfAndGM" && (isSelf || isGM))
-                || (setting === "gm" && isGM)
-                || (setting === "player" && !isGM)
-                || (setting === "onlyNpc" && mytype == "npc" && !isGM)) {
+            if (setting === 'allCards' ||
+                (setting === 'self' && isSelf) ||
+                (setting === 'selfAndGM' && (isSelf || isGM)) ||
+                (setting === 'gm' && isGM) ||
+                (setting === 'player' && !isGM) ||
+                (setting === 'onlyNpc' && mytype == 'npc' && !isGM)) {
                 return true;
             }
         }
         else {
-            error("Impossibile to get message user");
+            error('Impossibile to get message user');
         }
     }
     return false;
 };
 ChatPortrait.shouldOverrideMessageStyling = function (message) {
-    const setting = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, "displaySetting");
-    if (setting !== "none") {
+    const setting = getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySetting');
+    if (setting !== 'none') {
         //const user = getGame().users.get(message.user);
         let user = getGame().users?.get(message.user);
         if (!user) {
@@ -1624,16 +1637,16 @@ ChatPortrait.shouldOverrideMessageStyling = function (message) {
         if (user) {
             const isSelf = user.data._id === getGame().user?.data._id;
             const isGM = user.isGM;
-            if ((setting === "allCards")
-                || (setting === "self" && isSelf)
-                || (setting === "selfAndGM" && (isSelf || isGM))
-                || (setting === "gm" && isGM)
-                || (setting === "player" && !isGM)) {
+            if (setting === 'allCards' ||
+                (setting === 'self' && isSelf) ||
+                (setting === 'selfAndGM' && (isSelf || isGM)) ||
+                (setting === 'gm' && isGM) ||
+                (setting === 'player' && !isGM)) {
                 return true;
             }
         }
         else {
-            error("Impossibile to get message user");
+            error('Impossibile to get message user');
         }
     }
     return false;
@@ -1646,10 +1659,10 @@ ChatPortrait.getUserColor = function (message) {
             return user.data.color;
         }
     }
-    return "";
+    return '';
 };
 ChatPortrait.getUserAvatarImage = function (message) {
-    let userId = "";
+    let userId = '';
     if (message.document) {
         userId = message.document.user.id;
     }
@@ -1661,20 +1674,22 @@ ChatPortrait.getUserAvatarImage = function (message) {
     }
     let user = getGame().users?.get(userId);
     if (user) {
-        if (user.data && user.data.avatar) { // image path
+        if (user.data && user.data.avatar) {
+            // image path
             return user.data.avatar;
         }
     }
-    return "icons/svg/mystery-man.svg";
+    return 'icons/svg/mystery-man.svg';
 };
 ChatPortrait.getUserAvatarImageFromUserID = function (userId) {
     let user = getGame().users?.get(userId);
     if (user) {
-        if (user.data && user.data.avatar) { // image path
+        if (user.data && user.data.avatar) {
+            // image path
             return user.data.avatar;
         }
     }
-    return "icons/svg/mystery-man.svg";
+    return 'icons/svg/mystery-man.svg';
 };
 ChatPortrait.getUserName = function (message) {
     let user = getGame().users?.get(message.user);
@@ -1682,20 +1697,22 @@ ChatPortrait.getUserName = function (message) {
         user = getGame().users?.get(message.user.id);
     }
     if (user) {
-        if (user.data && user.data.avatar) { // image path
+        if (user.data && user.data.avatar) {
+            // image path
             return user.data.name;
         }
     }
-    return "";
+    return '';
 };
 ChatPortrait.getUserNameFromUserID = function (userID) {
     let user = getGame().users?.get(userID);
     if (user) {
-        if (user.data && user.data.avatar) { // image path
+        if (user.data && user.data.avatar) {
+            // image path
             return user.data.name;
         }
     }
-    return "";
+    return '';
 };
 ChatPortrait.isWhisperToOther = function (speakerInfo) {
     const whisper = speakerInfo?.message?.whisper;
@@ -1760,7 +1777,7 @@ ChatPortrait.getMessageTypeVisible = function (speakerInfo) {
 };
 ChatPortrait.getLogElement = function (chatLog) {
     const el = chatLog.element;
-    const log = el.length ? el[0].querySelector("#chat-log") : null;
+    const log = el.length ? el[0].querySelector('#chat-log') : null;
     return log;
 };
 ChatPortrait.shouldScrollToBottom = function (log) {

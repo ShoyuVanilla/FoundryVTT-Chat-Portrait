@@ -10,21 +10,21 @@ export class ChatLink {
     static prepareEvent(message, html, speakerInfo) {
         // let clickable = html.find('.chat-card'); // message-sender
         // if(!clickable){
-        //     clickable = html.find('.message-sender');	
+        //     clickable = html.find('.message-sender');
         // }
-        let clickable = html.find('.message-portrait');
+        const clickable = html.find('.message-portrait');
         if (!clickable) {
             // Ignored some system as strange behavior
             return;
         }
-        let speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
+        const speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
         if (!(speaker.actor || speaker.token)) {
             return;
         }
         // Removed 4535992 just a bug i can avoid to manage
         //ChatLink.formatLink(clickable);
-        let speakerName = clickable[0]?.textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
-        let speakerData = { idScene: speaker.scene, idActor: speaker.actor, idToken: speaker.token, name: speakerName };
+        const speakerName = clickable[0]?.textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
+        const speakerData = { idScene: speaker.scene, idActor: speaker.actor, idToken: speaker.token, name: speakerName };
         if (!speakerData.idScene) {
             if (speakerInfo.author) {
                 speakerData.idScene = speakerInfo.author.viewedScene;
@@ -57,15 +57,15 @@ export class ChatLink {
         // });
     }
     static prepareEventImage(message, html, speakerInfo) {
-        let clickable = html.find('.message-portrait');
-        let speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
+        const clickable = html.find('.message-portrait');
+        const speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
         if (!(speaker.actor || speaker.token)) {
             return;
         }
         // Removed 4535992 just a bug i can avoid to manage
         //ChatLink.formatLink(clickable);
-        let speakerName = clickable[0]?.textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
-        let speakerData = { idScene: speaker.scene, idActor: speaker.actor, idToken: speaker.token, name: speakerName };
+        const speakerName = clickable[0]?.textContent ?? speaker.alias ?? ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.genericName');
+        const speakerData = { idScene: speaker.scene, idActor: speaker.actor, idToken: speaker.token, name: speakerName };
         if (!speakerData.idScene) {
             if (speakerInfo.author) {
                 speakerData.idScene = speakerInfo.author.viewedScene;
@@ -99,8 +99,8 @@ export class ChatLink {
     }
     // If it's reached this far, assume scene is correct.
     static panToToken(speakerData) {
-        let user = getGame().user;
-        let token = ChatLink.getToken(speakerData);
+        const user = getGame().user;
+        const token = ChatLink.getToken(speakerData);
         if (!ChatLink.tokenExists(user, speakerData, token)) {
             return;
         }
@@ -110,8 +110,8 @@ export class ChatLink {
         ChatLink.doPanToToken(user, token);
     }
     static selectToken(event, speakerData) {
-        let user = getGame().user;
-        let token = ChatLink.getToken(speakerData);
+        const user = getGame().user;
+        const token = ChatLink.getToken(speakerData);
         if (!ChatLink.tokenExists(user, speakerData, token))
             return;
         if (!ChatLink.permissionToSee(user, speakerData, token))
@@ -119,9 +119,9 @@ export class ChatLink {
         ChatLink.doSelectToken(event, user, token);
     }
     static getToken(speakerData) {
-        let token = getCanvas().tokens?.placeables.find(t => t.id === speakerData.idToken);
+        let token = getCanvas().tokens?.placeables.find((t) => t.id === speakerData.idToken);
         if (!token)
-            token = getCanvas().tokens?.placeables.find(t => t.actor?.id === speakerData.idActor);
+            token = getCanvas().tokens?.placeables.find((t) => t.actor?.id === speakerData.idActor);
         return token;
     }
     static tokenExists(user, speakerData, token) {
@@ -129,7 +129,9 @@ export class ChatLink {
             return true;
         if (!ChatLink.isRightScene(user, speakerData))
             return;
-        let message = user.isGM ? ChatLink.playerWarning(speakerData) + ` ${ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.noTokenFound')}` : ChatLink.playerWarning(speakerData);
+        const message = user.isGM
+            ? ChatLink.playerWarning(speakerData) + ` ${ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.noTokenFound')}`
+            : ChatLink.playerWarning(speakerData);
         ChatLink.warning(message);
     }
     static isRightScene(user, speakerData) {
@@ -140,10 +142,12 @@ export class ChatLink {
             sceneNote = ` ${ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.noSceneFound')}`;
         }
         else {
-            let tokenScene = getGame().scenes?.find(s => s.data._id === speakerData.idScene);
-            sceneNote = ` ${ChatLink.i18nFormat(CHAT_PORTRAIT_MODULE_NAME + '.checkScene', { sceneName: tokenScene?.data.name })}`;
+            const tokenScene = getGame().scenes?.find((s) => s.data._id === speakerData.idScene);
+            sceneNote = ` ${ChatLink.i18nFormat(CHAT_PORTRAIT_MODULE_NAME + '.checkScene', {
+                sceneName: tokenScene?.data.name,
+            })}`;
         }
-        let message = user.isGM ? ChatLink.playerWarning(speakerData) + sceneNote : ChatLink.playerWarning(speakerData);
+        const message = user.isGM ? ChatLink.playerWarning(speakerData) + sceneNote : ChatLink.playerWarning(speakerData);
         ChatLink.warning(message);
     }
     static permissionToSee(user, speakerData, token) {
@@ -153,15 +157,15 @@ export class ChatLink {
         ChatLink.warning(ChatLink.playerWarning(speakerData));
     }
     static permissionToControl(user, token) {
-        return user.isGM || token.actor?.hasPerm(user, "OWNER");
+        return user.isGM || token.actor?.hasPerm(user, 'OWNER');
     }
     static doSelectToken(event, user, token) {
-        let ctrlKey = event.ctrlKey;
+        const ctrlKey = event.ctrlKey;
         if (!ChatLink.permissionToControl(user, token)) {
             ChatLink.targetToken(event, user, token, ctrlKey);
             return;
         }
-        let shiftKey = event.shiftKey;
+        const shiftKey = event.shiftKey;
         if (shiftKey) {
             ChatLink.targetToken(event, user, token, ctrlKey);
         }
@@ -171,14 +175,14 @@ export class ChatLink {
     }
     static doPanToToken(user, token) {
         //@ts-ignore
-        let scale = getCanvas().scene?._viewPosition.scale;
+        const scale = getCanvas().scene?._viewPosition.scale;
         getCanvas().animatePan({ x: token.x, y: token.y, scale: scale, duration: 500 });
         if (token && token.isVisible) {
             getCanvas().animatePan({ ...token.center, duration: 250 });
         }
     }
     static controlToken(event, user, token, ctrlKey) {
-        let releaseOthers = { releaseOthers: !ctrlKey };
+        const releaseOthers = { releaseOthers: !ctrlKey };
         if (ctrlKey) {
             if (token._controlled)
                 token.release();
@@ -194,7 +198,7 @@ export class ChatLink {
             token.release();
     }
     static targetToken(event, user, token, ctrlKey) {
-        let releaseOthers = { releaseOthers: !ctrlKey };
+        const releaseOthers = { releaseOthers: !ctrlKey };
         if (ctrlKey) {
             if (token.isTargeted)
                 token.setTarget(false, releaseOthers);
@@ -210,7 +214,7 @@ export class ChatLink {
             token.setTarget(true, releaseOthers);
     }
     static getCoords(token) {
-        let result = { x: token.center.x, y: token.center.y, width: 1, height: 1 };
+        const result = { x: token.center.x, y: token.center.y, width: 1, height: 1 };
         return result;
     }
     static warning(message) {
@@ -226,8 +230,8 @@ ChatLink.hoverTimer = null;
 ChatLink.i18n = (toTranslate) => getGame().i18n.localize(toTranslate);
 ChatLink.i18nFormat = (toTranslate, data) => getGame().i18n.format(toTranslate, data);
 ChatLink.hoverIn = (event, speaker) => {
-    let token = ChatPortrait.getTokenFromSpeaker(speaker);
-    if (token && token.isVisible) {
+    const token = ChatPortrait.getTokenFromSpeaker(speaker);
+    if (token && token.visible) {
         event.fromChat = true;
         //@ts-ignore
         token._onHoverIn(event);

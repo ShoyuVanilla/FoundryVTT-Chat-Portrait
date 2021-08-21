@@ -13,7 +13,7 @@ export const INV_UNIDENTIFIED_BOOK = `/modules/${CHAT_PORTRAIT_MODULE_NAME}/asse
  */
 export function getCanvas() {
     if (!(canvas instanceof Canvas) || !canvas.ready) {
-        throw new Error("Canvas Is Not Initialized");
+        throw new Error('Canvas Is Not Initialized');
     }
     return canvas;
 }
@@ -28,18 +28,18 @@ export function getCanvas() {
  */
 export function getGame() {
     if (!(game instanceof Game)) {
-        throw new Error("Game Is Not Initialized");
+        throw new Error('Game Is Not Initialized');
     }
     return game;
 }
 export const registerSettings = function () {
     getGame().settings.registerMenu(CHAT_PORTRAIT_MODULE_NAME, CHAT_PORTRAIT_MODULE_NAME, {
-        name: i18n(CHAT_PORTRAIT_MODULE_NAME + ".form"),
-        label: i18n(CHAT_PORTRAIT_MODULE_NAME + ".form-title"),
-        hint: i18n(CHAT_PORTRAIT_MODULE_NAME + ".form-hint"),
-        icon: "fas fa-portrait",
+        name: i18n(CHAT_PORTRAIT_MODULE_NAME + '.form'),
+        label: i18n(CHAT_PORTRAIT_MODULE_NAME + '.form-title'),
+        hint: i18n(CHAT_PORTRAIT_MODULE_NAME + '.form-hint'),
+        icon: 'fas fa-portrait',
         type: ChatPortraitForm,
-        restricted: true
+        restricted: true,
     });
     // getGame().settings.register(MODULE_NAME, "settings", {
     //     name: "Chat Portrait Settings",
@@ -56,49 +56,49 @@ export const registerSettings = function () {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useTokenName', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useAvatarImage', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displayPlayerName', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'portraitSize', {
         scope: 'world',
         config: false,
         type: Number,
-        default: 36
+        default: 36,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'portraitSizeItem', {
         scope: 'world',
         config: false,
         type: Number,
-        default: 36
+        default: 36,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'borderShape', {
         scope: 'world',
         config: false,
         type: String,
-        default: "square"
+        default: 'square',
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsBorderColor', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     // new ColorSetting(MODULE_NAME, 'borderColor', {
     //     scope: "world",
@@ -111,37 +111,37 @@ export const registerSettings = function () {
         scope: 'world',
         config: false,
         type: String,
-        default: '#000000'
+        default: '#000000',
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'borderWidth', {
         scope: 'world',
         config: false,
         type: Number,
-        default: 2
+        default: 2,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBackgroundColor', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBorderColor', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'flavorNextToPortrait', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'forceNameSearch', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     // getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip', {
     //   // name : getGame().i18n.localize('chat-portrait.settings.hoverTooltip.name'),
@@ -156,31 +156,31 @@ export const registerSettings = function () {
         scope: 'world',
         config: false,
         type: Number,
-        default: 0
+        default: 0,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displayMessageTag', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacer', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacerDamageType', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker', {
         scope: 'world',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySetting', {
         //name: "Display setting",
@@ -202,43 +202,43 @@ export const registerSettings = function () {
         scope: 'client',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOOC', {
         scope: 'client',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingIC', {
         scope: 'client',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingEMOTE', {
         scope: 'client',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWHISPER', {
         scope: 'client',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingROLL', {
         scope: 'client',
         config: false,
         type: Boolean,
-        default: true
+        default: true,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWhisperToOther', {
         scope: 'client',
         config: false,
         type: Boolean,
-        default: false
+        default: false,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknown', {
         //name: "Display setting",
@@ -260,25 +260,25 @@ export const registerSettings = function () {
         scope: 'world',
         config: false,
         type: String,
-        default: 'Unknown Actor'
+        default: 'Unknown Actor',
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemName', {
         scope: 'world',
         config: false,
         type: String,
-        default: 'Unknown Item'
+        default: 'Unknown Item',
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemIcon', {
         scope: 'world',
         config: false,
         type: String,
-        default: `/modules/${CHAT_PORTRAIT_MODULE_NAME}/assets/inv-unidentified.png`
+        default: `/modules/${CHAT_PORTRAIT_MODULE_NAME}/assets/inv-unidentified.png`,
     });
     getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText', {
         scope: 'world',
         config: false,
         type: String,
-        default: ''
+        default: '',
     });
 };
 // function setup(templateSettings) {

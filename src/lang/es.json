@@ -1,7 +1,7 @@
 {
   "I18N.LANGUAGE": "Español",
   "I18N.MAINTAINERS": "@Viriato139ac#0342",
-  
+
   "chat-portrait.form": "Configuración de Chat Portrait",
   "chat-portrait.form-title": "Configuración de retratos en el chat (Chat Portrait)",
   "chat-portrait.form-hint": "Abre la ventana de configuración. Actualice la página actual al guardar",

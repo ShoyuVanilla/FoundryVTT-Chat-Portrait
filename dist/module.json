@@ -3,7 +3,7 @@
   "title": "Chat Portrait",
   "description": "Display the Actor's portrait and colors on the Chat Message.",
   "author": "Shoyu Vanilla and p4535992",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "type": "module",
   "socket": true,
   "includes": [
@@ -66,24 +66,18 @@
       "path": "lang/de.json"
     }
   ],
-  "scripts": [
-  ],
-  "esmodules": [
-    "main.js"
-  ],
-  "styles": [
-    "styles/chat-portrait-style.css"
-  ],
+  "scripts": [],
+  "esmodules": ["main.js"],
+  "styles": ["styles/chat-portrait-style.css"],
   "manifestPlusVersion": "1.2.0",
   "url": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait",
   "readme": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/README.md",
   "manifest": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/src/module.json",
-  "download": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/package/chat-portrait-v0.5.6.zip",
+  "download": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/package/chat-portrait-v0.5.7.zip",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.9",
   "changelog": "https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/changelog.md",
   "bugs": "https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues",
   "allowBugReporter": true,
-  "dependencies": [
-  ]
+  "dependencies": []
 }

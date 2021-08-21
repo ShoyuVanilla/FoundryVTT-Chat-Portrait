@@ -64,7 +64,7 @@ export class ChatPortraitChatCard extends ChatMessage {
         // Check if the card already exists
         const existing = message.ChatPortraitCardBinding;
         if (existing) {
-            log("Retrieved existing card");
+            log('Retrieved existing card');
             //existing.updateBinding(message, chatCard);
             existing.updateBinding(message, html, speakerInfo, imageReplacer);
             // Pulse the card to make it look more obvious
@@ -73,9 +73,9 @@ export class ChatPortraitChatCard extends ChatMessage {
             window.setTimeout(() => {
                 //@ts-ignore
                 gsap?.from(html.get(), {
-                    "border-color": "red",
-                    "box-shadow": "0 0 6px inset #ff6400",
-                    duration: 2
+                    'border-color': 'red',
+                    'box-shadow': '0 0 6px inset #ff6400',
+                    duration: 2,
                 });
             }, 0);
             // Scroll to bottom if the last card had updated
@@ -84,10 +84,10 @@ export class ChatPortraitChatCard extends ChatMessage {
             if (last?.id === existing.id) {
                 //window.setTimeout(() => { ui.chat?.scrollBottom(); }, 0);
                 window.setTimeout(function () {
-                    const log = document.querySelector("#chat-log");
+                    const log = document.querySelector('#chat-log');
                     const shouldForceScroll = log ? ChatPortrait.shouldScrollToBottom(log) : false;
                     if (log && shouldForceScroll) {
-                        log.scrollTo({ behavior: "smooth", top: log.scrollHeight });
+                        log.scrollTo({ behavior: 'smooth', top: log.scrollHeight });
                     }
                 }, 50);
             }

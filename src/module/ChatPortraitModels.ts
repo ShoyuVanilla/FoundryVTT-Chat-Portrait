@@ -1,9 +1,9 @@
 export class ImageReplacerData {
-  iconMainReplacer:string = "";
-  iconsDamageType:string[] = new Array();
+  iconMainReplacer = '';
+  iconsDamageType: string[] = [];
 }
 
-export class ChatPortraitCustomData{
-  customIconPortraitImage:string = "";
-  customImageReplacer:Record<string,string>
+export class ChatPortraitCustomData {
+  customIconPortraitImage = '';
+  customImageReplacer: Record<string, string>;
 }

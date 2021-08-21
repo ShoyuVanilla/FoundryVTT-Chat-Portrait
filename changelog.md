@@ -1,3 +1,8 @@
+## 0.5.7
+
+- Some minor bug fix
+- Add prettier plugin
+
 ## 0.5.6
 
 - Some performance on chat portrait mechanism to the combat tracker
