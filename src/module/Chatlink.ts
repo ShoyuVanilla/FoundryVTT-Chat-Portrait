@@ -261,7 +261,7 @@ export class ChatLink {
     if (token && token.visible) {
       event.fromChat = true;
       //@ts-ignore
-      token._onHoverIn(event);
+      token._object._onHoverIn(event);
       ChatLink.lastHoveredToken = token;
     }
   };

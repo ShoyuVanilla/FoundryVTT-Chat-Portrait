@@ -1,3 +1,7 @@
+## 0.5.8
+
+- Bug fix function '_onHoverIn' for TokenDocument instead fro 'Token'
+
 ## 0.5.7
 
 - Some minor bug fix
