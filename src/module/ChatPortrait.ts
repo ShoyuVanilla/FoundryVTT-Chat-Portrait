@@ -61,8 +61,21 @@ export class ChatPortrait {
     if (!ChatPortrait.settings.displaySettingROLL && messageType == CONST.CHAT_MESSAGE_TYPES.ROLL) {
       doNotStyling = true;
     }
+
+    // PATCH MODULE NARRATOR TOOLS 
     // Do not styling narrator message because it's make no sense the module has is own css customizing
-    if (speakerInfo.alias == i18n('NT.Narrator')) {
+    if (speakerInfo.alias == i18n('NT.Narrator') && getGame().modules.get("narrator-tools")?.active) {
+      doNotStyling = true;
+    }
+    // PATCH MODULE koboldworks-turn-announcer
+    const isTurnAnnouncer = html.find('.message-content .turn-announcer .portrait')[0];
+    if(isTurnAnnouncer && getGame().modules.get("koboldworks-turn-announcer")?.active){
+      const size: number = ChatPortrait.settings.portraitSize;
+      if(size && size > 0){
+        isTurnAnnouncer.style.width = size + "px"
+        isTurnAnnouncer.style.height = size + "px"
+        isTurnAnnouncer.style.flex = "0 0 " + size + "px"
+      }
       doNotStyling = true;
     }
 
@@ -114,6 +127,17 @@ export class ChatPortrait {
     //messageSenderElement.style.display = 'block';
     // }
     if (doNotStyling) {
+      let authorColor = 'black';
+      if (speakerInfo.author) {
+        authorColor = <string>speakerInfo.author.data.color;
+      } else {
+        //@ts-ignore
+        authorColor = <string>speakerInfo?.document?.user.color;
+      }
+      const messageData = speakerInfo.message ? speakerInfo.message : speakerInfo.document.data;
+      ChatPortrait.setCustomStylingText(html, messageData, authorColor);
+      ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
+      ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
       if (ChatPortrait.settings.displayPlayerName) {
         ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author);
       }
