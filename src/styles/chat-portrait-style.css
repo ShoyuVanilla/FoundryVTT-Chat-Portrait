@@ -1,6 +1,5 @@
 .message .message-header img.message-portrait
-/* .message .card-header img  */
-{
+/* .message .card-header img  */ {
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
@@ -62,16 +61,12 @@
 }
 
 /* Narrator Chat Module Support - Don't show portrait on Narrates */
-.chat-message.message.flexcol.narrator-chat .message-header img.message-portrait
-{
-	display:none;
+.chat-message.message.flexcol.narrator-chat .message-header img.message-portrait {
+  display: none;
 }
-
 
 .chat-portrait-text-size-name {
-
 }
-
 
 .chat-portrait-indicator {
   display: inline-block;
@@ -93,36 +88,30 @@
   background: #999;
 }
 
-
 .message .message-header
-/* .message .card-header */
-{
+/* .message .card-header */ {
   justify-content: space-between;
 }
 
 .message .message-header .message-metadata
-/* .message .card-header .message-metadata  */
-{
+/* .message .card-header .message-metadata  */ {
   flex: 0 0 auto;
   margin-left: 1rem;
 }
 
 .message .message-header .message-sender
-/* .message .card-header .message-sender  */
-{
+/* .message .card-header .message-sender  */ {
   flex: 1 0 1px;
 }
 
 .message .message-header .chat-portrait-whisper-to
-/* .message .card-header .chat-portrait-whisper-to  */
-{
+/* .message .card-header .chat-portrait-whisper-to  */ {
   line-height: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Chat Images Module Support */
-.message .message-content .chat-images-container img
-{
+.message .message-content .chat-images-container img {
   width: 100%;
   height: 100%;
 }

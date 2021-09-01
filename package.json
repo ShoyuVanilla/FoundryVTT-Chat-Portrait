@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "chat-portrait",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "Generate token bases based on token disposition or actor folder color.",
   "scripts": {
     "package": "gulp package",
@@ -11,7 +11,7 @@
     "update": "npm install --save-dev @league-of-foundry-developers/foundry-vtt-types@fvtt-0.8.8",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lintfix": "eslint --fix --ext .ts,.js,.vue ./src",
-    "prettier-format": "prettier --config .prettierrc --write \"./src/**/*.(ts|js|json|scss)\""
+    "prettier-format": "prettier --config .prettierrc --write \"./src/**/*.(ts|js|json|scss|css)\""
   },
   "author": "",
   "license": "",

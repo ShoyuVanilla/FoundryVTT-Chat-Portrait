@@ -32,4 +32,5 @@ export interface ChatPortraitSettings {
   useImageReplacer: boolean;
   useImageReplacerDamageType: boolean;
   applyOnCombatTracker: boolean;
+  applyPreCreateChatMessagePatch: boolean;
 }

@@ -74,6 +74,7 @@ export class ChatPortraitForm extends FormApplication {
         useImageReplacer: true,
         useImageReplacerDamageType: true,
         applyOnCombatTracker: false,
+        applyPreCreateChatMessagePatch: false,
       };
     } else {
       data = {
@@ -111,6 +112,7 @@ export class ChatPortraitForm extends FormApplication {
         useImageReplacer: SettingsForm.getUseImageReplacer(),
         useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
         applyOnCombatTracker: SettingsForm.getApplyOnCombatTracker(),
+        applyPreCreateChatMessagePatch: SettingsForm.getApplyPreCreateChatMessagePatch(),
       };
     }
 
@@ -208,6 +210,7 @@ export class ChatPortraitForm extends FormApplication {
     SettingsForm.setUseImageReplacer(formData.useImageReplacer);
     SettingsForm.setUseImageReplacerDamageType(formData.useImageReplacerDamageType);
     SettingsForm.setApplyOnCombatTracker(formData.applyOnCombatTracker);
+    SettingsForm.setApplyPreCreateChatMessagePatch(formData.applyPreCreateChatMessagePatch);
   }
 
   getSelectList(myselectslist, selected) {
@@ -452,5 +455,11 @@ export class SettingsForm {
   }
   static setApplyOnCombatTracker(value: boolean) {
     getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker', value);
+  }
+  static getApplyPreCreateChatMessagePatch() {
+    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch');
+  }
+  static setApplyPreCreateChatMessagePatch(value: boolean) {
+    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch', value);
   }
 }

@@ -29,7 +29,7 @@ export class ChatPortrait {
             // Don't update whispers that the current player isn't privy to
             doNotStyling = true;
         }
-        let messageType = ChatPortrait.getMessageTypeVisible(speakerInfo);
+        const messageType = ChatPortrait.getMessageTypeVisible(speakerInfo);
         if (!ChatPortrait.settings.displaySettingOTHER && messageType == CONST.CHAT_MESSAGE_TYPES.OTHER) {
             doNotStyling = true;
         }
@@ -48,19 +48,19 @@ export class ChatPortrait {
         if (!ChatPortrait.settings.displaySettingROLL && messageType == CONST.CHAT_MESSAGE_TYPES.ROLL) {
             doNotStyling = true;
         }
-        // PATCH MODULE NARRATOR TOOLS 
+        // PATCH MODULE NARRATOR TOOLS
         // Do not styling narrator message because it's make no sense the module has is own css customizing
-        if (speakerInfo.alias == i18n('NT.Narrator') && getGame().modules.get("narrator-tools")?.active) {
+        if (speakerInfo.alias == i18n('NT.Narrator') && getGame().modules.get('narrator-tools')?.active) {
             doNotStyling = true;
         }
         // PATCH MODULE koboldworks-turn-announcer
         const isTurnAnnouncer = html.find('.message-content .turn-announcer .portrait')[0];
-        if (isTurnAnnouncer && getGame().modules.get("koboldworks-turn-announcer")?.active) {
+        if (isTurnAnnouncer && getGame().modules.get('koboldworks-turn-announcer')?.active) {
             const size = ChatPortrait.settings.portraitSize;
             if (size && size > 0) {
-                isTurnAnnouncer.style.width = size + "px";
-                isTurnAnnouncer.style.height = size + "px";
-                isTurnAnnouncer.style.flex = "0 0 " + size + "px";
+                isTurnAnnouncer.style.width = size + 'px';
+                isTurnAnnouncer.style.height = size + 'px';
+                isTurnAnnouncer.style.flex = '0 0 ' + size + 'px';
             }
             doNotStyling = true;
         }
@@ -145,7 +145,7 @@ export class ChatPortrait {
      * @param  {MessageRenderData} messageData
      */
     static onRenderChatMessageInternal(chatMessage, html, speakerInfo, messageSender, messageHeader, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer) {
-        let messageDataBase = speakerInfo;
+        const messageDataBase = speakerInfo;
         let imgPath;
         let authorColor = 'black';
         if (messageDataBase.author) {
@@ -326,7 +326,7 @@ export class ChatPortrait {
                                 // DAMAGE TYPES
                                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                                     const elementItemContainerDamageTypes = (document.createElement('div'));
-                                    for (var [index, itemImage] of images.iconsDamageType.entries()) {
+                                    for (const [index, itemImage] of images.iconsDamageType.entries()) {
                                         const elementItemImage2 = document.createElement('img');
                                         const size = ChatPortrait.settings.portraitSizeItem;
                                         if (size && size > 0) {
@@ -369,7 +369,7 @@ export class ChatPortrait {
                                     // DAMAGE TYPES
                                     if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                                         const elementItemContainerDamageTypes = (document.createElement('div'));
-                                        for (var [index, itemImage] of images.iconsDamageType.entries()) {
+                                        for (const [index, itemImage] of images.iconsDamageType.entries()) {
                                             const elementItemImage2 = document.createElement('img');
                                             const size = ChatPortrait.settings.portraitSizeItem;
                                             if (size && size > 0) {
@@ -411,7 +411,7 @@ export class ChatPortrait {
                                 // DAMAGE TYPES
                                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                                     const elementItemContainerDamageTypes = (document.createElement('div'));
-                                    for (var [index, itemImage] of images.iconsDamageType.entries()) {
+                                    for (const [index, itemImage] of images.iconsDamageType.entries()) {
                                         const elementItemImage2 = document.createElement('img');
                                         const size = ChatPortrait.settings.portraitSizeItem;
                                         if (size && size > 0) {
@@ -451,7 +451,7 @@ export class ChatPortrait {
                                     // DAMAGE TYPES
                                     if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                                         const elementItemContainerDamageTypes = (document.createElement('div'));
-                                        for (var [index, itemImage] of images.iconsDamageType.entries()) {
+                                        for (const [index, itemImage] of images.iconsDamageType.entries()) {
                                             const elementItemImage2 = document.createElement('img');
                                             const size = ChatPortrait.settings.portraitSizeItem;
                                             if (size && size > 0) {
@@ -513,7 +513,7 @@ export class ChatPortrait {
                             // DAMAGE TYPES
                             if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                                 const elementItemContainerDamageTypes = (document.createElement('div'));
-                                for (var [index, itemImage] of images.iconsDamageType.entries()) {
+                                for (const [index, itemImage] of images.iconsDamageType.entries()) {
                                     const elementItemImage2 = document.createElement('img');
                                     const size = ChatPortrait.settings.portraitSizeItem;
                                     if (size && size > 0) {
@@ -556,7 +556,7 @@ export class ChatPortrait {
                                 // DAMAGE TYPES
                                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                                     const elementItemContainerDamageTypes = (document.createElement('div'));
-                                    for (var [index, itemImage] of images.iconsDamageType.entries()) {
+                                    for (const [index, itemImage] of images.iconsDamageType.entries()) {
                                         const elementItemImage2 = document.createElement('img');
                                         const size = ChatPortrait.settings.portraitSizeItem;
                                         if (size && size > 0) {
@@ -647,7 +647,7 @@ export class ChatPortrait {
         const message = speakerInfo.message ? speakerInfo.message : speakerInfo.document;
         const speaker = message.speaker ? message.speaker : speakerInfo;
         const isOOC = ChatPortrait.getMessageTypeVisible(speakerInfo) === CONST.CHAT_MESSAGE_TYPES.OOC;
-        let imgFinal = 'icons/svg/mystery-man.svg';
+        const imgFinal = 'icons/svg/mystery-man.svg';
         if (message.user && isOOC) {
             const imgAvatar = ChatPortrait.getUserAvatarImage(message);
             if (imgAvatar && !imgAvatar.includes('mystery-man')) {
@@ -790,7 +790,7 @@ export class ChatPortrait {
                     return imgActor;
                 }
             }
-            let imgAvatar = ChatPortrait.getUserAvatarImage(message);
+            const imgAvatar = ChatPortrait.getUserAvatarImage(message);
             if (isMonkTokenBarXP(html)) {
                 return imgAvatar;
             }
@@ -841,7 +841,7 @@ export class ChatPortrait {
         //let thumb = 'icons/svg/mystery-man.svg';
         if (imgPath.includes('.webm')) {
             try {
-                let imgThumb = await ImageHelper.createThumbnail(imgPath, { width: size, height: size });
+                const imgThumb = await ImageHelper.createThumbnail(imgPath, { width: size, height: size });
                 if (imgPath.includes('.webm')) {
                     img.src = imgThumb.thumb;
                     // If a url we need these anyway
@@ -987,6 +987,7 @@ export class ChatPortrait {
             useImageReplacer: SettingsForm.getUseImageReplacer(),
             useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
             applyOnCombatTracker: SettingsForm.getApplyOnCombatTracker(),
+            applyPreCreateChatMessagePatch: SettingsForm.getApplyPreCreateChatMessagePatch(),
         };
     }
     /**
@@ -1028,6 +1029,7 @@ export class ChatPortrait {
             useImageReplacer: true,
             useImageReplacerDamageType: true,
             applyOnCombatTracker: false,
+            applyPreCreateChatMessagePatch: false,
         };
     }
     // static getSpeakerImage = function (message):string {
@@ -1105,17 +1107,17 @@ export class ChatPortrait {
     }
     static getImagesReplacerAsset(imageReplacer, innerText, elementItemContent) {
         //let value:string[] = new Array();
-        let value = new ImageReplacerData();
+        const value = new ImageReplacerData();
         let innerTextTmp = innerText;
         //let betterRollLabelAttack = ($(elementItemContent).find(".br5e-roll-label")[0])?.innerText;
         //let betterRollLabelDamage = ($(elementItemContent).find(".br5e-roll-label")[1])?.innerText;
-        let fullTextContent = $(elementItemContent)[0]?.innerText;
-        let innerTextDamageTmp = fullTextContent; //Damage -Slashing
+        const fullTextContent = $(elementItemContent)[0]?.innerText;
+        const innerTextDamageTmp = fullTextContent; //Damage -Slashing
         if (innerTextTmp) {
             // Clean up the string for multisystem (D&D5, PF2, ecc.)
             //let text:string = "";
             innerTextTmp = innerTextTmp.toLowerCase().trim();
-            let arr1 = innerTextTmp.split(/\r?\n/);
+            const arr1 = innerTextTmp.split(/\r?\n/);
             for (let i = 0; i < arr1.length; i++) {
                 let text = arr1[i];
                 if (text) {
@@ -1125,9 +1127,9 @@ export class ChatPortrait {
                     text = text.replace('ability', '');
                     text = text.replace(/[0-9]/g, '');
                     text = text.toLowerCase().trim();
-                    for (let key in imageReplacer) {
+                    for (const key in imageReplacer) {
                         if (key) {
-                            let mykeyvalue = i18n(key);
+                            const mykeyvalue = i18n(key);
                             if (mykeyvalue) {
                                 //mykeyvalue = mykeyvalue.toLowerCase().trim();
                                 //let arr2 = mykeyvalue.split(/\r?\n/);
@@ -1154,8 +1156,8 @@ export class ChatPortrait {
             }
         } // InnerTexTmp
         if (ChatPortrait.settings.useImageReplacerDamageType && innerTextDamageTmp) {
-            let damageTypes = new Array();
-            let arr4 = innerTextDamageTmp.split(/\r?\n/);
+            const damageTypes = [];
+            const arr4 = innerTextDamageTmp.split(/\r?\n/);
             for (let i = 0; i < arr4.length; i++) {
                 let textDamage = arr4[i];
                 if (textDamage) {
@@ -1165,8 +1167,8 @@ export class ChatPortrait {
                     textDamage = textDamage.replace('ability', '');
                     textDamage = textDamage.replace(/[0-9]/g, '');
                     textDamage = textDamage.toLowerCase().trim();
-                    for (let keydamage in imageReplacerDamageType) {
-                        let mykeydamagevalue = i18n(keydamage);
+                    for (const keydamage in imageReplacerDamageType) {
+                        const mykeydamagevalue = i18n(keydamage);
                         if (mykeydamagevalue) {
                             //mykeydamagevalue = mykeydamagevalue.toLowerCase().trim();
                             //let arr3 = mykeydamagevalue.split(/\r?\n/);
@@ -1261,12 +1263,12 @@ export class ChatPortrait {
         messageHeader.append(whisperParticipants);
     }
     static isWildcardImage(imgUrl) {
-        let filename = imgUrl.split('/').pop();
-        let baseFileName = filename.substr(0, filename.lastIndexOf('.'));
+        const filename = imgUrl.split('/').pop();
+        const baseFileName = filename.substr(0, filename.lastIndexOf('.'));
         return baseFileName == '*';
     }
     static loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer) {
-        let imgFinal = 'icons/svg/mystery-man.svg';
+        const imgFinal = 'icons/svg/mystery-man.svg';
         //
         // CASE 1
         if ((!tokenID && !actorID) || ChatPortrait.settings.useAvatarImage) {
@@ -1413,7 +1415,7 @@ export class ChatPortrait {
                 return imgActor;
             }
         }
-        let imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
+        const imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
         // if (isMonkTokenBarXP(html)) {
         //   return imgAvatar;
         // }else {
@@ -1539,7 +1541,7 @@ ChatPortrait.getFirstSelectedToken = function () {
     }
     // Get controlled token
     let token = null;
-    let controlled = getCanvas().tokens?.controlled;
+    const controlled = getCanvas().tokens?.controlled;
     // Do nothing if multiple tokens are selected
     if (controlled.length && controlled.length > 1) {
         token = controlled[0];
@@ -1591,7 +1593,7 @@ ChatPortrait.isSpeakerGM = function (message) {
 };
 ChatPortrait.isGMFromUserID = function (userID) {
     if (userID) {
-        let user = getGame().users?.get(userID);
+        const user = getGame().users?.get(userID);
         if (user) {
             return user.isGM;
         }
@@ -1696,7 +1698,7 @@ ChatPortrait.getUserAvatarImage = function (message) {
     if (!userId) {
         userId = message.user.id;
     }
-    let user = getGame().users?.get(userId);
+    const user = getGame().users?.get(userId);
     if (user) {
         if (user.data && user.data.avatar) {
             // image path
@@ -1706,7 +1708,7 @@ ChatPortrait.getUserAvatarImage = function (message) {
     return 'icons/svg/mystery-man.svg';
 };
 ChatPortrait.getUserAvatarImageFromUserID = function (userId) {
-    let user = getGame().users?.get(userId);
+    const user = getGame().users?.get(userId);
     if (user) {
         if (user.data && user.data.avatar) {
             // image path
@@ -1729,7 +1731,7 @@ ChatPortrait.getUserName = function (message) {
     return '';
 };
 ChatPortrait.getUserNameFromUserID = function (userID) {
-    let user = getGame().users?.get(userID);
+    const user = getGame().users?.get(userID);
     if (user) {
         if (user.data && user.data.avatar) {
             // image path
@@ -1755,7 +1757,7 @@ ChatPortrait.replaceMatchingTextNodes = function (parent, match, replacement) {
     if (!parent || !parent.hasChildNodes()) {
         return;
     }
-    for (let node of parent.childNodes) {
+    for (const node of parent.childNodes) {
         if (node.nodeType === Node.TEXT_NODE) {
             if (node.wholeText.trim() === match) {
                 node.parentNode.replaceChild(document.createTextNode(replacement), node);

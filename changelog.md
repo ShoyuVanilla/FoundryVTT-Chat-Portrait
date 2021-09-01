@@ -1,3 +1,7 @@
+## 0.5.9
+
+- Bug fix compatibility DND5e Helper 2.X.X
+
 ## 0.5.8
 
 - Bug fix function '_onHoverIn' for TokenDocument instead fro 'Token'

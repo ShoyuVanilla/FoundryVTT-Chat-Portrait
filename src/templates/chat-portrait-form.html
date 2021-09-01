@@ -153,6 +153,12 @@
         </div>
 
         <div class="form-group">
+            <label>{{localize "chat-portrait.settings.applyPreCreateChatMessagePatch.name"}}</label>
+            <input type="checkbox" name="applyPreCreateChatMessagePatch" data-dtype="Boolean" {{checked applyPreCreateChatMessagePatch}}/>
+            <p class="notes">{{localize "chat-portrait.settings.applyPreCreateChatMessagePatch.hint"}}</p>
+        </div>    
+
+        <div class="form-group">
             <label>{{localize "chat-portrait.settings.displaySettingOTHER.name"}}</label>
             <input type="checkbox" name="displaySettingOTHER" data-dtype="Boolean" {{checked displaySettingOTHER}}/>
             <p class="notes">{{localize "chat-portrait.settings.displaySettingOTHER.hint"}}</p>
