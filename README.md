@@ -28,7 +28,7 @@ To install this module manually:
 
 - Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
 
-## Hooks (on developing, but any feedback is more than welcome)
+## Hooks
 
 Hooks :
 
@@ -59,9 +59,8 @@ Use your own code to enable/disable the module chat-portrait...
 
 ```js
 
-// DO SOME CHECK 'BEFORE' APPLY THE CHAT PORTRAIT STYLING
-
 Hooks.call('ChatPortraitEnabled');
+// DO SOME CHECK 'BEFORE' APPLY THE CHAT PORTRAIT STYLING
 
 ```
 
@@ -112,7 +111,7 @@ Hooks.on('ChatPortraitReplaceData', (chatPortraitCustomData, chatMessage) => {
 
 ### Full Example
 
-```
+```js
 Hooks.on('ChatPortraitReplaceData', (chatPortraitCustomData, chatMessage) => {
 	const speaker = ChatMessage.getSpeakerActor(chatMessage.data.speaker);
 	if('KW_WarfareUnitSheet' === speaker?.sheet?.constructor.name) {
