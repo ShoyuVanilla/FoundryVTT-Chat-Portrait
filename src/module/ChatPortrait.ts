@@ -71,7 +71,7 @@ export class ChatPortrait {
     // Do not styling narrator message because it's make no sense the module has is own css customizing
     if (speakerInfo.alias == i18n('NT.Narrator')) {
       //  && getGame().modules.get('narrator-tools')?.active
-      doNotStyling = true;
+      return html;
     }
     // PATCH MODULE koboldworks-turn-announcer
     const isTurnAnnouncer = html.find('.message-content .turn-announcer .portrait')[0];

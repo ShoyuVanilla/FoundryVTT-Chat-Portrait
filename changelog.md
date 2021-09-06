@@ -1,3 +1,10 @@
+## 0.5.10
+
+- Some small fix and module compatibility
+- Try to fix [Incompatibility with the "Randomize Wildcard Images" option](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/79)
+- Try to fix [SWADE/Deadlands Icons and text are truncated at default icon size](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/78)
+- Try to fix [[Bug] On Load & New Combat Round Error](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/77)
+
 ## 0.5.9
 
 - Bug fix compatibility DND5e Helper 2.X.X
