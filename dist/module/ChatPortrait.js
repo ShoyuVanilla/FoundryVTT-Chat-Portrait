@@ -3,9 +3,8 @@ import { warn } from "../main.js";
 import { ChatLink } from "./chatlink.js";
 import { SettingsForm } from "./ChatPortraitForm.js";
 import { imageReplacerDamageType } from "./ImageReplacer.js";
-import { INV_UNIDENTIFIED_BOOK, CHAT_PORTRAIT_MODULE_NAME, getGame, getCanvas } from "./settings.js";
+import { INV_UNIDENTIFIED_BOOK, CHAT_PORTRAIT_MODULE_NAME, getGame, getCanvas, CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME, } from "./settings.js";
 import { ImageReplacerData } from "./ChatPortraitModels.js";
-import { isMonkTokenBarXP } from "./CompatibilityModuleSettings.js";
 /**
  * Main class wrapper for all of our features.
  */
@@ -50,12 +49,14 @@ export class ChatPortrait {
         }
         // PATCH MODULE NARRATOR TOOLS
         // Do not styling narrator message because it's make no sense the module has is own css customizing
-        if (speakerInfo.alias == i18n('NT.Narrator') && getGame().modules.get('narrator-tools')?.active) {
+        if (speakerInfo.alias == i18n('NT.Narrator')) {
+            //  && getGame().modules.get('narrator-tools')?.active
             doNotStyling = true;
         }
         // PATCH MODULE koboldworks-turn-announcer
         const isTurnAnnouncer = html.find('.message-content .turn-announcer .portrait')[0];
-        if (isTurnAnnouncer && getGame().modules.get('koboldworks-turn-announcer')?.active) {
+        if (isTurnAnnouncer) {
+            //  && getGame().modules.get('koboldworks-turn-announcer')?.active
             const size = ChatPortrait.settings.portraitSize;
             if (size && size > 0) {
                 isTurnAnnouncer.style.width = size + 'px';
@@ -63,6 +64,13 @@ export class ChatPortrait {
                 isTurnAnnouncer.style.flex = '0 0 ' + size + 'px';
             }
             doNotStyling = true;
+        }
+        // PATCH IS MONK TOKEN BAR XP
+        const isMonkTokenBarXP = html.find('.message-content')[0]?.firstElementChild?.classList;
+        if (isMonkTokenBarXP && isMonkTokenBarXP.length > 0) {
+            if (isMonkTokenBarXP.contains('monks-tokenbar') && 'assignxp') {
+                doNotStyling = true;
+            }
         }
         // MULTISYSTEM MANAGEMENT
         let messageSenderElement;
@@ -314,7 +322,7 @@ export class ChatPortrait {
                                     elementItemImage.height = size;
                                 }
                                 // Just ignore if a image is provided
-                                //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
                                 if (value.length > 0) {
                                     elementItemImage.src = value;
                                 }
@@ -357,7 +365,7 @@ export class ChatPortrait {
                                         elementItemImage.height = size;
                                     }
                                     // Just ignore if a image is provided
-                                    //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                    //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
                                     if (value.length > 0) {
                                         elementItemImage.src = value;
                                     }
@@ -401,7 +409,7 @@ export class ChatPortrait {
                                     elementItemImage.width = size;
                                     elementItemImage.height = size;
                                 }
-                                if (!elementItemImage.src || elementItemImage.src?.includes('mystery-man')) {
+                                if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                                     elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                                 }
                                 if (!elementItemImage.classList.contains('message-portrait')) {
@@ -441,7 +449,7 @@ export class ChatPortrait {
                                         elementItemImage.width = size;
                                         elementItemImage.height = size;
                                     }
-                                    if (!elementItemImage.src || elementItemImage.src?.includes('mystery-man')) {
+                                    if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                                         elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                                     }
                                     if (!elementItemImage.classList.contains('message-portrait')) {
@@ -501,7 +509,7 @@ export class ChatPortrait {
                                 elementItemImage.height = size;
                             }
                             // Just ignore if a image is provided
-                            //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                            //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
                             if (value.length > 0) {
                                 elementItemImage.src = value;
                             }
@@ -544,7 +552,7 @@ export class ChatPortrait {
                                     elementItemImage.height = size;
                                 }
                                 // Just ignore if a image is provided
-                                //if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
                                 if (value.length > 0) {
                                     elementItemImage.src = value;
                                 }
@@ -588,7 +596,7 @@ export class ChatPortrait {
                                 elementItemImage.width = size;
                                 elementItemImage.height = size;
                             }
-                            if (!elementItemImage.src || elementItemImage.src?.includes('mystery-man')) {
+                            if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                                 elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                             }
                             if (!elementItemImage.classList.contains('message-portrait')) {
@@ -606,7 +614,7 @@ export class ChatPortrait {
                                               elementItemImage.width = size;
                                               elementItemImage.height = size;
                                             }
-                                            if(!elementItemImage.src || elementItemImage.src?.includes("mystery-man")){
+                                            if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
                                               elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                                             }
                                             if(!elementItemImage.classList.contains("message-portrait")){
@@ -642,19 +650,21 @@ export class ChatPortrait {
      * @param  {{scene?:string;actor?:string;token?:string;alias?:string;}} speaker
      * @returns string
      */
-    //static loadActorImagePathForChatMessage(speaker: {scene?: string;actor?: string;token?: string;alias?: string; }): string {
     static loadImagePathForChatMessage(html, speakerInfo) {
         const message = speakerInfo.message ? speakerInfo.message : speakerInfo.document;
+        if (!message) {
+            warn('No message thi is usually a error from other modusl use the "preCreateChatMessage" hook');
+        }
         const speaker = message.speaker ? message.speaker : speakerInfo;
         const isOOC = ChatPortrait.getMessageTypeVisible(speakerInfo) === CONST.CHAT_MESSAGE_TYPES.OOC;
         const imgFinal = 'icons/svg/mystery-man.svg';
         if (message.user && isOOC) {
             const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-            if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+            if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                 return imgAvatar;
             }
             else {
-                warn("No specific avatar player image found it for player '" + ChatPortrait.getUserName(message) + "'");
+                warn('No specific avatar player image found it for player "' + ChatPortrait.getUserName(message) + '"');
                 return imgAvatar ? imgAvatar : imgFinal;
             }
         }
@@ -663,18 +673,18 @@ export class ChatPortrait {
             if ((!speaker.token && !speaker.actor) || ChatPortrait.settings.useAvatarImage) {
                 if (message.user && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)) {
                     const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-                    if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+                    if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                         return imgAvatar;
                     }
                     else {
-                        warn("No specific avatar player image found it for player '" + ChatPortrait.getUserName(message) + "'");
+                        warn('No specific avatar player image found it for player "' + ChatPortrait.getUserName(message) + '"');
                         return imgAvatar ? imgAvatar : imgFinal;
                     }
                 }
                 else if (!speaker.token && !speaker.actor) {
                     if (message.user && ChatPortrait.settings.useAvatarImage) {
                         const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-                        if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+                        if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                             return imgAvatar;
                         }
                         else {
@@ -701,7 +711,7 @@ export class ChatPortrait {
             // Make sense only for player and for non GM
             if (actor?.type == 'character' && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)) {
                 const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-                if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+                if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                     return imgAvatar;
                 }
                 else {
@@ -760,56 +770,57 @@ export class ChatPortrait {
                             imgToken = tokenData.data?.actorData.img;
                         }
                     }
-                    // if((!imgToken || ChatPortrait.isWildcardImage(imgToken)) || imgToken.includes("mystery-man")){
+                    // if((!imgToken || ChatPortrait.isWildcardImage(imgToken)) || imgToken.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
                     //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
                     //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
                     //}
-                    if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes('mystery-man')) {
+                    if (imgToken &&
+                        !ChatPortrait.isWildcardImage(imgToken) &&
+                        !imgToken.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                         return imgToken;
                     }
                 }
             }
             let imgActor = '';
             if (actor) {
-                if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
+                if ((!imgActor || imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) && useTokenImage) {
                     imgActor = actor?.data.token.img;
                     if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
                         imgActor = '';
                     }
                 }
-                if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
+                if ((!imgActor || imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) && useTokenImage) {
                     imgActor = actor?.token?.data?.img;
                     if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
                         imgActor = '';
                     }
                 }
-                if (!imgActor || imgActor.includes('mystery-man')) {
+                if (!imgActor || imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                     imgActor = actor?.data.img;
                 }
-                if (imgActor && !imgActor.includes('mystery-man')) {
+                if (imgActor && !imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                     return imgActor;
                 }
             }
             const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-            if (isMonkTokenBarXP(html)) {
+            // if (isMonkTokenBarXP(html)) {
+            //   return imgAvatar;
+            // } else {
+            if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                 return imgAvatar;
             }
             else {
-                if (imgAvatar && !imgAvatar.includes('mystery-man')) {
-                    return imgAvatar;
-                }
-                else {
-                    //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");
-                    return imgAvatar ? imgAvatar : INV_UNIDENTIFIED_BOOK;
-                }
+                //warn("No specific avatar player image found it for player '"+ChatPortrait.getUserName(message)+"'");
+                return imgAvatar ? imgAvatar : INV_UNIDENTIFIED_BOOK;
             }
+            // }
             //return  useTokenImage ? <string>actor?.data.token.img : <string>actor?.img;
             //return useTokenImage ? actor?.data?.token?.img : actor.data.img;
         }
         else if (message && message.user) {
             // CASE 2
             const imgAvatar = ChatPortrait.getUserAvatarImage(message);
-            if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+            if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                 return imgAvatar;
             }
             else {
@@ -1199,9 +1210,9 @@ export class ChatPortrait {
     }
     static useImageReplacer(html) {
         if (ChatPortrait.settings.useImageReplacer) {
-            if (isMonkTokenBarXP(html)) {
-                return false;
-            }
+            // if (isMonkTokenBarXP(html)) {
+            //   return false;
+            // }
             return true;
         }
         return false;
@@ -1274,7 +1285,7 @@ export class ChatPortrait {
         if ((!tokenID && !actorID) || ChatPortrait.settings.useAvatarImage) {
             if (userID && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)) {
                 const imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
-                if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+                if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                     return imgAvatar;
                 }
                 else {
@@ -1285,7 +1296,7 @@ export class ChatPortrait {
             else if (!tokenID && !actorID) {
                 if (userID && ChatPortrait.settings.useAvatarImage) {
                     const imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
-                    if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+                    if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                         return imgAvatar;
                     }
                     else {
@@ -1312,7 +1323,7 @@ export class ChatPortrait {
         // Make sense only for player and for non GM
         if (actor?.type == 'character' && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)) {
             const imgAvatar = ChatPortrait.getUserAvatarImageFromUserID(userID);
-            if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+            if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                 return imgAvatar;
             }
             else {
@@ -1371,11 +1382,13 @@ export class ChatPortrait {
                         imgToken = tokenData.data?.actorData.img;
                     }
                 }
-                // if((!imgToken || ChatPortrait.isWildcardImage(imgToken)) || imgToken.includes("mystery-man")){
+                // if((!imgToken || ChatPortrait.isWildcardImage(imgToken)) || imgToken.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
                 //return useTokenImage ? <string>actor?.data.token.img : <string>actor?.token?.data?.img; // actor?.img; // Deprecated on 0.8.6
                 //return useTokenImage ? actor?.data?.token?.img : actor.data.img; // actor?.img; // Deprecated on 0.8.6
                 //}
-                if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes('mystery-man')) {
+                if (imgToken &&
+                    !ChatPortrait.isWildcardImage(imgToken) &&
+                    !imgToken.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                     return imgToken;
                 }
             }
@@ -1389,29 +1402,29 @@ export class ChatPortrait {
             if ((!imgToken || ChatPortrait.isWildcardImage(imgToken)) && tokenData?.data?.img) {
                 imgToken = tokenData?.data?.img;
             }
-            if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes('mystery-man')) {
+            if (imgToken && !ChatPortrait.isWildcardImage(imgToken) && !imgToken.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                 return imgToken;
             }
         }
         // END MOD COMBAT TRACKER IF TOKEN IS NOT OWNED
         let imgActor = '';
         if (actor) {
-            if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
+            if ((!imgActor || imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) && useTokenImage) {
                 imgActor = actor?.data.token.img;
                 if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
                     imgActor = '';
                 }
             }
-            if ((!imgActor || imgActor.includes('mystery-man')) && useTokenImage) {
+            if ((!imgActor || imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) && useTokenImage) {
                 imgActor = actor?.token?.data?.img;
                 if (imgActor && ChatPortrait.isWildcardImage(imgActor)) {
                     imgActor = '';
                 }
             }
-            if (!imgActor || imgActor.includes('mystery-man')) {
+            if (!imgActor || imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                 imgActor = actor?.data.img;
             }
-            if (imgActor && !imgActor.includes('mystery-man')) {
+            if (imgActor && !imgActor.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                 return imgActor;
             }
         }
@@ -1419,7 +1432,7 @@ export class ChatPortrait {
         // if (isMonkTokenBarXP(html)) {
         //   return imgAvatar;
         // }else {
-        if (imgAvatar && !imgAvatar.includes('mystery-man')) {
+        if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
             return imgAvatar;
         }
         else {

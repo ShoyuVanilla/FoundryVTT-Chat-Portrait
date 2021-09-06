@@ -6,6 +6,8 @@ export const CHAT_PORTRAIT_MODULE_NAME = 'chat-portrait';
 
 export const INV_UNIDENTIFIED_BOOK = `/modules/${CHAT_PORTRAIT_MODULE_NAME}/assets/inv-unidentified-book.png`;
 
+export const CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME = 'mystery-man';
+
 /**
  * Because typescript doesn't know when in the lifecycle of foundry your code runs, we have to assume that the
  * canvas is potentially not yet initialized, so it's typed as declare let canvas: Canvas | {ready: false}.
