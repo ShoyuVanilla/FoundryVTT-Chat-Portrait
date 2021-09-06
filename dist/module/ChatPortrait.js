@@ -65,12 +65,19 @@ export class ChatPortrait {
             }
             doNotStyling = true;
         }
-        // PATCH IS MONK TOKEN BAR XP
+        // PATCH MODULE TOKEN BAR  - IS MONK TOKEN BAR XP
         const isMonkTokenBarXP = html.find('.message-content')[0]?.firstElementChild?.classList;
         if (isMonkTokenBarXP && isMonkTokenBarXP.length > 0) {
             if (isMonkTokenBarXP.contains('monks-tokenbar') && 'assignxp') {
                 doNotStyling = true;
             }
+        }
+        // PATCH MODULE CHAT IMAGE
+        const isChatImage = html.find('.message-content .chat-images-container img')[0];
+        if (isChatImage) {
+            isChatImage.style.width = '100%';
+            isChatImage.style.height = '100%';
+            doNotStyling = true;
         }
         // MULTISYSTEM MANAGEMENT
         let messageSenderElement;
@@ -79,17 +86,6 @@ export class ChatPortrait {
         let elementItemNameList;
         let elementItemContentList;
         let elementItemTextList;
-        // GET Image, Text, Content of the item card by system used
-        // if (getGame().system.id === 'dnd5e') {
-        //   messageSenderElement = html.find('.message-sender')[0];
-        //   messageHeaderElement = html.find('.message-header')[0];
-        //   // Bug fix plutonium
-        //   messageSenderElement.style.display = 'block';
-        //   elementItemImageList = html.find('.message-content img');
-        //   elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
-        //   elementItemContentList = html.find('.message-content .card-content');
-        //   elementItemTextList = html.find('.message-header .flavor-text');
-        // }else{
         messageSenderElement = html.find('.message-sender')[0];
         if (!messageSenderElement) {
             messageSenderElement = html.find('.chat-card')[0];
@@ -114,9 +110,6 @@ export class ChatPortrait {
         if (!elementItemTextList) {
             elementItemTextList = html.find('.card-header p');
         }
-        // Bug fix plutonium
-        //messageSenderElement.style.display = 'block';
-        // }
         if (doNotStyling) {
             let authorColor = 'black';
             if (speakerInfo.author) {
@@ -231,7 +224,6 @@ export class ChatPortrait {
                     const copiedElement = flavorElement[0].cloneNode(true);
                     flavorElement.remove();
                     const brElement = document.createElement('br');
-                    //const senderElement: HTMLElement = html.find('.message-sender')[0];
                     messageSender.appendChild(brElement);
                     messageSender.appendChild(copiedElement);
                 }
