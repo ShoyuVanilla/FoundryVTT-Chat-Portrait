@@ -1,3 +1,7 @@
+## 0.5.11
+
+- Try to fix  again [[Bug] On Load & New Combat Round Error](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/77)
+
 ## 0.5.10
 
 - Some small fix and module compatibility
