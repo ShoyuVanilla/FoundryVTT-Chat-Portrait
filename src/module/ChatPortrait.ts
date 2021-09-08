@@ -213,7 +213,7 @@ export class ChatPortrait {
       speaker.alias = speaker.document?.alias;
     }
 
-    const message = speakerInfo.message ? speakerInfo.message : speakerInfo.document;
+    const message = speaker ? (speaker.message ? speaker.message : speaker.document) : null;
     if (!message) {
       warn(
         'No message thi is usually a error from other modules like midi-qol, dnd5e helper, ecc you can try to use the "preCreateChatMessage" hook by enable the module setting',
