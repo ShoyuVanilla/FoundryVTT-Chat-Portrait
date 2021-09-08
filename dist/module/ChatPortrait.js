@@ -166,7 +166,7 @@ export class ChatPortrait {
         if (!speaker) {
             speaker = speakerInfo;
         }
-        if (!speaker.alias && speaker.document?.alias) {
+        if (speaker && !speaker.alias && speaker.document?.alias) {
             speaker.alias = speaker.document?.alias;
         }
         const message = speaker ? (speaker.message ? speaker.message : speaker.document) : null;
