@@ -28,7 +28,7 @@ export class ChatPortrait {
     html: JQuery<HTMLElement>,
     speakerInfo,
     imageReplacer: Record<string, string>,
-  ): JQuery<HTMLElement> {
+  ): JQuery<HTMLElement> | undefined {
     let doNotStyling = false;
 
     // PreHook (can abort the interaction with the door)
@@ -153,10 +153,10 @@ export class ChatPortrait {
         ChatPortrait.injectWhisperParticipants(html, speakerInfo);
       }
       ChatLink.prepareEvent(chatMessage, html, speakerInfo);
-      return html;
+      return <JQuery<HTMLElement>>html;
     } else {
       //@ts-ignore
-      return ChatPortrait.onRenderChatMessageInternal(
+      const myPromise: Promise<JQuery<HTMLElement>> = ChatPortrait.onRenderChatMessageInternal(
         chatMessage,
         html,
         speakerInfo,
@@ -167,9 +167,14 @@ export class ChatPortrait {
         elementItemContentList,
         elementItemTextList,
         imageReplacer,
-      ).then((html: JQuery<HTMLElement>) => {
-        return html;
-      });
+      );
+      if (myPromise) {
+        myPromise.then((html: JQuery<HTMLElement>) => {
+          return <JQuery<HTMLElement>>html;
+        });
+      } else {
+        return <JQuery<HTMLElement>>html;
+      }
     }
   }
 

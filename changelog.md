@@ -1,3 +1,7 @@
+## 0.5.11
+
+- Add check for null promise
+
 ## 0.5.10
 
 - Some small fix and module compatibility

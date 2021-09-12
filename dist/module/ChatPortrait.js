@@ -135,9 +135,15 @@ export class ChatPortrait {
         }
         else {
             //@ts-ignore
-            return ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, messageSenderElement, messageHeaderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer).then((html) => {
+            const myPromise = ChatPortrait.onRenderChatMessageInternal(chatMessage, html, speakerInfo, messageSenderElement, messageHeaderElement, elementItemImageList, elementItemNameList, elementItemContentList, elementItemTextList, imageReplacer);
+            if (myPromise) {
+                myPromise.then((html) => {
+                    return html;
+                });
+            }
+            else {
                 return html;
-            });
+            }
         }
     }
     /**
