@@ -194,7 +194,7 @@ export class ChatPortrait {
     elementItemContentList,
     elementItemTextList,
     imageReplacer: Record<string, string>,
-  ): Promise<JQuery<HTMLElement>> {
+  ): Promise<JQuery<HTMLElement>> | null {
     const messageDataBase: MessageRenderData = speakerInfo;
     let imgPath: string;
     let authorColor = 'black';
@@ -214,9 +214,18 @@ export class ChatPortrait {
     if (!speaker) {
       speaker = speakerInfo;
     }
-    if (!speaker.alias && speaker.document?.alias) {
+    if (speaker && !speaker.alias && speaker.document?.alias) {
       speaker.alias = speaker.document?.alias;
     }
+
+    const message = speaker ? (speaker.message ? speaker.message : speaker.document) : null;
+    if (!message) {
+      warn(
+        'No message thi is usually a error from other modules like midi-qol, dnd5e helper, ecc you can try to use the "preCreateChatMessage" hook by enable the module setting',
+      );
+      return null;
+    }
+
     const useTokenName: boolean = ChatPortrait.settings.useTokenName;
     if (useTokenName) {
       ChatPortrait.replaceSenderWithTokenName(messageSender, speaker);
@@ -736,9 +745,6 @@ export class ChatPortrait {
    */
   static loadImagePathForChatMessage(html: JQuery<HTMLElement>, speakerInfo): string {
     const message = speakerInfo.message ? speakerInfo.message : speakerInfo.document;
-    if (!message) {
-      warn('No message thi is usually a error from other modusl use the "preCreateChatMessage" hook');
-    }
     const speaker = message.speaker ? message.speaker : speakerInfo;
     const isOOC = ChatPortrait.getMessageTypeVisible(speakerInfo) === CONST.CHAT_MESSAGE_TYPES.OOC;
 
