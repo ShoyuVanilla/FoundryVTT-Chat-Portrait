@@ -3,7 +3,7 @@ import { warn } from '../main';
 import { ChatLink } from './chatlink';
 import { SettingsForm } from './ChatPortraitForm';
 import { ChatPortraitSettings } from './ChatPortraitSettings';
-import { imageReplacerDamageType, ImageReplacerImpl } from './ImageReplacer';
+import { imageReplacerDamageType, imageReplacerIconizer } from './ImageReplacer';
 import { MessageRenderData } from './MessageRenderData';
 import {
   INV_UNIDENTIFIED_BOOK,
@@ -12,7 +12,7 @@ import {
   getCanvas,
   CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME,
 } from './settings';
-import { ChatPortraitCustomData, ImageReplacerData } from './ChatPortraitModels';
+import { ChatPortraitCustomData, ImageReplacerData, ImageReplaceVoiceData } from './ChatPortraitModels';
 
 /**
  * Main class wrapper for all of our features.
@@ -27,7 +27,7 @@ export class ChatPortrait {
     chatMessage: ChatMessage,
     html: JQuery<HTMLElement>,
     speakerInfo,
-    imageReplacer: Record<string, string>,
+    imageReplacer: ImageReplaceVoiceData[],
   ): JQuery<HTMLElement> | undefined {
     let doNotStyling = false;
 
@@ -193,7 +193,7 @@ export class ChatPortrait {
     elementItemNameList,
     elementItemContentList,
     elementItemTextList,
-    imageReplacer: Record<string, string>,
+    imageReplacer: ImageReplaceVoiceData[],
   ): Promise<JQuery<HTMLElement>> | null {
     const messageDataBase: MessageRenderData = speakerInfo;
     let imgPath: string;
@@ -239,7 +239,8 @@ export class ChatPortrait {
 
     const chatPortraitCustomData: ChatPortraitCustomData = {
       customIconPortraitImage: imgPath,
-      customImageReplacer: imageReplacer,
+      customImageReplacer: {},
+      customImageReplacerData: imageReplacerIconizer,
     };
 
     Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData, chatMessage);
@@ -248,9 +249,23 @@ export class ChatPortrait {
       imgPath = chatPortraitCustomData.customIconPortraitImage;
     }
     // ty to Mejari for the contribute
-    let imageReplacerToUse = imageReplacer;
-    if (!!chatPortraitCustomData.customImageReplacer && typeof chatPortraitCustomData.customImageReplacer == 'object') {
-      imageReplacerToUse = chatPortraitCustomData.customImageReplacer;
+    let imageReplacerToUse: ImageReplaceVoiceData[] = [];
+    if (
+      !!chatPortraitCustomData.customImageReplacerData &&
+      typeof chatPortraitCustomData.customImageReplacerData == 'object'
+    ) {
+      imageReplacerToUse = chatPortraitCustomData.customImageReplacerData;
+    } else if (
+      !!chatPortraitCustomData.customImageReplacer &&
+      typeof chatPortraitCustomData.customImageReplacer == 'object'
+    ) {
+      const imageReplacerToUseOLD: Record<string, string> = chatPortraitCustomData.customImageReplacer;
+      for (const key in imageReplacerToUseOLD) {
+        imageReplacerToUse.push({
+          name: key,
+          icon: imageReplacerToUseOLD[key],
+        });
+      }
     }
     return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement) => {
       const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
@@ -1608,9 +1623,9 @@ export class ChatPortrait {
   };
 
   static getImagesReplacerAsset(
-    imageReplacer: Record<string, string>,
+    imageReplacer: ImageReplaceVoiceData[],
     innerText: string,
-    elementItemContent,
+    elementItemContent: HTMLElement,
   ): ImageReplacerData {
     //let value:string[] = new Array();
     const value: ImageReplacerData = new ImageReplacerData();
@@ -1633,8 +1648,10 @@ export class ChatPortrait {
           text = text.replace('ability', '');
           text = text.replace(/[0-9]/g, '');
           text = text.toLowerCase().trim();
-          for (const key in imageReplacer) {
-            if (key) {
+          for (const objKey in imageReplacer) {
+            const obj = imageReplacer[objKey];
+            if (obj) {
+              const key = obj.name;
               const mykeyvalue = i18n(key);
               if (mykeyvalue) {
                 //mykeyvalue = mykeyvalue.toLowerCase().trim();
@@ -1650,7 +1667,7 @@ export class ChatPortrait {
                   keyValue = keyValue.toLowerCase().trim();
                   if (text.trim().indexOf(keyValue) !== -1) {
                     //value.push(imageReplacer[key]);
-                    value.iconMainReplacer = imageReplacer[key];
+                    value.iconMainReplacer = obj.icon; //imageReplacer[key];
                     break;
                   }
                 }
@@ -1673,7 +1690,9 @@ export class ChatPortrait {
           textDamage = textDamage.replace('ability', '');
           textDamage = textDamage.replace(/[0-9]/g, '');
           textDamage = textDamage.toLowerCase().trim();
-          for (const keydamage in imageReplacerDamageType) {
+          for (const keydamageObjeKey in imageReplacerDamageType) {
+            const keydamageObj = imageReplacerDamageType[keydamageObjeKey];
+            const keydamage = keydamageObj.name;
             const mykeydamagevalue = i18n(keydamage);
             if (mykeydamagevalue) {
               //mykeydamagevalue = mykeydamagevalue.toLowerCase().trim();
@@ -1689,7 +1708,7 @@ export class ChatPortrait {
                 damageValue = damageValue.toLowerCase().trim();
                 damageValue = ' ' + damageValue;
                 if (textDamage.toLowerCase().trim().indexOf(damageValue) !== -1) {
-                  const srcdamageType = imageReplacerDamageType[keydamage];
+                  const srcdamageType = keydamageObj.icon; //imageReplacerDamageType[keydamage];
                   damageTypes.push(srcdamageType);
                   // Add all damage types
                 }

@@ -1,3 +1,7 @@
+## 0.5.13
+
+- Apply the "iconizer" format on imagereplacer for future developing
+
 ## 0.5.12
 
 - Add check for null promise

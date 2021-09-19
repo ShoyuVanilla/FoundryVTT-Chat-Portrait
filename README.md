@@ -81,7 +81,8 @@ Use your own code for give me a customized image reference to put on the portrai
 
 const chatPortraitCustomData = { 
   customIconPortraitImage: "http://myimageurl/test.png",
-  customImageReplacer: imageReplacer, // Customize your own imageReplacer
+  customImageReplacer: imageReplacer, // DEPRECATED Customize your own imageReplacer (Record<stirng,string>)
+  customImageReplacerData: imageReplacerData, // Customize your own imageReplacer ( array of {  name: string; icon: string;})
 }; 
 
 Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData, chatMessage);

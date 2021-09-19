@@ -1,10 +1,10 @@
 import { warn, error, debug, i18n, log } from '../main';
 import { ChatPortrait } from './ChatPortrait';
-import { ImageReplacerInit } from './ImageReplacer';
 import { CHAT_PORTRAIT_MODULE_NAME, getCanvas, getGame } from './settings';
 import { ChatSpeakerData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData';
 import EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/embedded-collection.mjs';
 import { CombatData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import { ImageReplaceVoiceData } from './ChatPortraitModels';
 
 const mapCombatTrackerPortrait = new Map<string, string>();
 
@@ -88,10 +88,10 @@ export const readyHooks = async () => {
 
 export const setupHooks = async () => {
   // setup all the hooks
-  let imageReplacer: Record<string, string>;
-  if (ChatPortrait.settings.useImageReplacer) {
-    imageReplacer = ImageReplacerInit();
-  }
+  let imageReplacer: ImageReplaceVoiceData[];
+  // if (ChatPortrait.settings.useImageReplacer) {
+  //   imageReplacer = ImageReplacerInit();
+  // }
 
   let currentSpeakerBackUp: ChatSpeakerData;
   /**
