@@ -38,14 +38,21 @@
   list-style-type: circle;
 }
 */
+/* 
 .chat-portrait-currentSpeaker {
   flex: 0;
   padding: 3px 0.5em;
 }
 
+.chat-portrait-currentSpeaker #context-menu {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
 .chat-portrait-currentSpeakerToggle:hover {
   opacity: 1;
-}
+} 
+*/
 
 .chat-portrait-playerName {
   opacity: 0.5;
