@@ -1,5 +1,5 @@
 import { DOCUMENT_PERMISSIONS } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/fields.mjs';
-import { log } from '../main';
+import { log } from '../chat-portrait-main';
 import { ChatPortrait } from './ChatPortrait';
 import { getGame } from './settings';
 

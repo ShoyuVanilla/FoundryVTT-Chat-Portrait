@@ -1,5 +1,5 @@
 import { SimpleRope } from 'pixi.js';
-import { i18n } from '../main';
+import { i18n } from '../chat-portrait-main';
 import { ChatPortrait } from './ChatPortrait';
 import { CHAT_PORTRAIT_MODULE_NAME, getGame } from './settings';
 
