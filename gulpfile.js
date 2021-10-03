@@ -213,7 +213,7 @@ function buildSASS() {
  * Copy static files
  */
 async function copyFiles() {
-  const statics = ['lang', 'fonts', 'assets', 'icons', 'templates', 'module.json', 'system.json', 'template.json'];
+  const statics = ['lang', 'fonts', 'assets', 'icons', 'templates', 'packs', 'module.json', 'system.json', 'template.json'];
   try {
     for (const file of statics) {
       if (fs.existsSync(path.join('src', file))) {
@@ -256,6 +256,7 @@ async function clean() {
     files.push(
       'lang',
       'templates',
+      'packs',
       'assets',
       'icons',
       'module',
@@ -360,7 +361,7 @@ async function packageBuild() {
       fs.ensureDirSync('package');
 
       // Initialize the zip file
-      const zipName = `${manifest.file.name}-v${manifest.file.version}.zip`;
+      const zipName = 'module.zip'; // `${manifest.file.name}-v${manifest.file.version}.zip`
       const zipFile = fs.createWriteStream(path.join('package', zipName));
       const zip = archiver('zip', { zlib: { level: 9 } });
 
