@@ -1,3 +1,7 @@
+## 0.5.15 
+
+- bug fix and update module.json
+
 ## 0.5.14
 
 - Add github worklow 

@@ -142,7 +142,7 @@ any other system need some fed back from the community
 
 - **Use Token Image**: Use the actor's Token image instead of the actor's standard image. Note: In the event the token associated with a chat message no longer exists, it will use the actor's prototype token's name. In the event the actor no longer exists, it will try to get the avatar image of the player/GM, and the original chat message's alias (usually the actor's name) to the GM.
 
-**Do not use Token Image with  the following type of actors** : (e.g. character, npc, ecc. separate by character ','). Remember the actor type is case sensitive. Make sense only with the setting 'Use Token Image' set to true",
+- **Do not use Token Image with  the following type of actors** : (e.g. character, npc, ecc. separate by character ','). Remember the actor type is case sensitive. Make sense only with the setting 'Use Token Image' set to true",
  
 - **Use Token Name**: Use the actor's Token name instead of the actor's standard name.
 

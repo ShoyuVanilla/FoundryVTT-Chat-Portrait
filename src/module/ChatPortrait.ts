@@ -1,6 +1,6 @@
 import { error, i18n } from './../main';
 import { warn } from '../main';
-import { ChatLink } from './chatlink';
+import { ChatLink } from './Chatlink';
 import { SettingsForm } from './ChatPortraitForm';
 import { ChatPortraitSettings } from './ChatPortraitSettings';
 import { imageReplacerDamageType, imageReplacerIconizer } from './ImageReplacer';
