@@ -1,4 +1,4 @@
-import { debug, log, setDebugLevel, warn, i18n } from '../chat-portrait-main';
+import { debug, log, setDebugLevel, warn, i18n } from '../main';
 import { ChatPortraitForm } from './ChatPortraitForm';
 import { ChatPortrait } from './ChatPortrait';
 

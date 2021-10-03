@@ -1,5 +1,5 @@
-import { error, i18n } from '../chat-portrait-main';
-import { warn } from '../chat-portrait-main';
+import { error, i18n } from '../main';
+import { warn } from '../main';
 import { ChatLink } from './Chatlink';
 import { SettingsForm } from './ChatPortraitForm';
 import { ChatPortraitSettings } from './ChatPortraitSettings';

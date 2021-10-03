@@ -1,4 +1,4 @@
-import { warn, error, debug, i18n, log } from '../chat-portrait-main';
+import { warn, error, debug, i18n, log } from '../main';
 import { ChatPortrait } from './ChatPortrait';
 import { CHAT_PORTRAIT_MODULE_NAME, getCanvas, getGame } from './settings';
 import { ChatSpeakerData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData';

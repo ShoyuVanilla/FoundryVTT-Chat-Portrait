@@ -1,5 +1,5 @@
 import { CHAT_PORTRAIT_MODULE_NAME } from './settings';
-import { i18n } from '../chat-portrait-main';
+import { i18n } from '../main';
 import { ImageReplaceVoiceData } from './ChatPortraitModels';
 
 // export let ImageReplacerImpl: Record<string, string> = {};
