@@ -33,7 +33,19 @@ export const readyHooks = async () => {
             const token: TokenDocument = <TokenDocument>ChatPortrait.getTokenFromId(tokenID);
             let userID = '';
             let isOwnedFromPLayer = false;
-            if (ChatPortrait.settings.useAvatarImage && !ChatPortrait.settings.useTokenImage) {
+            let useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
+            const actor = ChatPortrait.getActor(token.actor);
+            const doNotUseTokenImageWithSpecificType: string[] = ChatPortrait.settings
+              .doNotUseTokenImageWithSpecificType
+              ? String(ChatPortrait.settings.doNotUseTokenImageWithSpecificType).split(',')
+              : [];
+            if (
+              doNotUseTokenImageWithSpecificType.length > 0 &&
+              doNotUseTokenImageWithSpecificType.includes(<string>actor?.type)
+            ) {
+              useTokenImage = false;
+            }
+            if (ChatPortrait.settings.useAvatarImage && !useTokenImage) {
               // if user not admin is owner of the token
               //userID = (!getGame().user?.isGM && token.actor?.hasPerm(<User>getGame().user, "OWNER")) ? <string>getGame().user?.id : "";
               //userID = (!getGame().user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>getGame().user?.id : "";

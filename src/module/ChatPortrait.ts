@@ -808,8 +808,17 @@ export class ChatPortrait {
         }
       }
       // It's a chat message associated with an actor
-      const useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
+      let useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
       const actor = ChatPortrait.getActor(speaker);
+      const doNotUseTokenImageWithSpecificType: string[] = ChatPortrait.settings.doNotUseTokenImageWithSpecificType
+        ? String(ChatPortrait.settings.doNotUseTokenImageWithSpecificType).split(',')
+        : [];
+      if (
+        doNotUseTokenImageWithSpecificType.length > 0 &&
+        doNotUseTokenImageWithSpecificType.includes(<string>actor?.type)
+      ) {
+        useTokenImage = false;
+      }
       // Make sense only for player and for non GM
       if (actor?.type == 'character' && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isSpeakerGM(message)) {
         const imgAvatar: string = ChatPortrait.getUserAvatarImage(message);
@@ -1071,6 +1080,7 @@ export class ChatPortrait {
     return {
       //borderShapeList: Settings.getBorderShapeList(),
       useTokenImage: SettingsForm.getUseTokenImage(),
+      doNotUseTokenImageWithSpecificType: SettingsForm.getDoNotUseTokenImageWithSpecificType(),
       useTokenName: SettingsForm.getUseTokenName(),
       portraitSize: SettingsForm.getPortraitSize(),
       portraitSizeItem: SettingsForm.getPortraitSizeItem(),
@@ -1114,6 +1124,7 @@ export class ChatPortrait {
   static get defaultSettings(): ChatPortraitSettings {
     return {
       useTokenImage: false,
+      doNotUseTokenImageWithSpecificType: '',
       useTokenName: false,
       portraitSize: 36,
       portraitSizeItem: 36,
@@ -1150,17 +1161,17 @@ export class ChatPortrait {
     };
   }
 
-  // static getSpeakerImage = function (message):string {
+  // static getSpeakerImage = function (message, useTokenImage):string {
   //   const speaker = message.speaker;
   //   if (speaker) {
-  //       if (speaker.token && ChatPortrait.settings.useTokenImage) {
+  //       if (speaker.token && useTokenImage) {
   //           const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
   //           if (token) {
   //               return token.data.img;
   //           }
   //       }
 
-  //       if (speaker.actor && !ChatPortrait.settings.useTokenImage) {
+  //       if (speaker.actor && !useTokenImage) {
   //           const actor = Actors.instance.get(speaker.actor);
   //           if (actor) {
   //             return actor.data.img;
@@ -1171,13 +1182,13 @@ export class ChatPortrait {
   //   return "icons/svg/mystery-man.svg";
   // }
 
-  // static showSpeakerImage = function (message):boolean {
+  // static showSpeakerImage = function (message, useTokenImage):boolean {
   //   const speaker = message.speaker;
   //   if (!speaker) {
   //       return false;
   //   } else {
   //     let bHasImage = false;
-  //     if (speaker.token && ChatPortrait.settings.useTokenImage) {
+  //     if (speaker.token && useTokenImage) {
   //         const token = getCanvas()?.tokens?.getDocuments().get(speaker.token);
   //         if (token) {
   //             bHasImage = bHasImage || token.data.img != null;
@@ -1860,8 +1871,17 @@ export class ChatPortrait {
       }
     }
     // It's a chat message associated with an actor
-    const useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
+    let useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
     const actor = ChatPortrait.getActorFromActorID(actorID, tokenID);
+    const doNotUseTokenImageWithSpecificType: string[] = ChatPortrait.settings.doNotUseTokenImageWithSpecificType
+      ? String(ChatPortrait.settings.doNotUseTokenImageWithSpecificType).split(',')
+      : [];
+    if (
+      doNotUseTokenImageWithSpecificType.length > 0 &&
+      doNotUseTokenImageWithSpecificType.includes(<string>actor?.type)
+    ) {
+      useTokenImage = false;
+    }
     // Make sense only for player and for non GM
     if (actor?.type == 'character' && ChatPortrait.settings.useAvatarImage && !ChatPortrait.isGMFromUserID(userID)) {
       const imgAvatar: string = ChatPortrait.getUserAvatarImageFromUserID(userID);

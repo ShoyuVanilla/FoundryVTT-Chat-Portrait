@@ -42,6 +42,7 @@ export class ChatPortraitForm extends FormApplication {
       data = {
         borderShapeList: this.getSelectList(this.borderShapeListOptions, 'square'),
         useTokenImage: false,
+        doNotUseTokenImageWithSpecificType: '',
         useTokenName: false,
         portraitSize: 36,
         portraitSizeItem: 36,
@@ -80,6 +81,7 @@ export class ChatPortraitForm extends FormApplication {
       data = {
         borderShapeList: this.getSelectList(this.borderShapeListOptions, SettingsForm.getBorderShape()),
         useTokenImage: SettingsForm.getUseTokenImage(),
+        doNotUseTokenImageWithSpecificType: SettingsForm.getDoNotUseTokenImageWithSpecificType(),
         useTokenName: SettingsForm.getUseTokenName(),
         portraitSize: SettingsForm.getPortraitSize(),
         portraitSizeItem: SettingsForm.getPortraitSizeItem(),
@@ -178,6 +180,7 @@ export class ChatPortraitForm extends FormApplication {
     // await getGame().settings.set(MODULE_NAME, 'settings', settings);
 
     SettingsForm.setUseTokenImage(formData.useTokenImage);
+    SettingsForm.setDoNotUseTokenImageWithSpecificType(formData.doNotUseTokenImageWithSpecificType);
     SettingsForm.setUseTokenName(formData.useTokenName);
     SettingsForm.setPortraitSize(formData.portraitSize);
     SettingsForm.setPortraitSizeItem(formData.portraitSizeItem);
@@ -261,6 +264,12 @@ export class SettingsForm {
   }
   static setUseTokenImage(value: boolean) {
     getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useTokenImage', value);
+  }
+  static getDoNotUseTokenImageWithSpecificType() {
+    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'doNotUseTokenImageWithSpecificType');
+  }
+  static setDoNotUseTokenImageWithSpecificType(value: string) {
+    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'doNotUseTokenImageWithSpecificType', value);
   }
   static getUseTokenName() {
     return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useTokenName');

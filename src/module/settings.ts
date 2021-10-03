@@ -69,6 +69,13 @@ export const registerSettings = function () {
     default: false,
   });
 
+  getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'doNotUseTokenImageWithSpecificType', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: '',
+  });
+
   getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'useTokenName', {
     scope: 'world',
     config: false,

@@ -1,3 +1,8 @@
+## 0.5.14
+
+- Add github worklow 
+- Add new settings for "Do not use token image with specific type of actor"
+
 ## 0.5.13
 
 - Apply the "iconizer" format on imagereplacer for future developing
