@@ -3,7 +3,7 @@
   "name": "chat-portrait",
   "title": "Generate token bases based on token disposition or actor folder color.",
   "description": "Generate token bases based on token disposition or actor folder color.",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "scripts": {
     "package": "gulp package",
     "build": "gulp build && gulp link",

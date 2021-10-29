@@ -1,7 +1,7 @@
 ## 0.5.20
 
 - Bug fix [[BUG] Rolled Tables image bug](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/80)
-- Bug fix [Incompatibility with the "Randomize Wildcard Images" option](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/79)
+- Partial patch for fix [Incompatibility with the "Randomize Wildcard Images" option](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/79)
 
 ## 0.5.15-16-17-18-19
 

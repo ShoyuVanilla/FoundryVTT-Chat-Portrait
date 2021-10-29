@@ -1823,9 +1823,14 @@ export class ChatPortrait {
   };
 
   static isWildcardImage(imgUrl) {
-    const filename = imgUrl.split('/').pop();
-    const baseFileName = filename.substr(0, filename.lastIndexOf('.'));
-    return baseFileName == '*';
+    try {
+      const filename = imgUrl.split('/').pop();
+      const baseFileName = filename.substr(0, filename.lastIndexOf('.'));
+      return baseFileName == '*';
+    } catch (e) {
+      //TODO must check other systems
+      return false;
+    }
   }
 
   static loadImagePathForCombatTracker(
