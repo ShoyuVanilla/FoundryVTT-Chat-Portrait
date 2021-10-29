@@ -269,6 +269,7 @@ export class ChatPortrait {
     }
     return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement) => {
       const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
+      const isRollTable = messageData.flags?.core?.RollTable ? true : false;
       // Very very rare use case ????
       if (!imgElement) {
         imgElement = document.createElement('img');
@@ -410,7 +411,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                elementItemName.prepend(elementItemImage);
+                if (!isRollTable) elementItemName.prepend(elementItemImage);
                 // DAMAGE TYPES
                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                   const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -457,7 +458,7 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  elementItemName.prepend(elementItemImage);
+                  if (!isRollTable) elementItemName.prepend(elementItemImage);
                   // DAMAGE TYPES
                   if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                     const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -503,7 +504,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                elementItemName.prepend(elementItemImage);
+                if (!isRollTable) elementItemName.prepend(elementItemImage);
 
                 // DAMAGE TYPES
                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
@@ -548,7 +549,7 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  elementItemName.prepend(elementItemImage);
+                  if (!isRollTable) elementItemName.prepend(elementItemImage);
 
                   // DAMAGE TYPES
                   if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
@@ -619,7 +620,7 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              elementItemText.prepend(elementItemImage);
+              if (!isRollTable) elementItemText.prepend(elementItemImage);
               // DAMAGE TYPES
               if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                 const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -663,7 +664,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                elementItemText.prepend(elementItemImage);
+                if (!isRollTable) elementItemText.prepend(elementItemImage);
                 // DAMAGE TYPES
                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                   const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -709,7 +710,7 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              elementItemText.prepend(elementItemImage);
+              if (!isRollTable) elementItemText.prepend(elementItemImage);
             } else {
               if (ChatPortrait.useImageReplacer(html)) {
                 // REMOVED SEEM OVERKILL
@@ -726,7 +727,7 @@ export class ChatPortrait {
                             if(!elementItemImage.classList.contains("message-portrait")){
                               elementItemImage.classList.add("message-portrait");
                             }
-                            elementItemText.prepend(elementItemImage);
+                            if(!isRollTable) elementItemText.prepend(elementItemImage);
                             */
               }
             }
