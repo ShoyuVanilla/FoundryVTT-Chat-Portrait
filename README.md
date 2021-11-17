@@ -19,8 +19,8 @@ To install this module manually:
 2.  Click "Install Module"
 3.  In the "Manifest URL" field, paste the following url:
 `https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/src/module.json`
-1.  Click 'Install' and wait for installation to complete
-2.  Don't forget to enable the module in game using the "Manage Module" button
+4.  Click 'Install' and wait for installation to complete
+5.  Don't forget to enable the module in game using the "Manage Module" button
 
 ## TODO
 
@@ -42,11 +42,12 @@ Hooks :
 ```js
 
 const chatPortraitCustomData = {
-    /// url or file string reference to the image portrait path
+    // url or file string reference to the image portrait path
     customIconPortraitImage,
-    /// (on developing) url or file string reference to the image replacer portrait path
-    customImageReplacer
-    // OTHER SETTINGS BY REQUEST
+    // [DEPRECATED use instead the 'customImageReplacerData'] Customize your own imageReplacer (Record<string,string>)
+    customImageReplacer,
+    // Customize your own imageReplacer ( array of {  name: string; icon: string;})
+    customImageReplacerData: imageReplacerData, 
 }
 
 /// WARNING: internal data - do not use if possible
@@ -80,8 +81,8 @@ Use your own code for give me a customized image reference to put on the portrai
 ```js
 
 const chatPortraitCustomData = { 
-  customIconPortraitImage: "http://myimageurl/test.png",
-  customImageReplacer: imageReplacer, // DEPRECATED Customize your own imageReplacer (Record<stirng,string>)
+  customIconPortraitImage: "http://myimageurl/test.png", // url or file string reference to the image portrait path
+  customImageReplacer: imageReplacer, // [DEPRECATED use instead the 'customImageReplacerData'] Customize your own imageReplacer (Record<string,string>)
   customImageReplacerData: imageReplacerData, // Customize your own imageReplacer ( array of {  name: string; icon: string;})
 }; 
 
