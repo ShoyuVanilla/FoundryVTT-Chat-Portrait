@@ -1,3 +1,8 @@
+## 0.5.21
+
+- [add japanese localization (author: tonishi)](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/81)
+- Update readme
+
 ## 0.5.20
 
 - Bug fix [[BUG] Rolled Tables image bug](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/80)

@@ -256,6 +256,7 @@ export class ChatPortrait {
     ) {
       imageReplacerToUse = chatPortraitCustomData.customImageReplacerData;
     } else if (
+      chatPortraitCustomData.customImageReplacer &&
       !!chatPortraitCustomData.customImageReplacer &&
       typeof chatPortraitCustomData.customImageReplacer == 'object'
     ) {

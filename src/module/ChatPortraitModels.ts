@@ -5,7 +5,8 @@ export class ImageReplacerData {
 
 export class ChatPortraitCustomData {
   customIconPortraitImage = '';
-  customImageReplacer: Record<string, string>;
+  /** @deprecated use instead the 'customImageReplacerData' */
+  customImageReplacer?: Record<string, string>;
   customImageReplacerData: ImageReplaceVoiceData[];
 }
 
