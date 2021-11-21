@@ -1,8 +1,18 @@
 # Chat Portrait
 
+![Latest Release Download Count](https://img.shields.io/github/downloads/ShoyuVanilla/FoundryVTT-Chat-Portrait/latest/module.zip?color=2b82fc&label=DOWNLOADS&style=for-the-badge) 
+
+[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fchat-portrait&colorB=006400&style=for-the-badge)](https://forge-vtt.com/bazaar#package=chat-portrait) 
+
+![Foundry Core Compatible Version](https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2FShoyuVanilla%2FFoundryVTT-Chat-Portrait%2Fmaster%2Fsrc%2Fmodule.json&label=Foundry%20Version&query=$.compatibleCoreVersion&colorB=orange&style=for-the-badge)
+
+![Latest Version](https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2FShoyuVanilla%2FFoundryVTT-Chat-Portrait%2Fmaster%2Fsrc%2Fmodule.json&label=Latest%20Release&prefix=v&query=$.version&colorB=red&style=for-the-badge)
+
+[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fchat-portrait%2Fshield%2Fendorsements&style=for-the-badge)](https://www.foundryvtt-hub.com/package/chat-portrait/)
+
 A Foundry VTT module that displays the Actor's portrait images on the chat messages.
 
-This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.comShoyuVanilla/FoundryVTT-Chat-Portrait) ty to [ShoyuVanilla](https://github.com/ShoyuVanilla)
+This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait) ty to [ShoyuVanilla](https://github.com/ShoyuVanilla)
 
 ![Settings](./images/image01.png)
 
