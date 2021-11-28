@@ -1,3 +1,7 @@
+## 0.5.22
+
+- Add compatibility with new innocenti loot
+
 ## 0.5.21
 
 - [add japanese localization (author: tonishi)](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/81)

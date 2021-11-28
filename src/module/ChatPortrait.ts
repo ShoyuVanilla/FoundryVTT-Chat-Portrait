@@ -99,6 +99,11 @@ export class ChatPortrait {
       isChatImage.style.height = '100%';
       doNotStyling = true;
     }
+    // PATCH INNOCENTI LOOT
+    const isInnocentiLoot = html.find('.message-content .innocenti-loot')[0];
+    if (isInnocentiLoot) {
+      doNotStyling = true;
+    }
 
     // MULTISYSTEM MANAGEMENT
     let messageSenderElement: HTMLElement;
