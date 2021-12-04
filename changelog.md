@@ -1,3 +1,8 @@
+## 0.5.23
+
+- Add compatibility with merchant sheet module for when pick up item
+- Bug fix for redundant unkwnonw images with other modules
+
 ## 0.5.22
 
 - Add compatibility with new innocenti loot

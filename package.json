@@ -3,13 +3,13 @@
   "name": "chat-portrait",
   "title": "Generate token bases based on token disposition or actor folder color.",
   "description": "Generate token bases based on token disposition or actor folder color.",
-  "version": "0.5.22",
+  "version": "0.5.23",
   "scripts": {
     "package": "gulp package",
     "build": "gulp build && gulp link",
     "build:watch": "gulp watch",
     "clean": "gulp clean && gulp link --clean",
-    "update": "npm install --save-dev @league-of-foundry-developers/foundry-vtt-types@fvtt-0.8.8",
+    "update": "npm install --save-dev @league-of-foundry-developers/foundry-vtt-types@fvtt-0.8.9",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lintfix": "eslint --fix --ext .ts,.js,.vue ./src",
     "prettier-format": "prettier --config .prettierrc --write \"./src/**/*.(ts|js|json|scss|css)\""
@@ -17,8 +17,8 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^0.8.8-9",
-    "@types/jquery": "^3.5.8",
+    "@league-of-foundry-developers/foundry-vtt-types": "^0.8.9-7",
+    "@types/jquery": "^3.5.9",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
@@ -28,8 +28,8 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-jquery": "^3.0.0",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "fs-extra": "^9.1.0",
@@ -42,8 +42,8 @@
     "gulp-sass": "^4.1.1",
     "gulp-typescript": "^6.0.0-alpha.1",
     "json-stringify-pretty-compact": "^2.0.0",
-    "prettier": "^2.3.2",
-    "sass": "^1.43.4",
+    "prettier": "^2.5.0",
+    "sass": "^1.44.0",
     "yargs": "^15.4.1"
   },
   "lint-staged": {
@@ -51,6 +51,6 @@
     "*.(json|scss)": "prettier --write"
   },
   "dependencies": {
-    "typescript": "^4.4.4"
+    "typescript": "^4.5.2"
   }
 }

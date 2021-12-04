@@ -417,7 +417,9 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!isRollTable) elementItemName.prepend(elementItemImage);
+                if (!isRollTable) {
+                  elementItemName.prepend(elementItemImage);
+                }
                 // DAMAGE TYPES
                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                   const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -464,7 +466,9 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!isRollTable) elementItemName.prepend(elementItemImage);
+                  if (!isRollTable) {
+                    elementItemName.prepend(elementItemImage);
+                  }
                   // DAMAGE TYPES
                   if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                     const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -505,13 +509,40 @@ export class ChatPortrait {
                   elementItemImage.height = size;
                 }
                 if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
-                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                  // TODO DA RIVEDERE
+                  elementItemImage.src = ''; // ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                  // PATCH MODULE MERCHANT SHEET
+                  const itemName =
+                    $(messageData.content).find('.item-name').length > 0
+                      ? $(messageData.content).find('.item-name')[0].textContent
+                      : '';
+                  if (itemName) {
+                    const actorIdMerchant = <string>$(messageData.content).attr('data-actor-id');
+                    let item: Item;
+                    if (actorIdMerchant) {
+                      item = <Item>getGame()
+                        .actors?.get(actorIdMerchant)
+                        ?.items?.find((i: Item) => {
+                          return i.name == itemName;
+                        });
+                    } else {
+                      item = <Item>getGame().items?.find((i: Item) => {
+                        return i.name == itemName;
+                      });
+                    }
+                    elementItemImage.src = <string>item.img;
+                    if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
+                      elementItemImage.src = '';
+                    }
+                  }
                 }
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!isRollTable) elementItemName.prepend(elementItemImage);
-
+                if (!isRollTable && elementItemImage.src) {
+                  // TODO DA RIVEDERE
+                  elementItemName.prepend(elementItemImage);
+                }
                 // DAMAGE TYPES
                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                   const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -550,13 +581,40 @@ export class ChatPortrait {
                     elementItemImage.height = size;
                   }
                   if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
-                    elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                    // TODO DA RIVEDERE
+                    elementItemImage.src = ''; // ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                    // PATCH MODULE MERCHANT SHEET
+                    const itemName =
+                      $(messageData.content).find('.item-name').length > 0
+                        ? $(messageData.content).find('.item-name')[0].textContent
+                        : '';
+                    if (itemName) {
+                      const actorIdMerchant = <string>$(messageData.content).attr('data-actor-id');
+                      let item: Item;
+                      if (actorIdMerchant) {
+                        item = <Item>getGame()
+                          .actors?.get(actorIdMerchant)
+                          ?.items?.find((i: Item) => {
+                            return i.name == itemName;
+                          });
+                      } else {
+                        item = <Item>getGame().items?.find((i: Item) => {
+                          return i.name == itemName;
+                        });
+                      }
+                      elementItemImage.src = <string>item.img;
+                      if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
+                        elementItemImage.src = '';
+                      }
+                    }
                   }
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!isRollTable) elementItemName.prepend(elementItemImage);
-
+                  if (!isRollTable && elementItemImage.src) {
+                    // TODO DA RIVEDERE
+                    elementItemName.prepend(elementItemImage);
+                  }
                   // DAMAGE TYPES
                   if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                     const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -626,7 +684,9 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!isRollTable) elementItemText.prepend(elementItemImage);
+              if (!isRollTable) {
+                elementItemText.prepend(elementItemImage);
+              }
               // DAMAGE TYPES
               if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                 const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -670,7 +730,9 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!isRollTable) elementItemText.prepend(elementItemImage);
+                if (!isRollTable) {
+                  elementItemText.prepend(elementItemImage);
+                }
                 // DAMAGE TYPES
                 if (images && images.iconsDamageType.length > 0 && ChatPortrait.settings.useImageReplacerDamageType) {
                   const elementItemContainerDamageTypes: HTMLImageElement = <HTMLImageElement>(
@@ -716,7 +778,9 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!isRollTable) elementItemText.prepend(elementItemImage);
+              if (!isRollTable) {
+                elementItemText.prepend(elementItemImage);
+              }
             } else {
               if (ChatPortrait.useImageReplacer(html)) {
                 // REMOVED SEEM OVERKILL
@@ -1218,9 +1282,9 @@ export class ChatPortrait {
   // }
 
   static getActor(speaker): Actor | undefined {
-    let actor = getGame().actors?.get(speaker.actor);
+    let actor = <Actor>getGame().actors?.get(speaker.actor);
     if (!actor) {
-      actor = getGame().actors?.tokens[speaker.token];
+      actor = <Actor>getGame().actors?.tokens[speaker.token];
     }
     if (!actor) {
       //actor = getGame().actors.get(speaker.actor); // Deprecated on 0.8.6
@@ -1228,15 +1292,15 @@ export class ChatPortrait {
     }
     const forceNameSearch = ChatPortrait.settings.forceNameSearch;
     if (!actor && forceNameSearch) {
-      actor = getGame().actors?.find((a: Actor) => a.data.token.name === speaker.alias);
+      actor = <Actor>getGame().actors?.find((a: Actor) => a.data.token.name === speaker.alias);
     }
     return actor;
   }
 
   static getActorFromActorID(actorID, tokenID): Actor | undefined {
-    let actor = getGame().actors?.get(actorID);
+    let actor = <Actor>getGame().actors?.get(actorID);
     if (!actor) {
-      actor = getGame().actors?.tokens[tokenID];
+      actor = <Actor>getGame().actors?.tokens[tokenID];
     }
     if (!actor) {
       //actor = getGame().actors.get(actorID); // Deprecated on 0.8.6
