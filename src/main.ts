@@ -89,3 +89,8 @@ Hooks.once('ready', () => {
 });
 
 // Add any additional hooks if necessary
+
+Hooks.once('libChangelogsReady', function () {
+  //@ts-ignore
+  libChangelogs.register(CHAT_PORTRAIT_MODULE_NAME, 'move ja.json to localized module', 'minor');
+});

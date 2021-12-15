@@ -1,3 +1,8 @@
+## 0.5.24
+
+- move ja.json to localized module
+- Add [CHANGELOGS & CONFLICTS](https://github.com/theripper93/libChangelogs) hooks for betetr management of the conflicts
+
 ## 0.5.23
 
 - Add compatibility with merchant sheet module for when pick up item

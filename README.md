@@ -10,6 +10,8 @@
 
 [![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fchat-portrait%2Fshield%2Fendorsements&style=for-the-badge)](https://www.foundryvtt-hub.com/package/chat-portrait/)
 
+![GitHub all releases](https://img.shields.io/github/downloads/ShoyuVanilla/FoundryVTT-Chat-Portrait/total?style=for-the-badge)
+
 A Foundry VTT module that displays the Actor's portrait images on the chat messages.
 
 This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait) ty to [ShoyuVanilla](https://github.com/ShoyuVanilla)
