@@ -1,7 +1,7 @@
 ## 0.5.24
 
 - move ja.json to localized module
-- Add [CHANGELOGS & CONFLICTS](https://github.com/theripper93/libChangelogs) hooks for betetr management of the conflicts
+- Add [CHANGELOGS & CONFLICTS](https://github.com/theripper93/libChangelogs) hooks for better management of the conflicts
 
 ## 0.5.23
 
