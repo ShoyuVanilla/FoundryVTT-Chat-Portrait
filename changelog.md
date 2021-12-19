@@ -1,3 +1,7 @@
+## 0.5.25
+
+- Create new version for clean the cache of old version no change on the code
+
 ## 0.5.24
 
 - move ja.json to localized module
