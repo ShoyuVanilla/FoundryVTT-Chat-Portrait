@@ -76,6 +76,8 @@ export class ChatPortraitForm extends FormApplication {
         useImageReplacerDamageType: true,
         applyOnCombatTracker: false,
         applyPreCreateChatMessagePatch: false,
+        disablePortraitForAliasGmMessage: false,
+        setUpPortraitForAliasGmMessage: '',
       };
     } else {
       data = {
@@ -115,6 +117,8 @@ export class ChatPortraitForm extends FormApplication {
         useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
         applyOnCombatTracker: SettingsForm.getApplyOnCombatTracker(),
         applyPreCreateChatMessagePatch: SettingsForm.getApplyPreCreateChatMessagePatch(),
+        disablePortraitForAliasGmMessage: SettingsForm.getDisablePortraitForAliasGmMessage(),
+        setUpPortraitForAliasGmMessage: SettingsForm.getSetUpPortraitForAliasGmMessage(),
       };
     }
 
@@ -214,6 +218,8 @@ export class ChatPortraitForm extends FormApplication {
     SettingsForm.setUseImageReplacerDamageType(formData.useImageReplacerDamageType);
     SettingsForm.setApplyOnCombatTracker(formData.applyOnCombatTracker);
     SettingsForm.setApplyPreCreateChatMessagePatch(formData.applyPreCreateChatMessagePatch);
+    SettingsForm.setDisablePortraitForAliasGmMessage(formData.disablePortraitForAliasGmMessage);
+    SettingsForm.setSetUpPortraitForAliasGmMessage(formData.setUpPortraitForAliasGmMessage);
   }
 
   getSelectList(myselectslist, selected) {
@@ -471,4 +477,17 @@ export class SettingsForm {
   static setApplyPreCreateChatMessagePatch(value: boolean) {
     getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch', value);
   }
+  static getDisablePortraitForAliasGmMessage() {
+    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'disablePortraitForAliasGmMessage');
+  }
+  static setDisablePortraitForAliasGmMessage(value: boolean) {
+    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'disablePortraitForAliasGmMessage', value);
+  }
+  static getSetUpPortraitForAliasGmMessage() {
+    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage');
+  }
+  static setSetUpPortraitForAliasGmMessage(value: string) {
+    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage', value);
+  }
+  
 }

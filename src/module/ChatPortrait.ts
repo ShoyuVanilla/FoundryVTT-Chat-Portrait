@@ -67,6 +67,15 @@ export class ChatPortrait {
       doNotStyling = true;
     }
 
+    if (ChatPortrait.settings.disablePortraitForAliasGmMessage) {
+      const userByAlias = <User>getGame().users?.find((u:User) => {
+        return (speakerInfo.alias === u.name) && u?.isGM;
+      });
+      if(userByAlias){
+        doNotStyling = true;
+      }
+    }
+
     // PATCH MODULE NARRATOR TOOLS
     // Do not styling narrator message because it's make no sense the module has is own css customizing
     if (speakerInfo.alias == i18n('NT.Narrator')) {
@@ -835,6 +844,18 @@ export class ChatPortrait {
     const isOOC = ChatPortrait.getMessageTypeVisible(speakerInfo) === CONST.CHAT_MESSAGE_TYPES.OOC;
 
     const imgFinal = 'icons/svg/mystery-man.svg';
+
+    if (!ChatPortrait.settings.disablePortraitForAliasGmMessage 
+      && ChatPortrait.settings.setUpPortraitForAliasGmMessage?.length > 0) {
+      
+      const userByAlias = <User>getGame().users?.find((u:User) => {
+        return (speakerInfo.alias === u.name) && u?.isGM;
+      });
+      if(userByAlias){
+        return ChatPortrait.settings.setUpPortraitForAliasGmMessage;
+      }
+    }
+
     if (message.user && isOOC) {
       const imgAvatar: string = ChatPortrait.getUserAvatarImage(message);
       if (imgAvatar && !imgAvatar.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
@@ -1185,6 +1206,8 @@ export class ChatPortrait {
       useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
       applyOnCombatTracker: SettingsForm.getApplyOnCombatTracker(),
       applyPreCreateChatMessagePatch: SettingsForm.getApplyPreCreateChatMessagePatch(),
+      disablePortraitForAliasGmMessage: SettingsForm.getDisablePortraitForAliasGmMessage(),
+      setUpPortraitForAliasGmMessage: SettingsForm.getSetUpPortraitForAliasGmMessage(),
     };
   }
 
@@ -1229,6 +1252,8 @@ export class ChatPortrait {
       useImageReplacerDamageType: true,
       applyOnCombatTracker: false,
       applyPreCreateChatMessagePatch: false,
+      disablePortraitForAliasGmMessage: false,
+      setUpPortraitForAliasGmMessage: '',
     };
   }
 

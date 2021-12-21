@@ -233,7 +233,13 @@
 
         <div class="form-group">
             <label>{{localize "chat-portrait.settings.displayUnknownPlaceHolderItemIcon.name"}}</label>
+            <!--
             <input type="text" name="displayUnknownPlaceHolderItemIcon" value="{{displayUnknownPlaceHolderItemIcon}}" style="flex: 1; text-align: left;"/>
+            -->
+            <div class="form-fields">
+                {{filePicker target="displayUnknownPlaceHolderItemIcon" type="image"}}
+                <input class="image" type="text" name="displayUnknownPlaceHolderItemIcon" placeholder="path/image.png" value="{{displayUnknownPlaceHolderItemIcon}}"/>
+            </div>
             <p class="notes">{{localize "chat-portrait.settings.displayUnknownPlaceHolderItemIcon.hint"}}</p>
         </div>
 
@@ -241,6 +247,21 @@
             <label>{{localize "chat-portrait.settings.customStylingMessageText.name"}}</label>
             <textarea name="customStylingMessageText" style="flex: 1; text-align: left;">{{customStylingMessageText}}</textarea>
             <p class="notes">{{localize "chat-portrait.settings.customStylingMessageText.hint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.disablePortraitForAliasGmMessage.name"}}</label>
+            <input type="checkbox" name="disablePortraitForAliasGmMessage" data-dtype="Boolean" {{checked disablePortraitForAliasGmMessage}}/>
+            <p class="notes">{{localize "chat-portrait.settings.disablePortraitForAliasGmMessage.hint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{ localize "chat-portrait.settings.setUpPortraitForAliasGmMessage.name" }}</label>
+            <div class="form-fields">
+                {{filePicker target="setUpPortraitForAliasGmMessage" type="image"}}
+                <input class="image" type="text" name="setUpPortraitForAliasGmMessage" placeholder="path/image.png" value="{{setUpPortraitForAliasGmMessage}}"/>
+            </div>
+            <p class="notes">{{localize "chat-portrait.settings.setUpPortraitForAliasGmMessage.hint"}}</p>
         </div>
 
 

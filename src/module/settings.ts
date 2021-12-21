@@ -337,6 +337,20 @@ export const registerSettings = function () {
     type: String,
     default: '',
   });
+
+  getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'disablePortraitForAliasGmMessage', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false,
+  });
+
+  getGame().settings.register(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: '',
+  });
 };
 
 // function setup(templateSettings) {

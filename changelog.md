@@ -1,3 +1,9 @@
+## 0.5.26
+
+- Add module setting to disable the chat portrait if the alias of the chat message is from a GM user
+- Add module setting to set up a default image if the alias of the chat message is from a GM user
+- Update the html form
+
 ## 0.5.25
 
 - Create new version for clean the cache of old version no change on the code

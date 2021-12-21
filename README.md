@@ -253,6 +253,9 @@ If you want to add your own system it's very simple!!! you can just give to me a
 
 ![replacer](./images/image_replacer_feature.png)
 
+- **Disable the chat portrait if the alias of the chat message is from a GM**: If enable every chat message done with a alias referenced to a GM will ot apply the chat portrait mechanism
+- **Set up a specific image if the alias of the chat message is from a GM**: If enable will use the image selected here for every chat message done with a alias referenced to a GM. If 'Disable the chat portrait if the alias of the chat message is from a GM' is enable this setting will be ignored
+
 
 [ON DEVELOPING SO ANY SUGGESTION IS WELCOME]
 

@@ -101,6 +101,10 @@
   "chat-portrait.settings.useImageReplacerDamageType.hint": "Some people do not like images from the Image Replacer for Damage Type now you can disable this function",
   "chat-portrait.settings.applyOnCombatTracker.name": "Apply chat portrait on combat tracker",
   "chat-portrait.settings.applyOnCombatTracker.hint": "Apply the recovery of the image on the combat tracker. Note: if you are a GM and the combatant is not owned from a player the 'Use token image' is enabled anyway",
-  "chat-portrait.settings.applyPreCreateChatMessagePatch.name": "Apply  patch for 'PreCreateChatMessage' ",
-  "chat-portrait.settings.applyPreCreateChatMessagePatch.hint": "Warning: if enable it try to correct some bug from mid-qol, cub, dnd5e helper ecc. but can cause incompatibility with other module."
+  "chat-portrait.settings.applyPreCreateChatMessagePatch.name": "Apply patch for 'PreCreateChatMessage' ",
+  "chat-portrait.settings.applyPreCreateChatMessagePatch.hint": "Warning: if enable it try to correct some bug from midi-qol, cub, dnd5e helper ecc. but can cause incompatibility with other module.",
+  "chat-portrait.settings.disablePortraitForAliasGmMessage.name": "Disable the chat portrait if the alias of the chat message is from a GM",
+  "chat-portrait.settings.disablePortraitForAliasGmMessage.hint": "If enable every chat message done with a alias referenced to a GM will ot apply the chat portrait mechanism",
+  "chat-portrait.settings.setUpPortraitForAliasGmMessage.name": "Set up a specific image if the alias of the chat message is from a GM",
+  "chat-portrait.settings.setUpPortraitForAliasGmMessage.hint": "If enable will use the image selected here for every chat message done with a alias referenced to a GM. If 'Disable the chat portrait if the alias of the chat message is from a GM' is enable this setting will be ignored"
 }

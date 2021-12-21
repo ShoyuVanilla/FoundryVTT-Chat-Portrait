@@ -34,4 +34,6 @@ export interface ChatPortraitSettings {
   useImageReplacerDamageType: boolean;
   applyOnCombatTracker: boolean;
   applyPreCreateChatMessagePatch: boolean;
+  disablePortraitForAliasGmMessage: boolean;
+  setUpPortraitForAliasGmMessage: string;
 }
