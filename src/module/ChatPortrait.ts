@@ -285,6 +285,8 @@ export class ChatPortrait {
     return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement) => {
       const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
       const isRollTable = messageData.flags?.core?.RollTable ? true : false;
+      const isEnhancedConditionsCUB = $(messageData.content).hasClass('enhanced-conditions');
+      const doNotPrependImage = isRollTable || isEnhancedConditionsCUB;
       // Very very rare use case ????
       if (!imgElement) {
         imgElement = document.createElement('img');
@@ -426,7 +428,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!isRollTable) {
+                if (!doNotPrependImage) {
                   elementItemName.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -475,7 +477,7 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!isRollTable) {
+                  if (!doNotPrependImage) {
                     elementItemName.prepend(elementItemImage);
                   }
                   // DAMAGE TYPES
@@ -548,7 +550,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!isRollTable && elementItemImage.src) {
+                if (!doNotPrependImage && elementItemImage.src) {
                   // TODO DA RIVEDERE
                   elementItemName.prepend(elementItemImage);
                 }
@@ -620,7 +622,7 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!isRollTable && elementItemImage.src) {
+                  if (!doNotPrependImage && elementItemImage.src) {
                     // TODO DA RIVEDERE
                     elementItemName.prepend(elementItemImage);
                   }
@@ -693,7 +695,7 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!isRollTable) {
+              if (!doNotPrependImage) {
                 elementItemText.prepend(elementItemImage);
               }
               // DAMAGE TYPES
@@ -739,7 +741,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!isRollTable) {
+                if (!doNotPrependImage) {
                   elementItemText.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -787,7 +789,7 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!isRollTable) {
+              if (!doNotPrependImage) {
                 elementItemText.prepend(elementItemImage);
               }
             } else {

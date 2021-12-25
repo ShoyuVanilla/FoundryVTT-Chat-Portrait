@@ -1,3 +1,7 @@
+## 0.5.27
+
+- Patch for compatibility with enhanced-conditions message of CUB, do not prepend the first image
+
 ## 0.5.26
 
 - Add module setting to disable the chat portrait if the alias of the chat message is from a GM user
