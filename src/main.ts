@@ -92,5 +92,9 @@ Hooks.once('ready', () => {
 
 Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
-  libChangelogs.register(CHAT_PORTRAIT_MODULE_NAME, 'Create new version for clean the cache of old version no change on the code', 'minor');
+  libChangelogs.register(
+    CHAT_PORTRAIT_MODULE_NAME,
+    'Patch for tokenized characte on jquery `$()` analyze of message content like .,!,?',
+    'minor',
+  );
 });

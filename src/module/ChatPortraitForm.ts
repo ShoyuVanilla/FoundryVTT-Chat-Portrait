@@ -489,5 +489,4 @@ export class SettingsForm {
   static setSetUpPortraitForAliasGmMessage(value: string) {
     getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage', value);
   }
-  
 }

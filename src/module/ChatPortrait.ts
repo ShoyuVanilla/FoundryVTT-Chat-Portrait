@@ -68,10 +68,10 @@ export class ChatPortrait {
     }
 
     if (ChatPortrait.settings.disablePortraitForAliasGmMessage) {
-      const userByAlias = <User>getGame().users?.find((u:User) => {
-        return (speakerInfo.alias === u.name) && u?.isGM;
+      const userByAlias = <User>getGame().users?.find((u: User) => {
+        return speakerInfo.alias === u.name && u?.isGM;
       });
-      if(userByAlias){
+      if (userByAlias) {
         doNotStyling = true;
       }
     }
@@ -285,7 +285,13 @@ export class ChatPortrait {
     return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement) => {
       const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
       const isRollTable = messageData.flags?.core?.RollTable ? true : false;
-      const isEnhancedConditionsCUB = $(messageData.content).hasClass('enhanced-conditions');
+      let messageHtmlContent: any = undefined;
+      try {
+        messageHtmlContent = $(messageData.content);
+      } catch (e) {
+        messageHtmlContent = undefined;
+      }
+      const isEnhancedConditionsCUB = messageHtmlContent ? messageHtmlContent.hasClass('enhanced-conditions') : false;
       const doNotPrependImage = isRollTable || isEnhancedConditionsCUB;
       // Very very rare use case ????
       if (!imgElement) {
@@ -522,28 +528,30 @@ export class ChatPortrait {
                 if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                   // TODO DA RIVEDERE
                   elementItemImage.src = ''; // ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                  // PATCH MODULE MERCHANT SHEET
-                  const itemName =
-                    $(messageData.content).find('.item-name').length > 0
-                      ? $(messageData.content).find('.item-name')[0].textContent
-                      : '';
-                  if (itemName) {
-                    const actorIdMerchant = <string>$(messageData.content).attr('data-actor-id');
-                    let item: Item;
-                    if (actorIdMerchant) {
-                      item = <Item>getGame()
-                        .actors?.get(actorIdMerchant)
-                        ?.items?.find((i: Item) => {
+                  if (messageHtmlContent) {
+                    // PATCH MODULE MERCHANT SHEET
+                    const itemName =
+                      messageHtmlContent.find('.item-name').length > 0
+                        ? messageHtmlContent.find('.item-name')[0].textContent
+                        : '';
+                    if (itemName) {
+                      const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
+                      let item: Item;
+                      if (actorIdMerchant) {
+                        item = <Item>getGame()
+                          .actors?.get(actorIdMerchant)
+                          ?.items?.find((i: Item) => {
+                            return i.name == itemName;
+                          });
+                      } else {
+                        item = <Item>getGame().items?.find((i: Item) => {
                           return i.name == itemName;
                         });
-                    } else {
-                      item = <Item>getGame().items?.find((i: Item) => {
-                        return i.name == itemName;
-                      });
-                    }
-                    elementItemImage.src = <string>item.img;
-                    if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
-                      elementItemImage.src = '';
+                      }
+                      elementItemImage.src = <string>item.img;
+                      if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
+                        elementItemImage.src = '';
+                      }
                     }
                   }
                 }
@@ -594,28 +602,30 @@ export class ChatPortrait {
                   if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
                     // TODO DA RIVEDERE
                     elementItemImage.src = ''; // ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                    // PATCH MODULE MERCHANT SHEET
-                    const itemName =
-                      $(messageData.content).find('.item-name').length > 0
-                        ? $(messageData.content).find('.item-name')[0].textContent
-                        : '';
-                    if (itemName) {
-                      const actorIdMerchant = <string>$(messageData.content).attr('data-actor-id');
-                      let item: Item;
-                      if (actorIdMerchant) {
-                        item = <Item>getGame()
-                          .actors?.get(actorIdMerchant)
-                          ?.items?.find((i: Item) => {
+                    if (messageHtmlContent) {
+                      // PATCH MODULE MERCHANT SHEET
+                      const itemName =
+                        messageHtmlContent.find('.item-name').length > 0
+                          ? messageHtmlContent.find('.item-name')[0].textContent
+                          : '';
+                      if (itemName) {
+                        const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
+                        let item: Item;
+                        if (actorIdMerchant) {
+                          item = <Item>getGame()
+                            .actors?.get(actorIdMerchant)
+                            ?.items?.find((i: Item) => {
+                              return i.name == itemName;
+                            });
+                        } else {
+                          item = <Item>getGame().items?.find((i: Item) => {
                             return i.name == itemName;
                           });
-                      } else {
-                        item = <Item>getGame().items?.find((i: Item) => {
-                          return i.name == itemName;
-                        });
-                      }
-                      elementItemImage.src = <string>item.img;
-                      if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
-                        elementItemImage.src = '';
+                        }
+                        elementItemImage.src = <string>item.img;
+                        if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
+                          elementItemImage.src = '';
+                        }
                       }
                     }
                   }
@@ -847,13 +857,14 @@ export class ChatPortrait {
 
     const imgFinal = 'icons/svg/mystery-man.svg';
 
-    if (!ChatPortrait.settings.disablePortraitForAliasGmMessage 
-      && ChatPortrait.settings.setUpPortraitForAliasGmMessage?.length > 0) {
-      
-      const userByAlias = <User>getGame().users?.find((u:User) => {
-        return (speakerInfo.alias === u.name) && u?.isGM;
+    if (
+      !ChatPortrait.settings.disablePortraitForAliasGmMessage &&
+      ChatPortrait.settings.setUpPortraitForAliasGmMessage?.length > 0
+    ) {
+      const userByAlias = <User>getGame().users?.find((u: User) => {
+        return speakerInfo.alias === u.name && u?.isGM;
       });
-      if(userByAlias){
+      if (userByAlias) {
         return ChatPortrait.settings.setUpPortraitForAliasGmMessage;
       }
     }

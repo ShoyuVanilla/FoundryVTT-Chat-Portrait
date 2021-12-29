@@ -1,3 +1,7 @@
+## 0.5.28
+
+- Patch for tokenized characte on jquery `$()` analyze of message content like .,!,?
+
 ## 0.5.27
 
 - Patch for compatibility with enhanced-conditions message of CUB, do not prepend the first image
