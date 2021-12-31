@@ -1,3 +1,7 @@
+## 0.5.29
+
+- Bug fix [Image missing from elementItemImageList](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/85)
+
 ## 0.5.28
 
 - Patch for tokenized characte on jquery `$()` analyze of message content like .,!,?

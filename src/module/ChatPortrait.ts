@@ -358,6 +358,9 @@ export class ChatPortrait {
       ) {
         for (let i = 0; i < elementItemImageList.length; i++) {
           const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+          if(!elementItemImage){
+            continue;
+          }
           const size: number = ChatPortrait.settings.portraitSizeItem;
           if (size && size > 0) {
             elementItemImage.width = size;
@@ -373,6 +376,9 @@ export class ChatPortrait {
       } else if (ChatPortrait.shouldOverrideMessageUnknown(messageData)) {
         for (let i = 0; i < elementItemImageList.length; i++) {
           const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+          if(!elementItemImage){
+            continue;
+          }
           elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
           const size: number = ChatPortrait.settings.portraitSizeItem;
           if (size && size > 0) {
@@ -420,6 +426,9 @@ export class ChatPortrait {
             if (value) {
               if (elementItemImageList.length > 0) {
                 const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                if(!elementItemImage){
+                  continue;
+                }
                 const size: number = ChatPortrait.settings.portraitSizeItem;
                 if (size && size > 0) {
                   elementItemImage.width = size;
@@ -520,6 +529,9 @@ export class ChatPortrait {
             } else {
               if (elementItemImageList.length > 0) {
                 const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+                if(!elementItemImage){
+                  continue;
+                }
                 const size: number = ChatPortrait.settings.portraitSizeItem;
                 if (size && size > 0) {
                   elementItemImage.width = size;
@@ -691,6 +703,9 @@ export class ChatPortrait {
           if (value) {
             if (elementItemImageList.length > 0) {
               const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+              if(!elementItemImage){
+                continue;
+              }
               const size: number = ChatPortrait.settings.portraitSizeItem;
               if (size && size > 0) {
                 elementItemImage.width = size;
@@ -788,6 +803,9 @@ export class ChatPortrait {
           } else {
             if (elementItemImageList.length > 0) {
               const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
+              if(!elementItemImage){
+                continue;
+              }
               const size: number = ChatPortrait.settings.portraitSizeItem;
               if (size && size > 0) {
                 elementItemImage.width = size;

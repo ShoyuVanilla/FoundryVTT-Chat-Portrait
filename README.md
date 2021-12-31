@@ -34,15 +34,13 @@ To install this module manually:
 4.  Click 'Install' and wait for installation to complete
 5.  Don't forget to enable the module in game using the "Manage Module" button
 
-## TODO
+## Known Issue\Limitation
 
 - Integration multisystem it's very hard to find the time for this, for now i'm supporting only the system i use or ask by issue request, but anyone can point out what system has problem. i have prepared  a base code for support multysistem, i will not actively developing on the short term. 
 
 - Better integration with midi-qol and CUB for their mechanism of Unknown creature, but there is no conflict because it's just css and html modification on the chat message so you can use without any issue beyween this modules
 
 ## Hooks
-
-Hooks :
 
 `ChatPortraitEnabled` is called before the interaction with the chat is executed. When any of executed hooks return `false` the interaction is aborted with the default one of foundry.
 
