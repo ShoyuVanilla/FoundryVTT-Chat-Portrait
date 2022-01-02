@@ -825,6 +825,9 @@ export class ChatPortrait {
                 // REMOVED SEEM OVERKILL
                 /*
                             const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                            if(!elementItemImage){
+                              continue;
+                            }
                             const size: number = ChatPortrait.settings.portraitSizeItem;
                             if(size && size > 0){
                               elementItemImage.width = size;
