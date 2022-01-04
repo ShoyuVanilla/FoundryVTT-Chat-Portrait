@@ -1,3 +1,7 @@
+## 0.5.30
+
+- Add japanese language and set foundry version 9
+
 ## 0.5.29
 
 - Bug fix [Image missing from elementItemImageList](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/85)
