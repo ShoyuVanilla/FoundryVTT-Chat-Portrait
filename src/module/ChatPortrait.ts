@@ -358,7 +358,7 @@ export class ChatPortrait {
       ) {
         for (let i = 0; i < elementItemImageList.length; i++) {
           const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-          if(!elementItemImage){
+          if (!elementItemImage) {
             continue;
           }
           const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -376,7 +376,7 @@ export class ChatPortrait {
       } else if (ChatPortrait.shouldOverrideMessageUnknown(messageData)) {
         for (let i = 0; i < elementItemImageList.length; i++) {
           const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-          if(!elementItemImage){
+          if (!elementItemImage) {
             continue;
           }
           elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
@@ -426,7 +426,7 @@ export class ChatPortrait {
             if (value) {
               if (elementItemImageList.length > 0) {
                 const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                if(!elementItemImage){
+                if (!elementItemImage) {
                   continue;
                 }
                 const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -443,7 +443,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!doNotPrependImage) {
+                if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   elementItemName.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -492,7 +492,7 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!doNotPrependImage) {
+                  if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                     elementItemName.prepend(elementItemImage);
                   }
                   // DAMAGE TYPES
@@ -529,7 +529,7 @@ export class ChatPortrait {
             } else {
               if (elementItemImageList.length > 0) {
                 const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-                if(!elementItemImage){
+                if (!elementItemImage) {
                   continue;
                 }
                 const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -570,7 +570,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!doNotPrependImage && elementItemImage.src) {
+                if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   // TODO DA RIVEDERE
                   elementItemName.prepend(elementItemImage);
                 }
@@ -644,7 +644,7 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!doNotPrependImage && elementItemImage.src) {
+                  if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                     // TODO DA RIVEDERE
                     elementItemName.prepend(elementItemImage);
                   }
@@ -703,7 +703,7 @@ export class ChatPortrait {
           if (value) {
             if (elementItemImageList.length > 0) {
               const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-              if(!elementItemImage){
+              if (!elementItemImage) {
                 continue;
               }
               const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -720,7 +720,7 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!doNotPrependImage) {
+              if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                 elementItemText.prepend(elementItemImage);
               }
               // DAMAGE TYPES
@@ -766,7 +766,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!doNotPrependImage) {
+                if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   elementItemText.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -803,7 +803,7 @@ export class ChatPortrait {
           } else {
             if (elementItemImageList.length > 0) {
               const elementItemImage: HTMLImageElement = <HTMLImageElement>elementItemImageList[i];
-              if(!elementItemImage){
+              if (!elementItemImage) {
                 continue;
               }
               const size: number = ChatPortrait.settings.portraitSizeItem;
@@ -817,7 +817,7 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!doNotPrependImage) {
+              if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                 elementItemText.prepend(elementItemImage);
               }
             } else {

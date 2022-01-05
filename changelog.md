@@ -1,3 +1,7 @@
+## 0.5.31
+
+- Bug fix  [Compatibility with roll of fate](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/87)
+
 ## 0.5.30
 
 - Add japanese language and set foundry version 9
