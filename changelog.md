@@ -1,3 +1,7 @@
+## 0.5.32
+
+- Bug fix [[BUG] Module incompatibility with midi qol saving throw panel](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/88)
+
 ## 0.5.31
 
 - Bug fix  [Compatibility with roll of fate](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/87)

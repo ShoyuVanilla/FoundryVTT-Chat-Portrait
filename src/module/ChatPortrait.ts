@@ -134,13 +134,13 @@ export class ChatPortrait {
     if (!elementItemImageList) {
       elementItemImageList = html.find('.card-content img');
     }
-    elementItemNameList = html.find('.message-content h3'); // work only with dnd5e
+    elementItemNameList = html.find('.message-content h3');
     if (!elementItemNameList) {
-      elementItemNameList = html.find('.card-content h3'); // work only with dnd5e
+      elementItemNameList = html.find('.card-content h3');
     }
     elementItemContentList = html.find('.message-content');
     if (!elementItemContentList) {
-      elementItemContentList = html.find('.card-content'); //.message-content .card-content
+      elementItemContentList = html.find('.card-content');
     }
     elementItemTextList = html.find('.message-header .flavor-text');
     if (!elementItemTextList) {
@@ -284,6 +284,7 @@ export class ChatPortrait {
     }
     return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement) => {
       const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
+      // GOD HELP ME: Use case where we not must prepend the image or imagReplacer
       const isRollTable = messageData.flags?.core?.RollTable ? true : false;
       let messageHtmlContent: any = undefined;
       try {
@@ -292,7 +293,11 @@ export class ChatPortrait {
         messageHtmlContent = undefined;
       }
       const isEnhancedConditionsCUB = messageHtmlContent ? messageHtmlContent.hasClass('enhanced-conditions') : false;
-      const doNotPrependImage = isRollTable || isEnhancedConditionsCUB;
+      const isMidiDisplaySave = messageHtmlContent
+        ? $(messageData.content).find('.midi-qol-saves-display')?.length > 0
+        : false;
+      const doNotPrependImage = isRollTable || isEnhancedConditionsCUB || isMidiDisplaySave;
+      const doNotImageReplacer = isMidiDisplaySave;
       // Very very rare use case ????
       if (!imgElement) {
         imgElement = document.createElement('img');
@@ -413,7 +418,7 @@ export class ChatPortrait {
           if (elementItemName) {
             let value = '';
             let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
-            if (ChatPortrait.useImageReplacer(html)) {
+            if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
               images = ChatPortrait.getImagesReplacerAsset(
                 imageReplacerToUse,
                 elementItemName.innerText,
@@ -476,7 +481,7 @@ export class ChatPortrait {
                   );
                 }
               } else {
-                if (ChatPortrait.useImageReplacer(html)) {
+                if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
                   const elementItemImage: HTMLImageElement = <HTMLImageElement>document.createElement('img');
                   const size: number = ChatPortrait.settings.portraitSizeItem;
                   if (size && size > 0) {
@@ -604,7 +609,7 @@ export class ChatPortrait {
                   );
                 }
               } else {
-                if (ChatPortrait.useImageReplacer(html)) {
+                if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
                   const elementItemImage: HTMLImageElement = <HTMLImageElement>document.createElement('img');
                   const size: number = ChatPortrait.settings.portraitSizeItem;
                   if (size && size > 0) {
@@ -690,7 +695,7 @@ export class ChatPortrait {
           }
           let value = '';
           let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
-          if (ChatPortrait.useImageReplacer(html)) {
+          if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
             images = ChatPortrait.getImagesReplacerAsset(
               imageReplacerToUse,
               elementItemText.innerText,
@@ -750,7 +755,7 @@ export class ChatPortrait {
                 elementItemText.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
               }
             } else {
-              if (ChatPortrait.useImageReplacer(html)) {
+              if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
                 const elementItemImage: HTMLImageElement = <HTMLImageElement>document.createElement('img');
                 const size: number = ChatPortrait.settings.portraitSizeItem;
                 if (size && size > 0) {
@@ -821,7 +826,7 @@ export class ChatPortrait {
                 elementItemText.prepend(elementItemImage);
               }
             } else {
-              if (ChatPortrait.useImageReplacer(html)) {
+              if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
                 // REMOVED SEEM OVERKILL
                 /*
                             const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
