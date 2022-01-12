@@ -418,7 +418,7 @@ export class ChatPortrait {
           if (elementItemName) {
             let value = '';
             let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
-            if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
+            if (ChatPortrait.useImageReplacer(html)) {
               images = ChatPortrait.getImagesReplacerAsset(
                 imageReplacerToUse,
                 elementItemName.innerText,
@@ -441,14 +441,14 @@ export class ChatPortrait {
                 }
                 // Just ignore if a image is provided
                 //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
-                if (value.length > 0) {
+                if (value.length > 0 && !doNotImageReplacer) {
                   elementItemImage.src = value;
                 }
                 //}
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   elementItemName.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -481,7 +481,7 @@ export class ChatPortrait {
                   );
                 }
               } else {
-                if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
+                if (ChatPortrait.useImageReplacer(html)) {
                   const elementItemImage: HTMLImageElement = <HTMLImageElement>document.createElement('img');
                   const size: number = ChatPortrait.settings.portraitSizeItem;
                   if (size && size > 0) {
@@ -490,14 +490,14 @@ export class ChatPortrait {
                   }
                   // Just ignore if a image is provided
                   //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
-                  if (value.length > 0) {
+                  if (value.length > 0 && !doNotImageReplacer) {
                     elementItemImage.src = value;
                   }
                   //}
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                  if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                     elementItemName.prepend(elementItemImage);
                   }
                   // DAMAGE TYPES
@@ -575,7 +575,7 @@ export class ChatPortrait {
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   // TODO DA RIVEDERE
                   elementItemName.prepend(elementItemImage);
                 }
@@ -609,14 +609,17 @@ export class ChatPortrait {
                   );
                 }
               } else {
-                if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
+                if (ChatPortrait.useImageReplacer(html)) {
                   const elementItemImage: HTMLImageElement = <HTMLImageElement>document.createElement('img');
                   const size: number = ChatPortrait.settings.portraitSizeItem;
                   if (size && size > 0) {
                     elementItemImage.width = size;
                     elementItemImage.height = size;
                   }
-                  if (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)) {
+                  if (
+                    !doNotImageReplacer &&
+                    (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME))
+                  ) {
                     // TODO DA RIVEDERE
                     elementItemImage.src = ''; // ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                     if (messageHtmlContent) {
@@ -649,7 +652,7 @@ export class ChatPortrait {
                   if (!elementItemImage.classList.contains('message-portrait')) {
                     elementItemImage.classList.add('message-portrait');
                   }
-                  if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                  if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                     // TODO DA RIVEDERE
                     elementItemName.prepend(elementItemImage);
                   }
@@ -695,7 +698,7 @@ export class ChatPortrait {
           }
           let value = '';
           let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
-          if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
+          if (ChatPortrait.useImageReplacer(html)) {
             images = ChatPortrait.getImagesReplacerAsset(
               imageReplacerToUse,
               elementItemText.innerText,
@@ -718,14 +721,14 @@ export class ChatPortrait {
               }
               // Just ignore if a image is provided
               //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
-              if (value.length > 0) {
+              if (value.length > 0 && !doNotImageReplacer) {
                 elementItemImage.src = value;
               }
               //}
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+              if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                 elementItemText.prepend(elementItemImage);
               }
               // DAMAGE TYPES
@@ -755,7 +758,7 @@ export class ChatPortrait {
                 elementItemText.parentNode?.insertBefore(elementItemContainerDamageTypes, elementItemText.nextSibling);
               }
             } else {
-              if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
+              if (ChatPortrait.useImageReplacer(html)) {
                 const elementItemImage: HTMLImageElement = <HTMLImageElement>document.createElement('img');
                 const size: number = ChatPortrait.settings.portraitSizeItem;
                 if (size && size > 0) {
@@ -764,14 +767,14 @@ export class ChatPortrait {
                 }
                 // Just ignore if a image is provided
                 //if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
-                if (value.length > 0) {
+                if (value.length > 0 && !doNotImageReplacer) {
                   elementItemImage.src = value;
                 }
                 //}
                 if (!elementItemImage.classList.contains('message-portrait')) {
                   elementItemImage.classList.add('message-portrait');
                 }
-                if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   elementItemText.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -822,11 +825,11 @@ export class ChatPortrait {
               if (!elementItemImage.classList.contains('message-portrait')) {
                 elementItemImage.classList.add('message-portrait');
               }
-              if (!doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+              if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                 elementItemText.prepend(elementItemImage);
               }
             } else {
-              if (ChatPortrait.useImageReplacer(html) && !doNotImageReplacer) {
+              if (ChatPortrait.useImageReplacer(html)) {
                 // REMOVED SEEM OVERKILL
                 /*
                             const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
@@ -838,7 +841,7 @@ export class ChatPortrait {
                               elementItemImage.width = size;
                               elementItemImage.height = size;
                             }
-                            if(!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME)){
+                            if( !doNotImageReplacer && (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME))){
                               elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                             }
                             if(!elementItemImage.classList.contains("message-portrait")){
