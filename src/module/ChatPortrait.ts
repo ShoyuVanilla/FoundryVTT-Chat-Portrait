@@ -6,11 +6,7 @@ import { ChatPortraitSettings } from './ChatPortraitSettings';
 import { imageReplacerDamageType, imageReplacerIconizer } from './ImageReplacer';
 import { MessageRenderData } from './MessageRenderData';
 
-import {
-  INV_UNIDENTIFIED_BOOK,
-  CHAT_PORTRAIT_MODULE_NAME,
-  CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME,
-} from './settings';
+import { INV_UNIDENTIFIED_BOOK, CHAT_PORTRAIT_MODULE_NAME, CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME } from './settings';
 import { ChatPortraitCustomData, ImageReplacerData, ImageReplaceVoiceData } from './ChatPortraitModels';
 import { canvas, game } from './settings';
 
@@ -555,11 +551,9 @@ export class ChatPortrait {
                       const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
                       let item: Item;
                       if (actorIdMerchant) {
-                        item = <Item>game
-                          .actors?.get(actorIdMerchant)
-                          ?.items?.find((i: Item) => {
-                            return i.name == itemName;
-                          });
+                        item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((i: Item) => {
+                          return i.name == itemName;
+                        });
                       } else {
                         item = <Item>game.items?.find((i: Item) => {
                           return i.name == itemName;
@@ -632,11 +626,9 @@ export class ChatPortrait {
                         const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
                         let item: Item;
                         if (actorIdMerchant) {
-                          item = <Item>game
-                            .actors?.get(actorIdMerchant)
-                            ?.items?.find((i: Item) => {
-                              return i.name == itemName;
-                            });
+                          item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((i: Item) => {
+                            return i.name == itemName;
+                          });
                         } else {
                           item = <Item>game.items?.find((i: Item) => {
                             return i.name == itemName;
@@ -977,17 +969,15 @@ export class ChatPortrait {
         // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
         if (!token) {
           try {
-            token = <TokenDocument>canvas
-              ?.tokens?.getDocuments()
-              .find((token: TokenDocument) => token.id === speaker.token);
+            token = <TokenDocument>(
+              canvas?.tokens?.getDocuments().find((token: TokenDocument) => token.id === speaker.token)
+            );
             //token = canvas?.tokens?.getDocuments().find(speaker.token);
           } catch (e) {
             // Do nothing
           }
           if (!token) {
-            tokenData = game
-              .scenes?.get(speaker.scene)
-              ?.data?.tokens?.find((t) => t._id === speaker.token); // Deprecated on 0.8.6
+            tokenData = game.scenes?.get(speaker.scene)?.data?.tokens?.find((t) => t._id === speaker.token); // Deprecated on 0.8.6
           } else {
             tokenData = token.data;
           }
@@ -1521,9 +1511,7 @@ export class ChatPortrait {
       //if(!controlled.length || controlled.length == 0 ){
       // If no token is selected use the token of the users character
       //@ts-ignore
-      token = canvas.tokens.placeables.find(
-        (token: Token) => token.data._id === game.user?.character?.data?._id,
-      );
+      token = canvas.tokens.placeables.find((token: Token) => token.data._id === game.user?.character?.data?._id);
       //}
       // If no token is selected use the first owned token of the users character you found and is not GM
       if (!token && !game.user?.isGM) {
@@ -2049,17 +2037,13 @@ export class ChatPortrait {
       // THIS PIECE OF CODE IS PROBABLY NOT NECESSARY ANYMORE ??
       if (!token) {
         try {
-          token = <TokenDocument>canvas
-            ?.tokens?.getDocuments()
-            .find((token: TokenDocument) => token.id === tokenID);
+          token = <TokenDocument>canvas?.tokens?.getDocuments().find((token: TokenDocument) => token.id === tokenID);
           //token = canvas?.tokens?.getDocuments().find(speaker.token);
         } catch (e) {
           // Do nothing
         }
         if (!token) {
-          tokenData = game
-            .scenes?.get(sceneID)
-            ?.data?.tokens?.find((t) => t._id === tokenID); // Deprecated on 0.8.6
+          tokenData = game.scenes?.get(sceneID)?.data?.tokens?.find((t) => t._id === tokenID); // Deprecated on 0.8.6
         } else {
           tokenData = token.data;
         }
