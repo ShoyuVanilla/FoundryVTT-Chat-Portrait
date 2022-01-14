@@ -14,8 +14,9 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
 import { preloadTemplates } from './module/preloadTemplates';
-import { getGame, CHAT_PORTRAIT_MODULE_NAME } from './module/settings';
+import { CHAT_PORTRAIT_MODULE_NAME } from './module/settings';
 import { initHooks, readyHooks, setupHooks } from './module/Hooks';
+import { canvas, game } from './module/settings';
 
 export let debugEnabled = 0;
 // 0 = none, warnings = 1, debug = 2, all = 3
@@ -30,10 +31,10 @@ export const error = (...args) => console.error(`${CHAT_PORTRAIT_MODULE_NAME} | 
 export const timelog = (...args) => warn(`${CHAT_PORTRAIT_MODULE_NAME} | `, Date.now(), ...args);
 
 export const i18n = (key) => {
-  return getGame().i18n.localize(key);
+  return game.i18n.localize(key);
 };
 export const i18nFormat = (key, data = {}) => {
-  return getGame().i18n.format(key, data);
+  return game.i18n.format(key, data);
 };
 
 export const setDebugLevel = (debugText: string) => {
@@ -80,7 +81,7 @@ Hooks.once('setup', function () {
 /* ------------------------------------ */
 Hooks.once('ready', () => {
   // Do anything once the module is ready
-  // if (!getGame().modules.get("lib-wrapper")?.active && getGame().user.isGM){
+  // if (!game.modules.get("lib-wrapper")?.active && game.user.isGM){
   // 	ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'libWrapper' module.`);
   // 	return;
   // }

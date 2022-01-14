@@ -1,7 +1,7 @@
 import { DOCUMENT_PERMISSIONS } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/fields.mjs';
 import { log } from '../main';
 import { ChatPortrait } from './ChatPortrait';
-import { getGame } from './settings';
+import { canvas, game } from './settings';
 
 /**
  * Class that encapsulates a better rolls card at runtime.
@@ -19,7 +19,7 @@ export class ChatPortraitChatCard extends ChatMessage {
   }
 
   get message() {
-    return getGame().messages?.get(<string>this.id);
+    return game.messages?.get(<string>this.id);
   }
 
   /**
@@ -33,13 +33,13 @@ export class ChatPortraitChatCard extends ChatMessage {
     // Foundry will sometimes call renderChatMessage() multiple times with un-bound HTML,
     // and we can't do anything except rely on closures to handle those events.
     // this.id = message.id;
-    this.speaker = <Actor>getGame().actors?.get(message.data.speaker.actor);
+    this.speaker = <Actor>game.actors?.get(message.data.speaker.actor);
     // this.roll = message?.roll ? message?.roll : message?.data?.document?.roll;
     //message.BetterRoll = this.roll;
 
     // Hide Save DCs
     // const actor = this.speaker;
-    // if ((!actor && !getGame().user?.isGM) || actor?.permission != 3) {
+    // if ((!actor && !game.user?.isGM) || actor?.permission != 3) {
     // 	html.find(".hideSave").text(i18n("displayUnknownPlaceHolderActorName"));
     // }
 
@@ -93,8 +93,8 @@ export class ChatPortraitChatCard extends ChatMessage {
       }, 0);
 
       // Scroll to bottom if the last card had updated
-      const messagesSize: number = getGame().messages?.size || 0;
-      const last = getGame().messages?.contents[messagesSize - 1];
+      const messagesSize: number = game.messages?.size || 0;
+      const last = game.messages?.contents[messagesSize - 1];
       if (last?.id === existing.id) {
         //window.setTimeout(() => { ui.chat?.scrollBottom(); }, 0);
         window.setTimeout(function () {

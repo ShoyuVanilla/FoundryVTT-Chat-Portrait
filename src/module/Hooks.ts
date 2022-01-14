@@ -1,10 +1,11 @@
 import { warn, error, debug, i18n, log } from '../main';
 import { ChatPortrait } from './ChatPortrait';
-import { CHAT_PORTRAIT_MODULE_NAME, getCanvas, getGame } from './settings';
+import { CHAT_PORTRAIT_MODULE_NAME } from './settings';
 import { ChatSpeakerData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData';
 import EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/embedded-collection.mjs';
 import { CombatData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import { ImageReplaceVoiceData } from './ChatPortraitModels';
+import { canvas, game } from './settings';
 
 const mapCombatTrackerPortrait = new Map<string, string>();
 
@@ -12,11 +13,11 @@ export const readyHooks = async () => {
   // When the combat tracker is rendered, we need to completely replace
   // its HTML with a custom version.
   Hooks.on('renderCombatTracker', async (app, html: JQuery<HTMLElement>, options) => {
-    if (getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker')) {
+    if (game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker')) {
       // If there's as combat, we can proceed.
-      if (getGame().combat) {
+      if (game.combat) {
         // Retrieve a list of the combatants
-        const combatants = <EmbeddedCollection<typeof Combatant, CombatData>>getGame().combat?.data.combatants;
+        const combatants = <EmbeddedCollection<typeof Combatant, CombatData>>game.combat?.data.combatants;
 
         combatants.forEach(async (c) => {
           // Add class to trigger drag events.
@@ -47,21 +48,21 @@ export const readyHooks = async () => {
             }
             if (ChatPortrait.settings.useAvatarImage && !useTokenImage) {
               // if user not admin is owner of the token
-              //userID = (!getGame().user?.isGM && token.actor?.hasPerm(<User>getGame().user, "OWNER")) ? <string>getGame().user?.id : "";
-              //userID = (!getGame().user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>getGame().user?.id : "";
+              //userID = (!game.user?.isGM && token.actor?.hasPerm(<User>game.user, "OWNER")) ? <string>game.user?.id : "";
+              //userID = (!game.user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>game.user?.id : "";
               const permissions: Record<string, 0 | 1 | 2 | 3> = <Record<string, 0 | 1 | 2 | 3>>(
                 token.actor?.data.permission
               );
               for (const keyPermission in permissions) {
                 const valuePermission = <number>permissions[keyPermission];
-                if (getGame().user?.isGM) {
-                  if (getGame().user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
+                if (game.user?.isGM) {
+                  if (game.user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
                     userID = <string>keyPermission;
                     break;
                   }
                 } else {
-                  if (getGame().user?.id === keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
-                    userID = <string>getGame().user?.id;
+                  if (game.user?.id === keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
+                    userID = <string>game.user?.id;
                     isOwnedFromPLayer = true;
                     break;
                   }
@@ -69,7 +70,7 @@ export const readyHooks = async () => {
               }
             }
 
-            const sceneID = <string>(<Token>getCanvas().tokens?.get(<string>token.id)).scene.id;
+            const sceneID = <string>(<Token>canvas.tokens?.get(<string>token.id)).scene.id;
             imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
             if (imgPath?.includes('.webm')) {
               try {
@@ -169,7 +170,7 @@ export const setupHooks = async () => {
 
   // let chatData:any = {
   //   type: ChatPortrait.getMessageTypeVisible(speakerInfo),
-  //   user: getGame().user,
+  //   user: game.user,
   //   speaker: speakerInfo,
   //   content: message.data.content,
   //   //@ts-ignore
@@ -191,22 +192,22 @@ export const setupHooks = async () => {
    * Catch chat message creations and add some more data if we need to
    */
   Hooks.on('preCreateChatMessage', async (message: ChatMessage, options, render, userId) => {
-    if (getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch')) {
+    if (game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch')) {
       if (options) {
         // Update the speaker
         if (!options.speaker || (!options.speaker.token && !options.speaker.actor)) {
-          let user = getGame().users?.get(options.user);
+          let user = game.users?.get(options.user);
           let avatar;
           if (!user && options.user) {
-            user = getGame().users?.get(options.user?.id);
+            user = game.users?.get(options.user?.id);
           } else {
-            user = getGame().users?.get(userId);
+            user = game.users?.get(userId);
           }
           const speakerInfo: any = {};
           const mytoken = ChatPortrait.getFirstPlayerToken();
           speakerInfo.alias = message.alias;
           speakerInfo.token = mytoken;
-          speakerInfo.actor = getGame().actors?.get(<string>user?.data.character);
+          speakerInfo.actor = game.actors?.get(<string>user?.data.character);
           const updates = {
             speaker: speakerInfo,
           };
@@ -241,7 +242,7 @@ export const setupHooks = async () => {
       //   if(flag){
       //     let chatData:any = {
       //       type: ChatPortrait.getMessageTypeVisible(speakerInfo),
-      //       user: getGame().user,
+      //       user: game.user,
       //       speaker: speakerInfo,
       //       content: message.data.content,
       //       //@ts-ignore

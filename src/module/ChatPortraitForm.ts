@@ -1,7 +1,8 @@
 import { SimpleRope } from 'pixi.js';
 import { i18n } from '../main';
 import { ChatPortrait } from './ChatPortrait';
-import { CHAT_PORTRAIT_MODULE_NAME, getGame } from './settings';
+import { CHAT_PORTRAIT_MODULE_NAME } from './settings';
+import { canvas, game } from './settings';
 
 export class ChatPortraitForm extends FormApplication {
   reset: boolean;
@@ -33,7 +34,7 @@ export class ChatPortraitForm extends FormApplication {
                     'none': i18n(MODULE_NAME+'.none')
                 }
             },
-            this.reset ? ChatPortrait.defaultSettings :mergeObject(ChatPortrait.defaultSettings, getGame().settings.get(MODULE_NAME, 'settings'))
+            this.reset ? ChatPortrait.defaultSettings :mergeObject(ChatPortrait.defaultSettings, game.settings.get(MODULE_NAME, 'settings'))
         );
         */
 
@@ -181,7 +182,7 @@ export class ChatPortraitForm extends FormApplication {
     //         insertKeys: false,
     //         insertValues: false
     //     });
-    // await getGame().settings.set(MODULE_NAME, 'settings', settings);
+    // await game.settings.set(MODULE_NAME, 'settings', settings);
 
     SettingsForm.setUseTokenImage(formData.useTokenImage);
     SettingsForm.setDoNotUseTokenImageWithSpecificType(formData.doNotUseTokenImageWithSpecificType);
@@ -262,231 +263,231 @@ export class ChatPortraitForm extends FormApplication {
 export class SettingsForm {
   //#region getters and setters
   // static getBorderShapeList() {
-  //     return getGame().settings.get(MODULE_NAME, 'borderShapeList');
+  //     return game.settings.get(MODULE_NAME, 'borderShapeList');
   // }
 
   static getUseTokenImage() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useTokenImage');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useTokenImage');
   }
   static setUseTokenImage(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useTokenImage', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useTokenImage', value);
   }
   static getDoNotUseTokenImageWithSpecificType() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'doNotUseTokenImageWithSpecificType');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'doNotUseTokenImageWithSpecificType');
   }
   static setDoNotUseTokenImageWithSpecificType(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'doNotUseTokenImageWithSpecificType', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'doNotUseTokenImageWithSpecificType', value);
   }
   static getUseTokenName() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useTokenName');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useTokenName');
   }
   static setUseTokenName(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useTokenName', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useTokenName', value);
   }
   static getPortraitSize() {
-    return <number>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'portraitSize');
+    return <number>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'portraitSize');
   }
   static setPortraitSize(value: number) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'portraitSize', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'portraitSize', value);
   }
   static getPortraitSizeItem() {
-    return <number>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'portraitSizeItem');
+    return <number>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'portraitSizeItem');
   }
   static setPortraitSizeItem(value: number) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'portraitSizeItem', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'portraitSizeItem', value);
   }
   static getBorderShape() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'borderShape');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'borderShape');
   }
   static setBorderShape(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'borderShape', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'borderShape', value);
   }
   static getUseUserColorAsBorderColor() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsBorderColor');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsBorderColor');
   }
   static setUseUserColorAsBorderColor(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsBorderColor', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsBorderColor', value);
   }
   static getBorderColor() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'borderColor');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'borderColor');
   }
   static setBorderColor(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'borderColor', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'borderColor', value);
   }
   static getBorderWidth() {
-    return <number>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'borderWidth');
+    return <number>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'borderWidth');
   }
   static setBorderWidth(value: number) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'borderWidth', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'borderWidth', value);
   }
   static getUseUserColorAsChatBackgroundColor() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBackgroundColor');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBackgroundColor');
   }
   static setUseUserColorAsChatBackgroundColor(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBackgroundColor', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBackgroundColor', value);
   }
   static getUseUserColorAsChatBorderColor() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBorderColor');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBorderColor');
   }
   static setUseUserColorAsChatBorderColor(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBorderColor', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useUserColorAsChatBorderColor', value);
   }
   static getFlavorNextToPortrait() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'flavorNextToPortrait');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'flavorNextToPortrait');
   }
   static setFlavorNextToPortrait(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'flavorNextToPortrait', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'flavorNextToPortrait', value);
   }
   static getForceNameSearch() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'forceNameSearch');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'forceNameSearch');
   }
   static setForceNameSearch(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'forceNameSearch', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'forceNameSearch', value);
   }
   // static getHoverTooltip() {
-  //     return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
+  //     return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
   // }
   // static setHoverTooltip(value:boolean) {
-  //     getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip',value);
+  //     game.settings.set(CHAT_PORTRAIT_MODULE_NAME,'hoverTooltip',value);
   // }
   static getTextSizeName() {
-    return <number>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'textSizeName');
+    return <number>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'textSizeName');
   }
   static setTextSizeName(value: number) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'textSizeName', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'textSizeName', value);
   }
   static getDisplaySetting() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySetting');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySetting');
   }
   static setDisplaySetting(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySetting', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySetting', value);
   }
   static getUseAvatarImage() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useAvatarImage');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useAvatarImage');
   }
   static setUseAvatarImage(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useAvatarImage', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useAvatarImage', value);
   }
   static getDisplayPlayerName() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayPlayerName');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayPlayerName');
   }
   static setDisplayPlayerName(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayPlayerName', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayPlayerName', value);
   }
   static getDisplayUnknown() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknown');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknown');
   }
   static setDisplayUnknown(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknown', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknown', value);
   }
 
   static getDisplayUnknownPlaceHolderActorName() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderActorName');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderActorName');
   }
   static setDisplayUnknownPlaceHolderActorName(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderActorName', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderActorName', value);
   }
   static getDisplayUnknownPlaceHolderItemName() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemName');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemName');
   }
   static setDisplayUnknownPlaceHolderItemName(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemName', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemName', value);
   }
   static getDisplayUnknownPlaceHolderItemIcon() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemIcon');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemIcon');
   }
   static setDisplayUnknownPlaceHolderItemIcon(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemIcon', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayUnknownPlaceHolderItemIcon', value);
   }
 
   static getDisplaySettingOTHER() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOTHER');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOTHER');
   }
   static setDisplaySettingOTHER(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOTHER', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOTHER', value);
   }
   static getDisplaySettingOOC() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOOC');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOOC');
   }
   static setDisplaySettingOOC(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOOC', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingOOC', value);
   }
   static getDisplaySettingIC() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingIC');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingIC');
   }
   static setDisplaySettingIC(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingIC', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingIC', value);
   }
   static getDisplaySettingEMOTE() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingEMOTE');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingEMOTE');
   }
   static setDisplaySettingEMOTE(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingEMOTE', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingEMOTE', value);
   }
   static getDisplaySettingWHISPER() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWHISPER');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWHISPER');
   }
   static setDisplaySettingWHISPER(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWHISPER', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWHISPER', value);
   }
   static getDisplaySettingROLL() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingROLL');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingROLL');
   }
   static setDisplaySettingROLL(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingROLL', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingROLL', value);
   }
   static getDisplaySettingWhisperToOther() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWhisperToOther');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWhisperToOther');
   }
   static setDisplaySettingWhisperToOther(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWhisperToOther', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWhisperToOther', value);
   }
   static getCustomStylingMessageText() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText');
   }
   static setCustomStylingMessageText(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText', value);
   }
   static getDisplayMessageTag() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayMessageTag');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayMessageTag');
   }
   static setDisplayMessageTag(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayMessageTag', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displayMessageTag', value);
   }
   static getUseImageReplacer() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacer');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacer');
   }
   static setUseImageReplacer(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacer', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacer', value);
   }
   static getUseImageReplacerDamageType() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacerDamageType');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacerDamageType');
   }
   static setUseImageReplacerDamageType(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacerDamageType', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'useImageReplacerDamageType', value);
   }
   static getApplyOnCombatTracker() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker');
   }
   static setApplyOnCombatTracker(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker', value);
   }
   static getApplyPreCreateChatMessagePatch() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch');
   }
   static setApplyPreCreateChatMessagePatch(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch', value);
   }
   static getDisablePortraitForAliasGmMessage() {
-    return <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'disablePortraitForAliasGmMessage');
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'disablePortraitForAliasGmMessage');
   }
   static setDisablePortraitForAliasGmMessage(value: boolean) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'disablePortraitForAliasGmMessage', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'disablePortraitForAliasGmMessage', value);
   }
   static getSetUpPortraitForAliasGmMessage() {
-    return <string>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage');
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage');
   }
   static setSetUpPortraitForAliasGmMessage(value: string) {
-    getGame().settings.set(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage', value);
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'setUpPortraitForAliasGmMessage', value);
   }
 }

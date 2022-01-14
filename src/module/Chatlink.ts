@@ -1,5 +1,6 @@
 import { ChatPortrait } from './ChatPortrait';
-import { getCanvas, getGame, CHAT_PORTRAIT_MODULE_NAME } from './settings';
+import { CHAT_PORTRAIT_MODULE_NAME } from './settings';
+import { canvas, game } from './settings';
 
 export class ChatLink {
   static clickTimeout = 250;
@@ -11,8 +12,8 @@ export class ChatLink {
   static hoverTimeout = 1000;
   static hoverTimer = null;
 
-  static i18n = (toTranslate) => getGame().i18n.localize(toTranslate);
-  static i18nFormat = (toTranslate, data) => getGame().i18n.format(toTranslate, data);
+  static i18n = (toTranslate) => game.i18n.localize(toTranslate);
+  static i18nFormat = (toTranslate, data) => game.i18n.format(toTranslate, data);
   static lastHoveredToken: TokenDocument | null;
 
   static init() {
@@ -20,7 +21,7 @@ export class ChatLink {
   }
 
   static updateSettings() {
-    ChatLink.showTooltip = <boolean>getGame().settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
+    ChatLink.showTooltip = <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'hoverTooltip');
   }
 
   static prepareEvent(message, html, speakerInfo) {
@@ -47,7 +48,7 @@ export class ChatLink {
       if (speakerInfo.author) {
         speakerData.idScene = speakerInfo.author.viewedScene;
       } else {
-        speakerData.idScene = getGame().scenes?.current?.id;
+        speakerData.idScene = game.scenes?.current?.id;
       }
     }
 
@@ -93,7 +94,7 @@ export class ChatLink {
       if (speakerInfo.author) {
         speakerData.idScene = speakerInfo.author.viewedScene;
       } else {
-        speakerData.idScene = getGame().scenes?.current?.id;
+        speakerData.idScene = game.scenes?.current?.id;
       }
     }
 
@@ -124,7 +125,7 @@ export class ChatLink {
 
   // If it's reached this far, assume scene is correct.
   static panToToken(speakerData) {
-    const user = getGame().user;
+    const user = game.user;
 
     const token = ChatLink.getToken(speakerData);
     if (!ChatLink.tokenExists(user, speakerData, token)) {
@@ -137,7 +138,7 @@ export class ChatLink {
   }
 
   static selectToken(event, speakerData) {
-    const user = getGame().user;
+    const user = game.user;
 
     const token = ChatLink.getToken(speakerData);
     if (!ChatLink.tokenExists(user, speakerData, token)) return;
@@ -148,8 +149,8 @@ export class ChatLink {
   }
 
   static getToken(speakerData) {
-    let token = getCanvas().tokens?.placeables.find((t) => t.id === speakerData.idToken);
-    if (!token) token = getCanvas().tokens?.placeables.find((t) => t.actor?.id === speakerData.idActor);
+    let token = canvas.tokens?.placeables.find((t) => t.id === speakerData.idToken);
+    if (!token) token = canvas.tokens?.placeables.find((t) => t.actor?.id === speakerData.idActor);
 
     return token;
   }
@@ -166,13 +167,13 @@ export class ChatLink {
   }
 
   static isRightScene(user, speakerData) {
-    if (getCanvas().scene?.id === speakerData.idScene) return true;
+    if (canvas.scene?.id === speakerData.idScene) return true;
 
     let sceneNote;
     if (!speakerData.idScene) {
       sceneNote = ` ${ChatLink.i18n(CHAT_PORTRAIT_MODULE_NAME + '.noSceneFound')}`;
     } else {
-      const tokenScene = getGame().scenes?.find((s) => s.data._id === speakerData.idScene);
+      const tokenScene = game.scenes?.find((s) => s.data._id === speakerData.idScene);
       sceneNote = ` ${ChatLink.i18nFormat(CHAT_PORTRAIT_MODULE_NAME + '.checkScene', {
         sceneName: tokenScene?.data.name,
       })}`;
@@ -211,11 +212,11 @@ export class ChatLink {
 
   static doPanToToken(user, token) {
     //@ts-ignore
-    const scale = getCanvas().scene?._viewPosition.scale;
+    const scale = canvas.scene?._viewPosition.scale;
 
-    getCanvas().animatePan({ x: token.x, y: token.y, scale: scale, duration: 500 });
+    canvas.animatePan({ x: token.x, y: token.y, scale: scale, duration: 500 });
     if (token && token.isVisible) {
-      getCanvas().animatePan({ ...token.center, duration: 250 });
+      canvas.animatePan({ ...token.center, duration: 250 });
     }
   }
 
@@ -228,8 +229,8 @@ export class ChatLink {
       return;
     }
 
-    if (token._controlled || getCanvas().tokens?.controlled.length !== 1) token.control(releaseOthers);
-    else if (!token._controlled && getCanvas().tokens?.controlled.length === 1) token.control(releaseOthers);
+    if (token._controlled || canvas.tokens?.controlled.length !== 1) token.control(releaseOthers);
+    else if (!token._controlled && canvas.tokens?.controlled.length === 1) token.control(releaseOthers);
     else token.release();
   }
 
@@ -242,8 +243,8 @@ export class ChatLink {
       return;
     }
 
-    if (token.isTargeted && getGame().user?.targets.size !== 1) token.setTarget(true, releaseOthers);
-    else if (token.isTargeted && getGame().user?.targets.size === 1) token.setTarget(false, releaseOthers);
+    if (token.isTargeted && game.user?.targets.size !== 1) token.setTarget(true, releaseOthers);
+    else if (token.isTargeted && game.user?.targets.size === 1) token.setTarget(false, releaseOthers);
     else token.setTarget(true, releaseOthers);
   }
 
@@ -307,10 +308,10 @@ export class ChatLink {
 
 // export class TooltipHelper {
 //     static getContent() {
-//         let tips = getGame().user.isGM ? TooltipHelper.gmTips() : TooltipHelper.playerTips();
+//         let tips = game.user.isGM ? TooltipHelper.gmTips() : TooltipHelper.playerTips();
 
 //         let tooltipData = {
-//             title: getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".instructionsTitle"),
+//             title: game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".instructionsTitle"),
 //             tips: tips
 //         }
 //         //let template = Handlebars.compile(`{{> modules/${CHAT_PORTRAIT_MODULE_NAME}/templates/instructions.html}}`);
@@ -322,21 +323,21 @@ export class ChatLink {
 
 //     static gmTips() {
 //         return [
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".gmClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".shiftClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".doubleClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".gmCtrlClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".gmCtrlShiftClick")
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".gmClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".shiftClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".doubleClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".gmCtrlClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".gmCtrlShiftClick")
 //         ]
 //     }
 
 //     static playerTips() {
 //         return [
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".playerClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".shiftClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".doubleClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".playerCtrlClick"),
-//             getGame().i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".playerCtrlShiftClick")
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".playerClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".shiftClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".doubleClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".playerCtrlClick"),
+//             game.i18n.localize(CHAT_PORTRAIT_MODULE_NAME+".playerCtrlShiftClick")
 //         ]
 //     }
 // }
