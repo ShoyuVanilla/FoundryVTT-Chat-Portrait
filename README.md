@@ -195,6 +195,8 @@ any other system need some fed back from the community
 
 - **Portrait Size for other images (px)**: Configure portrait image size for any other image on the chat message (other than the portrait one). Default is 36 px
 
+![img1](./images/chat_image_px.png)![img2](./images/chat_image_px_2.png)
+
 - **Double Click on the image portrait or the name of the token "pan to token" on the current scene**
 
 - **Configure which chat message should receive custom styling, and which ones should be left as default. Changing this may require you to refresh your window**:
