@@ -20,7 +20,7 @@ This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.
 
 ![Preview](./images/image02.png)
 
-## NOTE: If you are a javascript developer and not a typescript developer, you can just use the javascript files under the dist folder or rename the file from .ts to .js
+## NOTE: If you are a javascript developer and not a typescript developer, you can just use the javascript files under the dist folder
 
 ## Installation
 
@@ -193,7 +193,7 @@ any other system need some fed back from the community
 
 - **Force Name Search**: If there is no Actor matching with chat message data, search for an actor of which name corresponds to the message speaker's alias. This option is needed for the compatibility with Theatre Insert module. This not work on the 'Combat Tracker feature'
 
-- **Portrait Size for item (px)**: Configure portrait image size for item on the chat messages. Default is 36 px
+- **Portrait Size for other images (px)**: Configure portrait image size for any other image on the chat message (other than the portrait one). Default is 36 px
 
 - **Double Click on the image portrait or the name of the token "pan to token" on the current scene**
 
