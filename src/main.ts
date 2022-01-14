@@ -95,7 +95,7 @@ Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
   libChangelogs.register(
     CHAT_PORTRAIT_MODULE_NAME,
-    'Bug fix [[BUG] Module incompatibility with midi qol saving throw panel](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/88)',
+    '- Little update css',
     'minor',
   );
 });

@@ -2,7 +2,7 @@
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
-  object-fit: cover;
+  /* object-fit: cover; */
 }
 /*
 .chat-message,

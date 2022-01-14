@@ -1,3 +1,7 @@
+## 0.5.35
+
+- Little update css
+
 ## 0.5.34
 
 - Add gulp-replace on the build process, for replace all the getGame() in game and getCanvas() in canvas, so the javascript in similar to the vanilla javascript used from other developer
