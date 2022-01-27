@@ -123,3 +123,9 @@
   height: 100%;
 }
 */
+
+/* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
+.message-content .swade.chat-card .card-header h3.chat-portrait-text-size-name {
+  height: 36px;
+  display: flex;
+}
