@@ -93,9 +93,7 @@ Hooks.once('ready', () => {
 
 Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
-  libChangelogs.register(
-    CHAT_PORTRAIT_MODULE_NAME,
-    '- Little update css',
-    'minor',
-  );
+  libChangelogs.register(CHAT_PORTRAIT_MODULE_NAME, `
+  - Little update`, 
+  'minor');
 });

@@ -292,7 +292,9 @@ export class ChatPortrait {
       const isMidiDisplaySave = messageHtmlContent
         ? $(messageData.content).find('.midi-qol-saves-display')?.length > 0
         : false;
-      const doNotPrependImage = isRollTable || isEnhancedConditionsCUB || isMidiDisplaySave;
+      const isStarwarsffgDiceRoll = messageHtmlContent ? messageHtmlContent.hasClass('starwarsffg dice-roll') : false;
+
+      const doNotPrependImage = isRollTable || isEnhancedConditionsCUB || isMidiDisplaySave || isStarwarsffgDiceRoll;
       const doNotImageReplacer = isMidiDisplaySave;
       // Very very rare use case ????
       if (!imgElement) {

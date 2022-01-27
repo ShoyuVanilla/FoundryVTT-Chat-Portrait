@@ -209,6 +209,8 @@ any other system need some fed back from the community
 
 - **Adds a textual tag to chat messages to easily identify whether the message is a whisper, blind roll, or self roll**
 
+![tag](./images/cp_tag_example.png)
+
 - **Display chat message of type OTHER**: Configure custom styling for message of type OTHER
 
 - **Display chat message of type OOC**: Configure custom styling for message of type OOC

@@ -1,3 +1,7 @@
+## 0.5.36
+
+- Bug fix [[BUG] Messages are improperly modified with the Star Wars system](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/90)
+
 ## 0.5.35
 
 - Little update css
