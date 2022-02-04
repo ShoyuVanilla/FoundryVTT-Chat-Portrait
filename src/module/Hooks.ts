@@ -9,6 +9,10 @@ import { canvas, game } from './settings';
 
 const mapCombatTrackerPortrait = new Map<string, string>();
 
+export const initHooks = () => {
+  warn('Init Hooks processing');
+};
+
 export const readyHooks = async () => {
   // When the combat tracker is rendered, we need to completely replace
   // its HTML with a custom version.
@@ -258,6 +262,3 @@ export const setupHooks = async () => {
   });
 };
 
-export const initHooks = () => {
-  warn('Init Hooks processing');
-};

@@ -244,9 +244,21 @@
         </div>
 
         <div class="form-group">
+            <label>{{localize "chat-portrait.settings.customStylingMessageSystem.name"}}</label>
+            <input type="checkbox" name="customStylingMessageSystem" data-dtype="Boolean" {{checked customStylingMessageSystem}}/>
+            <p class="notes">{{localize "chat-portrait.settings.customStylingMessageSystem.hint"}}</p>
+        </div>
+
+        <div class="form-group">
             <label>{{localize "chat-portrait.settings.customStylingMessageText.name"}}</label>
             <textarea name="customStylingMessageText" style="flex: 1; text-align: left;">{{customStylingMessageText}}</textarea>
             <p class="notes">{{localize "chat-portrait.settings.customStylingMessageText.hint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "chat-portrait.settings.customStylingMessageImage.name"}}</label>
+            <textarea name="customStylingMessageImage" style="flex: 1; text-align: left;">{{customStylingMessageImage}}</textarea>
+            <p class="notes">{{localize "chat-portrait.settings.customStylingMessageImage.hint"}}</p>
         </div>
 
         <div class="form-group">

@@ -447,6 +447,7 @@ export class ChatPortrait {
                   elementItemImage.classList.add('message-portrait');
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                  elementItemImage.classList.add('chat-portrait-image-size-name');
                   elementItemName.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -496,6 +497,7 @@ export class ChatPortrait {
                     elementItemImage.classList.add('message-portrait');
                   }
                   if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                    elementItemImage.classList.add('chat-portrait-image-size-name');
                     elementItemName.prepend(elementItemImage);
                   }
                   // DAMAGE TYPES
@@ -572,7 +574,7 @@ export class ChatPortrait {
                   elementItemImage.classList.add('message-portrait');
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                  // TODO DA RIVEDERE
+                  elementItemImage.classList.add('chat-portrait-image-size-name');
                   elementItemName.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -647,7 +649,7 @@ export class ChatPortrait {
                     elementItemImage.classList.add('message-portrait');
                   }
                   if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                    // TODO DA RIVEDERE
+                    elementItemImage.classList.add('chat-portrait-image-size-name');
                     elementItemName.prepend(elementItemImage);
                   }
                   // DAMAGE TYPES
@@ -723,6 +725,7 @@ export class ChatPortrait {
                 elementItemImage.classList.add('message-portrait');
               }
               if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                elementItemImage.classList.add('chat-portrait-image-size-name');
                 elementItemText.prepend(elementItemImage);
               }
               // DAMAGE TYPES
@@ -769,6 +772,7 @@ export class ChatPortrait {
                   elementItemImage.classList.add('message-portrait');
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                  elementItemImage.classList.add('chat-portrait-image-size-name');
                   elementItemText.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -820,6 +824,7 @@ export class ChatPortrait {
                 elementItemImage.classList.add('message-portrait');
               }
               if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
+                elementItemImage.classList.add('chat-portrait-image-size-name');
                 elementItemText.prepend(elementItemImage);
               }
             } else {
@@ -1154,11 +1159,42 @@ export class ChatPortrait {
     const elementItemTextList = html.find('.chat-portrait-text-size-name');
     for (let i = 0; i < elementItemTextList.length; i++) {
       const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
-      if (ChatPortrait.settings.customStylingMessageText) {
-        elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
+      if(elementItemText){
+        if (ChatPortrait.settings.customStylingMessageText) {
+          elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
+        } else if(game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageSystem')){
+          // THIS WILL APPLY SOME DEFAULT CSS
+          if(game.system.id == 'swade') {
+            /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
+            elementItemText.style.cssText = 'height: auto;display: flex;';
+          }else if(game.system.id == 'pf2e') {
+            elementItemText.style.cssText = 'display: block;';
+          }else if(game.system.id == 'dnd5e') {
+            elementItemText.style.cssText = 'display: flex;';
+          }
+        }
+        // You need this anyway
+        //elementItemText.style.display = 'flex';
       }
-      // You need this anyway
-      //elementItemText.style.display = 'flex';
+    }
+    const elementItemImageList = html.find('.chat-portrait-image-size-name');
+    for (let i = 0; i < elementItemImageList.length; i++) {
+      const elementItemImage: HTMLElement = <HTMLElement>elementItemTextList[i];
+      if(elementItemImage){
+        if (ChatPortrait.settings.customStylingMessageImage) {
+          elementItemImage.style.cssText = ChatPortrait.settings.customStylingMessageImage;
+        } else if(game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageSystem')){
+          // THIS WILL APPLY SOME DEFAULT CSS
+          if(game.system.id == 'swade') {
+            /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
+            elementItemImage.style.cssText = 'height: auto;display: flex;';
+          }else if(game.system.id == 'pf2e') {
+            elementItemImage.style.cssText = 'display: block;';
+          }else if(game.system.id == 'dnd5e') {
+            elementItemImage.style.cssText = 'display: flex;';
+          }
+        }
+      }
     }
   }
 
@@ -1234,7 +1270,9 @@ export class ChatPortrait {
       displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
       displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
       displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
+      customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
       customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
+      customStylingMessageImage: SettingsForm.getCustomStylingMessageImage(),
       displayMessageTag: SettingsForm.getDisplayMessageTag(),
       useImageReplacer: SettingsForm.getUseImageReplacer(),
       useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
@@ -1280,7 +1318,9 @@ export class ChatPortrait {
       displaySettingWHISPER: true,
       displaySettingROLL: true,
       displaySettingWhisperToOther: false,
+      customStylingMessageSystem: false,
       customStylingMessageText: '',
+      customStylingMessageImage: '',
       displayMessageTag: false,
       useImageReplacer: true,
       useImageReplacerDamageType: true,

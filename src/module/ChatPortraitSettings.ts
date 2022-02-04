@@ -28,7 +28,9 @@ export interface ChatPortraitSettings {
   displaySettingWHISPER: boolean;
   displaySettingROLL: boolean;
   displaySettingWhisperToOther: boolean;
+  customStylingMessageSystem: boolean;
   customStylingMessageText: string;
+  customStylingMessageImage: string;
   displayMessageTag: boolean;
   useImageReplacer: boolean;
   useImageReplacerDamageType: boolean;

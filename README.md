@@ -242,7 +242,23 @@ any other system need some fed back from the community
 
 - **Placeholder for the label unknown item icon**: by default is '/modules/chat-portrait/assets/inv-unidentified.png' depends on the 'Display Unknown' setting
 
-- **CUSTOMIZE YOUR OWN TEXT WITH CSS** : Setup additional custom styling on the text chat message (note override any other prior property)
+- **[CSS CUSTOM SETTING] Setup the custom styling for the current system**: Setup additional custom styling on message with CSS language based on the feedback of the community, _Is a community effort for anyone don't know css language_ (note override any other prior property). If the settings 'Setup additional custom styling on the text chat message' or 'Setup additional custom styling on the image prepend the text chat message' is used (no blank text) this option even if true is ignored for the html elements involved. **By default is true.**
+
+Here the table apllied for the supported system :
+
+| System id | Css for text message | Css for the image prepend the text |
+|:---:|:---:|:---:|
+| swade | `height: auto; display:flex;` | `height: auto; display:flex;` |
+| pf2e | `display:block;` | `display:block;` |
+| dnd5e | `display:flex;` | `display:flex;` |
+
+For any correction or suggestion open a issue on this project.
+
+NOTE: You can use other modules like [Custom CSS](https://github.com/cswendrowski/FoundryVTT-Custom-CSS) for manage the css classes, the module help you by defining two css classes you can customize for the purpose of this module `chat-portrait-text-size-name` for the text chat message (_the 'Setup additional custom styling on the text chat message' setting_) and `chat-portrait-image-size-name` for the image prepend the text chat message (_the 'Setup additional custom styling on the image prepend the text chat message' setting_)
+
+- **[CSS CUSTOM SETTING] Setup additional custom styling on the text chat message** : Setup additional custom styling on the text chat message with CSS language (note override any other prior property)
+
+- **[CSS CUSTOM SETTING] Setup additional custom styling on the image prepend the text chat message**: Setup additional custom styling on the image prepend the text chat message chat message with CSS language (note override any other prior property)
 
 ![chat_portrait_feature](./images/chat_portrait_feature.png)
 
@@ -256,6 +272,7 @@ If you want to add your own system it's very simple!!! you can just give to me a
 ![replacer](./images/image_replacer_feature.png)
 
 - **Disable the chat portrait if the alias of the chat message is from a GM**: If enable every chat message done with a alias referenced to a GM will ot apply the chat portrait mechanism
+
 - **Set up a specific image if the alias of the chat message is from a GM**: If enable will use the image selected here for every chat message done with a alias referenced to a GM. If 'Disable the chat portrait if the alias of the chat message is from a GM' is enable this setting will be ignored
 
 

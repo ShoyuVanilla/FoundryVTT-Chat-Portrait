@@ -38,7 +38,7 @@
   list-style-type: circle;
 }
 */
-/* 
+/*
 .chat-portrait-currentSpeaker {
   flex: 0;
   padding: 3px 0.5em;
@@ -51,7 +51,7 @@
 
 .chat-portrait-currentSpeakerToggle:hover {
   opacity: 1;
-} 
+}
 */
 
 .chat-portrait-playerName {
@@ -74,6 +74,9 @@
 */
 
 .chat-portrait-text-size-name {
+}
+
+.chat-portrait-image-size-name {
 }
 
 .chat-portrait-indicator {
@@ -123,9 +126,3 @@
   height: 100%;
 }
 */
-
-/* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
-.message-content .swade.chat-card .card-header h3.chat-portrait-text-size-name {
-  height: 36px;
-  display: flex;
-}

@@ -71,7 +71,9 @@ export class ChatPortraitForm extends FormApplication {
         displaySettingWHISPER: true,
         displaySettingROLL: true,
         displaySettingWhisperToOther: false,
+        customStylingMessageSystem: false,
         customStylingMessageText: '',
+        customStylingMessageImage: '',
         displayMessageTag: false,
         useImageReplacer: true,
         useImageReplacerDamageType: true,
@@ -112,7 +114,9 @@ export class ChatPortraitForm extends FormApplication {
         displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
         displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
         displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
+        customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
         customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
+        customStylingMessageImage: SettingsForm.getCustomStylingMessageImage(),
         displayMessageTag: SettingsForm.getDisplayMessageTag(),
         useImageReplacer: SettingsForm.getUseImageReplacer(),
         useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
@@ -213,7 +217,9 @@ export class ChatPortraitForm extends FormApplication {
     SettingsForm.setDisplaySettingWHISPER(formData.displaySettingWHISPER);
     SettingsForm.setDisplaySettingROLL(formData.displaySettingROLL);
     SettingsForm.setDisplaySettingWhisperToOther(formData.displaySettingWhisperToOther);
+    SettingsForm.setCustomStylingMessageSystem(formData.customStylingMessageSystem);
     SettingsForm.setCustomStylingMessageText(formData.customStylingMessageText);
+    SettingsForm.setCustomStylingMessageImage(formData.customStylingMessageImage);
     SettingsForm.setDisplayMessageTag(formData.displayMessageTag);
     SettingsForm.setUseImageReplacer(formData.useImageReplacer);
     SettingsForm.setUseImageReplacerDamageType(formData.useImageReplacerDamageType);
@@ -442,11 +448,23 @@ export class SettingsForm {
   static setDisplaySettingWhisperToOther(value: boolean) {
     game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'displaySettingWhisperToOther', value);
   }
+  static getCustomStylingMessageSystem() {
+    return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageSystem');
+  }
+  static setCustomStylingMessageSystem(value: boolean) {
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageSystem', value);
+  }
   static getCustomStylingMessageText() {
     return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText');
   }
   static setCustomStylingMessageText(value: string) {
     game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText', value);
+  }
+  static getCustomStylingMessageImage() {
+    return <string>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageImage');
+  }
+  static setCustomStylingMessageImage(value: string) {
+    game.settings.set(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageImage', value);
   }
   static getDisplayMessageTag() {
     return <boolean>game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'displayMessageTag');

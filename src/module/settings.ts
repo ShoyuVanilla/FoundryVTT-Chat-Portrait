@@ -334,7 +334,21 @@ export const registerSettings = function () {
     default: `/modules/${CHAT_PORTRAIT_MODULE_NAME}/assets/inv-unidentified.png`,
   });
 
+  game.settings.register(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageSystem', {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true,
+  });
+
   game.settings.register(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageText', {
+    scope: 'world',
+    config: false,
+    type: String,
+    default: '',
+  });
+
+  game.settings.register(CHAT_PORTRAIT_MODULE_NAME, 'customStylingMessageImage', {
     scope: 'world',
     config: false,
     type: String,
