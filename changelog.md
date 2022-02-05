@@ -1,6 +1,7 @@
-## 0.6.0 [BREAKING CHANGES]
+## 0.6.0
 
 - Add new settings for better manage the css algnague on different system `Setup the custom styling for the current system` and  `Setup additional custom styling on the image prepend the text chat message`
+
 ## 0.5.36
 
 - Bug fix [[BUG] Messages are improperly modified with the Star Wars system](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/90)

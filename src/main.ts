@@ -93,7 +93,10 @@ Hooks.once('ready', () => {
 
 Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
-  libChangelogs.register(CHAT_PORTRAIT_MODULE_NAME, `
-  - Little update`, 
-  'minor');
+  libChangelogs.register(
+    CHAT_PORTRAIT_MODULE_NAME,
+    `
+    - Add new settings for better manage the css algnague on different system 'Setup the custom styling for the current system' and  'Setup additional custom styling on the image prepend the text chat message'`,
+    'minor',
+  );
 });
