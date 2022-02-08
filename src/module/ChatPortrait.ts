@@ -1168,9 +1168,9 @@ export class ChatPortrait {
             /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
             elementItemText.style.cssText = 'height: auto;display: flex;';
           } else if (game.system.id == 'pf2e') {
-            elementItemText.style.cssText = 'display: block;';
+            elementItemText.style.cssText = 'display: block; margin: auto;';
           } else if (game.system.id == 'dnd5e') {
-            elementItemText.style.cssText = 'display: flex;';
+            elementItemText.style.cssText = 'display: flex; margin: auto;';
           }
         }
         // You need this anyway
@@ -1189,9 +1189,9 @@ export class ChatPortrait {
             /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
             elementItemImage.style.cssText = 'height: auto;display: flex;';
           } else if (game.system.id == 'pf2e') {
-            elementItemImage.style.cssText = 'display: block;';
+            elementItemImage.style.cssText = 'display: block; margin: auto;';
           } else if (game.system.id == 'dnd5e') {
-            elementItemImage.style.cssText = 'display: flex;';
+            elementItemImage.style.cssText = 'display: flex; margin: auto;';
           }
         }
       }

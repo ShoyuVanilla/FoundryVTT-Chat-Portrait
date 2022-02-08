@@ -249,8 +249,8 @@ Here the table apllied for the supported system :
 | System id | Css for text message | Css for the image prepend the text |
 |:---:|:---:|:---:|
 | swade | `height: auto; display:flex;` | `height: auto; display:flex;` |
-| pf2e | `display:block;` | `display:block;` |
-| dnd5e | `display:flex;` | `display:flex;` |
+| pf2e | `display:block; margin: auto;` | `display:block; margin: auto;` |
+| dnd5e | `display:flex; margin: auto;` | `display:flex; margin: auto;` |
 
 For any correction or suggestion open a issue on this project.
 

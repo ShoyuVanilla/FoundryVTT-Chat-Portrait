@@ -1,3 +1,7 @@
+## 0.6.1
+
+- Add margin auto to system dnd5e and pf2e
+
 ## 0.6.0
 
 - Add new settings for better manage the css algnague on different system `Setup the custom styling for the current system` and  `Setup additional custom styling on the image prepend the text chat message`
