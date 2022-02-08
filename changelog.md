@@ -1,6 +1,8 @@
 ## 0.6.1
 
 - Add margin auto to system dnd5e and pf2e
+- Bug fix [[BUG] Conflict with Roll of Fate module](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/93)
+- Bug fix [An option to center token/actor name vertically](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/92)
 
 ## 0.6.0
 
