@@ -1,4 +1,8 @@
 
+## 0.6.3
+
+- Bug fix https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/94
+
 ## 0.6.2
 
 - Update typescript and applied new design pattern

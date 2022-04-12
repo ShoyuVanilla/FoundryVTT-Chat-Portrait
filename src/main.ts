@@ -70,7 +70,7 @@ Hooks.once('libChangelogsReady', function () {
   libChangelogs.register(
     CONSTANTS.MODULE_NAME,
     `
-    - Update typescript and applied new design pattern
+    - Bug fix https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/94
     `,
     'minor',
   );
