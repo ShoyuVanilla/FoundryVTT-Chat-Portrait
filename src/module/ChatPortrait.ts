@@ -334,8 +334,8 @@ export class ChatPortrait {
       // Default style
       if (!messageSender.classList.contains('chat-portrait-text-size-name')) {
         messageSender.classList.add('chat-portrait-text-size-name');
+        messageSender.textContent = messageSender.innerText + ' ';
       }
-      messageSender.innerText = messageSender.innerText + ' ';
       // Update size text name by settings
       if (ChatPortrait.settings.textSizeName > 0) {
         const size: number = ChatPortrait.settings.textSizeName;
@@ -410,8 +410,8 @@ export class ChatPortrait {
           if (elementItemName) {
             if (!elementItemName.classList.contains('chat-portrait-text-size-name')) {
               elementItemName.classList.add('chat-portrait-text-size-name');
+              elementItemName.textContent = elementItemName.innerText + ' ';
             }
-            elementItemName.innerText = elementItemName.innerText + ' ';
             let value = '';
             let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
             if (ChatPortrait.useImageReplacer(html)) {
@@ -689,8 +689,8 @@ export class ChatPortrait {
           const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
           if (!elementItemText.classList.contains('chat-portrait-text-size-name')) {
             elementItemText.classList.add('chat-portrait-text-size-name');
+            elementItemText.textContent = elementItemText.innerText + ' ';
           }
-          elementItemText.innerText = elementItemText.innerText + ' ';
           let value = '';
           let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
           if (ChatPortrait.useImageReplacer(html)) {
