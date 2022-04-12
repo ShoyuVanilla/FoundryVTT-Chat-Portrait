@@ -1,7 +1,5 @@
-import { DOCUMENT_PERMISSIONS } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/fields.mjs';
-import { log } from '../main';
+import { log } from './lib/lib';
 import { ChatPortrait } from './ChatPortrait';
-import { canvas, game } from './settings';
 
 /**
  * Class that encapsulates a better rolls card at runtime.

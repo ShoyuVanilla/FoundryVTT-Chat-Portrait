@@ -1,11 +1,10 @@
-import { warn, error, debug, i18n, log } from '../main';
+import { warn, error, debug, i18n, log } from './lib/lib';
 import { ChatPortrait } from './ChatPortrait';
-import { CHAT_PORTRAIT_MODULE_NAME } from './settings';
-import { ChatSpeakerData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData';
-import EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/embedded-collection.mjs';
-import { CombatData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
-import { ImageReplaceVoiceData } from './ChatPortraitModels';
-import { canvas, game } from './settings';
+import type { ChatSpeakerData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatSpeakerData';
+import type EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/embedded-collection.mjs';
+import type { CombatData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
+import type { ImageReplaceVoiceData } from './ChatPortraitModels';
+import CONSTANTS from './constants';
 
 const mapCombatTrackerPortrait = new Map<string, string>();
 
@@ -17,7 +16,7 @@ export const readyHooks = async () => {
   // When the combat tracker is rendered, we need to completely replace
   // its HTML with a custom version.
   Hooks.on('renderCombatTracker', async (app, html: JQuery<HTMLElement>, options) => {
-    if (game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyOnCombatTracker')) {
+    if (game.settings.get(CONSTANTS.MODULE_NAME, 'applyOnCombatTracker')) {
       // If there's as combat, we can proceed.
       if (game.combat) {
         // Retrieve a list of the combatants
@@ -30,7 +29,7 @@ export const readyHooks = async () => {
           //@ts-ignore
           const img: HTMLImageElement = $combatant.find('.token-image')[0];
           const tokenID = <string>c.token?.id;
-          let imgPath = 'icons/svg/mystery-man.svg';
+          let imgPath = CONSTANTS.DEF_TOKEN_IMG_PATH;
 
           if (!mapCombatTrackerPortrait.get(tokenID)) {
             const actorID = <string>c.actor?.id;
@@ -196,7 +195,7 @@ export const setupHooks = async () => {
    * Catch chat message creations and add some more data if we need to
    */
   Hooks.on('preCreateChatMessage', async (message: ChatMessage, options, render, userId) => {
-    if (game.settings.get(CHAT_PORTRAIT_MODULE_NAME, 'applyPreCreateChatMessagePatch')) {
+    if (game.settings.get(CONSTANTS.MODULE_NAME, 'applyPreCreateChatMessagePatch')) {
       if (options) {
         // Update the speaker
         if (!options.speaker || (!options.speaker.token && !options.speaker.actor)) {

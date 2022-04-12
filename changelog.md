@@ -1,3 +1,8 @@
+
+## 0.6.2
+
+- Update typescript and applied new design pattern
+
 ## 0.6.1
 
 - Add margin auto to system dnd5e and pf2e

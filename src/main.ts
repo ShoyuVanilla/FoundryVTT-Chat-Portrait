@@ -14,40 +14,14 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
 import { preloadTemplates } from './module/preloadTemplates';
-import { CHAT_PORTRAIT_MODULE_NAME } from './module/settings';
-import { initHooks, readyHooks, setupHooks } from './module/Hooks';
-import { canvas, game } from './module/settings';
-
-export let debugEnabled = 0;
-// 0 = none, warnings = 1, debug = 2, all = 3
-export const debug = (...args) => {
-  if (debugEnabled > 1) console.log(`DEBUG:${CHAT_PORTRAIT_MODULE_NAME} | `, ...args);
-};
-export const log = (...args) => console.log(`${CHAT_PORTRAIT_MODULE_NAME} | `, ...args);
-export const warn = (...args) => {
-  if (debugEnabled > 0) console.warn(`${CHAT_PORTRAIT_MODULE_NAME} | `, ...args);
-};
-export const error = (...args) => console.error(`${CHAT_PORTRAIT_MODULE_NAME} | `, ...args);
-export const timelog = (...args) => warn(`${CHAT_PORTRAIT_MODULE_NAME} | `, Date.now(), ...args);
-
-export const i18n = (key) => {
-  return game.i18n.localize(key);
-};
-export const i18nFormat = (key, data = {}) => {
-  return game.i18n.format(key, data);
-};
-
-export const setDebugLevel = (debugText: string) => {
-  debugEnabled = { none: 0, warn: 1, debug: 2, all: 3 }[debugText] || 0;
-  // 0 = none, warnings = 1, debug = 2, all = 3
-  if (debugEnabled >= 3) CONFIG.debug.hooks = true;
-};
+import { initHooks, readyHooks, setupHooks } from './module/module';
+import CONSTANTS from './module/constants';
 
 /* ------------------------------------ */
 /* Initialize module					*/
 /* ------------------------------------ */
 Hooks.once('init', async () => {
-  console.log(`${CHAT_PORTRAIT_MODULE_NAME} | Initializing ${CHAT_PORTRAIT_MODULE_NAME}`);
+  console.log(`${CONSTANTS.MODULE_NAME} | Initializing ${CONSTANTS.MODULE_NAME}`);
 
   // Register custom module settings
   registerSettings();
@@ -94,9 +68,10 @@ Hooks.once('ready', () => {
 Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
   libChangelogs.register(
-    CHAT_PORTRAIT_MODULE_NAME,
+    CONSTANTS.MODULE_NAME,
     `
-    - Add new settings for better manage the css algnague on different system 'Setup the custom styling for the current system' and  'Setup additional custom styling on the image prepend the text chat message'`,
+    - Update typescript and applied new design pattern
+    `,
     'minor',
   );
 });
