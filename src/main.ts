@@ -70,7 +70,7 @@ Hooks.once('libChangelogsReady', function () {
   libChangelogs.register(
     CONSTANTS.MODULE_NAME,
     `
-    - Bug fix https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/94
+    - Downgrade to 0.6.2
     `,
     'minor',
   );

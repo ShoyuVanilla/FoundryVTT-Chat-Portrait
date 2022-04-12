@@ -1,4 +1,8 @@
 
+## 0.6.4
+
+- Downgrade to 0.6.2
+
 ## 0.6.3
 
 - Bug fix https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/94

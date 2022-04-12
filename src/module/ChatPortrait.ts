@@ -334,7 +334,7 @@ export class ChatPortrait {
       // Default style
       if (!messageSender.classList.contains('chat-portrait-text-size-name')) {
         messageSender.classList.add('chat-portrait-text-size-name');
-        messageSender.textContent = messageSender.innerText + ' ';
+        // messageSender.textContent = messageSender.innerText + ' ';
       }
       // Update size text name by settings
       if (ChatPortrait.settings.textSizeName > 0) {
@@ -410,7 +410,7 @@ export class ChatPortrait {
           if (elementItemName) {
             if (!elementItemName.classList.contains('chat-portrait-text-size-name')) {
               elementItemName.classList.add('chat-portrait-text-size-name');
-              elementItemName.textContent = elementItemName.innerText + ' ';
+              // elementItemName.textContent = elementItemName.innerText + ' ';
             }
             let value = '';
             let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
@@ -689,7 +689,7 @@ export class ChatPortrait {
           const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
           if (!elementItemText.classList.contains('chat-portrait-text-size-name')) {
             elementItemText.classList.add('chat-portrait-text-size-name');
-            elementItemText.textContent = elementItemText.innerText + ' ';
+            // elementItemText.textContent = elementItemText.innerText + ' ';
           }
           let value = '';
           let images: ImageReplacerData = { iconMainReplacer: '', iconsDamageType: [] };
