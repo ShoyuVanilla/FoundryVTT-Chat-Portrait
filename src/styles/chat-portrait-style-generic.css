@@ -75,9 +75,13 @@
 */
 
 .chat-portrait-text-size-name-generic {
+  display: flex;
+  margin: auto;
 }
 
 .chat-portrait-image-size-name-generic {
+  display: flex;
+  margin: auto;
 }
 
 .chat-portrait-indicator-generic {
@@ -100,13 +104,18 @@
   background: #999;
 }
 
-.message .message-header {
+.message .chat-portrait-message-header-generic {
   justify-content: space-between;
 }
 
-.message .message-header .message-metadata {
+.message .chat-portrait-message-header-generic .message-metadata {
   flex: 0 0 auto;
   margin-left: 1rem;
+}
+
+.message .chat-portrait-message-header-generic .chat-portrait-whisper-to-generic {
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /*
@@ -114,11 +123,6 @@
   flex: 1 0 1px;
 }
 */
-
-.message .message-header .chat-portrait-whisper-to {
-  line-height: 1rem;
-  margin-bottom: 0.5rem;
-}
 
 /* Chat Images Module Support */
 /*

@@ -141,8 +141,11 @@ export class ChatPortrait {
       elementItemTextList = html.find('.card-header p');
     }
 
-    
     const gameSystemId = API.retrieveSystemId();
+
+    if (!messageHeaderElement.classList.contains(`chat-portrait-message-header-${gameSystemId}`)) {
+      messageHeaderElement.classList.add(`chat-portrait-message-header-${gameSystemId}`);
+    }
 
     if (doNotStyling) {
       let authorColor = 'black';
@@ -1162,26 +1165,15 @@ export class ChatPortrait {
     for (let i = 0; i < elementItemTextList.length; i++) {
       const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
       if (elementItemText) {
-        /*
+        
         if (ChatPortrait.settings.customStylingMessageText) {
           elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
-        } else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
-          // THIS WILL APPLY SOME DEFAULT CSS
-          if (game.system.id == 'swade') {
-            // https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91
-            elementItemText.style.cssText = 'height: auto;display: flex;';
-          } else if (game.system.id == 'pf2e') {
-            elementItemText.style.cssText = 'display: block; margin: auto;';
-          } else if (game.system.id == 'dnd5e') {
-            elementItemText.style.cssText = 'display: flex; margin: auto;';
-          }
-        }
-        */
-        if (ChatPortrait.settings.customStylingMessageText) {
-          if (!elementItemText.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
-            elementItemText.classList.add(`chat-portrait-system-${gameSystemId}`);
-          }
-        }
+        } 
+        // else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
+        //   if (!elementItemText.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
+        //     elementItemText.classList.add(`chat-portrait-system-${gameSystemId}`);
+        //   }
+        // }
         // You need this anyway
         //elementItemText.style.display = 'flex';
       }
@@ -1192,22 +1184,12 @@ export class ChatPortrait {
       if (elementItemImage) {
         if (ChatPortrait.settings.customStylingMessageImage) {
           elementItemImage.style.cssText = ChatPortrait.settings.customStylingMessageImage;
-        } else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
-          /*
-          // THIS WILL APPLY SOME DEFAULT CSS
-          if (game.system.id == 'swade') {
-            // https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91
-            elementItemImage.style.cssText = 'height: auto;display: flex;';
-          } else if (game.system.id == 'pf2e') {
-            elementItemImage.style.cssText = 'display: block; margin: auto;';
-          } else if (game.system.id == 'dnd5e') {
-            elementItemImage.style.cssText = 'display: flex; margin: auto;';
-          }
-          */
-          if (!elementItemImage.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
-            elementItemImage.classList.add(`chat-portrait-system-${gameSystemId}`);
-          }
-        }
+        } 
+        // else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
+        //   if (!elementItemImage.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
+        //     elementItemImage.classList.add(`chat-portrait-system-${gameSystemId}`);
+        //   }
+        // }
       }
     }
   }
