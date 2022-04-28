@@ -74,10 +74,10 @@
   "scripts": [],
   "esmodules": ["main.js"],
   "styles": [
-    "styles/chat-portrait-style.css",
-    "styles/chat-portrait-style-system-dnd5e.css",
-    "styles/chat-portrait-style-system-pf2e.css",
-    "styles/chat-portrait-style-system-swade.css"
+    "styles/chat-portrait-style-generic.css",
+    "styles/chat-portrait-style-dnd5e.css",
+    "styles/chat-portrait-style-pf2e.css",
+    "styles/chat-portrait-style-swade.css"
   ],
   "manifestPlusVersion": "1.2.0",
   "minimumCoreVersion": "0.8.9",

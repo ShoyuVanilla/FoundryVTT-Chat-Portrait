@@ -1,4 +1,4 @@
-.message .message-header img.chat-portrait-message-portrait {
+.message .message-header img.chat-portrait-message-portrait-generic {
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
@@ -55,7 +55,7 @@
 }
 */
 
-.chat-portrait-playerName {
+.chat-portrait-playerName-generic {
   opacity: 0.5;
 }
 
@@ -63,7 +63,7 @@
   content: ' [';
 }
 
-.chat-portrait-playerName::after {
+.chat-portrait-playerName-generic::after {
   content: ']';
 }
 
@@ -74,13 +74,13 @@
 }
 */
 
-.chat-portrait-text-size-name {
+.chat-portrait-text-size-name-generic {
 }
 
-.chat-portrait-image-size-name {
+.chat-portrait-image-size-name-generic {
 }
 
-.chat-portrait-indicator {
+.chat-portrait-indicator-generic {
   display: inline-block;
   margin: 0 3px 0 0;
   padding: 0 3px;
@@ -90,7 +90,7 @@
   background: #999;
 }
 
-.chat-portrait-whisper-to * {
+.chat-portrait-whisper-to-generic * {
   display: inline-block;
   margin: 1px 3px 1px 0;
   padding: 0 3px;
