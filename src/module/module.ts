@@ -18,7 +18,6 @@ export const initHooks = () => {
 };
 
 export const setupHooks = async () => {
-
   setApi(API);
 
   // setup all the hooks
@@ -277,8 +276,5 @@ export const readyHooks = async () => {
       .attr('data-edit', nameBorderColor)
       .val(colourBorderColor)
       .insertAfter($(`input[name="${nameBorderColor}"]`, html).addClass('color'));
-
   });
 };
-
-

@@ -1,9 +1,9 @@
-import CONSTANTS from "./constants";
+import CONSTANTS from './constants';
 
 /**
  * Provides functionality for interaction with module settings
  */
- export class SettingsForm {
+export class SettingsForm {
   //#region getters and setters
   // static getBorderShapeList() {
   //     return game.settings.get(MODULE_NAME, 'borderShapeList');

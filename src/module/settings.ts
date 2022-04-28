@@ -11,7 +11,6 @@ import { SYSTEMS } from './systems';
 // export const CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME = 'mystery-man';
 
 export const registerSettings = function () {
-
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
     name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.reset.hint`,
@@ -107,7 +106,7 @@ export const registerSettings = function () {
       square: i18n(`${CONSTANTS.MODULE_NAME}.settings.borderShape.choice.square`),
       circle: i18n(`${CONSTANTS.MODULE_NAME}.settings.borderShape.choice.circle`),
       none: i18n(`${CONSTANTS.MODULE_NAME}.settings.borderShape.choice.none`),
-    }
+    },
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'useUserColorAsBorderColor', {
@@ -245,13 +244,13 @@ export const registerSettings = function () {
     default: 'allCards',
     type: String,
     choices: <any>{
-        "allCards": i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.allCards`),
-        "selfAndGM": i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.selfAndGM`),
-        "self": i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.self`),
-        "gm": i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.gm`),
-        "player": i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.player`),
-        "none": i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.none`),
-    }
+      allCards: i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.allCards`),
+      selfAndGM: i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.selfAndGM`),
+      self: i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.self`),
+      gm: i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.gm`),
+      player: i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.player`),
+      none: i18n(`${CONSTANTS.MODULE_NAME}.settings.displaySetting.choice.none`),
+    },
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'displaySettingOTHER', {
@@ -325,14 +324,14 @@ export const registerSettings = function () {
     default: 'none',
     type: String,
     choices: <any>{
-        "allCards": i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.allCards`),
-        "selfAndGM": i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.selfAndGM`),
-        "self": i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.self`),
-        "gm": i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.gm`),
-        "player": i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.player`),
-        "none": i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.none`),
-        "onlyNpc": i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.onlyNpc`),
-    }
+      allCards: i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.allCards`),
+      selfAndGM: i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.selfAndGM`),
+      self: i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.self`),
+      gm: i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.gm`),
+      player: i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.player`),
+      none: i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.none`),
+      onlyNpc: i18n(`${CONSTANTS.MODULE_NAME}.settings.displayUnknown.choice.onlyNpc`),
+    },
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'displayUnknownPlaceHolderActorName', {
@@ -512,9 +511,6 @@ async function applyDefaultSettings() {
 
 function otherSettings(apply = false) {
   return {
-
-
-
     // =======================================
 
     debug: {
