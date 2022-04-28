@@ -80,8 +80,8 @@
 }
 
 .chat-portrait-image-size-name-generic {
-  display: flex;
-  margin: auto;
+  /* display: flex;
+  margin: auto; */
 }
 
 .chat-portrait-indicator-generic {

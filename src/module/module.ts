@@ -8,6 +8,7 @@ import CONSTANTS from './constants';
 import { setApi } from '../main';
 import API from './api';
 import { registerSocket } from './socket';
+import { checkSystem } from './settings';
 
 const mapCombatTrackerPortrait = new Map<string, string>();
 
@@ -179,6 +180,7 @@ export const setupHooks = async () => {
 };
 
 export const readyHooks = async () => {
+  checkSystem();
   // When the combat tracker is rendered, we need to completely replace
   // its HTML with a custom version.
   Hooks.on('renderCombatTracker', async (app, html: JQuery<HTMLElement>, options) => {

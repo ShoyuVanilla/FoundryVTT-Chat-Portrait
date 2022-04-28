@@ -1,6 +1,6 @@
-import { error } from 'jquery';
 import type { ImageReplaceVoiceData } from './ChatPortraitModels';
 import CONSTANTS from './constants';
+import { error } from './lib/lib';
 import { SYSTEMS } from './systems';
 
 const API = {
@@ -10,7 +10,11 @@ const API = {
    * @returns {array}
    */
   get imageReplacerDamageType(): ImageReplaceVoiceData[] {
-    return <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerDamageType');
+    let arr = <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerDamageType') || [];
+    if(arr.length <= 0){
+      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType
+    }
+    return arr;
   },
 
   /**
@@ -33,7 +37,11 @@ const API = {
    * @returns {array}
    */
   get imageReplacerWeaponProperties(): ImageReplaceVoiceData[] {
-    return <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerWeaponProperties');
+    let arr = <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerWeaponProperties') || [];
+    if(arr.length <= 0){
+      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType
+    }
+    return arr;
   },
 
   /**
@@ -56,7 +64,11 @@ const API = {
    * @returns {array}
    */
   get imageReplacerIconizer(): ImageReplaceVoiceData[] {
-    return <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerIconizer');
+    let arr = <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerIconizer') || [];
+    if(arr.length <= 0){
+      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType
+    }
+    return arr;
   },
 
   /**

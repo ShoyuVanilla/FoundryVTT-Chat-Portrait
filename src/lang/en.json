@@ -142,6 +142,13 @@
   "chat-portrait.settings.setUpPortraitForAliasGmMessage.name": "Set up a specific image if the alias of the chat message is from a GM",
   "chat-portrait.settings.setUpPortraitForAliasGmMessage.hint": "If enable will use the image selected here for every chat message done with a alias referenced to a GM. If 'Disable the chat portrait if the alias of the chat message is from a GM' is enable this setting will be ignored",
 
+  "chat-portrait.setting.reset.name": "Reset settings to default",
+  "chat-portrait.setting.reset.label": "Reset Settings To Default",
+  "chat-portrait.setting.reset.hint": "This will reset all of the settings of back to the active game system's default.",
+  "chat-portrait.setting.debug.name": "Enable debugging",
+  "chat-portrait.setting.debug.label": "Prints debug messages to the console",
+  "chat-portrait.setting.debug.hint": " ",
+  
   "chat-portrait.dialogs.resetsettings.title": "Reset Module Settings",
   "chat-portrait.dialogs.resetsettings.content": "Are you sure you want to reset all of the module settings to the current system's defaults? <strong>THIS CANNOT BE UNDONE!</strong>",
   "chat-portrait.dialogs.resetsettings.confirm": "Reset Module Settings",

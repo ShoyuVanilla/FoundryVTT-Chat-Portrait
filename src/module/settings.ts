@@ -80,7 +80,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.portraitSize.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.portraitSize.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Number,
     default: 36,
   });
@@ -89,7 +89,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.portraitSizeItem.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.portraitSizeItem.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Number,
     default: 36,
   });
@@ -98,7 +98,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.borderShape.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.borderShape.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: 'square',
     choices: <any>{
@@ -112,7 +112,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsBorderColor.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsBorderColor.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -121,7 +121,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.borderColor.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.borderColor.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: '#000000',
   });
@@ -130,16 +130,16 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Number,
     default: 2,
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'useUserColorAsChatBackgroundColor', {
-    name: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.name`,
-    hint: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.hint`,
+    name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -148,7 +148,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBorderColor.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBorderColor.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -157,7 +157,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.flavorNextToPortrait.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.flavorNextToPortrait.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -166,7 +166,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.forceNameSearch.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.forceNameSearch.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -185,7 +185,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.textSizeName.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.textSizeName.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Number,
     default: 0,
   });
@@ -194,7 +194,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -203,7 +203,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -212,7 +212,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -221,7 +221,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.applyOnCombatTracker.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.applyOnCombatTracker.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -230,7 +230,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.applyPreCreateChatMessagePatch.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.applyPreCreateChatMessagePatch.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -239,7 +239,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySetting.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySetting.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     default: 'allCards',
     type: String,
     choices: <any>{
@@ -256,7 +256,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOTHER.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOTHER.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -265,7 +265,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOOC.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOOC.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -274,7 +274,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingIC.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingIC.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -283,7 +283,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingEMOTE.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingEMOTE.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -292,7 +292,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWHISPER.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWHISPER.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -301,7 +301,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingROLL.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingROLL.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -310,7 +310,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWhisperToOther.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWhisperToOther.hint`,
     scope: 'client',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -319,7 +319,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknown.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknown.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     default: 'none',
     type: String,
     choices: <any>{
@@ -337,7 +337,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderActorName.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderActorName.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: 'Unknown Actor',
   });
@@ -346,7 +346,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemName.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemName.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: 'Unknown Item',
   });
@@ -355,7 +355,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemIcon.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemIcon.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: `/modules/${CONSTANTS.MODULE_NAME}/assets/inv-unidentified.png`,
   });
@@ -364,7 +364,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: true,
   });
@@ -373,7 +373,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageText.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageText.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: '',
   });
@@ -382,7 +382,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageImage.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageImage.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: '',
   });
@@ -391,7 +391,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.disablePortraitForAliasGmMessage.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.disablePortraitForAliasGmMessage.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: Boolean,
     default: false,
   });
@@ -400,7 +400,7 @@ export const registerSettings = function () {
     name: `${CONSTANTS.MODULE_NAME}.settings.setUpPortraitForAliasGmMessage.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.setUpPortraitForAliasGmMessage.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     type: String,
     default: '',
   });
@@ -472,7 +472,7 @@ class ResetSettingsDialog extends FormApplication<FormApplicationOptions, object
           icon: '<i class="fas fa-check"></i>',
           label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.confirm`),
           callback: async () => {
-            await applyDefaultSettings();
+            await applyDefaultSettings(true);
             window.location.reload();
           },
         },
@@ -490,15 +490,17 @@ class ResetSettingsDialog extends FormApplication<FormApplicationOptions, object
   }
 }
 
-async function applyDefaultSettings() {
+async function applyDefaultSettings(explicit:boolean) {
   const settings = defaultSettings(true);
   for (const [name, data] of Object.entries(settings)) {
     await game.settings.set(CONSTANTS.MODULE_NAME, name, data.default);
   }
-  const settings2 = otherSettings(true);
-  for (const [name, data] of Object.entries(settings2)) {
-    //@ts-ignore
-    await game.settings.set(CONSTANTS.MODULE_NAME, name, data.default);
+  if(explicit){
+    const settings2 = otherSettings(true);
+    for (const [name, data] of Object.entries(settings2)) {
+      //@ts-ignore
+      await game.settings.set(CONSTANTS.MODULE_NAME, name, data.default);
+    }
   }
 }
 
@@ -638,8 +640,8 @@ function otherSettings(apply = false) {
     },
 
     useUserColorAsChatBackgroundColor: {
-      name: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.name`,
-      hint: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.hint`,
+      name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.hint`,
       scope: 'world',
       config: false,
       type: Boolean,
@@ -958,47 +960,46 @@ function otherSettings(apply = false) {
   };
 }
 
-/*
+
 export async function checkSystem() {
-  if (!SYSTEMS.DATA) {
-    if (game.settings.get(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown')) return;
+  // if (!SYSTEMS.DATA) {
+  //   if (game.settings.get(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown')) return;
 
-    await game.settings.set(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown', true);
+  //   await game.settings.set(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown', true);
 
-    return Dialog.prompt({
-      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.nosystemfound.title`),
-      content: dialogWarning(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.nosystemfound.content`)),
-      callback: () => {
-        //
-      },
-    });
-  }
+  //   return Dialog.prompt({
+  //     title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.nosystemfound.title`),
+  //     content: dialogWarning(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.nosystemfound.content`)),
+  //     callback: () => {
+  //       //
+  //     },
+  //   });
+  // }
 
-  if (game.settings.get(CONSTANTS.MODULE_NAME, 'systemFound')) return;
+  // if (game.settings.get(CONSTANTS.MODULE_NAME, 'systemFound')) return;
 
-  game.settings.set(CONSTANTS.MODULE_NAME, 'systemFound', true);
+  // game.settings.set(CONSTANTS.MODULE_NAME, 'systemFound', true);
 
-  if (game.settings.get(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown')) {
-    return new Dialog({
-      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.title`),
-      content: warn(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.content`), true),
-      buttons: {
-        confirm: {
-          icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.confirm`),
-          callback: () => {
-            applyDefaultSettings();
-          },
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('No'),
-        },
-      },
-      default: 'cancel',
-    }).render(true);
-  }
+  // if (game.settings.get(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown')) {
+  //   return new Dialog({
+  //     title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.title`),
+  //     content: warn(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.content`), true),
+  //     buttons: {
+  //       confirm: {
+  //         icon: '<i class="fas fa-check"></i>',
+  //         label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.confirm`),
+  //         callback: () => {
+  //           applyDefaultSettings();
+  //         },
+  //       },
+  //       cancel: {
+  //         icon: '<i class="fas fa-times"></i>',
+  //         label: game.i18n.localize('No'),
+  //       },
+  //     },
+  //     default: 'cancel',
+  //   }).render(true);
+  // }
 
-  return applyDefaultSettings();
+  return applyDefaultSettings(false);
 }
-*/
