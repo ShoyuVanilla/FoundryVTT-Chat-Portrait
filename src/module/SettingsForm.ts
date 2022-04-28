@@ -185,12 +185,12 @@ export class SettingsForm {
   static setDisplaySettingWhisperToOther(value: boolean) {
     game.settings.set(CONSTANTS.MODULE_NAME, 'displaySettingWhisperToOther', value);
   }
-  static getCustomStylingMessageSystem() {
-    return <boolean>game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem');
-  }
-  static setCustomStylingMessageSystem(value: boolean) {
-    game.settings.set(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem', value);
-  }
+  // static getCustomStylingMessageSystem() {
+  //   return <boolean>game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem');
+  // }
+  // static setCustomStylingMessageSystem(value: boolean) {
+  //   game.settings.set(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem', value);
+  // }
   static getCustomStylingMessageText() {
     return <string>game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageText');
   }

@@ -11,8 +11,8 @@ const API = {
    */
   get imageReplacerDamageType(): ImageReplaceVoiceData[] {
     let arr = <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerDamageType') || [];
-    if(arr.length <= 0){
-      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType
+    if (arr.length <= 0) {
+      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType;
     }
     return arr;
   },
@@ -38,8 +38,8 @@ const API = {
    */
   get imageReplacerWeaponProperties(): ImageReplaceVoiceData[] {
     let arr = <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerWeaponProperties') || [];
-    if(arr.length <= 0){
-      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType
+    if (arr.length <= 0) {
+      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType;
     }
     return arr;
   },
@@ -65,8 +65,8 @@ const API = {
    */
   get imageReplacerIconizer(): ImageReplaceVoiceData[] {
     let arr = <ImageReplaceVoiceData[]>game.settings.get(CONSTANTS.MODULE_NAME, 'imageReplacerIconizer') || [];
-    if(arr.length <= 0){
-      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType
+    if (arr.length <= 0) {
+      arr = <ImageReplaceVoiceData[]>SYSTEMS.DATA?.imageReplacerDamageType;
     }
     return arr;
   },
@@ -85,14 +85,14 @@ const API = {
     return game.settings.set(CONSTANTS.MODULE_NAME, 'imageReplacerIconizer', inAttribute);
   },
 
-  retrieveSystemId():string{
+  retrieveSystemId(): string {
     const sys = SYSTEMS.DATA?.SYSTEM_ID;
-    if(sys && game.system.id === sys){
+    if (sys && game.system.id === sys) {
       return sys;
-    }else{
+    } else {
       return 'generic';
     }
-  }
+  },
 };
 
 export default API;

@@ -18,8 +18,9 @@
 }
 
 .chat-portrait-text-size-name-pf2e {
-  display: block;
+  /* display: block; */
   margin: auto;
+  display: contents;
 }
 
 .chat-portrait-image-size-name-pf2e {

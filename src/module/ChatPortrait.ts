@@ -160,7 +160,7 @@ export class ChatPortrait {
       ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
       ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
       if (ChatPortrait.settings.displayPlayerName) {
-        ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author, gameSystemId );
+        ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author, gameSystemId);
       }
       if (ChatPortrait.settings.displayMessageTag) {
         ChatPortrait.injectMessageTag(html, speakerInfo, gameSystemId);
@@ -181,7 +181,7 @@ export class ChatPortrait {
         elementItemContentList,
         elementItemTextList,
         imageReplacer,
-        gameSystemId
+        gameSystemId,
       );
       if (myPromise) {
         myPromise.then((html: JQuery<HTMLElement>) => {
@@ -209,7 +209,7 @@ export class ChatPortrait {
     elementItemContentList,
     elementItemTextList,
     imageReplacer: ImageReplaceVoiceData[],
-    gameSystemId:string
+    gameSystemId: string,
   ): Promise<JQuery<HTMLElement>> | null {
     const messageDataBase: MessageRenderData = speakerInfo;
     let imgPath: string;
@@ -1085,7 +1085,10 @@ export class ChatPortrait {
    * @param  {string} imgPath
    * @returns HTMLImageElement
    */
-  static async generatePortraitImageElement(imgPath: string, gameSystemId:string): Promise<HTMLImageElement | undefined> {
+  static async generatePortraitImageElement(
+    imgPath: string,
+    gameSystemId: string,
+  ): Promise<HTMLImageElement | undefined> {
     if (!imgPath) {
       return;
     }
@@ -1160,15 +1163,14 @@ export class ChatPortrait {
     }
   }
 
-  static setCustomStylingText(html: JQuery, messageData: MessageRenderData, authorColor: string, gameSystemId:string) {
+  static setCustomStylingText(html: JQuery, messageData: MessageRenderData, authorColor: string, gameSystemId: string) {
     const elementItemTextList = html.find(`.chat-portrait-text-size-name-${gameSystemId}`);
     for (let i = 0; i < elementItemTextList.length; i++) {
       const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
       if (elementItemText) {
-        
         if (ChatPortrait.settings.customStylingMessageText) {
           elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
-        } 
+        }
         // else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
         //   if (!elementItemText.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
         //     elementItemText.classList.add(`chat-portrait-system-${gameSystemId}`);
@@ -1184,7 +1186,7 @@ export class ChatPortrait {
       if (elementItemImage) {
         if (ChatPortrait.settings.customStylingMessageImage) {
           elementItemImage.style.cssText = ChatPortrait.settings.customStylingMessageImage;
-        } 
+        }
         // else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
         //   if (!elementItemImage.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
         //     elementItemImage.classList.add(`chat-portrait-system-${gameSystemId}`);
@@ -1266,7 +1268,7 @@ export class ChatPortrait {
       displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
       displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
       displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
-      customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
+      // customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
       customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
       customStylingMessageImage: SettingsForm.getCustomStylingMessageImage(),
       displayMessageTag: SettingsForm.getDisplayMessageTag(),
@@ -1314,7 +1316,7 @@ export class ChatPortrait {
       displaySettingWHISPER: true,
       displaySettingROLL: true,
       displaySettingWhisperToOther: false,
-      customStylingMessageSystem: false,
+      // customStylingMessageSystem: false,
       customStylingMessageText: '',
       customStylingMessageImage: '',
       displayMessageTag: false,
@@ -1762,7 +1764,7 @@ export class ChatPortrait {
     }
   };
 
-  static appendPlayerName = function (messageSenderElem, author, gameSystemId :string) {
+  static appendPlayerName = function (messageSenderElem, author, gameSystemId: string) {
     const playerName = author.name;
     const playerNameElem = document.createElement('span');
     playerNameElem.appendChild(document.createTextNode(playerName));
@@ -1908,7 +1910,7 @@ export class ChatPortrait {
     return false;
   }
 
-  static injectMessageTag(html, messageData: MessageRenderData, gameSystemId :string) {
+  static injectMessageTag(html, messageData: MessageRenderData, gameSystemId: string) {
     const timestampTag = html.find('.message-timestamp');
 
     const indicatorElement = $('<span>');
@@ -1937,7 +1939,7 @@ export class ChatPortrait {
     }
   }
 
-  static injectWhisperParticipants(html, messageData, gameSystemId:string) {
+  static injectWhisperParticipants(html, messageData, gameSystemId: string) {
     const alias = messageData.alias;
     const whisperTargetString = messageData.whisperTo;
     const whisperTargetIds = messageData.whisper;

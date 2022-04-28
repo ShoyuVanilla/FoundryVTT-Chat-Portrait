@@ -74,7 +74,7 @@ export class ChatPortraitForm extends FormApplication<FormApplicationOptions, ob
         displaySettingWHISPER: true,
         displaySettingROLL: true,
         displaySettingWhisperToOther: false,
-        customStylingMessageSystem: false,
+        // customStylingMessageSystem: false,
         customStylingMessageText: '',
         customStylingMessageImage: '',
         displayMessageTag: false,
@@ -117,7 +117,7 @@ export class ChatPortraitForm extends FormApplication<FormApplicationOptions, ob
         displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
         displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
         displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
-        customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
+        // customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
         customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
         customStylingMessageImage: SettingsForm.getCustomStylingMessageImage(),
         displayMessageTag: SettingsForm.getDisplayMessageTag(),
@@ -220,7 +220,7 @@ export class ChatPortraitForm extends FormApplication<FormApplicationOptions, ob
     SettingsForm.setDisplaySettingWHISPER(formData.displaySettingWHISPER);
     SettingsForm.setDisplaySettingROLL(formData.displaySettingROLL);
     SettingsForm.setDisplaySettingWhisperToOther(formData.displaySettingWhisperToOther);
-    SettingsForm.setCustomStylingMessageSystem(formData.customStylingMessageSystem);
+    // SettingsForm.setCustomStylingMessageSystem(formData.customStylingMessageSystem);
     SettingsForm.setCustomStylingMessageText(formData.customStylingMessageText);
     SettingsForm.setCustomStylingMessageImage(formData.customStylingMessageImage);
     SettingsForm.setDisplayMessageTag(formData.displayMessageTag);

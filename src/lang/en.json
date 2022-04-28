@@ -148,7 +148,7 @@
   "chat-portrait.setting.debug.name": "Enable debugging",
   "chat-portrait.setting.debug.label": "Prints debug messages to the console",
   "chat-portrait.setting.debug.hint": " ",
-  
+
   "chat-portrait.dialogs.resetsettings.title": "Reset Module Settings",
   "chat-portrait.dialogs.resetsettings.content": "Are you sure you want to reset all of the module settings to the current system's defaults? <strong>THIS CANNOT BE UNDONE!</strong>",
   "chat-portrait.dialogs.resetsettings.confirm": "Reset Module Settings",

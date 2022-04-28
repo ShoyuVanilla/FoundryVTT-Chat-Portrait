@@ -34,7 +34,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'useTokenImage', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useTokenImage.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useTokenImage.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: false,
@@ -97,7 +97,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'borderShape', {
     name: `${CONSTANTS.MODULE_NAME}.settings.borderShape.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.borderShape.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: String,
     default: 'square',
@@ -111,7 +111,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'useUserColorAsBorderColor', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsBorderColor.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsBorderColor.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: true,
@@ -120,7 +120,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'borderColor', {
     name: `${CONSTANTS.MODULE_NAME}.settings.borderColor.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.borderColor.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: String,
     default: '#000000',
@@ -129,7 +129,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'borderWidth', {
     name: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Number,
     default: 2,
@@ -138,25 +138,25 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'useUserColorAsChatBackgroundColor', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
-    default: false,
+    default: true,
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'useUserColorAsChatBorderColor', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBorderColor.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBorderColor.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
-    default: false,
+    default: true,
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'flavorNextToPortrait', {
     name: `${CONSTANTS.MODULE_NAME}.settings.flavorNextToPortrait.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.flavorNextToPortrait.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: false,
@@ -165,7 +165,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'forceNameSearch', {
     name: `${CONSTANTS.MODULE_NAME}.settings.forceNameSearch.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.forceNameSearch.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: false,
@@ -184,7 +184,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'textSizeName', {
     name: `${CONSTANTS.MODULE_NAME}.settings.textSizeName.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.textSizeName.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Number,
     default: 0,
@@ -193,7 +193,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'displayMessageTag', {
     name: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: false,
@@ -202,7 +202,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'useImageReplacer', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: true,
@@ -211,7 +211,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'useImageReplacerDamageType', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: false,
@@ -220,7 +220,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'applyOnCombatTracker', {
     name: `${CONSTANTS.MODULE_NAME}.settings.applyOnCombatTracker.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.applyOnCombatTracker.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: false,
@@ -229,7 +229,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'applyPreCreateChatMessagePatch', {
     name: `${CONSTANTS.MODULE_NAME}.settings.applyPreCreateChatMessagePatch.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.applyPreCreateChatMessagePatch.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: Boolean,
     default: false,
@@ -238,7 +238,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'displaySetting', {
     name: `${CONSTANTS.MODULE_NAME}.settings.displaySetting.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.displaySetting.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     default: 'allCards',
     type: String,
@@ -360,19 +360,19 @@ export const registerSettings = function () {
     default: `/modules/${CONSTANTS.MODULE_NAME}/assets/inv-unidentified.png`,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem', {
-    name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.name`,
-    hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.hint`,
-    scope: 'world',
-    config: true,
-    type: Boolean,
-    default: true,
-  });
+  // game.settings.register(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem', {
+  //   name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.name`,
+  //   hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.hint`,
+  //   scope: 'client',
+  //   config: true,
+  //   type: Boolean,
+  //   default: true,
+  // });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'customStylingMessageText', {
     name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageText.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageText.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: String,
     default: '',
@@ -381,7 +381,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'customStylingMessageImage', {
     name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageImage.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageImage.hint`,
-    scope: 'world',
+    scope: 'client',
     config: true,
     type: String,
     default: '',
@@ -410,7 +410,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'debug', {
     name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.debug.hint`,
-    scope: 'client',
+    scope: 'world',
     config: true,
     default: false,
     type: Boolean,
@@ -490,12 +490,12 @@ class ResetSettingsDialog extends FormApplication<FormApplicationOptions, object
   }
 }
 
-async function applyDefaultSettings(explicit:boolean) {
+async function applyDefaultSettings(explicit: boolean) {
   const settings = defaultSettings(true);
   for (const [name, data] of Object.entries(settings)) {
     await game.settings.set(CONSTANTS.MODULE_NAME, name, data.default);
   }
-  if(explicit){
+  if (explicit) {
     const settings2 = otherSettings(true);
     for (const [name, data] of Object.entries(settings2)) {
       //@ts-ignore
@@ -538,7 +538,7 @@ function otherSettings(apply = false) {
     useTokenImage: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useTokenImage.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useTokenImage.hint`,
-      scope: 'world',
+      scope: 'client',
       config: true,
       type: Boolean,
       default: false,
@@ -584,7 +584,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.portraitSize.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.portraitSize.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Number,
       default: 36,
     },
@@ -593,7 +593,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.portraitSizeItem.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.portraitSizeItem.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Number,
       default: 36,
     },
@@ -601,8 +601,8 @@ function otherSettings(apply = false) {
     borderShape: {
       name: `${CONSTANTS.MODULE_NAME}.settings.borderShape.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.borderShape.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: String,
       default: 'square',
       choices: <any>{
@@ -615,8 +615,8 @@ function otherSettings(apply = false) {
     useUserColorAsBorderColor: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsBorderColor.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsBorderColor.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -624,8 +624,8 @@ function otherSettings(apply = false) {
     borderColor: {
       name: `${CONSTANTS.MODULE_NAME}.settings.borderColor.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.borderColor.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: String,
       default: '#000000',
     },
@@ -633,8 +633,8 @@ function otherSettings(apply = false) {
     borderWidth: {
       name: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.borderWidth.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Number,
       default: 2,
     },
@@ -642,26 +642,26 @@ function otherSettings(apply = false) {
     useUserColorAsChatBackgroundColor: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBackgroundColor.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
-      default: false,
+      default: true,
     },
 
     useUserColorAsChatBorderColor: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBorderColor.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useUserColorAsChatBorderColor.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
-      default: false,
+      default: true,
     },
 
     flavorNextToPortrait: {
       name: `${CONSTANTS.MODULE_NAME}.settings.flavorNextToPortrait.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.flavorNextToPortrait.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: false,
     },
@@ -669,13 +669,13 @@ function otherSettings(apply = false) {
     forceNameSearch: {
       name: `${CONSTANTS.MODULE_NAME}.settings.forceNameSearch.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.forceNameSearch.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: false,
     },
 
-    // game.settings.register(CONSTANTS.MODULE_NAME,'hoverTooltip: {
+    // hoverTooltip: {
     //   // name : game.i18n.localize('chat-portrait.settings.hoverTooltip.name'),
     //   // hint : game.i18n.localize('chat-portrait.settings.hoverTooltip.hint'),
     //   scope : 'world',
@@ -688,8 +688,8 @@ function otherSettings(apply = false) {
     textSizeName: {
       name: `${CONSTANTS.MODULE_NAME}.settings.textSizeName.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.textSizeName.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Number,
       default: 0,
     },
@@ -697,8 +697,8 @@ function otherSettings(apply = false) {
     displayMessageTag: {
       name: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: false,
     },
@@ -706,8 +706,8 @@ function otherSettings(apply = false) {
     useImageReplacer: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -715,8 +715,8 @@ function otherSettings(apply = false) {
     useImageReplacerDamageType: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: false,
     },
@@ -724,8 +724,8 @@ function otherSettings(apply = false) {
     applyOnCombatTracker: {
       name: `${CONSTANTS.MODULE_NAME}.settings.applyOnCombatTracker.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.applyOnCombatTracker.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: false,
     },
@@ -733,8 +733,8 @@ function otherSettings(apply = false) {
     applyPreCreateChatMessagePatch: {
       name: `${CONSTANTS.MODULE_NAME}.settings.applyPreCreateChatMessagePatch.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.applyPreCreateChatMessagePatch.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: Boolean,
       default: false,
     },
@@ -742,8 +742,8 @@ function otherSettings(apply = false) {
     displaySetting: {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySetting.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySetting.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       default: 'allCards',
       type: String,
       choices: <any>{
@@ -760,7 +760,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOTHER.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOTHER.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -769,7 +769,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOOC.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingOOC.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -778,7 +778,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingIC.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingIC.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -787,7 +787,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingEMOTE.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingEMOTE.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -796,7 +796,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWHISPER.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWHISPER.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -805,7 +805,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingROLL.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingROLL.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Boolean,
       default: true,
     },
@@ -814,7 +814,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWhisperToOther.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displaySettingWhisperToOther.hint`,
       scope: 'client',
-      config: false,
+      config: true,
       type: Boolean,
       default: false,
     },
@@ -823,7 +823,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknown.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknown.hint`,
       scope: 'world',
-      config: false,
+      config: true,
       default: 'none',
       type: String,
       choices: <any>{
@@ -841,7 +841,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderActorName.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderActorName.hint`,
       scope: 'world',
-      config: false,
+      config: true,
       type: String,
       default: 'Unknown Actor',
     },
@@ -850,7 +850,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemName.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemName.hint`,
       scope: 'world',
-      config: false,
+      config: true,
       type: String,
       default: 'Unknown Item',
     },
@@ -859,25 +859,25 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemIcon.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displayUnknownPlaceHolderItemIcon.hint`,
       scope: 'world',
-      config: false,
+      config: true,
       type: String,
       default: `/modules/${CONSTANTS.MODULE_NAME}/assets/inv-unidentified.png`,
     },
 
-    customStylingMessageSystem: {
-      name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.name`,
-      hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.hint`,
-      scope: 'world',
-      config: false,
-      type: Boolean,
-      default: true,
-    },
+    // customStylingMessageSystem: {
+    //   name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.name`,
+    //   hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageSystem.hint`,
+    //   scope: 'client',
+    //   config: true,
+    //   type: Boolean,
+    //   default: true,
+    // },
 
     customStylingMessageText: {
       name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageText.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageText.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: String,
       default: '',
     },
@@ -885,8 +885,8 @@ function otherSettings(apply = false) {
     customStylingMessageImage: {
       name: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageImage.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.customStylingMessageImage.hint`,
-      scope: 'world',
-      config: false,
+      scope: 'client',
+      config: true,
       type: String,
       default: '',
     },
@@ -895,7 +895,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.disablePortraitForAliasGmMessage.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.disablePortraitForAliasGmMessage.hint`,
       scope: 'world',
-      config: false,
+      config: true,
       type: Boolean,
       default: false,
     },
@@ -904,7 +904,7 @@ function otherSettings(apply = false) {
       name: `${CONSTANTS.MODULE_NAME}.settings.setUpPortraitForAliasGmMessage.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.setUpPortraitForAliasGmMessage.hint`,
       scope: 'world',
-      config: false,
+      config: true,
       type: String,
       default: '',
     },
@@ -959,7 +959,6 @@ function otherSettings(apply = false) {
     // =======================================
   };
 }
-
 
 export async function checkSystem() {
   // if (!SYSTEMS.DATA) {
