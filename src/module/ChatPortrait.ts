@@ -1,6 +1,6 @@
 import { warn, error, i18n } from './lib/lib';
 import { ChatLink } from './Chatlink';
-import { SettingsForm } from './ChatPortraitForm';
+import { SettingsForm } from './SettingsForm';
 import type { ChatPortraitSettings } from './ChatPortraitSettings';
 import { imageReplacerDamageType, imageReplacerIconizer } from './ImageReplacer';
 import type { MessageRenderData } from './MessageRenderData';
@@ -309,8 +309,8 @@ export class ChatPortrait {
         if (!imgElement.src || imgElement.src.length <= 0) {
           imgElement.src = CONSTANTS.INV_UNIDENTIFIED_BOOK;
         }
-        if (!imgElement.classList.contains('message-portrait')) {
-          imgElement.classList.add('message-portrait');
+        if (!imgElement.classList.contains(`chat-portrait-message-portrait`)) {
+          imgElement.classList.add(`chat-portrait-message-portrait`);
         }
       }
 
@@ -369,8 +369,8 @@ export class ChatPortrait {
           if (ChatPortrait.shouldOverrideMessageUnknown(messageData)) {
             elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
           }
-          if (!elementItemImage.classList.contains('message-portrait')) {
-            elementItemImage.classList.add('message-portrait');
+          if (!elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+            elementItemImage.classList.add(`chat-portrait-message-portrait`);
           }
         }
       } else if (ChatPortrait.shouldOverrideMessageUnknown(messageData)) {
@@ -385,8 +385,8 @@ export class ChatPortrait {
             elementItemImage.width = size;
             elementItemImage.height = size;
           }
-          if (!elementItemImage.classList.contains('message-portrait')) {
-            elementItemImage.classList.add('message-portrait');
+          if (!elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+            elementItemImage.classList.add(`chat-portrait-message-portrait`);
           }
         }
       }
@@ -441,8 +441,8 @@ export class ChatPortrait {
                   elementItemImage.src = value;
                 }
                 //}
-                if (elementItemImage.classList.contains('message-portrait')) {
-                  elementItemImage.classList.remove('message-portrait');
+                if (elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+                  elementItemImage.classList.remove(`chat-portrait-message-portrait`);
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   elementItemImage.classList.add('chat-portrait-image-size-name');
@@ -464,8 +464,8 @@ export class ChatPortrait {
                     if (itemImage.length > 0) {
                       elementItemImage2.src = itemImage; //images[1];
                     }
-                    if (!elementItemImage2.classList.contains('message-portrait')) {
-                      elementItemImage2.classList.add('message-portrait');
+                    if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait`)) {
+                      elementItemImage2.classList.add(`chat-portrait-message-portrait`);
                     }
                     elementItemContainerDamageTypes.appendChild(elementItemImage2);
                   }
@@ -491,8 +491,8 @@ export class ChatPortrait {
                     elementItemImage.src = value;
                   }
                   //}
-                  if (elementItemImage.classList.contains('message-portrait')) {
-                    elementItemImage.classList.remove('message-portrait');
+                  if (elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+                    elementItemImage.classList.remove(`chat-portrait-message-portrait`);
                   }
                   if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                     elementItemImage.classList.add('chat-portrait-image-size-name');
@@ -514,8 +514,8 @@ export class ChatPortrait {
                       if (itemImage.length > 0) {
                         elementItemImage2.src = itemImage; //images[1];
                       }
-                      if (!elementItemImage2.classList.contains('message-portrait')) {
-                        elementItemImage2.classList.add('message-portrait');
+                      if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait`)) {
+                        elementItemImage2.classList.add(`chat-portrait-message-portrait`);
                       }
                       elementItemContainerDamageTypes.appendChild(elementItemImage2);
                     }
@@ -568,8 +568,8 @@ export class ChatPortrait {
                     }
                   }
                 }
-                if (elementItemImage.classList.contains('message-portrait')) {
-                  elementItemImage.classList.remove('message-portrait');
+                if (elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+                  elementItemImage.classList.remove(`chat-portrait-message-portrait`);
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   elementItemImage.classList.add('chat-portrait-image-size-name');
@@ -591,8 +591,8 @@ export class ChatPortrait {
                     if (itemImage.length > 0) {
                       elementItemImage2.src = itemImage; //images[1];
                     }
-                    if (!elementItemImage2.classList.contains('message-portrait')) {
-                      elementItemImage2.classList.add('message-portrait');
+                    if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait`)) {
+                      elementItemImage2.classList.add(`chat-portrait-message-portrait`);
                     }
                     elementItemContainerDamageTypes.appendChild(elementItemImage2);
                   }
@@ -643,8 +643,8 @@ export class ChatPortrait {
                       }
                     }
                   }
-                  if (elementItemImage.classList.contains('message-portrait')) {
-                    elementItemImage.classList.remove('message-portrait');
+                  if (elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+                    elementItemImage.classList.remove(`chat-portrait-message-portrait`);
                   }
                   if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                     elementItemImage.classList.add('chat-portrait-image-size-name');
@@ -666,8 +666,8 @@ export class ChatPortrait {
                       if (itemImage.length > 0) {
                         elementItemImage2.src = itemImage; //images[1];
                       }
-                      if (!elementItemImage2.classList.contains('message-portrait')) {
-                        elementItemImage2.classList.add('message-portrait');
+                      if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait`)) {
+                        elementItemImage2.classList.add(`chat-portrait-message-portrait`);
                       }
                       elementItemContainerDamageTypes.appendChild(elementItemImage2);
                     }
@@ -720,8 +720,8 @@ export class ChatPortrait {
                 elementItemImage.src = value;
               }
               //}
-              if (elementItemImage.classList.contains('message-portrait')) {
-                elementItemImage.classList.remove('message-portrait');
+              if (elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+                elementItemImage.classList.remove(`chat-portrait-message-portrait`);
               }
               if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                 elementItemImage.classList.add('chat-portrait-image-size-name');
@@ -743,8 +743,8 @@ export class ChatPortrait {
                   if (itemImage.length > 0) {
                     elementItemImage2.src = itemImage; //images[1];
                   }
-                  if (!elementItemImage2.classList.contains('message-portrait')) {
-                    elementItemImage2.classList.add('message-portrait');
+                  if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait`)) {
+                    elementItemImage2.classList.add(`chat-portrait-message-portrait`);
                   }
                   elementItemContainerDamageTypes.appendChild(elementItemImage2);
                 }
@@ -767,8 +767,8 @@ export class ChatPortrait {
                   elementItemImage.src = value;
                 }
                 //}
-                if (elementItemImage.classList.contains('message-portrait')) {
-                  elementItemImage.classList.remove('message-portrait');
+                if (elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+                  elementItemImage.classList.remove(`chat-portrait-message-portrait`);
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                   elementItemImage.classList.add('chat-portrait-image-size-name');
@@ -790,8 +790,8 @@ export class ChatPortrait {
                     if (itemImage.length > 0) {
                       elementItemImage2.src = itemImage; //images[1];
                     }
-                    if (!elementItemImage2.classList.contains('message-portrait')) {
-                      elementItemImage2.classList.add('message-portrait');
+                    if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait`)) {
+                      elementItemImage2.classList.add(`chat-portrait-message-portrait`);
                     }
                     elementItemContainerDamageTypes.appendChild(elementItemImage2);
                   }
@@ -819,8 +819,8 @@ export class ChatPortrait {
               if (!elementItemImage.src || elementItemImage.src?.includes(CONSTANTS.DEF_TOKEN_IMG_NAME)) {
                 elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
               }
-              if (elementItemImage.classList.contains('message-portrait')) {
-                elementItemImage.classList.remove('message-portrait');
+              if (elementItemImage.classList.contains(`chat-portrait-message-portrait`)) {
+                elementItemImage.classList.remove(`chat-portrait-message-portrait`);
               }
               if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
                 elementItemImage.classList.add('chat-portrait-image-size-name');
@@ -842,8 +842,8 @@ export class ChatPortrait {
                             if( !doNotImageReplacer && (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME))){
                               elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
                             }
-                            if(!elementItemImage.classList.contains("message-portrait")){
-                              elementItemImage.classList.add("message-portrait");
+                            if(!elementItemImage.classList.contains(`chat-portrait-message-portrait`)){
+                              elementItemImage.classList.add(`chat-portrait-message-portrait`);
                             }
                             if(!isRollTable) elementItemText.prepend(elementItemImage);
                             */
@@ -1119,8 +1119,8 @@ export class ChatPortrait {
         img.height = size;
       }
     }
-    if (!img.classList.contains('message-portrait')) {
-      img.classList.add('message-portrait');
+    if (!img.classList.contains(`chat-portrait-message-portrait`)) {
+      img.classList.add(`chat-portrait-message-portrait`);
     }
     return img;
   }
@@ -1155,17 +1155,24 @@ export class ChatPortrait {
     for (let i = 0; i < elementItemTextList.length; i++) {
       const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
       if (elementItemText) {
+        /*
         if (ChatPortrait.settings.customStylingMessageText) {
           elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
         } else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
           // THIS WILL APPLY SOME DEFAULT CSS
           if (game.system.id == 'swade') {
-            /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
+            // https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91
             elementItemText.style.cssText = 'height: auto;display: flex;';
           } else if (game.system.id == 'pf2e') {
             elementItemText.style.cssText = 'display: block; margin: auto;';
           } else if (game.system.id == 'dnd5e') {
             elementItemText.style.cssText = 'display: flex; margin: auto;';
+          }
+        }
+        */
+        if (ChatPortrait.settings.customStylingMessageText) {
+          if (!elementItemText.classList.contains(`chat-portrait-system-${game.system.id}`)) {
+            elementItemText.classList.add(`chat-portrait-system-${game.system.id}`);
           }
         }
         // You need this anyway
@@ -1179,14 +1186,19 @@ export class ChatPortrait {
         if (ChatPortrait.settings.customStylingMessageImage) {
           elementItemImage.style.cssText = ChatPortrait.settings.customStylingMessageImage;
         } else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
+          /*
           // THIS WILL APPLY SOME DEFAULT CSS
           if (game.system.id == 'swade') {
-            /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
+            // https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91
             elementItemImage.style.cssText = 'height: auto;display: flex;';
           } else if (game.system.id == 'pf2e') {
             elementItemImage.style.cssText = 'display: block; margin: auto;';
           } else if (game.system.id == 'dnd5e') {
             elementItemImage.style.cssText = 'display: flex; margin: auto;';
+          }
+          */
+          if (!elementItemImage.classList.contains(`chat-portrait-system-${game.system.id}`)) {
+            elementItemImage.classList.add(`chat-portrait-system-${game.system.id}`);
           }
         }
       }

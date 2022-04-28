@@ -1,9 +1,10 @@
-.message .message-header img.message-portrait {
+.message .message-header img.chat-portrait-message-portrait {
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
   /* object-fit: cover; */
 }
+
 /*
 .chat-message,
 .chat-message.emote,
@@ -68,7 +69,7 @@
 
 /* Narrator Chat Module Support - Don't show portrait on Narrates */
 /*
-.chat-message.message.flexcol.narrator-chat .message-header img.message-portrait {
+.chat-message.message.flexcol.narrator-chat .message-header img.chat-portrait-message-portrait {
   display: none;
 }
 */

@@ -28,7 +28,7 @@ export class ChatLink {
     // if(!clickable){
     //     clickable = html.find('.message-sender');
     // }
-    const clickable = html.find('.message-portrait');
+    const clickable = html.find('.chat-portrait-message-portrait');
     if (!clickable) {
       // Ignored some system as strange behavior
       return;
@@ -77,7 +77,7 @@ export class ChatLink {
   }
 
   static prepareEventImage(message, html, speakerInfo) {
-    const clickable = html.find('.message-portrait');
+    const clickable = html.find('.chat-portrait-message-portrait');
 
     const speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
     if (!(speaker.actor || speaker.token)) {

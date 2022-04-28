@@ -5,104 +5,22 @@ import type EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-t
 import type { CombatData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs';
 import type { ImageReplaceVoiceData } from './ChatPortraitModels';
 import CONSTANTS from './constants';
+import { setApi } from '../main';
+import API from './api';
+import { registerSocket } from './socket';
 
 const mapCombatTrackerPortrait = new Map<string, string>();
 
 export const initHooks = () => {
   warn('Init Hooks processing');
-};
 
-export const readyHooks = async () => {
-  // When the combat tracker is rendered, we need to completely replace
-  // its HTML with a custom version.
-  Hooks.on('renderCombatTracker', async (app, html: JQuery<HTMLElement>, options) => {
-    if (game.settings.get(CONSTANTS.MODULE_NAME, 'applyOnCombatTracker')) {
-      // If there's as combat, we can proceed.
-      if (game.combat) {
-        // Retrieve a list of the combatants
-        const combatants = <EmbeddedCollection<typeof Combatant, CombatData>>game.combat?.data.combatants;
-
-        combatants.forEach(async (c) => {
-          // Add class to trigger drag events.
-          const $combatant = html.find(`.combatant[data-combatant-id="${c.id}"]`);
-          //$combatant.addClass('actor-elem');
-          //@ts-ignore
-          const img: HTMLImageElement = $combatant.find('.token-image')[0];
-          const tokenID = <string>c.token?.id;
-          let imgPath = CONSTANTS.DEF_TOKEN_IMG_PATH;
-
-          if (!mapCombatTrackerPortrait.get(tokenID)) {
-            const actorID = <string>c.actor?.id;
-
-            const token: TokenDocument = <TokenDocument>ChatPortrait.getTokenFromId(tokenID);
-            let userID = '';
-            let isOwnedFromPLayer = false;
-            let useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
-            const actor = ChatPortrait.getActor(token.actor);
-            const doNotUseTokenImageWithSpecificType: string[] = ChatPortrait.settings
-              .doNotUseTokenImageWithSpecificType
-              ? String(ChatPortrait.settings.doNotUseTokenImageWithSpecificType).split(',')
-              : [];
-            if (
-              doNotUseTokenImageWithSpecificType.length > 0 &&
-              doNotUseTokenImageWithSpecificType.includes(<string>actor?.type)
-            ) {
-              useTokenImage = false;
-            }
-            if (ChatPortrait.settings.useAvatarImage && !useTokenImage) {
-              // if user not admin is owner of the token
-              //userID = (!game.user?.isGM && token.actor?.hasPerm(<User>game.user, "OWNER")) ? <string>game.user?.id : "";
-              //userID = (!game.user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>game.user?.id : "";
-              const permissions: Record<string, 0 | 1 | 2 | 3> = <Record<string, 0 | 1 | 2 | 3>>(
-                token.actor?.data.permission
-              );
-              for (const keyPermission in permissions) {
-                const valuePermission = <number>permissions[keyPermission];
-                if (game.user?.isGM) {
-                  if (game.user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
-                    userID = <string>keyPermission;
-                    break;
-                  }
-                } else {
-                  if (game.user?.id === keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
-                    userID = <string>game.user?.id;
-                    isOwnedFromPLayer = true;
-                    break;
-                  }
-                }
-              }
-            }
-
-            const sceneID = <string>(<Token>canvas.tokens?.get(<string>token.id)).scene.id;
-            imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
-            if (imgPath?.includes('.webm')) {
-              try {
-                const imgThumb = await ImageHelper.createThumbnail(imgPath);
-                if (imgPath.includes('.webm')) {
-                  imgPath = imgThumb.thumb;
-                } else {
-                  imgPath = <string>imgThumb.src;
-                }
-              } catch {
-                //img.src = imgPath;
-              }
-            }
-            mapCombatTrackerPortrait.set(tokenID, imgPath);
-          } else {
-            imgPath = <string>mapCombatTrackerPortrait.get(tokenID);
-          }
-          if (imgPath) {
-            img.setAttribute('data-src', imgPath);
-          }
-        });
-      } else {
-        mapCombatTrackerPortrait.clear();
-      }
-    }
-  });
+  Hooks.once('socketlib.ready', registerSocket);
 };
 
 export const setupHooks = async () => {
+
+  setApi(API);
+
   // setup all the hooks
   let imageReplacer: ImageReplaceVoiceData[];
   // if (ChatPortrait.settings.useImageReplacer) {
@@ -260,3 +178,107 @@ export const setupHooks = async () => {
     }
   });
 };
+
+export const readyHooks = async () => {
+  // When the combat tracker is rendered, we need to completely replace
+  // its HTML with a custom version.
+  Hooks.on('renderCombatTracker', async (app, html: JQuery<HTMLElement>, options) => {
+    if (game.settings.get(CONSTANTS.MODULE_NAME, 'applyOnCombatTracker')) {
+      // If there's as combat, we can proceed.
+      if (game.combat) {
+        // Retrieve a list of the combatants
+        const combatants = <EmbeddedCollection<typeof Combatant, CombatData>>game.combat?.data.combatants;
+
+        combatants.forEach(async (c) => {
+          // Add class to trigger drag events.
+          const $combatant = html.find(`.combatant[data-combatant-id="${c.id}"]`);
+          //$combatant.addClass('actor-elem');
+          //@ts-ignore
+          const img: HTMLImageElement = $combatant.find('.token-image')[0];
+          const tokenID = <string>c.token?.id;
+          let imgPath = CONSTANTS.DEF_TOKEN_IMG_PATH;
+
+          if (!mapCombatTrackerPortrait.get(tokenID)) {
+            const actorID = <string>c.actor?.id;
+
+            const token: TokenDocument = <TokenDocument>ChatPortrait.getTokenFromId(tokenID);
+            let userID = '';
+            let isOwnedFromPLayer = false;
+            let useTokenImage: boolean = ChatPortrait.settings.useTokenImage;
+            const actor = ChatPortrait.getActor(token.actor);
+            const doNotUseTokenImageWithSpecificType: string[] = ChatPortrait.settings
+              .doNotUseTokenImageWithSpecificType
+              ? String(ChatPortrait.settings.doNotUseTokenImageWithSpecificType).split(',')
+              : [];
+            if (
+              doNotUseTokenImageWithSpecificType.length > 0 &&
+              doNotUseTokenImageWithSpecificType.includes(<string>actor?.type)
+            ) {
+              useTokenImage = false;
+            }
+            if (ChatPortrait.settings.useAvatarImage && !useTokenImage) {
+              // if user not admin is owner of the token
+              //userID = (!game.user?.isGM && token.actor?.hasPerm(<User>game.user, "OWNER")) ? <string>game.user?.id : "";
+              //userID = (!game.user?.isGM && (token.document.permission === CONST.ENTITY_PERMISSIONS.OWNER)) ? <string>game.user?.id : "";
+              const permissions: Record<string, 0 | 1 | 2 | 3> = <Record<string, 0 | 1 | 2 | 3>>(
+                token.actor?.data.permission
+              );
+              for (const keyPermission in permissions) {
+                const valuePermission = <number>permissions[keyPermission];
+                if (game.user?.isGM) {
+                  if (game.user?.id != keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
+                    userID = <string>keyPermission;
+                    break;
+                  }
+                } else {
+                  if (game.user?.id === keyPermission && valuePermission === CONST.ENTITY_PERMISSIONS.OWNER) {
+                    userID = <string>game.user?.id;
+                    isOwnedFromPLayer = true;
+                    break;
+                  }
+                }
+              }
+            }
+
+            const sceneID = <string>(<Token>canvas.tokens?.get(<string>token.id)).scene.id;
+            imgPath = ChatPortrait.loadImagePathForCombatTracker(tokenID, actorID, userID, sceneID, isOwnedFromPLayer);
+            if (imgPath?.includes('.webm')) {
+              try {
+                const imgThumb = await ImageHelper.createThumbnail(imgPath);
+                if (imgPath.includes('.webm')) {
+                  imgPath = imgThumb.thumb;
+                } else {
+                  imgPath = <string>imgThumb.src;
+                }
+              } catch {
+                //img.src = imgPath;
+              }
+            }
+            mapCombatTrackerPortrait.set(tokenID, imgPath);
+          } else {
+            imgPath = <string>mapCombatTrackerPortrait.get(tokenID);
+          }
+          if (imgPath) {
+            img.setAttribute('data-src', imgPath);
+          }
+        });
+      } else {
+        mapCombatTrackerPortrait.clear();
+      }
+    }
+  });
+
+  Hooks.on('renderSettingsConfig', (app, html, data) => {
+    // Add colour pickers to the Configure Game Settings: Module Settings menu
+    const nameBorderColor = `${CONSTANTS.MODULE_NAME}.borderColor`;
+    const colourBorderColor = <string>game.settings.get(CONSTANTS.MODULE_NAME, 'borderColor');
+    $('<input>')
+      .attr('type', 'color')
+      .attr('data-edit', nameBorderColor)
+      .val(colourBorderColor)
+      .insertAfter($(`input[name="${nameBorderColor}"]`, html).addClass('color'));
+
+  });
+};
+
+
