@@ -114,7 +114,11 @@ Hooks.once('libChangelogsReady', function () {
   libChangelogs.register(
     CONSTANTS.MODULE_NAME,
     `
-    - Applied multisystem pattern
+    - Complete rewriting of the project and application of a better design pattern to manage the multisystem css.
+    - Each system now has its own css file to customize, here I ask the community for help to find the best style to apply to each system, there remains the possibility for the individual player to apply their own customized style.
+    - Update of the settings panel, abandoned the customized dialogue in favor of the standard foundry method and moved most of the settings from the 'world' scope to the 'client' scope so each player can apply their own preferences.
+    - Readme update where I try to explain as best I can how to apply the css for your system and or the image mapping for the "ImageReplacer" feature.
+    - I certainly foresee problems in case you can install the latest version of the 0.6.X series at this url https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/releases/download/v0.6.4/module.json
     `,
     'minor',
   );
