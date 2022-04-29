@@ -21,7 +21,6 @@ This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.
 ![Preview](./images/image02.png)
 
 ## NOTE: If you are a javascript developer and not a typescript developer, you can just use the javascript files under the dist folder
-
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.
@@ -33,6 +32,23 @@ To install this module manually:
 `https://raw.githubusercontent.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/master/src/module.json`
 4.  Click 'Install' and wait for installation to complete
 5.  Don't forget to enable the module in game using the "Manage Module" button
+
+## How help to make the Integration multisystem for my system ?
+
+Since version 0.7.0, the module has been rewritten to allow for each system to have a css file to define the style and a description file of the mapping for the "ImageReplacer" feature. 
+
+Now the community can "come" to me a little, testing the css on their browser and help me understand which combination is the best, i file css si trovano nella directory degli [styles](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/styles), here a example for the [dnd5e system](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/styles/chat-portrait-style-dnd5e.css)
+
+So the steps to follow to create or update a system are:
+
+1) Creation or update of the style file in the [styles](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/styles) directory the file must respect the `chat-portrait-style-XXX.css` nomenclature where XXX is the system id e.g. "dnd5e".
+2) Creation or update of the typescript file for the mapping of the "ImageReplacer" feature if you do not want to use this feature create the file as empty and I'll take care of integrating the version with the empty arrays. **In the minimal case** you just need to copy the contents of the file [generic.ts](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/systems/generic.ts) and insert the id of your system in the property "SYSTEM_ID" remember that you have to rename the file with the system id.
+3) Insert the system if absent in the configuration file [systems.ts](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/systems.ts)
+4) Open a pr on contact me in some way, by open a issue ecc.
+
+NOTE: You can use other modules like [Custom CSS](https://github.com/cswendrowski/FoundryVTT-Custom-CSS) for manage the css classes, the module help you by defining two css classes you can customize for the purpose of this module `chat-portrait-text-size-name` for the text chat message (_the 'Setup additional custom styling on the text chat message' setting_) and `chat-portrait-image-size-name` for the image prepend the text chat message (_the 'Setup additional custom styling on the image prepend the text chat message' setting_)
+
+The module will continue to allow the use of custom CSS if desired.
 
 ## Known Issue\Limitation
 
@@ -242,23 +258,25 @@ any other system need some fed back from the community
 
 - **Placeholder for the label unknown item icon**: by default is '/modules/chat-portrait/assets/inv-unidentified.png' depends on the 'Display Unknown' setting
 
-- **[CSS CUSTOM SETTING] Setup the custom styling for the current system**: Setup additional custom styling on message with CSS language based on the feedback of the community, _Is a community effort for anyone don't know css language_ (note override any other prior property). If the settings 'Setup additional custom styling on the text chat message' or 'Setup additional custom styling on the image prepend the text chat message' is used (no blank text) this option even if true is ignored for the html elements involved. **By default is true.**
+~~- **[CSS CUSTOM SETTING] Setup the custom styling for the current system**: Setup additional custom styling on message with CSS language based on the feedback of the community, _Is a community effort for anyone don't know css language_ (note override any other prior property). If the settings 'Setup additional custom styling on the text chat message' or 'Setup additional custom styling on the image prepend the text chat message' is used (no blank text) this option even if true is ignored for the html elements involved. **By default is true.**~~
 
-Here the table apllied for the supported system :
+~~Here the table applied for the supported system :~~
 
-| System id | Css for text message | Css for the image prepend the text |
-|:---:|:---:|:---:|
-| swade | `height: auto; display:flex;` | `height: auto; display:flex;` |
-| pf2e | `display:block; margin: auto;` | `display:block; margin: auto;` |
-| dnd5e | `display:flex; margin: auto;` | `display:flex; margin: auto;` |
+~~| System id | Css for text message | Css for the image prepend the text |~~
+~~|:---:|:---:|:---:|~~
+~~| swade | `height: auto; display:flex;` | `height: auto; display:flex;` |~~
+~~| pf2e | `display:block; margin: auto;` | `display:block; margin: auto;` |~~
+~~| dnd5e | `display:flex; margin: auto;` | `display:flex; margin: auto;` |~~
 
-For any correction or suggestion open a issue on this project.
-
-NOTE: You can use other modules like [Custom CSS](https://github.com/cswendrowski/FoundryVTT-Custom-CSS) for manage the css classes, the module help you by defining two css classes you can customize for the purpose of this module `chat-portrait-text-size-name` for the text chat message (_the 'Setup additional custom styling on the text chat message' setting_) and `chat-portrait-image-size-name` for the image prepend the text chat message (_the 'Setup additional custom styling on the image prepend the text chat message' setting_)
+~~For any correction or suggestion open a issue on this project.~~
 
 - **[CSS CUSTOM SETTING] Setup additional custom styling on the text chat message** : Setup additional custom styling on the text chat message with CSS language (note override any other prior property)
 
+NOTE: You can use other modules like [Custom CSS](https://github.com/cswendrowski/FoundryVTT-Custom-CSS) for manage the css classes, the module help you by defining two css classes you can customize for the purpose of this module `chat-portrait-text-size-name` for the text chat message (_the 'Setup additional custom styling on the text chat message' setting_) and `chat-portrait-image-size-name` for the image prepend the text chat message (_the 'Setup additional custom styling on the image prepend the text chat message' setting_)
+
 - **[CSS CUSTOM SETTING] Setup additional custom styling on the image prepend the text chat message**: Setup additional custom styling on the image prepend the text chat message chat message with CSS language (note override any other prior property)
+
+NOTE: You can use other modules like [Custom CSS](https://github.com/cswendrowski/FoundryVTT-Custom-CSS) for manage the css classes, the module help you by defining two css classes you can customize for the purpose of this module `chat-portrait-text-size-name` for the text chat message (_the 'Setup additional custom styling on the text chat message' setting_) and `chat-portrait-image-size-name` for the image prepend the text chat message (_the 'Setup additional custom styling on the image prepend the text chat message' setting_)
 
 ![chat_portrait_feature](./images/chat_portrait_feature.png)
 
@@ -267,7 +285,7 @@ NOTE: You can use other modules like [Custom CSS](https://github.com/cswendrowsk
   -  Dnd5e system
   -  PF2
 
-If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
+If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here a example for the dnd5e system [ImageReplacer for dnd5e](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/systems/dnd5e.ts). It's ugly but it's simple to integrated.
 
 ![replacer](./images/image_replacer_feature.png)
 
@@ -283,7 +301,7 @@ If you want to add your own system it's very simple!!! you can just give to me a
   -  Dnd5e system
   -  PF2
 
-If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here [ImageReplacer](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/ImageReplacer.ts). It's ugly but it's simple to integrated.
+If you want to add your own system it's very simple!!! you can just give to me a map of strings key=value of label and image, for a live example check out what i have done for d&d5e with the english language here a example for the dnd5e system [ImageReplacer for dnd5e](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/blob/master/src/module/systems/dnd5e.ts). It's ugly but it's simple to integrated.
 
 ![replacer_damage_types](./images/damage_types_feature.png)
 

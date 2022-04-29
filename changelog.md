@@ -1,5 +1,6 @@
 ### 0.7.0 [BREAKING CHANGES]
 
+- Abandoned support for 0.8.9
 - Complete rewriting of the project and application of a better design pattern to manage the multisystem css.
 - Each system now has its own css file to customize, here I ask the community for help to find the best style to apply to each system, there remains the possibility for the individual player to apply their own customized style.
 - Update of the settings panel, abandoned the customized dialogue in favor of the standard foundry method and moved most of the settings from the 'world' scope to the 'client' scope so each player can apply their own preferences.

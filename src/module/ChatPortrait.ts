@@ -563,12 +563,12 @@ export class ChatPortrait {
                       const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
                       let item: Item;
                       if (actorIdMerchant) {
-                        item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((i: Item) => {
-                          return i.name == itemName;
+                        item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((myItem: Item) => {
+                          return myItem.name == itemName;
                         });
                       } else {
-                        item = <Item>game.items?.find((i: Item) => {
-                          return i.name == itemName;
+                        item = <Item>game.items?.find((myItem: Item) => {
+                          return myItem.name == itemName;
                         });
                       }
                       elementItemImage.src = <string>item.img;
@@ -638,12 +638,12 @@ export class ChatPortrait {
                         const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
                         let item: Item;
                         if (actorIdMerchant) {
-                          item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((i: Item) => {
-                            return i.name == itemName;
+                          item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((myItem: Item) => {
+                            return myItem.name == itemName;
                           });
                         } else {
-                          item = <Item>game.items?.find((i: Item) => {
-                            return i.name == itemName;
+                          item = <Item>game.items?.find((myItem: Item) => {
+                            return myItem.name == itemName;
                           });
                         }
                         elementItemImage.src = <string>item.img;
@@ -840,23 +840,23 @@ export class ChatPortrait {
               if (ChatPortrait.useImageReplacer(html)) {
                 // REMOVED SEEM OVERKILL
                 /*
-                            const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                            if(!elementItemImage){
-                              continue;
-                            }
-                            const size: number = ChatPortrait.settings.portraitSizeItem;
-                            if(size && size > 0){
-                              elementItemImage.width = size;
-                              elementItemImage.height = size;
-                            }
-                            if( !doNotImageReplacer && (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME))){
-                              elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                            }
-                            if(!elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)){
-                              elementItemImage.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
-                            }
-                            if(!isRollTable) elementItemText.prepend(elementItemImage);
-                            */
+                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                if(!elementItemImage){
+                  continue;
+                }
+                const size: number = ChatPortrait.settings.portraitSizeItem;
+                if(size && size > 0){
+                  elementItemImage.width = size;
+                  elementItemImage.height = size;
+                }
+                if( !doNotImageReplacer && (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME))){
+                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                }
+                if(!elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)){
+                  elementItemImage.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
+                }
+                if(!isRollTable) elementItemText.prepend(elementItemImage);
+                */
               }
             }
           }
