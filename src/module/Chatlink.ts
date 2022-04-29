@@ -23,12 +23,12 @@ export class ChatLink {
     ChatLink.showTooltip = <boolean>game.settings.get(CONSTANTS.MODULE_NAME, 'hoverTooltip');
   }
 
-  static prepareEvent(message, html, speakerInfo) {
+  static prepareEvent(message, html, speakerInfo, gameSystemId: string) {
     // let clickable = html.find('.chat-card'); // message-sender
     // if(!clickable){
     //     clickable = html.find('.message-sender');
     // }
-    const clickable = html.find('.message-portrait');
+    const clickable = html.find(`.chat-portrait-message-portrait-${gameSystemId}`);
     if (!clickable) {
       // Ignored some system as strange behavior
       return;
@@ -76,8 +76,8 @@ export class ChatLink {
     // });
   }
 
-  static prepareEventImage(message, html, speakerInfo) {
-    const clickable = html.find('.message-portrait');
+  static prepareEventImage(message, html, speakerInfo, gameSystemId: string) {
+    const clickable = html.find(`.chat-portrait-message-portrait-${gameSystemId}`);
 
     const speaker = speakerInfo.message ? speakerInfo.message.speaker : speakerInfo;
     if (!(speaker.actor || speaker.token)) {

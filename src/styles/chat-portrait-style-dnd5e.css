@@ -1,0 +1,72 @@
+.message .message-header img.chat-portrait-message-portrait-dnd5e {
+  flex: 0 0 0px;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  /* object-fit: cover; */
+}
+
+.chat-portrait-playerName-dnd5e {
+  opacity: 0.5;
+}
+
+.chat-portrait-playerName-dnd5e::before {
+  content: ' [';
+}
+
+.chat-portrait-playerName-dnd5e::after {
+  content: ']';
+}
+
+.chat-portrait-text-size-name-dnd5e {
+  display: flex;
+  margin: auto;
+}
+
+.chat-portrait-image-size-name-dnd5e {
+  /* display: flex;
+  margin: auto; */
+}
+
+.chat-portrait-indicator-dnd5e {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: #999;
+}
+
+.chat-portrait-whisper-to-dnd5e * {
+  display: inline-block;
+  margin: 1px 3px 1px 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: #999;
+}
+
+.message .chat-portrait-message-header-dnd5e {
+  justify-content: space-between;
+}
+
+.message .chat-portrait-message-header-dnd5e .message-metadata {
+  flex: 0 0 auto;
+  margin-left: 1rem;
+}
+
+.message .chat-portrait-message-header-dnd5e .chat-portrait-whisper-to-dnd5e {
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* .chat-portrait-text-size-name-dnd5e .chat-portrait-system-dnd5e {
+  display: flex;
+  margin: auto;
+}
+
+.chat-portrait-image-size-name-dnd5e .chat-portrait-system-dnd5e {
+  display: flex;
+  margin: auto;
+} */

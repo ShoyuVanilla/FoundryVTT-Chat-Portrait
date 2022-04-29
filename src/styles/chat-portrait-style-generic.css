@@ -1,9 +1,10 @@
-.message .message-header img.message-portrait {
+.message .message-header img.chat-portrait-message-portrait-generic {
   flex: 0 0 0px;
   margin-right: 5px;
   margin-bottom: 3px;
   /* object-fit: cover; */
 }
+
 /*
 .chat-message,
 .chat-message.emote,
@@ -54,7 +55,7 @@
 }
 */
 
-.chat-portrait-playerName {
+.chat-portrait-playerName-generic {
   opacity: 0.5;
 }
 
@@ -62,24 +63,28 @@
   content: ' [';
 }
 
-.chat-portrait-playerName::after {
+.chat-portrait-playerName-generic::after {
   content: ']';
 }
 
 /* Narrator Chat Module Support - Don't show portrait on Narrates */
 /*
-.chat-message.message.flexcol.narrator-chat .message-header img.message-portrait {
+.chat-message.message.flexcol.narrator-chat .message-header img.chat-portrait-message-portrait {
   display: none;
 }
 */
 
-.chat-portrait-text-size-name {
+.chat-portrait-text-size-name-generic {
+  display: flex;
+  margin: auto;
 }
 
-.chat-portrait-image-size-name {
+.chat-portrait-image-size-name-generic {
+  /* display: flex;
+  margin: auto; */
 }
 
-.chat-portrait-indicator {
+.chat-portrait-indicator-generic {
   display: inline-block;
   margin: 0 3px 0 0;
   padding: 0 3px;
@@ -89,7 +94,7 @@
   background: #999;
 }
 
-.chat-portrait-whisper-to * {
+.chat-portrait-whisper-to-generic * {
   display: inline-block;
   margin: 1px 3px 1px 0;
   padding: 0 3px;
@@ -99,13 +104,18 @@
   background: #999;
 }
 
-.message .message-header {
+.message .chat-portrait-message-header-generic {
   justify-content: space-between;
 }
 
-.message .message-header .message-metadata {
+.message .chat-portrait-message-header-generic .message-metadata {
   flex: 0 0 auto;
   margin-left: 1rem;
+}
+
+.message .chat-portrait-message-header-generic .chat-portrait-whisper-to-generic {
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /*
@@ -113,11 +123,6 @@
   flex: 1 0 1px;
 }
 */
-
-.message .message-header .chat-portrait-whisper-to {
-  line-height: 1rem;
-  margin-bottom: 0.5rem;
-}
 
 /* Chat Images Module Support */
 /*

@@ -1,11 +1,12 @@
 import { warn, error, i18n } from './lib/lib';
 import { ChatLink } from './Chatlink';
-import { SettingsForm } from './ChatPortraitForm';
+import { SettingsForm } from './SettingsForm';
 import type { ChatPortraitSettings } from './ChatPortraitSettings';
-import { imageReplacerDamageType, imageReplacerIconizer } from './ImageReplacer';
+// import { imageReplacerDamageType, imageReplacerIconizer } from './ImageReplacer';
 import type { MessageRenderData } from './MessageRenderData';
 import { ChatPortraitCustomData, ImageReplacerData, ImageReplaceVoiceData } from './ChatPortraitModels';
 import CONSTANTS from './constants';
+import API from './api';
 
 /**
  * Main class wrapper for all of our features.
@@ -140,6 +141,12 @@ export class ChatPortrait {
       elementItemTextList = html.find('.card-header p');
     }
 
+    const gameSystemId = API.retrieveSystemId();
+
+    if (!messageHeaderElement.classList.contains(`chat-portrait-message-header-${gameSystemId}`)) {
+      messageHeaderElement.classList.add(`chat-portrait-message-header-${gameSystemId}`);
+    }
+
     if (doNotStyling) {
       let authorColor = 'black';
       if (speakerInfo.author) {
@@ -149,17 +156,17 @@ export class ChatPortrait {
         authorColor = <string>speakerInfo?.document?.user.color;
       }
       const messageData = speakerInfo.message ? speakerInfo.message : speakerInfo.document.data;
-      ChatPortrait.setCustomStylingText(html, messageData, authorColor);
+      ChatPortrait.setCustomStylingText(html, messageData, authorColor, gameSystemId);
       ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
       ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
       if (ChatPortrait.settings.displayPlayerName) {
-        ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author);
+        ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author, gameSystemId);
       }
       if (ChatPortrait.settings.displayMessageTag) {
-        ChatPortrait.injectMessageTag(html, speakerInfo);
-        ChatPortrait.injectWhisperParticipants(html, speakerInfo);
+        ChatPortrait.injectMessageTag(html, speakerInfo, gameSystemId);
+        ChatPortrait.injectWhisperParticipants(html, speakerInfo, gameSystemId);
       }
-      ChatLink.prepareEvent(chatMessage, html, speakerInfo);
+      ChatLink.prepareEvent(chatMessage, html, speakerInfo, gameSystemId);
       return <JQuery<HTMLElement>>html;
     } else {
       //@ts-ignore
@@ -174,6 +181,7 @@ export class ChatPortrait {
         elementItemContentList,
         elementItemTextList,
         imageReplacer,
+        gameSystemId,
       );
       if (myPromise) {
         myPromise.then((html: JQuery<HTMLElement>) => {
@@ -201,6 +209,7 @@ export class ChatPortrait {
     elementItemContentList,
     elementItemTextList,
     imageReplacer: ImageReplaceVoiceData[],
+    gameSystemId: string,
   ): Promise<JQuery<HTMLElement>> | null {
     const messageDataBase: MessageRenderData = speakerInfo;
     let imgPath: string;
@@ -247,7 +256,7 @@ export class ChatPortrait {
     const chatPortraitCustomData: ChatPortraitCustomData = {
       customIconPortraitImage: imgPath,
       customImageReplacer: {},
-      customImageReplacerData: imageReplacerIconizer,
+      customImageReplacerData: API.imageReplacerIconizer,
     };
 
     Hooks.call('ChatPortraitReplaceData', chatPortraitCustomData, chatMessage);
@@ -275,10 +284,11 @@ export class ChatPortrait {
         });
       }
     }
-    return ChatPortrait.generatePortraitImageElement(imgPath).then((imgElement) => {
+    return ChatPortrait.generatePortraitImageElement(imgPath, gameSystemId).then((imgElement) => {
       const messageData = messageDataBase.message ? messageDataBase.message : messageDataBase.document.data;
       // GOD HELP ME: Use case where we not must prepend the image or imagReplacer
       const isRollTable = messageData.flags?.core?.RollTable ? true : false;
+
       let messageHtmlContent: any = undefined;
       try {
         messageHtmlContent = $(messageData.content);
@@ -309,8 +319,8 @@ export class ChatPortrait {
         if (!imgElement.src || imgElement.src.length <= 0) {
           imgElement.src = CONSTANTS.INV_UNIDENTIFIED_BOOK;
         }
-        if (!imgElement.classList.contains('message-portrait')) {
-          imgElement.classList.add('message-portrait');
+        if (!imgElement.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+          imgElement.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
         }
       }
 
@@ -332,8 +342,8 @@ export class ChatPortrait {
       }
 
       // Default style
-      if (!messageSender.classList.contains('chat-portrait-text-size-name')) {
-        messageSender.classList.add('chat-portrait-text-size-name');
+      if (!messageSender.classList.contains(`chat-portrait-text-size-name-${gameSystemId}`)) {
+        messageSender.classList.add(`chat-portrait-text-size-name-${gameSystemId}`);
         // messageSender.textContent = messageSender.innerText + ' ';
       }
       // Update size text name by settings
@@ -348,7 +358,7 @@ export class ChatPortrait {
       }
 
       // Add click listener to image and text
-      ChatLink.prepareEventImage(chatMessage, html, speaker);
+      ChatLink.prepareEventImage(chatMessage, html, speaker, gameSystemId);
 
       // Update size item image by settings
       if (
@@ -369,8 +379,8 @@ export class ChatPortrait {
           if (ChatPortrait.shouldOverrideMessageUnknown(messageData)) {
             elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon; //`/modules/${MODULE_NAME}/assets/inv-unidentified.png`;
           }
-          if (!elementItemImage.classList.contains('message-portrait')) {
-            elementItemImage.classList.add('message-portrait');
+          if (!elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+            elementItemImage.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
           }
         }
       } else if (ChatPortrait.shouldOverrideMessageUnknown(messageData)) {
@@ -385,8 +395,8 @@ export class ChatPortrait {
             elementItemImage.width = size;
             elementItemImage.height = size;
           }
-          if (!elementItemImage.classList.contains('message-portrait')) {
-            elementItemImage.classList.add('message-portrait');
+          if (!elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+            elementItemImage.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
           }
         }
       }
@@ -408,8 +418,8 @@ export class ChatPortrait {
         for (let i = 0; i < elementItemNameList.length; i++) {
           const elementItemName: HTMLElement = <HTMLElement>elementItemNameList[i];
           if (elementItemName) {
-            if (!elementItemName.classList.contains('chat-portrait-text-size-name')) {
-              elementItemName.classList.add('chat-portrait-text-size-name');
+            if (!elementItemName.classList.contains(`chat-portrait-text-size-name-${gameSystemId}`)) {
+              elementItemName.classList.add(`chat-portrait-text-size-name-${gameSystemId}`);
               // elementItemName.textContent = elementItemName.innerText + ' ';
             }
             let value = '';
@@ -441,11 +451,11 @@ export class ChatPortrait {
                   elementItemImage.src = value;
                 }
                 //}
-                if (elementItemImage.classList.contains('message-portrait')) {
-                  elementItemImage.classList.remove('message-portrait');
+                if (elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                  elementItemImage.classList.remove(`chat-portrait-message-portrait-${gameSystemId}`);
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                  elementItemImage.classList.add('chat-portrait-image-size-name');
+                  elementItemImage.classList.add(`chat-portrait-image-size-name-${gameSystemId}`);
                   elementItemName.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -464,8 +474,8 @@ export class ChatPortrait {
                     if (itemImage.length > 0) {
                       elementItemImage2.src = itemImage; //images[1];
                     }
-                    if (!elementItemImage2.classList.contains('message-portrait')) {
-                      elementItemImage2.classList.add('message-portrait');
+                    if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                      elementItemImage2.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
                     }
                     elementItemContainerDamageTypes.appendChild(elementItemImage2);
                   }
@@ -491,11 +501,11 @@ export class ChatPortrait {
                     elementItemImage.src = value;
                   }
                   //}
-                  if (elementItemImage.classList.contains('message-portrait')) {
-                    elementItemImage.classList.remove('message-portrait');
+                  if (elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                    elementItemImage.classList.remove(`chat-portrait-message-portrait-${gameSystemId}`);
                   }
                   if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                    elementItemImage.classList.add('chat-portrait-image-size-name');
+                    elementItemImage.classList.add(`chat-portrait-image-size-name-${gameSystemId}`);
                     elementItemName.prepend(elementItemImage);
                   }
                   // DAMAGE TYPES
@@ -514,8 +524,8 @@ export class ChatPortrait {
                       if (itemImage.length > 0) {
                         elementItemImage2.src = itemImage; //images[1];
                       }
-                      if (!elementItemImage2.classList.contains('message-portrait')) {
-                        elementItemImage2.classList.add('message-portrait');
+                      if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                        elementItemImage2.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
                       }
                       elementItemContainerDamageTypes.appendChild(elementItemImage2);
                     }
@@ -553,12 +563,12 @@ export class ChatPortrait {
                       const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
                       let item: Item;
                       if (actorIdMerchant) {
-                        item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((i: Item) => {
-                          return i.name == itemName;
+                        item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((myItem: Item) => {
+                          return myItem.name == itemName;
                         });
                       } else {
-                        item = <Item>game.items?.find((i: Item) => {
-                          return i.name == itemName;
+                        item = <Item>game.items?.find((myItem: Item) => {
+                          return myItem.name == itemName;
                         });
                       }
                       elementItemImage.src = <string>item.img;
@@ -568,11 +578,11 @@ export class ChatPortrait {
                     }
                   }
                 }
-                if (elementItemImage.classList.contains('message-portrait')) {
-                  elementItemImage.classList.remove('message-portrait');
+                if (elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                  elementItemImage.classList.remove(`chat-portrait-message-portrait-${gameSystemId}`);
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                  elementItemImage.classList.add('chat-portrait-image-size-name');
+                  elementItemImage.classList.add(`chat-portrait-image-size-name-${gameSystemId}`);
                   elementItemName.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -591,8 +601,8 @@ export class ChatPortrait {
                     if (itemImage.length > 0) {
                       elementItemImage2.src = itemImage; //images[1];
                     }
-                    if (!elementItemImage2.classList.contains('message-portrait')) {
-                      elementItemImage2.classList.add('message-portrait');
+                    if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                      elementItemImage2.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
                     }
                     elementItemContainerDamageTypes.appendChild(elementItemImage2);
                   }
@@ -628,12 +638,12 @@ export class ChatPortrait {
                         const actorIdMerchant = <string>messageHtmlContent.attr('data-actor-id');
                         let item: Item;
                         if (actorIdMerchant) {
-                          item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((i: Item) => {
-                            return i.name == itemName;
+                          item = <Item>game.actors?.get(actorIdMerchant)?.items?.find((myItem: Item) => {
+                            return myItem.name == itemName;
                           });
                         } else {
-                          item = <Item>game.items?.find((i: Item) => {
-                            return i.name == itemName;
+                          item = <Item>game.items?.find((myItem: Item) => {
+                            return myItem.name == itemName;
                           });
                         }
                         elementItemImage.src = <string>item.img;
@@ -643,11 +653,11 @@ export class ChatPortrait {
                       }
                     }
                   }
-                  if (elementItemImage.classList.contains('message-portrait')) {
-                    elementItemImage.classList.remove('message-portrait');
+                  if (elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                    elementItemImage.classList.remove(`chat-portrait-message-portrait-${gameSystemId}`);
                   }
                   if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                    elementItemImage.classList.add('chat-portrait-image-size-name');
+                    elementItemImage.classList.add(`chat-portrait-image-size-name-${gameSystemId}`);
                     elementItemName.prepend(elementItemImage);
                   }
                   // DAMAGE TYPES
@@ -666,8 +676,8 @@ export class ChatPortrait {
                       if (itemImage.length > 0) {
                         elementItemImage2.src = itemImage; //images[1];
                       }
-                      if (!elementItemImage2.classList.contains('message-portrait')) {
-                        elementItemImage2.classList.add('message-portrait');
+                      if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                        elementItemImage2.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
                       }
                       elementItemContainerDamageTypes.appendChild(elementItemImage2);
                     }
@@ -687,8 +697,8 @@ export class ChatPortrait {
       } else {
         for (let i = 0; i < elementItemTextList.length; i++) {
           const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
-          if (!elementItemText.classList.contains('chat-portrait-text-size-name')) {
-            elementItemText.classList.add('chat-portrait-text-size-name');
+          if (!elementItemText.classList.contains(`chat-portrait-text-size-name-${gameSystemId}`)) {
+            elementItemText.classList.add(`chat-portrait-text-size-name-${gameSystemId}`);
             // elementItemText.textContent = elementItemText.innerText + ' ';
           }
           let value = '';
@@ -720,11 +730,11 @@ export class ChatPortrait {
                 elementItemImage.src = value;
               }
               //}
-              if (elementItemImage.classList.contains('message-portrait')) {
-                elementItemImage.classList.remove('message-portrait');
+              if (elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                elementItemImage.classList.remove(`chat-portrait-message-portrait-${gameSystemId}`);
               }
               if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                elementItemImage.classList.add('chat-portrait-image-size-name');
+                elementItemImage.classList.add(`chat-portrait-image-size-name-${gameSystemId}`);
                 elementItemText.prepend(elementItemImage);
               }
               // DAMAGE TYPES
@@ -743,8 +753,8 @@ export class ChatPortrait {
                   if (itemImage.length > 0) {
                     elementItemImage2.src = itemImage; //images[1];
                   }
-                  if (!elementItemImage2.classList.contains('message-portrait')) {
-                    elementItemImage2.classList.add('message-portrait');
+                  if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                    elementItemImage2.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
                   }
                   elementItemContainerDamageTypes.appendChild(elementItemImage2);
                 }
@@ -767,11 +777,11 @@ export class ChatPortrait {
                   elementItemImage.src = value;
                 }
                 //}
-                if (elementItemImage.classList.contains('message-portrait')) {
-                  elementItemImage.classList.remove('message-portrait');
+                if (elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                  elementItemImage.classList.remove(`chat-portrait-message-portrait-${gameSystemId}`);
                 }
                 if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                  elementItemImage.classList.add('chat-portrait-image-size-name');
+                  elementItemImage.classList.add(`chat-portrait-image-size-name-${gameSystemId}`);
                   elementItemText.prepend(elementItemImage);
                 }
                 // DAMAGE TYPES
@@ -790,8 +800,8 @@ export class ChatPortrait {
                     if (itemImage.length > 0) {
                       elementItemImage2.src = itemImage; //images[1];
                     }
-                    if (!elementItemImage2.classList.contains('message-portrait')) {
-                      elementItemImage2.classList.add('message-portrait');
+                    if (!elementItemImage2.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                      elementItemImage2.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
                     }
                     elementItemContainerDamageTypes.appendChild(elementItemImage2);
                   }
@@ -819,34 +829,34 @@ export class ChatPortrait {
               if (!elementItemImage.src || elementItemImage.src?.includes(CONSTANTS.DEF_TOKEN_IMG_NAME)) {
                 elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
               }
-              if (elementItemImage.classList.contains('message-portrait')) {
-                elementItemImage.classList.remove('message-portrait');
+              if (elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+                elementItemImage.classList.remove(`chat-portrait-message-portrait-${gameSystemId}`);
               }
               if (!doNotImageReplacer && !doNotPrependImage && !elementItemImage.src.endsWith('/game')) {
-                elementItemImage.classList.add('chat-portrait-image-size-name');
+                elementItemImage.classList.add(`chat-portrait-image-size-name-${gameSystemId}`);
                 elementItemText.prepend(elementItemImage);
               }
             } else {
               if (ChatPortrait.useImageReplacer(html)) {
                 // REMOVED SEEM OVERKILL
                 /*
-                            const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
-                            if(!elementItemImage){
-                              continue;
-                            }
-                            const size: number = ChatPortrait.settings.portraitSizeItem;
-                            if(size && size > 0){
-                              elementItemImage.width = size;
-                              elementItemImage.height = size;
-                            }
-                            if( !doNotImageReplacer && (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME))){
-                              elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
-                            }
-                            if(!elementItemImage.classList.contains("message-portrait")){
-                              elementItemImage.classList.add("message-portrait");
-                            }
-                            if(!isRollTable) elementItemText.prepend(elementItemImage);
-                            */
+                const elementItemImage:HTMLImageElement = <HTMLImageElement> document.createElement("img");
+                if(!elementItemImage){
+                  continue;
+                }
+                const size: number = ChatPortrait.settings.portraitSizeItem;
+                if(size && size > 0){
+                  elementItemImage.width = size;
+                  elementItemImage.height = size;
+                }
+                if( !doNotImageReplacer && (!elementItemImage.src || elementItemImage.src?.includes(CHAT_PORTRAIT_DEF_TOKEN_IMG_NAME))){
+                  elementItemImage.src = ChatPortrait.settings.displayUnknownPlaceHolderItemIcon;
+                }
+                if(!elementItemImage.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)){
+                  elementItemImage.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
+                }
+                if(!isRollTable) elementItemText.prepend(elementItemImage);
+                */
               }
             }
           }
@@ -856,18 +866,18 @@ export class ChatPortrait {
         }
       }
 
-      ChatPortrait.setCustomStylingText(html, messageData, authorColor);
+      ChatPortrait.setCustomStylingText(html, messageData, authorColor, gameSystemId);
       ChatPortrait.setChatMessageBackground(html, messageData, authorColor);
       ChatPortrait.setChatMessageBorder(html, messageData, authorColor);
       // Final settings
       if (ChatPortrait.settings.displayPlayerName) {
-        ChatPortrait.appendPlayerName(messageSender, speaker.author);
+        ChatPortrait.appendPlayerName(messageSender, speaker.author, gameSystemId);
       }
       if (ChatPortrait.settings.displayMessageTag) {
-        ChatPortrait.injectMessageTag(html, messageData);
-        ChatPortrait.injectWhisperParticipants(html, messageData);
+        ChatPortrait.injectMessageTag(html, messageData, gameSystemId);
+        ChatPortrait.injectWhisperParticipants(html, messageData, gameSystemId);
       }
-      ChatLink.prepareEvent(chatMessage, html, speakerInfo);
+      ChatLink.prepareEvent(chatMessage, html, speakerInfo, gameSystemId);
       return html;
     });
   }
@@ -1075,7 +1085,10 @@ export class ChatPortrait {
    * @param  {string} imgPath
    * @returns HTMLImageElement
    */
-  static async generatePortraitImageElement(imgPath: string): Promise<HTMLImageElement | undefined> {
+  static async generatePortraitImageElement(
+    imgPath: string,
+    gameSystemId: string,
+  ): Promise<HTMLImageElement | undefined> {
     if (!imgPath) {
       return;
     }
@@ -1119,8 +1132,8 @@ export class ChatPortrait {
         img.height = size;
       }
     }
-    if (!img.classList.contains('message-portrait')) {
-      img.classList.add('message-portrait');
+    if (!img.classList.contains(`chat-portrait-message-portrait-${gameSystemId}`)) {
+      img.classList.add(`chat-portrait-message-portrait-${gameSystemId}`);
     }
     return img;
   }
@@ -1150,45 +1163,35 @@ export class ChatPortrait {
     }
   }
 
-  static setCustomStylingText(html: JQuery, messageData: MessageRenderData, authorColor: string) {
-    const elementItemTextList = html.find('.chat-portrait-text-size-name');
+  static setCustomStylingText(html: JQuery, messageData: MessageRenderData, authorColor: string, gameSystemId: string) {
+    const elementItemTextList = html.find(`.chat-portrait-text-size-name-${gameSystemId}`);
     for (let i = 0; i < elementItemTextList.length; i++) {
       const elementItemText: HTMLElement = <HTMLElement>elementItemTextList[i];
       if (elementItemText) {
         if (ChatPortrait.settings.customStylingMessageText) {
           elementItemText.style.cssText = ChatPortrait.settings.customStylingMessageText;
-        } else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
-          // THIS WILL APPLY SOME DEFAULT CSS
-          if (game.system.id == 'swade') {
-            /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
-            elementItemText.style.cssText = 'height: auto;display: flex;';
-          } else if (game.system.id == 'pf2e') {
-            elementItemText.style.cssText = 'display: block; margin: auto;';
-          } else if (game.system.id == 'dnd5e') {
-            elementItemText.style.cssText = 'display: flex; margin: auto;';
-          }
         }
+        // else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
+        //   if (!elementItemText.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
+        //     elementItemText.classList.add(`chat-portrait-system-${gameSystemId}`);
+        //   }
+        // }
         // You need this anyway
         //elementItemText.style.display = 'flex';
       }
     }
-    const elementItemImageList = html.find('.chat-portrait-image-size-name');
+    const elementItemImageList = html.find(`.chat-portrait-image-size-name-${gameSystemId}`);
     for (let i = 0; i < elementItemImageList.length; i++) {
       const elementItemImage: HTMLElement = <HTMLElement>elementItemTextList[i];
       if (elementItemImage) {
         if (ChatPortrait.settings.customStylingMessageImage) {
           elementItemImage.style.cssText = ChatPortrait.settings.customStylingMessageImage;
-        } else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
-          // THIS WILL APPLY SOME DEFAULT CSS
-          if (game.system.id == 'swade') {
-            /* https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/91 */
-            elementItemImage.style.cssText = 'height: auto;display: flex;';
-          } else if (game.system.id == 'pf2e') {
-            elementItemImage.style.cssText = 'display: block; margin: auto;';
-          } else if (game.system.id == 'dnd5e') {
-            elementItemImage.style.cssText = 'display: flex; margin: auto;';
-          }
         }
+        // else if (game.settings.get(CONSTANTS.MODULE_NAME, 'customStylingMessageSystem')) {
+        //   if (!elementItemImage.classList.contains(`chat-portrait-system-${gameSystemId}`)) {
+        //     elementItemImage.classList.add(`chat-portrait-system-${gameSystemId}`);
+        //   }
+        // }
       }
     }
   }
@@ -1265,7 +1268,7 @@ export class ChatPortrait {
       displaySettingWHISPER: SettingsForm.getDisplaySettingWHISPER(),
       displaySettingROLL: SettingsForm.getDisplaySettingROLL(),
       displaySettingWhisperToOther: SettingsForm.getDisplaySettingWhisperToOther(),
-      customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
+      // customStylingMessageSystem: SettingsForm.getCustomStylingMessageSystem(),
       customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
       customStylingMessageImage: SettingsForm.getCustomStylingMessageImage(),
       displayMessageTag: SettingsForm.getDisplayMessageTag(),
@@ -1313,7 +1316,7 @@ export class ChatPortrait {
       displaySettingWHISPER: true,
       displaySettingROLL: true,
       displaySettingWhisperToOther: false,
-      customStylingMessageSystem: false,
+      // customStylingMessageSystem: false,
       customStylingMessageText: '',
       customStylingMessageImage: '',
       displayMessageTag: false,
@@ -1761,12 +1764,12 @@ export class ChatPortrait {
     }
   };
 
-  static appendPlayerName = function (messageSenderElem, author) {
+  static appendPlayerName = function (messageSenderElem, author, gameSystemId: string) {
     const playerName = author.name;
     const playerNameElem = document.createElement('span');
     playerNameElem.appendChild(document.createTextNode(playerName));
-    if (!playerNameElem.classList.contains(CONSTANTS.MODULE_NAME + '-playerName')) {
-      playerNameElem.classList.add(CONSTANTS.MODULE_NAME + '-playerName');
+    if (!playerNameElem.classList.contains(`${CONSTANTS.MODULE_NAME}-playerName-${gameSystemId}`)) {
+      playerNameElem.classList.add(`${CONSTANTS.MODULE_NAME}-playerName-${gameSystemId}`);
     }
     messageSenderElem.append(playerNameElem);
   };
@@ -1864,8 +1867,8 @@ export class ChatPortrait {
           textDamage = textDamage.replace('ability', '');
           textDamage = textDamage.replace(/[0-9]/g, '');
           textDamage = textDamage.toLowerCase().trim();
-          for (const keydamageObjeKey in imageReplacerDamageType) {
-            const keydamageObj = <ImageReplaceVoiceData>imageReplacerDamageType[keydamageObjeKey];
+          for (const keydamageObjeKey in API.imageReplacerDamageType) {
+            const keydamageObj = <ImageReplaceVoiceData>API.imageReplacerDamageType[keydamageObjeKey];
             const keydamage = keydamageObj.name;
             const mykeydamagevalue = i18n(keydamage);
             if (mykeydamagevalue) {
@@ -1907,11 +1910,11 @@ export class ChatPortrait {
     return false;
   }
 
-  static injectMessageTag(html, messageData: MessageRenderData) {
+  static injectMessageTag(html, messageData: MessageRenderData, gameSystemId: string) {
     const timestampTag = html.find('.message-timestamp');
 
     const indicatorElement = $('<span>');
-    indicatorElement.addClass('chat-portrait-indicator');
+    indicatorElement.addClass(`chat-portrait-indicator-${gameSystemId}`);
 
     const whisperTargets = messageData.whisper;
 
@@ -1936,7 +1939,7 @@ export class ChatPortrait {
     }
   }
 
-  static injectWhisperParticipants(html, messageData) {
+  static injectWhisperParticipants(html, messageData, gameSystemId: string) {
     const alias = messageData.alias;
     const whisperTargetString = messageData.whisperTo;
     const whisperTargetIds = messageData.whisper;
@@ -1950,7 +1953,7 @@ export class ChatPortrait {
     if (userId !== authorId && !whisperTargetIds.includes(userId)) return;
 
     // remove the old whisper to content, if it exists
-    html.find('.chat-portrait-whisper-to').detach();
+    html.find(`.chat-portrait-whisper-to-${gameSystemId}`).detach();
 
     // if this is a roll
     if (isRoll) return;
@@ -1959,7 +1962,7 @@ export class ChatPortrait {
     const messageHeader = html.find('.card-header'); // message-header
 
     const whisperParticipants = $('<span>');
-    whisperParticipants.addClass('chat-portrait-whisper-to');
+    whisperParticipants.addClass(`chat-portrait-whisper-to-${gameSystemId}`);
 
     const whisperFrom = $('<span>');
     whisperFrom.text(`${game.i18n.localize('chat-portrait.from')}: ${alias}`);

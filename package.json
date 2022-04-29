@@ -3,7 +3,7 @@
   "name": "chat-portrait",
   "title": "Generate token bases based on token disposition or actor folder color.",
   "description": "Generate token bases based on token disposition or actor folder color.",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "scripts": {
     "package": "gulp package",
     "build": "gulp build && gulp link",
@@ -17,7 +17,7 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^9.255.3",
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.268.0",
     "@types/jquery": "^3.5.9",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",

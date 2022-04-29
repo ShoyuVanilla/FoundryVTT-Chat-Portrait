@@ -1,0 +1,73 @@
+.message .message-header img.chat-portrait-message-portrait-pf2e {
+  flex: 0 0 0px;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  /* object-fit: cover; */
+}
+
+.chat-portrait-playerName-pf2e {
+  opacity: 0.5;
+}
+
+.chat-portrait-playerName-pf2e::before {
+  content: ' [';
+}
+
+.chat-portrait-playerName-pf2e::after {
+  content: ']';
+}
+
+.chat-portrait-text-size-name-pf2e {
+  /* display: block; */
+  margin: auto;
+  display: contents;
+}
+
+.chat-portrait-image-size-name-pf2e {
+  /* display: block;
+  margin: auto; */
+}
+
+.chat-portrait-indicator-pf2e {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: #999;
+}
+
+.chat-portrait-whisper-to-pf2e * {
+  display: inline-block;
+  margin: 1px 3px 1px 0;
+  padding: 0 3px;
+  line-height: 1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: #999;
+}
+
+.message .chat-portrait-message-header-pf2e {
+  justify-content: space-between;
+}
+
+.message .chat-portrait-message-header-pf2e .message-metadata {
+  flex: 0 0 auto;
+  margin-left: 1rem;
+}
+
+.message .chat-portrait-message-header-pf2e .chat-portrait-whisper-to-pf2e {
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* .chat-portrait-text-size-name .chat-portrait-system-pf2e {
+  display: block;
+  margin: auto;
+}
+
+.chat-portrait-image-size-name .chat-portrait-system-pf2e {
+  display: block;
+  margin: auto;
+} */
