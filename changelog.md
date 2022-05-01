@@ -1,3 +1,7 @@
+### 0.7.1
+
+- Bug fix:  [Fix ::before style element for player names in the generic style set](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/101) ty to @DrMcCoy
+
 ### 0.7.0 [BREAKING CHANGES]
 
 - Abandoned support for 0.8.9
