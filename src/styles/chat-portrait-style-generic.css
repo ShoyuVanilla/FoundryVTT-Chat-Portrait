@@ -59,7 +59,7 @@
   opacity: 0.5;
 }
 
-.chat-portrait-playerName::before {
+.chat-portrait-playerName-generic::before {
   content: ' [';
 }
 
