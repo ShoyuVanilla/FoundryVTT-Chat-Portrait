@@ -53,8 +53,8 @@
 }
 
 .message .chat-portrait-message-header-pf2e .message-metadata {
-  flex: 0 0 auto;
   margin-left: 1rem;
+  flex: auto;
 }
 
 .message .chat-portrait-message-header-pf2e .chat-portrait-whisper-to-pf2e {
