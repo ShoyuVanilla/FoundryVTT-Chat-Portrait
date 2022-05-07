@@ -1,7 +1,8 @@
-### 0..7.2
+### 0.7.2
 
 - Bug fix: Css for pf2e
 - Add new module settings "Show textual tag, but next to name instead the timestamp"
+- Initial integrationg of "FoundryVTT-Level-Up-Official"
 
 ### 0.7.1
 

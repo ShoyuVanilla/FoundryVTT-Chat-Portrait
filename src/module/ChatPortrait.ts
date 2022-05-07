@@ -1912,7 +1912,12 @@ export class ChatPortrait {
     return false;
   }
 
-  static injectMessageTag(html, messageData: MessageRenderData, messageHeaderElement:HTMLElement, gameSystemId: string) {
+  static injectMessageTag(
+    html,
+    messageData: MessageRenderData,
+    messageHeaderElement: HTMLElement,
+    gameSystemId: string,
+  ) {
     let timestampTag = html.find('.message-timestamp');
     if (ChatPortrait.settings.displayMessageTagNextToName) {
       timestampTag = html.find(`h4.chat-portrait-text-size-name-${gameSystemId}`);

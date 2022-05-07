@@ -114,7 +114,9 @@ Hooks.once('libChangelogsReady', function () {
   libChangelogs.register(
     CONSTANTS.MODULE_NAME,
     `
-    - Bug fix:  [Fix ::before style element for player names in the generic style set](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/101) ty to @DrMcCoy
+    - Bug fix: Css for pf2e
+    - Add new module settings "Show textual tag, but next to name instead the timestamp"
+    - Initial integrationg of "FoundryVTT-Level-Up-Official"
     `,
     'minor',
   );

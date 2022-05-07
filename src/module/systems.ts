@@ -1,5 +1,5 @@
 // ↓ IMPORT SYSTEMS HERE ↓
-import ae5 from './systems/ae5';
+import a5e from './systems/a5e';
 import dnd5e from './systems/dnd5e';
 import generic from './systems/generic';
 import pf2e from './systems/pf2e';
@@ -15,7 +15,7 @@ export const SYSTEMS = {
   get DATA() {
     return {
       // ↓ ADD SYSTEMS HERE ↓
-      ae5,
+      a5e,
       dnd5e,
       generic,
       pf2e,
