@@ -209,6 +209,12 @@ export class SettingsForm {
   static setDisplayMessageTag(value: boolean) {
     game.settings.set(CONSTANTS.MODULE_NAME, 'displayMessageTag', value);
   }
+  static getDisplayMessageTagNextToName() {
+    return <boolean>game.settings.get(CONSTANTS.MODULE_NAME, 'displayMessageTagNextToName');
+  }
+  static setDisplayMessageTagNextToName(value: boolean) {
+    game.settings.set(CONSTANTS.MODULE_NAME, 'displayMessageTagNextToName', value);
+  }
   static getUseImageReplacer() {
     return <boolean>game.settings.get(CONSTANTS.MODULE_NAME, 'useImageReplacer');
   }

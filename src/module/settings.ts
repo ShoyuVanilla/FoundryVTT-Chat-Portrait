@@ -199,6 +199,15 @@ export const registerSettings = function () {
     default: false,
   });
 
+  game.settings.register(CONSTANTS.MODULE_NAME, 'displayMessageTagNextToName', {
+    name: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTagNextToName.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTagNextToName.hint`,
+    scope: 'client',
+    config: true,
+    type: Boolean,
+    default: false,
+  });
+
   game.settings.register(CONSTANTS.MODULE_NAME, 'useImageReplacer', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.hint`,
@@ -697,6 +706,15 @@ function otherSettings(apply = false) {
     displayMessageTag: {
       name: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTag.hint`,
+      scope: 'client',
+      config: true,
+      type: Boolean,
+      default: false,
+    },
+
+    displayMessageTagNextToName: {
+      name: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTagNextToName.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.settings.displayMessageTagNextToName.hint`,
       scope: 'client',
       config: true,
       type: Boolean,

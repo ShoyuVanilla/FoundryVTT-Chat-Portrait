@@ -1,3 +1,8 @@
+### 0..7.2
+
+- Bug fix: Css for pf2e
+- Add new module settings "Show textual tag, but next to name instead the timestamp"
+
 ### 0.7.1
 
 - Bug fix:  [Fix ::before style element for player names in the generic style set](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/pull/101) ty to @DrMcCoy

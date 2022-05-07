@@ -1,4 +1,4 @@
-import { warn, error, i18n } from './lib/lib';
+import { warn, error, i18n, debug } from './lib/lib';
 import { ChatLink } from './Chatlink';
 import { SettingsForm } from './SettingsForm';
 import type { ChatPortraitSettings } from './ChatPortraitSettings';
@@ -163,7 +163,7 @@ export class ChatPortrait {
         ChatPortrait.appendPlayerName(messageSenderElement, speakerInfo.author, gameSystemId);
       }
       if (ChatPortrait.settings.displayMessageTag) {
-        ChatPortrait.injectMessageTag(html, speakerInfo, gameSystemId);
+        ChatPortrait.injectMessageTag(html, speakerInfo, messageHeaderElement, gameSystemId);
         ChatPortrait.injectWhisperParticipants(html, speakerInfo, gameSystemId);
       }
       ChatLink.prepareEvent(chatMessage, html, speakerInfo, gameSystemId);
@@ -874,7 +874,7 @@ export class ChatPortrait {
         ChatPortrait.appendPlayerName(messageSender, speaker.author, gameSystemId);
       }
       if (ChatPortrait.settings.displayMessageTag) {
-        ChatPortrait.injectMessageTag(html, messageData, gameSystemId);
+        ChatPortrait.injectMessageTag(html, messageData, messageHeader, gameSystemId);
         ChatPortrait.injectWhisperParticipants(html, messageData, gameSystemId);
       }
       ChatLink.prepareEvent(chatMessage, html, speakerInfo, gameSystemId);
@@ -1272,6 +1272,7 @@ export class ChatPortrait {
       customStylingMessageText: SettingsForm.getCustomStylingMessageText(),
       customStylingMessageImage: SettingsForm.getCustomStylingMessageImage(),
       displayMessageTag: SettingsForm.getDisplayMessageTag(),
+      displayMessageTagNextToName: SettingsForm.getDisplayMessageTagNextToName(),
       useImageReplacer: SettingsForm.getUseImageReplacer(),
       useImageReplacerDamageType: SettingsForm.getUseImageReplacerDamageType(),
       applyOnCombatTracker: SettingsForm.getApplyOnCombatTracker(),
@@ -1320,6 +1321,7 @@ export class ChatPortrait {
       customStylingMessageText: '',
       customStylingMessageImage: '',
       displayMessageTag: false,
+      displayMessageTagNextToName: false,
       useImageReplacer: true,
       useImageReplacerDamageType: true,
       applyOnCombatTracker: false,
@@ -1910,8 +1912,15 @@ export class ChatPortrait {
     return false;
   }
 
-  static injectMessageTag(html, messageData: MessageRenderData, gameSystemId: string) {
-    const timestampTag = html.find('.message-timestamp');
+  static injectMessageTag(html, messageData: MessageRenderData, messageHeaderElement:HTMLElement, gameSystemId: string) {
+    let timestampTag = html.find('.message-timestamp');
+    if (ChatPortrait.settings.displayMessageTagNextToName) {
+      timestampTag = html.find(`h4.chat-portrait-text-size-name-${gameSystemId}`);
+    }
+    // const arr = $(messageHeaderElement).find(`chat-portrait-indicator-${gameSystemId}`);
+    // if(arr.length > 0){
+    //   return;
+    // }
 
     const indicatorElement = $('<span>');
     indicatorElement.addClass(`chat-portrait-indicator-${gameSystemId}`);

@@ -32,6 +32,7 @@ export interface ChatPortraitSettings {
   customStylingMessageText: string;
   customStylingMessageImage: string;
   displayMessageTag: boolean;
+  displayMessageTagNextToName: boolean;
   useImageReplacer: boolean;
   useImageReplacerDamageType: boolean;
   applyOnCombatTracker: boolean;
