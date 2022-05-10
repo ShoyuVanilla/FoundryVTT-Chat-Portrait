@@ -114,9 +114,7 @@ Hooks.once('libChangelogsReady', function () {
   libChangelogs.register(
     CONSTANTS.MODULE_NAME,
     `
-    - Bug fix: Css for pf2e
-    - Add new module settings "Show textual tag, but next to name instead the timestamp"
-    - Initial integrationg of "FoundryVTT-Level-Up-Official"
+    - [Undo the "change colour of message background" by default](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/104)
     `,
     'minor',
   );

@@ -1,3 +1,7 @@
+### 0.7.3
+
+- [Undo the "change colour of message background" by default](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/104)
+
 ### 0.7.2
 
 - Bug fix: Css for pf2e

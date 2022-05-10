@@ -141,7 +141,7 @@ export const registerSettings = function () {
     scope: 'client',
     config: true,
     type: Boolean,
-    default: true,
+    default: false,
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'useUserColorAsChatBorderColor', {
@@ -654,7 +654,7 @@ function otherSettings(apply = false) {
       scope: 'client',
       config: true,
       type: Boolean,
-      default: true,
+      default: false,
     },
 
     useUserColorAsChatBorderColor: {
