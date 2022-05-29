@@ -108,14 +108,3 @@ export function getSocket() {
   const data = game.modules.get(CONSTANTS.MODULE_NAME) as unknown as ChatPortraitModuleData;
   return data.socket;
 }
-
-Hooks.once('libChangelogsReady', function () {
-  //@ts-ignore
-  libChangelogs.register(
-    CONSTANTS.MODULE_NAME,
-    `
-    - [Undo the "change colour of message background" by default](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/104)
-    `,
-    'minor',
-  );
-});

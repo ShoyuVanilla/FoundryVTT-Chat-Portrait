@@ -24,6 +24,7 @@ export class ChatPortrait {
     imageReplacer: ImageReplaceVoiceData[],
   ): JQuery<HTMLElement> | undefined {
     let doNotStyling = false;
+    let doNotPrintPortrait = false;
 
     // PreHook (can abort the interaction with the door)
     if (Hooks.call('ChatPortraitEnabled') === false) {
@@ -108,6 +109,23 @@ export class ChatPortrait {
       doNotStyling = true;
     }
 
+    // PATCH DragonFlagon Chat Enhancements
+    let hasTop = false;
+    let hasBottom = false;
+    let hasMiddle = false;
+    if(html[0]?.classList.contains(`dfce-cm-top`)){
+      hasTop = true;
+    }
+    if(html[0]?.classList.contains(`dfce-cm-middle`)){
+      hasMiddle = true;
+    }
+    if(html[0]?.classList.contains(`dfce-cm-bottom`)){
+      hasBottom = true;
+    }
+    if(hasBottom || hasMiddle){
+      doNotPrintPortrait = true;
+    }
+
     // MULTISYSTEM MANAGEMENT
     let messageSenderElement: HTMLElement;
     let messageHeaderElement: HTMLElement;
@@ -182,6 +200,7 @@ export class ChatPortrait {
         elementItemTextList,
         imageReplacer,
         gameSystemId,
+        doNotPrintPortrait,
       );
       if (myPromise) {
         myPromise.then((html: JQuery<HTMLElement>) => {
@@ -210,6 +229,7 @@ export class ChatPortrait {
     elementItemTextList,
     imageReplacer: ImageReplaceVoiceData[],
     gameSystemId: string,
+    doNotPrintPortrait:boolean
   ): Promise<JQuery<HTMLElement>> | null {
     const messageDataBase: MessageRenderData = speakerInfo;
     let imgPath: string;
@@ -303,6 +323,11 @@ export class ChatPortrait {
 
       const doNotPrependImage = isRollTable || isEnhancedConditionsCUB || isMidiDisplaySave || isStarwarsffgDiceRoll;
       const doNotImageReplacer = isMidiDisplaySave;
+
+      if(doNotPrintPortrait){
+        (<HTMLImageElement >imgElement).style.display = 'none';
+      }
+
       // Very very rare use case ????
       if (!imgElement) {
         imgElement = document.createElement('img');

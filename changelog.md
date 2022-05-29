@@ -1,3 +1,7 @@
+### 0.7.4
+
+- Bug fix [Compatibility with DF Chat Enhancements module](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/105)
+
 ### 0.7.3
 
 - [Undo the "change colour of message background" by default](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/104)
