@@ -211,7 +211,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'useImageReplacer', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.hint`,
-    scope: 'client',
+    scope: 'world',
     config: true,
     type: Boolean,
     default: true,
@@ -220,7 +220,7 @@ export const registerSettings = function () {
   game.settings.register(CONSTANTS.MODULE_NAME, 'useImageReplacerDamageType', {
     name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.name`,
     hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.hint`,
-    scope: 'client',
+    scope: 'world',
     config: true,
     type: Boolean,
     default: false,
@@ -724,7 +724,7 @@ function otherSettings(apply = false) {
     useImageReplacer: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacer.hint`,
-      scope: 'client',
+      scope: 'world',
       config: true,
       type: Boolean,
       default: true,
@@ -733,7 +733,7 @@ function otherSettings(apply = false) {
     useImageReplacerDamageType: {
       name: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.name`,
       hint: `${CONSTANTS.MODULE_NAME}.settings.useImageReplacerDamageType.hint`,
-      scope: 'client',
+      scope: 'world',
       config: true,
       type: Boolean,
       default: false,
