@@ -52,14 +52,6 @@ export default {
     { name: 'DND5E.DamageRoll', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/damage_roll.svg` }, // https://game-icons.net/1x1/delapouite/dice-fire.html
     { name: 'DND5E.AttackRoll', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/attack_roll.svg` }, // https://game-icons.net/1x1/delapouite/dice-shield.html
 
-    { name: 'DND5E.AbilityStr', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/strength.svg` }, // https://game-icons.net/1x1/delapouite/bear-head.html
-    { name: 'DND5E.AbilityDex', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/dexterity.svg` }, // https://game-icons.net/1x1/delapouite/feline.html
-    { name: 'DND5E.AbilityCon', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/constitution.svg` }, // https://game-icons.net/1x1/delapouite/weight-lifting-up.html
-    { name: 'DND5E.AbilityInt', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/intelligence.svg` }, // https://game-icons.net/1x1/lorc/fox-head.html
-    { name: 'DND5E.AbilityWis', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/wisdom.svg` }, // https://game-icons.net/1x1/lorc/owl.html
-    { name: 'DND5E.AbilityCha', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/charisma.svg` }, // https://game-icons.net/1x1/delapouite/eagle-head.html
-    { name: 'DND5E.Initiative', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/initiative.svg` }, //https://game-icons.net/1x1/delapouite/acoustic-megaphone.html
-
     { name: 'DND5E.SkillAcr', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/acrobatics.svg` }, // https://game-icons.net/1x1/delapouite/contortionist.html
     { name: 'DND5E.SkillAni', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/animal_handling.svg` }, // https://game-icons.net/1x1/delapouite/cavalry.html
     { name: 'DND5E.SkillArc', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/arcana.svg` }, // https://game-icons.net/1x1/delapouite/spell-book.html
@@ -92,6 +84,14 @@ export default {
     { name: 'DND5E.ShortRest', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/short_rest.svg` }, // https://game-icons.net/1x1/delapouite/wooden-chair.html
     { name: 'DND5E.LongRest', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/long_rest.svg` }, // https://game-icons.net/1x1/delapouite/person-in-bed.html
     { name: 'DND5E.DeathSave', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/death_saves.svg` },
+
+    { name: 'DND5E.AbilityStr', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/strength.svg` }, // https://game-icons.net/1x1/delapouite/bear-head.html
+    { name: 'DND5E.AbilityDex', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/dexterity.svg` }, // https://game-icons.net/1x1/delapouite/feline.html
+    { name: 'DND5E.AbilityCon', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/constitution.svg` }, // https://game-icons.net/1x1/delapouite/weight-lifting-up.html
+    { name: 'DND5E.AbilityInt', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/intelligence.svg` }, // https://game-icons.net/1x1/lorc/fox-head.html
+    { name: 'DND5E.AbilityWis', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/wisdom.svg` }, // https://game-icons.net/1x1/lorc/owl.html
+    { name: 'DND5E.AbilityCha', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/charisma.svg` }, // https://game-icons.net/1x1/delapouite/eagle-head.html
+    { name: 'DND5E.Initiative', icon: `/modules/${CONSTANTS.MODULE_NAME}/assets/initiative.svg` }, //https://game-icons.net/1x1/delapouite/acoustic-megaphone.html
 
     // TODO CONDITION I JUST DON'T KNOW HO CAN BE USEFUL
 

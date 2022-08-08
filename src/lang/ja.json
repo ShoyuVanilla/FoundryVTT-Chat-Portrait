@@ -107,5 +107,9 @@
   "chat-portrait.settings.disablePortraitForAliasGmMessage.name": "メッセージの送信者がGMの場合、チャットポートレートを無効化する",
   "chat-portrait.settings.disablePortraitForAliasGmMessage.hint": "有効化時、GMとして送信するすべてのチャットメッセージにチャットポートレートが表示されなくなります。",
   "chat-portrait.settings.setUpPortraitForAliasGmMessage.name": "メッセージの発信者がGMならば特定の画像をポートレートとして設定する",
-  "chat-portrait.settings.setUpPortraitForAliasGmMessage.hint": "ここに設定された画像はGMとして発信されるすべてのメッセージにポートレートとして表示されます。「メッセージの送信者がGMの場合、チャットポートレートを無効化する」が有効のときはこの設定も無視されます。"
+  "chat-portrait.settings.setUpPortraitForAliasGmMessage.hint": "ここに設定された画像はGMとして発信されるすべてのメッセージにポートレートとして表示されます。「メッセージの送信者がGMの場合、チャットポートレートを無効化する」が有効のときはこの設定も無視されます。",
+
+  "chat-portrait.labels.check": "小切手",
+  "chat-portrait.labels.ability": "能力",
+  "chat-portrait.labels.skill": "スキル"
 }

@@ -1,3 +1,7 @@
+### 0.7.5
+
+- Synced with Illandril's Chat Enhancements 2022-08-08
+
 ### 0.7.4
 
 - Bug fix [Compatibility with DF Chat Enhancements module](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait/issues/105)

@@ -160,5 +160,9 @@
   "chat-portrait.dialogs.nosystemfound.content": "This system is not currently fully supported. This means that the module does not know how to best handle this system's items, but can still operate in a limited fashion.<br><br>You can configure the module's settings yourself, but it requires a bit of technical know-how.<br><br>If you have any questions, ping <strong>Wasp#2005</strong> on the Foundry discord.",
   "chat-portrait.dialogs.systemfound.title": "System Recognized",
   "chat-portrait.dialogs.systemfound.content": "This system was previously not supported, but in an recent update it was added as a supported system!<br><br>Do you want to load this system's default Item Pile settings?",
-  "chat-portrait.dialogs.systemfound.confirm": "Apply System Defaults"
+  "chat-portrait.dialogs.systemfound.confirm": "Apply System Defaults",
+
+  "chat-portrait.labels.check": "überprüfen",
+  "chat-portrait.labels.ability": "Fähigkeit",
+  "chat-portrait.labels.skill": "Können"
 }

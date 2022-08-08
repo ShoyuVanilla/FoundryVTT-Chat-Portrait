@@ -1461,8 +1461,8 @@ export class ChatPortrait {
     }
     const actor = game.actors?.get(speaker.actor);
     if (actor) {
-      if (actor.data.token) {
-        return actor.data.token.name;
+      if (actor.token) {
+        return actor.token.name;
       }
       if (actor.hasPlayerOwner) {
         return actor.name;
@@ -1486,7 +1486,7 @@ export class ChatPortrait {
     let token: TokenDocument | null = null;
     const scene = game.scenes?.get(<string>game.user?.viewedScene);
     if (scene) {
-      const thisSceneToken = scene.data.tokens.find((tokenTmp) => {
+      const thisSceneToken = scene.tokens.find((tokenTmp) => {
         return <boolean>(tokenTmp.actor && tokenTmp.actor.id === actorID);
       });
       if (thisSceneToken) {
@@ -1511,7 +1511,7 @@ export class ChatPortrait {
       if (!specifiedScene) {
         return null;
       }
-      const tokenDoc = <TokenDocument>specifiedScene.data.tokens.find((tokenTmp) => {
+      const tokenDoc = <TokenDocument>specifiedScene.tokens.find((tokenTmp) => {
         return <boolean>(tokenTmp.id === tokenID);
       });
       return tokenDoc;
@@ -1522,7 +1522,7 @@ export class ChatPortrait {
       if (!sceneTmp) {
         foundToken = null;
       }
-      foundToken = <TokenDocument>sceneTmp.data.tokens.find((token) => {
+      foundToken = <TokenDocument>sceneTmp.tokens.find((token) => {
         return token.id === tokenID;
       });
       return !!foundToken;
@@ -1534,7 +1534,7 @@ export class ChatPortrait {
   //   if (!scene) {
   //     return null;
   //   }
-  //   return scene.data.tokens.find((token) => {
+  //   return scene.tokens.find((token) => {
   //     return token.id === tokenID;
   //   });
   // }
@@ -1836,7 +1836,13 @@ export class ChatPortrait {
     let innerTextTmp = innerText;
     //let betterRollLabelAttack = ($(elementItemContent).find(".br5e-roll-label")[0])?.innerText;
     //let betterRollLabelDamage = ($(elementItemContent).find(".br5e-roll-label")[1])?.innerText;
-    const fullTextContent = $(elementItemContent)[0]?.innerText;
+    // const fullTextContent = $(elementItemContent)[0]?.innerText;
+    const textToCheck = <string>$(elementItemContent)[0]?.innerText || '';
+    const fullTextContent = textToCheck.toLowerCase().trim();
+    // TODO special word for integration multisystem and help to identify the chat text
+    const check = i18n(`${CONSTANTS.MODULE_NAME}.labels.check`);
+    const ability = i18n(`${CONSTANTS.MODULE_NAME}.labels.ability`);
+    const skill = i18n(`${CONSTANTS.MODULE_NAME}.labels.skill`);
     const innerTextDamageTmp = fullTextContent; //Damage -Slashing
     if (innerTextTmp) {
       // Clean up the string for multisystem (D&D5, PF2, ecc.)
@@ -1846,10 +1852,16 @@ export class ChatPortrait {
       for (let i = 0; i < arr1.length; i++) {
         let text = arr1[i];
         if (text) {
+          // Keywords to avoid for all the system ?
+          if (text.indexOf(check) !== -1 || text.indexOf(ability) !== -1 || text.indexOf(skill) !== -1) {
+            // is ok ??
+          } else {
+            continue;
+          }
           text = text.replace(/\W/g, ' ');
-          text = text.replace('skill', '');
-          text = text.replace('check', '');
-          text = text.replace('ability', '');
+          text = text.replace(skill, '');
+          text = text.replace(check, '');
+          text = text.replace(ability, '');
           text = text.replace(/[0-9]/g, '');
           text = text.toLowerCase().trim();
           for (const objKey in imageReplacer) {
@@ -1864,12 +1876,13 @@ export class ChatPortrait {
                 let keyValue = mykeyvalue; //arr2[j];
                 if (keyValue) {
                   keyValue = keyValue.replace(/\W/g, ' ');
-                  keyValue = keyValue.replace('skill', '');
-                  keyValue = keyValue.replace('check', '');
-                  keyValue = keyValue.replace('ability', '');
+                  keyValue = keyValue.replace(skill, '');
+                  keyValue = keyValue.replace(check, '');
+                  keyValue = keyValue.replace(ability, '');
                   keyValue = keyValue.replace(/[0-9]/g, '');
                   keyValue = keyValue.toLowerCase().trim();
-                  if (text.trim().indexOf(keyValue) !== -1) {
+                  if (text.trim().indexOf(i18n(keyValue).toLowerCase()) !== -1) {
+                  // if (text.trim().indexOf(keyValue) !== -1) {
                     //value.push(imageReplacer[key]);
                     value.iconMainReplacer = obj.icon; //imageReplacer[key];
                     break;
@@ -1889,9 +1902,9 @@ export class ChatPortrait {
         let textDamage = arr4[i];
         if (textDamage) {
           textDamage = textDamage.replace(/\W/g, ' ');
-          textDamage = textDamage.replace('skill', '');
-          textDamage = textDamage.replace('check', '');
-          textDamage = textDamage.replace('ability', '');
+          textDamage = textDamage.replace(skill, '');
+          textDamage = textDamage.replace(check, '');
+          textDamage = textDamage.replace(ability, '');
           textDamage = textDamage.replace(/[0-9]/g, '');
           textDamage = textDamage.toLowerCase().trim();
           for (const keydamageObjeKey in API.imageReplacerDamageType) {
@@ -1905,13 +1918,14 @@ export class ChatPortrait {
               let damageValue = mykeydamagevalue; //arr3[x];
               if (damageValue) {
                 damageValue = damageValue.replace(/\W/g, ' ');
-                damageValue = damageValue.replace('skill', '');
-                damageValue = damageValue.replace('check', '');
-                damageValue = damageValue.replace('ability', '');
+                damageValue = damageValue.replace(skill, '');
+                damageValue = damageValue.replace(check, '');
+                damageValue = damageValue.replace(ability, '');
                 damageValue = damageValue.replace(/[0-9]/g, '');
                 damageValue = damageValue.toLowerCase().trim();
                 damageValue = ' ' + damageValue;
-                if (textDamage.toLowerCase().trim().indexOf(damageValue) !== -1) {
+                if (textDamage.trim().indexOf(i18n(damageValue).toLowerCase()) !== -1) {
+                // if (textDamage.toLowerCase().trim().indexOf(damageValue) !== -1) {
                   const srcdamageType = keydamageObj.icon; //imageReplacerDamageType[keydamage];
                   damageTypes.push(srcdamageType);
                   // Add all damage types
