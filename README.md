@@ -12,6 +12,8 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/ShoyuVanilla/FoundryVTT-Chat-Portrait/total?style=for-the-badge)
 
+# [THE PROJECT IS BEEN TRANSFERED HERE WITH FVTT 10 cBUT FOR NOW THE ISSUS CAN BE LEAVE HERE](https://github.com/p4535992/foundryvtt-chat-portrait)
+
 A Foundry VTT module that displays the Actor's portrait images on the chat messages.
 
 This is a upgrade of the project [Chat Portrait by ShoyuVanilla](https://github.com/ShoyuVanilla/FoundryVTT-Chat-Portrait) ty to [ShoyuVanilla](https://github.com/ShoyuVanilla)
